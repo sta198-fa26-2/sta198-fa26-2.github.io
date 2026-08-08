@@ -221,11 +221,7 @@ Amy Herring
 <p><span style="font-size: 2em;"><span style="color: green;">have</span></span> <span class="hand">data organised in a suboptimal manner for our analysis</span></p>
 <p><span style="font-size: 2em;"><span style="color: deeppink;">want</span></span> <span class="hand">to reorganize the data to carry on with our analysis</span></p>
 <p>This slide deck adapted from Data Science in a Box!</p>
-<p>TODO: FIND GOOD DATA</p>
-<ul>
-<li>wide to long format (chest x-ray data?)</li>
-<li>line plot (ebola cases?)</li>
-</ul></section><section><section id="data-tidying" class="title-slide slide level1 center"><h1>Data tidying</h1>
+</section><section><section id="data-tidying" class="title-slide slide level1 center"><h1>Data tidying</h1>
 
 </section><section id="tidy-data" class="slide level2"><h2>Tidy data</h2>
 <blockquote>
@@ -734,27 +730,39 @@ Amy Herring
 </div>
 </div>
 </section><section class="slide level2"><p>That’s pretty good. If you want to play with more bells and whistles later, the full code is here.</p>
-<div style="font-size:0.7em;">
+<div style="font-size:0.5em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">ggplot</span>(degrees_long, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> count, <span class="at">color =</span> degree_type, <span class="at">linetype =</span> degree_type)) <span class="sc">+</span></span>
-<span id="cb39-2"><a></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb39-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">1.8</span>) <span class="sc">+</span></span>
-<span id="cb39-4"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> muted_colors) <span class="sc">+</span></span>
-<span id="cb39-5"><a></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> line_types) <span class="sc">+</span></span>
-<span id="cb39-6"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">unique</span>(degrees_long<span class="sc">$</span>year)) <span class="sc">+</span></span>
-<span id="cb39-7"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb39-8"><a></a>    <span class="at">title =</span> <span class="st">"Statistical Science Degrees Awarded by Type and Year"</span>,</span>
-<span id="cb39-9"><a></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
-<span id="cb39-10"><a></a>    <span class="at">y =</span> <span class="st">"Number of Degrees"</span>,</span>
-<span id="cb39-11"><a></a>    <span class="at">color =</span> <span class="st">"Degree Type"</span>,</span>
-<span id="cb39-12"><a></a>    <span class="at">linetype =</span> <span class="st">"Degree Type"</span></span>
-<span id="cb39-13"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb39-14"><a></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb39-15"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb39-16"><a></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb39-17"><a></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb39-18"><a></a>    <span class="at">legend.position =</span> <span class="st">"right"</span></span>
-<span id="cb39-19"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>fall_pantone_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb39-2"><a></a>  <span class="st">"AB"</span>  <span class="ot">=</span> <span class="st">"#2B547E"</span>,  <span class="co"># regatta</span></span>
+<span id="cb39-3"><a></a>  <span class="st">"AB2"</span> <span class="ot">=</span> <span class="st">"#BD5338"</span>,  <span class="co"># autumn spice</span></span>
+<span id="cb39-4"><a></a>  <span class="st">"BS"</span>  <span class="ot">=</span> <span class="st">"#A6617B"</span>,  <span class="co"># foxglove</span></span>
+<span id="cb39-5"><a></a>  <span class="st">"BS2"</span> <span class="ot">=</span> <span class="st">"#1E5B45"</span>   <span class="co"># neptune green</span></span>
+<span id="cb39-6"><a></a>)</span>
+<span id="cb39-7"><a></a>line_types <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb39-8"><a></a>  <span class="st">"AB"</span>  <span class="ot">=</span> <span class="st">"11"</span>, <span class="co"># fine dash: 1pt on, 1pt off</span></span>
+<span id="cb39-9"><a></a>  <span class="st">"AB2"</span> <span class="ot">=</span> <span class="st">"11"</span>,</span>
+<span id="cb39-10"><a></a>  <span class="st">"BS"</span>  <span class="ot">=</span> <span class="st">"solid"</span>,</span>
+<span id="cb39-11"><a></a>  <span class="st">"BS2"</span> <span class="ot">=</span> <span class="st">"solid"</span></span>
+<span id="cb39-12"><a></a>)</span>
+<span id="cb39-13"><a></a><span class="fu">ggplot</span>(degrees_long, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> count, <span class="at">color =</span> degree_type, <span class="at">linetype =</span> degree_type)) <span class="sc">+</span></span>
+<span id="cb39-14"><a></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb39-15"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">1.8</span>) <span class="sc">+</span></span>
+<span id="cb39-16"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> fall_pantone_colors) <span class="sc">+</span></span>
+<span id="cb39-17"><a></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> line_types) <span class="sc">+</span></span>
+<span id="cb39-18"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">unique</span>(degrees_long<span class="sc">$</span>year)) <span class="sc">+</span></span>
+<span id="cb39-19"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb39-20"><a></a>    <span class="at">title =</span> <span class="st">"Statistical Science Degrees Awarded by Type and Year"</span>,</span>
+<span id="cb39-21"><a></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb39-22"><a></a>    <span class="at">y =</span> <span class="st">"Number of Degrees"</span>,</span>
+<span id="cb39-23"><a></a>    <span class="at">color =</span> <span class="st">"Degree Type"</span>,</span>
+<span id="cb39-24"><a></a>    <span class="at">linetype =</span> <span class="st">"Degree Type"</span></span>
+<span id="cb39-25"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb39-26"><a></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb39-27"><a></a>  <span class="fu">theme</span>(</span>
+<span id="cb39-28"><a></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb39-29"><a></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb39-30"><a></a>    <span class="at">legend.position =</span> <span class="st">"right"</span></span>
+<span id="cb39-31"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 

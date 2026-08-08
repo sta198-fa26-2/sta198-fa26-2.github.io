@@ -545,11 +545,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span style="font-size: 2em;"><span style="color: green;">have</span></span> <span class="hand">data organised in a suboptimal manner for our analysis</span></p>
 <p><span style="font-size: 2em;"><span style="color: deeppink;">want</span></span> <span class="hand">to reorganize the data to carry on with our analysis</span></p>
 <p>This slide deck adapted from Data Science in a Box!</p>
-<p>TODO: FIND GOOD DATA</p>
-<ul>
-<li>wide to long format (chest x-ray data?)</li>
-<li>line plot (ebola cases?)</li>
-</ul></section><section id="data-tidying" class="level1"><h1>Data tidying</h1>
+</section><section id="data-tidying" class="level1"><h1>Data tidying</h1>
 <section id="tidy-data" class="level2"><h2 class="anchored" data-anchor-id="tidy-data">Tidy data</h2>
 <blockquote class="blockquote">
 <p>“Tidy datasets are easy to manipulate, model and visualise, and have a specific structure: each variable is a column, each observation is a row, and each type of observational unit is a table.”</p>
@@ -1107,12 +1103,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <hr>
 <p>That’s pretty good. If you want to play with more bells and whistles later, the full code is here.</p>
-<div style="font-size:0.7em;">
+<div style="font-size:0.5em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">degrees_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">count</span>, color <span class="op">=</span> <span class="va">degree_type</span>, linetype <span class="op">=</span> <span class="va">degree_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fall_pantone_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"AB"</span>  <span class="op">=</span> <span class="st">"#2B547E"</span>,  <span class="co"># regatta</span></span>
+<span>  <span class="st">"AB2"</span> <span class="op">=</span> <span class="st">"#BD5338"</span>,  <span class="co"># autumn spice</span></span>
+<span>  <span class="st">"BS"</span>  <span class="op">=</span> <span class="st">"#A6617B"</span>,  <span class="co"># foxglove</span></span>
+<span>  <span class="st">"BS2"</span> <span class="op">=</span> <span class="st">"#1E5B45"</span>   <span class="co"># neptune green</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">line_types</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"AB"</span>  <span class="op">=</span> <span class="st">"11"</span>, <span class="co"># fine dash: 1pt on, 1pt off</span></span>
+<span>  <span class="st">"AB2"</span> <span class="op">=</span> <span class="st">"11"</span>,</span>
+<span>  <span class="st">"BS"</span>  <span class="op">=</span> <span class="st">"solid"</span>,</span>
+<span>  <span class="st">"BS2"</span> <span class="op">=</span> <span class="st">"solid"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">degrees_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">count</span>, color <span class="op">=</span> <span class="va">degree_type</span>, linetype <span class="op">=</span> <span class="va">degree_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1.8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">muted_colors</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">fall_pantone_colors</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_linetype_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">line_types</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">degrees_long</span><span class="op">$</span><span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span></span>
