@@ -61,7 +61,7 @@ This slide deck adapted from Data Science in a Box!
 
 **Note:** "easy to manipulate" = "straightforward to manipulate"
 
-## Goal: Visualize StatSci Majors Over the Years!
+## Goal: Visualize StatSci Majors Over the Years
 
 ```{r readdata}
 #| echo: false
@@ -83,10 +83,10 @@ degrees_long <- degrees %>%
 #| fig-height: 5
 
 fall_pantone_colors <- c(
-  "AB"  = "#2B547E",  # regatta
-  "AB2" = "#BD5338",  # autumn spice
-  "BS"  = "#A6617B",  # foxglove
-  "BS2" = "#1E5B45"   # neptune green
+  "AB"  = "#A6617B",  # foxglove
+  "AB2" = "#1E5B45",   # neptune green
+  "BS"  = "#2B547E",  # regatta
+  "BS2" = "#BD5338"  # autumn spice
 )
 
 line_types <- c(
@@ -630,10 +630,10 @@ That's pretty good. If you want to play with more bells and whistles later, the 
 ```{r}
 #| eval: false
 fall_pantone_colors <- c(
-  "AB"  = "#2B547E",  # regatta
-  "AB2" = "#BD5338",  # autumn spice
-  "BS"  = "#A6617B",  # foxglove
-  "BS2" = "#1E5B45"   # neptune green
+  "AB"  = "#A6617B",  # foxglove
+  "AB2" = "#1E5B45",   # neptune green
+  "BS"  = "#2B547E",  # regatta
+  "BS2" = "#BD5338"  # autumn spice
 )
 line_types <- c(
   "AB"  = "11", # fine dash: 1pt on, 1pt off
