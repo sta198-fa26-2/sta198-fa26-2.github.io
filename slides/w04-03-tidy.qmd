@@ -49,13 +49,6 @@ options(
 This slide deck adapted from Data Science in a Box!
 
 
-TODO: FIND GOOD DATA 
-
-- wide to long format (chest x-ray data?)
-- line plot (ebola cases?)
-
-
-
 # Data tidying
 
 ## Tidy data
@@ -89,11 +82,11 @@ degrees_long <- degrees %>%
 #| fig-width: 8
 #| fig-height: 5
 
-muted_colors <- c(
-  "AB"  = "#4C72A8",  # muted blue
-  "AB2" = "#DD8452",  # muted orange
-  "BS"  = "#8C4F6E",  # muted magenta/wine
-  "BS2" = "#55A868"   # muted green
+fall_pantone_colors <- c(
+  "AB"  = "#2B547E",  # regatta
+  "AB2" = "#BD5338",  # autumn spice
+  "BS"  = "#A6617B",  # foxglove
+  "BS2" = "#1E5B45"   # neptune green
 )
 
 line_types <- c(
@@ -106,7 +99,7 @@ line_types <- c(
 ggplot(degrees_long, aes(x = year, y = count, color = degree_type, linetype = degree_type)) +
   geom_line(linewidth = 1.1) +
   geom_point(size = 1.8) +
-  scale_color_manual(values = muted_colors) +
+  scale_color_manual(values = fall_pantone_colors) +
   scale_linetype_manual(values = line_types) +
   scale_x_continuous(breaks = unique(degrees_long$year)) +
   labs(
@@ -168,11 +161,11 @@ Review the goal plot and sketch the data frame needed to create it. What would g
 #| fig-width: 8
 #| fig-height: 5
 
-muted_colors <- c(
-  "AB"  = "#4C72A8",  # muted blue
-  "AB2" = "#DD8452",  # muted orange
-  "BS"  = "#8C4F6E",  # muted magenta/wine
-  "BS2" = "#55A868"   # muted green
+fall_pantone_colors <- c(
+  "AB"  = "#4C72A8",  # fall_pantone blue
+  "AB2" = "#DD8452",  # fall_pantone orange
+  "BS"  = "#8C4F6E",  # fall_pantone magenta/wine
+  "BS2" = "#55A868"   # fall_pantone green
 )
 
 line_types <- c(
@@ -185,7 +178,7 @@ line_types <- c(
 ggplot(degrees_long, aes(x = year, y = count, color = degree_type, linetype = degree_type)) +
   geom_line(linewidth = 1.1) +
   geom_point(size = 1.8) +
-  scale_color_manual(values = muted_colors) +
+  scale_color_manual(values = fall_pantone_colors) +
   scale_linetype_manual(values = line_types) +
   scale_x_continuous(breaks = unique(degrees_long$year)) +
   labs(
@@ -631,15 +624,27 @@ ggplot(degrees_long,
 
 That's pretty good. If you want to play with more bells and whistles later, the full code is here.
 
-<div style="font-size:0.7em;">
+<div style="font-size:0.5em;">
 
 
 ```{r}
 #| eval: false
+fall_pantone_colors <- c(
+  "AB"  = "#2B547E",  # regatta
+  "AB2" = "#BD5338",  # autumn spice
+  "BS"  = "#A6617B",  # foxglove
+  "BS2" = "#1E5B45"   # neptune green
+)
+line_types <- c(
+  "AB"  = "11", # fine dash: 1pt on, 1pt off
+  "AB2" = "11",
+  "BS"  = "solid",
+  "BS2" = "solid"
+)
 ggplot(degrees_long, aes(x = year, y = count, color = degree_type, linetype = degree_type)) +
   geom_line(linewidth = 1.1) +
   geom_point(size = 1.8) +
-  scale_color_manual(values = muted_colors) +
+  scale_color_manual(values = fall_pantone_colors) +
   scale_linetype_manual(values = line_types) +
   scale_x_continuous(breaks = unique(degrees_long$year)) +
   labs(
