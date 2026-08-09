@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="author" content="Amy Herring">
+<meta name="dcterms.date" content="2026-09-28">
+<title>STA 198 – Hypothesis Testing</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+<link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+<style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+<link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-f0195dcd610196b9111c6e10e98695f4.css">
+<link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+<style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<link href="../site_libs/font-awesome/css/all.min.css" rel="stylesheet">
+<link href="../site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet">
+<link href="../site_libs/panelset/panelset.css" rel="stylesheet">
+<script src="../site_libs/panelset/panelset.js"></script>
+<meta property="og:title" content="Hypothesis Testing – STA 198">
+<meta property="og:description" content="Introduction to Global Health Data Science">
+<meta property="og:site_name" content="STA 198">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center"><h1 class="title">Hypothesis Testing</h1>
+  <p class="subtitle">Introduction to Global Health Data Science</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Amy Herring 
+</div>
+        <p class="quarto-title-affiliation">
+            Duke University <br> STA/GLHLTH 198 Fall 2026
+          </p>
+    </div>
+</div>
+
+  <p class="date">2026-09-28</p>
+</section><section id="main-ideas" class="slide level2"><h2>Main ideas</h2>
+<ul>
+<li><p>Understand Null Hypothesis Significance Testing Framework</p></li>
+<li><p>Understand use and misuse of p-values</p></li>
+<li><p>Learn about testing errors and how to minimize their probability</p></li>
+</ul></section><section id="packages" class="slide level2"><h2>Packages</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a></a><span class="fu">library</span>(infer)</span>
+<span id="cb1-3"><a></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="example-honor-court" class="slide level2"><h2>Example: Honor Court</h2>
+<p>Suppose a case of suspected cheating is brought to a university Honor Court. There are two opposing claims.</p>
+<p><strong>Student:</strong> I did not cheat on the exam.</p>
+<p><strong>Professor:</strong> The student did cheat on the exam.</p>
+<p>This Honor Court assumes students are innocent until proven guilty. The professor must provide evidence to support their claim. They explain that they had two different versions of the exam and that the student on three separate problems used numbers from the <em>other</em> version of the exam. (oops)</p>
+</section><section id="example-honor-court-1" class="slide level2"><h2>Example: Honor Court</h2>
+<p>The honor court members agree that this would be <em>extremely unlikely</em> if it were true that the student did not cheat. They agree that the professor’s evidence is very strong and conclude that the student did cheat on the exam.</p>
+</section><section id="hypothesis-testing-framework" class="slide level2"><h2>Hypothesis Testing Framework</h2>
+<p>Steps in hypothesis testing:</p>
+<ul>
+<li><p>Start with two claims about the population (often about the value of a population parameter or about some potential association between two variables in the population). Call them claim 1 and claim 2.</p></li>
+<li><p>Choose a sampling strategy, draft an analysis plan, collect data, and summarize data</p></li>
+<li><p>Figure out how likely it is to see data like what we got, if claim 1 is true.</p></li>
+<li><p>If our data would have been unlikely if claim 1 were true, then we reject claim 1 and deem claim 2 worthy of further study. Otherwise, we cannot reject claim 1.</p></li>
+</ul></section><section id="example-ultra-low-dose-contraceptives" class="slide level2"><h2>Example: Ultra Low Dose Contraceptives</h2>
+<p>A certain ultra-low dose oral contraceptive pill is supposed to contain 0.02 mg of estrogen. If the dose is higher, the user may risk side effects better avoided, and if the dose is lower, the user may get pregnant. The manufacturer wishes to check whether the mean concentration in a large shipment is the needed 0.02 mg or not. A random sample of <span class="math inline">\(n=50\)</span> pills is tested, and the sample mean concentration is 0.017 mg with a sample standard deviation of 0.008 mg.</p>
+<p>Let’s go through the hypothesis testing paradigm.</p>
+</section><section id="section" class="slide level2" data-background-color="white"><h2></h2>
+<div class="step-box" style="background-color: #D3B4C1; border-left: 5px solid #A6617B;">
+<p><strong>1. State the claims</strong></p>
+<ul>
+<li><p><strong>Claim 1</strong>: The shipment is consistent with a population mean of 0.02 mg estrogen. <span class="math inline">\(H_0: \mu=0.02\)</span></p></li>
+<li><p><strong>Claim 2</strong>: The shipment is not consistent with a population mean of 0.02 mg estrogen. <span class="math inline">\(H_A: \mu \neq 0.02\)</span></p></li>
+</ul>
+</div>
+<div class="step-box" style="background-color: #8FADA2; border-left: 5px solid #1E5B45;">
+<p><strong>2. Choose sampling strategy, design analysis plan, collect, and analyze data</strong></p>
+<ul>
+<li><p>Plan is to sample 50 pills at random and use a one-sample t-test to evaluate whether they are consistent with a population with mean 0.02 mg estrogen</p></li>
+<li><p>50 pills were sampled with a sample mean <span class="math inline">\(\bar{x}=0.017\)</span> and sample standard deviation <span class="math inline">\(s=0.008\)</span></p></li>
+</ul>
+</div>
+</section><section id="section-1" class="slide level2" data-background-color="white"><h2></h2>
+<div class="step-box" style="background-color: #DEA99C; border-left: 5px solid #BD5338;">
+<ol start="3" type="1">
+<li>Assess likelihood of our data, or more extreme results, if Claim 1 is true</li>
+</ol>
+<ul>
+<li>We’ll learn how to do this shortly, but for now assume the probability of getting a result like ours (or even more extreme) is just 0.01 if Claim 1 is true.</li>
+</ul>
+</div>
+<div class="step-box" style="background-color: #95AEBF; border-left: 5px solid #2B547E;">
+<ol start="4" type="1">
+<li>Conclusion: that’s pretty unlikely. We’ll reject Claim 1 and assume this warrants further investigation – the manufacturing procedure may not be consistent with one that produces pills at the required 0.02 mg dose, and further evaluation is needed to verify the dosage is sufficient to prevent breakthrough pregnancies.</li>
+</ol>
+</div>
+</section><section id="section-2" class="slide level2" data-background-color="white"><h2></h2>
+<p>Now, suppose the probability was relatively large, say 0.50 instead of 0.01. In this case, we would <em>fail to reject</em> Claim 1 and state that we do not have evidence to disprove Claim 1. We would not say that evidence leads us to accept Claim 1, though. This is a subtle but important difference. We assumed claim 1 was true before we did our calculation, and thus we calculated a probability about data like ours or more extreme than ours under that assumption (and not a probability of whether claim 1 was true directly).</p>
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="../img/catchalk.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:30%;">
+<div style="font-size:0.7em;">
+<p>The concept is the same as that in the US judicial system – we might find someone “not guilty,” but we would not proclaim them “innocent.”</p>
+</div>
+</div></div>
+</section><section id="hypothesis-testing-steps-again" class="slide level2"><h2>Hypothesis Testing Steps (Again!)</h2>
+<ol type="1">
+<li><p>State Claim 1 and Claim 2. Claim 1 states “nothing unusual is happening” and Claim 2 challenges it.</p></li>
+<li><p>Finalize data collection and analysis plans, collect relevant data, and summarize it.</p></li>
+<li><p>Assess how surprising it would be to see data like that, or even more extreme data, <em>if Claim 1 is really true</em>.</p></li>
+<li><p>Draw conclusions.</p></li>
+</ol></section><section id="details-step-1" class="slide level2"><h2>Details: Step 1</h2>
+<p>Step 1 is to state Claim 1 and Claim 2.</p>
+<ul>
+<li><p>Claim 1 is called the <em>null hypothesis</em> or <span class="math inline">\(H_0\)</span>. It states that there is no change from the status quo or no relationship.</p></li>
+<li><p>Claim 2 is called the <em>alternative hypothesis</em> or <span class="math inline">\(H_A\)</span>. It states that there is something going on or some relationship. Usually, <span class="math inline">\(H_A\)</span> is what we want to check or what we really think may be going on.</p></li>
+</ul></section><section id="example-ultra-low-dose-contraception" class="slide level2"><h2>Example: Ultra Low Dose Contraception</h2>
+<p>Step 1 is to state Claim 1 and Claim 2.</p>
+<ul>
+<li><p><span class="math inline">\(H_0\)</span>: The pills are consistent with a population that has mean 0.02 mg estrogen.</p></li>
+<li><p><span class="math inline">\(H_A\)</span>: The pills are not consistent with a population that has mean 0.02 mg estrogen.</p></li>
+</ul></section><section id="practice-with-step-1" class="slide level2"><h2>Practice with Step 1</h2>
+<p>What are <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_A\)</span> in each case?</p>
+<ol type="1">
+<li><p>Researchers would like to know whether a new intervention for informing children in developing countries of their HIV status is associated with different mental health quality of life.</p></li>
+<li><p>Researchers would like to know if lead levels in the water from Flint exceed the EPA action level of 15 ppb.</p></li>
+<li><p>The WHO would like to know if the number of Bundibugyo cases in northeastern DRC and Kampala, Uganda, this week is the same as that from last week.</p></li>
+</ol></section><section id="details-step-2" class="slide level2"><h2>Details: Step 2</h2>
+<p>Step 2 is to make a plan for data collection and analysis, take a sample, and summarize the data. We will return to this topic, but the choice of summary statistic will depend on the type of data (e.g., categorical or continuous) as well as the distribution of the data.</p>
+</section><section id="details-step-3" class="slide level2"><h2>Details: Step 3</h2>
+<p>Step 3 involves assessing the evidence in our data by calculating the probability of getting data like ours, or more extreme than ours, if <span class="math inline">\(H_0\)</span> is actually true. This <strong>conditional probability</strong> will be based on our data summary statistic from Step 2. This conditional probability is often called a <em>p-value</em>.</p>
+<p>Technically, the probability of getting “data like ours, or more extreme than ours” is the probability of getting a specific test statistic based on the data, or one more extreme. (That is, the same data can yield multiple p-values or confidence intervals depending on which test is used.)</p>
+</section><section id="p-value" class="slide level2"><h2>P-Value</h2>
+<p>Note that the p-value is a conditional probability, the probability of getting data like ours or more extreme data given that <span class="math inline">\(H_0\)</span> is true, and it conditions on our null hypothesis being true. It does not provide direct information on the probability that <span class="math inline">\(H_0\)</span> is true given our data.</p>
+</section><section><section id="p-values" class="title-slide slide level1 center"><h1>P-Values</h1>
+
+</section><section id="p-value-defined" class="slide level2"><h2>P-value Defined</h2>
+<p>The <em>p-value</em> is the conditional probability, under the assumption of no effect or no difference, <span class="math inline">\(H_0\)</span>, of obtaining a result equal to or more extreme than what was actually observed.</p>
+</section><section id="incorrect-p-value-interpretations" class="slide level2"><h2>Incorrect P-Value Interpretations</h2>
+<p>Many researchers think a p-value of 0.05 means the null hypothesis has a probability of only 5%. This is wrong!</p>
+</section><section id="incorrect-p-value-interpretations-1" class="slide level2"><h2>Incorrect P-Value Interpretations</h2>
+<p>Many researchers will see <span class="math inline">\(p=0.05\)</span> and state that there is a 95% or greater chance that the null hypothesis is incorrect. This is wrong!</p>
+<p>A p-value is calculated <em>assuming</em> that <span class="math inline">\(H_0\)</span> is true. It cannot be used to tell us how likely it is that assumption is correct.</p>
+</section><section id="hypothesis-testing-paradigm" class="slide level2"><h2>Hypothesis Testing Paradigm</h2>
+<p>The paradigm of hypothesis testing tries to limit the overall number of incorrect decisions over the long run. While we of course want to know if any one study is showing us something real, or a type I or type II error (more on those shortly!), the paradigm does not give us the tools to determine this.</p>
+</section><section id="what-do-you-do-with-a-p-value-then" class="slide level2"><h2>What DO You Do with a P-value, Then?</h2>
+<p>Ideally, you evaluate a p-value in light of other information, such as a proposed biological mechanism, supporting evidence in the literature, size and quality of the study, and size of the purported effect.</p>
+<p>In addition, when you interpret a p-value, be sure you are aware of other important factors that can inflate the false positive rate, e.g.&nbsp;multiple tests, “hidden” multiple tests (e.g., testing most appropriate form of covariate or for an interaction or other model selection procedures), changes to sample size, etc.</p>
+</section><section id="im-nervous-about-p-values.-what-alternatives-are-there" class="slide level2"><h2>I’m Nervous about P-values. What Alternatives are There?</h2>
+<div style="font-size:0.85em;">
+<ul>
+<li><p>Many researchers prefer confidence intervals, which better represent the range of effects that are “compatible with the data”</p></li>
+<li><p>They are sometimes used as a hypothesis test (i.e., reporting results as significant when confidence interval does not include null value) and share many of the properties of p-values we have discussed</p></li>
+<li><p>Like p-values, confidence intervals do not offer a mechanism to unite external evidence with that provided by the study at hand</p></li>
+<li><p><em>Bayesian methods</em> can be used to incorporate current study results with prior knowledge in order to provide a probability a hypothesis is true conditional on the current data (Bayes’ theorem can get us what we want to know!)</p></li>
+</ul>
+</div>
+</section><section id="correspondence-between-hypothesis-tests-and-confidence-intervals" class="slide level2"><h2>Correspondence between Hypothesis Tests and Confidence Intervals</h2>
+<p>We can examine a confidence interval to decide whether a proposed value for the population mean is reasonable.</p>
+<p>Suppose we are testing <span class="math inline">\(H_0:  \mu=0.02\)</span> versus <span class="math inline">\(H_A:  \mu \neq 0.02\)</span> using a significance level of <span class="math inline">\(\alpha=0.05\)</span>. An alternative way to do this is to construct a 95% confidence interval for <span class="math inline">\(\mu\)</span> and use the following decision rule.</p>
+<ul>
+<li><p>If <span class="math inline">\(0.02\)</span> falls outside the confidence interval, reject <span class="math inline">\(H_0\)</span></p></li>
+<li><p>If <span class="math inline">\(0.02\)</span> falls inside the confidence interval, do not reject <span class="math inline">\(H_0\)</span></p></li>
+</ul>
+<p>We may not want to make a binary decision but instead present a confidence interval and provide discussion.</p>
+</section><section id="sidedness-of-tests" class="slide level2"><h2>“Sidedness” of tests</h2>
+<p>Typically, hypothesis tests are <em>two-sided</em>, meaning that we are looking for any difference from a hypothesized value, whether smaller or larger. Sometimes, it is appropriate to conduct a <em>one-sided</em> test. For example, in the Flint data, we may only be concerned if lead levels in the Flint water are higher than the EPA action level.</p>
+<p>One-sided tests are extremely rare, and even in the Flint case it would be typical to see two-sided tests and confidence intervals presented.</p>
+</section><section id="section-3" class="slide level2" data-background-color="white"><h2></h2>
+<p>Illustration of p-value from one-sided hypothesis test</p>
+
+<img data-src="../img/pvaluefigure.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><p>For a two-sided test, the p-value is doubled, but <span class="math inline">\(\alpha\)</span> is unchanged.</p>
+</section><section id="details-step-4" class="slide level2"><h2>Details: Step 4</h2>
+<p>Step 4 is drawing conclusions based on our test results. Generally, we reject Claim 1 when the likelihood of seeing our data (or more extreme data) when Claim 1 is true would be relatively small. Often, we consider a cutpoint (also called a significance level or <span class="math inline">\(\alpha\)</span> level) of <span class="math inline">\(\alpha=0.05\)</span> as defining the p-value as “small.” Using 0.05 as a cutpoint means that when the null hypothesis is true, we would expect to make the wrong decision only 5% of the time. When the p-value <span class="math inline">\(&lt;\alpha\)</span> you often see results described as “statistically significant.”</p>
+<p>When the p-value is <span class="math inline">\(&gt; \alpha\)</span> then we say we have insufficient evidence to reject Claim 1. Sometimes people interpret p-values in the rough range of <span class="math inline">\((\alpha, 2\alpha)\)</span> as marginally significant (so for <span class="math inline">\(\alpha=0.05\)</span> that range would be <span class="math inline">\(0.05-0.10\)</span>), but this is not recommended.</p>
+</section><section id="section-4" class="slide level2" data-background-color="white"><h2></h2>
+<p>Common sense should also be used in drawing conclusions. For example, if there is a very strong body of evidence in favor of the alternative hypothesis and you see <span class="math inline">\(p=0.06\)</span>, you wouldn’t necessarily use your results to refute all the prior work in an area. This is one reason confidence intervals are often used in place of hypothesis tests.</p>
+</section><section id="example-workplace-equity" class="slide level2"><h2>Example: Workplace Equity</h2>
+<p>An employer subscribes to an “equal opportunity” policy, stating it hires employees with children and employees without children equally often in managerial positions. Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified. The data you have are the last three hires, all of which were applicants without children. How do you carry out a hypothesis test?</p>
+</section><section id="trial-by-jury-analogy" class="slide level2"><h2>Trial by Jury Analogy</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="../img/murderkitty.jpeg" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size:0.7em;">
+<p>A cat is on trial. Did it commit the crime? Evidence is presented as part of the trial by jury.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 30%">
+<col style="width: 42%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Truly Innocent</th>
+<th style="text-align: center;">Truly Guilty</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Jury: Not Guilty</td>
+<td style="text-align: center;"><span class="math inline">\(\checkmark\)</span></td>
+<td style="text-align: center;"><img src="../img/kittyskull.jpeg" width="60px"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jury: Guilty</td>
+<td style="text-align: center;"><img src="../img/kittyskull.jpeg" width="60px"></td>
+<td style="text-align: center;"><span class="math inline">\(\checkmark\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></div>
+</section><section id="section-5" class="slide level2" data-background-color="white"><h2></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>During the trial, we assume the cat is innocent unless it is proven guilty. The right decisions are finding an innocent feline “not guilty” and convicting a guilty cat. We could make two mistakes: we could wrongly convict an innocent kitty, or we could declare a guilty cat “not guilty.”</p>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="../img/odin.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section><section id="section-6" class="slide level2" data-background-color="white"><h2></h2>
+<div style="font-size:0.8em;">
+<p>Let’s translate into a hypothesis testing framework. Suppose we wish to test that the population mean equals some value, say <span class="math inline">\(\mu_0\)</span>.</p>
+<p>Test of <span class="math inline">\(H_0:  \mu=\mu_0\)</span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 30%">
+<col style="width: 42%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Truly <span class="math inline">\(\mu=\mu_0\)</span>
+</th>
+<th style="text-align: center;">Truly <span class="math inline">\(\mu\neq\mu_0\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Decision: Do Not Reject <span class="math inline">\(H_0\)</span>
+</td>
+<td style="text-align: center;"><span class="math inline">\(\checkmark\)</span></td>
+<td style="text-align: center;"><img src="../img/kittyskull.jpeg" width="60px"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Decision: Reject <span class="math inline">\(H_0\)</span>
+</td>
+<td style="text-align: center;"><img src="../img/kittyskull.jpeg" width="60px"></td>
+<td style="text-align: center;"><span class="math inline">\(\checkmark\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<div style="font-size:0.8em;">
+<p>Type I error: rejecting <span class="math inline">\(H_0\)</span> when it is really true</p>
+<p>Type II error: not rejecting <span class="math inline">\(H_0\)</span> when it is false</p>
+<p>Notice these are also conditional probabilities and can be linked to the false positive and false negative rates of our test procedure if we think of it as a screening test.</p>
+</div>
+</section><section id="possible-errors" class="slide level2"><h2>Possible Errors</h2>
+<div style="font-size:0.8em;">
+<p>No test is perfect! Here are some potential errors we could make using this paradigm, also called the <em>Null Hypothesis Significance Testing (NHST)</em> paradigm.</p>
+<ul>
+<li><p><span class="math inline">\(\alpha\)</span> is the probability of making a Type I error. These errors, which involve incorrectly changing the status quo, are typically viewed as more severe than Type II errors. The most common value is <span class="math inline">\(\alpha=0.05\)</span>, though typically smaller values are used when multiple tests are being carried out. We specify <span class="math inline">\(\alpha\)</span> at the design stage of the study and use it in making decisions with hypothesis tests.</p></li>
+<li><p>The probability of making a Type II error is <span class="math inline">\(\beta\)</span>, which is related to the <em>power</em> of the test, given by <span class="math inline">\(1-\beta\)</span>. <span class="math inline">\(\beta\)</span> can also vary but is typically larger, say 0.20 (80% power) or 0.10 (90% power)</p></li>
+<li><p>The <em>power</em> of the test is the probability of rejecting <span class="math inline">\(H_0\)</span> when <span class="math inline">\(H_0\)</span> is indeed false. We specify the power when we design a study and determine the sample size needed, but this value is not typically needed for another purpose after the sample is drawn.</p></li>
+</ul>
+</div>
+</section><section id="type-i-errors-in-action" class="slide level2"><h2>Type I Errors in Action</h2>
+<p>Circle, circle, dot, dot…we’ll conduct our own study of one of the US’s most widely-administered childhood vaccinations.</p>
+
+
+</section></section>
+</div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p><a href="https://sta198-fa26-2.github.io/">🔗 sta198-fa26-2.github.io</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="../site_libs/revealjs/dist/reveal.js"></script><!-- reveal.js plugins --><script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script><script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script><script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script><script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script><script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script><script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script><script src="../site_libs/revealjs/plugin/notes/notes.js"></script><script src="../site_libs/revealjs/plugin/search/search.js"></script><script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script><script src="../site_libs/revealjs/plugin/math/math.js"></script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': true,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script><script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script><script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/sta198-fa26-2\.github\.io\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+
+
+</body></html>

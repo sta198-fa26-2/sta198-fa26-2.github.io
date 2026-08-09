@@ -375,7 +375,7 @@ Amy Herring
 <span id="cb7-6"><a></a>       <span class="at">fill =</span> <span class="st">"Sample Size (N)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w06-02-clt_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div style="font-size:0.7em;">
+<img data-src="w05-02-clt_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div style="font-size:0.7em;">
 <p>How does the variability of the sampling distribution depend on the size of our random samples over which the mean is calculated (the binomial “n”)?</p>
 </div>
 </section><section id="central-limit-theorem-1" class="slide level2"><h2>Central Limit Theorem</h2>
@@ -701,7 +701,7 @@ mean of x
 <span id="cb19-4"><a></a>       <span class="at">x =</span> <span class="st">"Means of Each Bootstrap Sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w06-02-clt_files/figure-revealjs/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="calculate-the-confidence-interval" class="slide level2"><h2>Calculate the confidence interval</h2>
+<img data-src="w05-02-clt_files/figure-revealjs/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="calculate-the-confidence-interval" class="slide level2"><h2>Calculate the confidence interval</h2>
 <p>A 95% confidence interval is bounded by the middle 95% of the bootstrap distribution.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>boot_flintmean <span class="sc">%&gt;%</span></span>
@@ -716,7 +716,7 @@ mean of x
 </div>
 </section><section id="visualize-the-confidence-interval" class="slide level2"><h2>Visualize the confidence interval</h2>
 
-<img data-src="w06-02-clt_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="interpret-the-confidence-interval" class="slide level2"><h2>Interpret the confidence interval</h2>
+<img data-src="w05-02-clt_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="interpret-the-confidence-interval" class="slide level2"><h2>Interpret the confidence interval</h2>
 <div class="question">
 <p>The 95% confidence interval for the mean lead levels of initial water samples from Flint is (8.3, 13.4). Which of the following is the correct interpretation of this interval?</p>
 <p><strong>(a)</strong> 95% of the time the mean lead level in this sample is between 8.3 and 13.4 ppb.</p>
@@ -736,7 +736,7 @@ mean of x
 <p>Which lines represent which confidence levels? Options: 90%, 95%, 99%.</p>
 </div>
 
-<img data-src="w06-02-clt_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="precision-vs.-accuracy" class="slide level2"><h2>Precision vs.&nbsp;accuracy</h2>
+<img data-src="w05-02-clt_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="precision-vs.-accuracy" class="slide level2"><h2>Precision vs.&nbsp;accuracy</h2>
 <div class="question">
 <p>If we want to be very certain that we capture the population parameter, should we use a wider or a narrower interval? What drawbacks are associated with using a wider interval?</p>
 </div>
@@ -781,7 +781,7 @@ mean of x
 <span id="cb24-4"><a></a>       <span class="at">x =</span> <span class="st">"Medians of Each Bootstrap Sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w06-02-clt_files/figure-revealjs/medianviz-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="section-7" class="slide level2" data-background-color="white"><h2></h2>
+<img data-src="w05-02-clt_files/figure-revealjs/medianviz-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="section-7" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>boot_flintmedian <span class="sc">%&gt;%</span></span>
 <span id="cb25-2"><a></a>  <span class="fu">summarize</span>(<span class="at">lower =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.025</span>),</span>
@@ -810,7 +810,7 @@ mean of x
 <span id="cb28-6"><a></a>       <span class="at">x =</span> <span class="st">"Medians of Each Bootstrap Sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w06-02-clt_files/figure-revealjs/plotmed-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="mean-median" class="slide level2"><h2>Mean <span class="math inline">\(&gt;&gt;\)</span> Median</h2>
+<img data-src="w05-02-clt_files/figure-revealjs/plotmed-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="mean-median" class="slide level2"><h2>Mean <span class="math inline">\(&gt;&gt;\)</span> Median</h2>
 <p>Wow, those medians are so much smaller than the means! Perhaps we should have started with a little visualization of the raw data.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>flint <span class="sc">%&gt;%</span></span>
@@ -819,7 +819,7 @@ mean of x
 <span id="cb29-4"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Initial Pb Levels"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w06-02-clt_files/figure-revealjs/vizdata-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><p>Ahh, this distribution is highly skewed. Which value is a better measure of the center of the distribution?</p>
+<img data-src="w05-02-clt_files/figure-revealjs/vizdata-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><p>Ahh, this distribution is highly skewed. Which value is a better measure of the center of the distribution?</p>
 </section><section id="recap" class="slide level2"><h2>Recap</h2>
 <ul>
 <li><p>Sample statistic <span class="math inline">\(\ne\)</span> population parameter, but if the sample is good, it can be a good estimate</p></li>

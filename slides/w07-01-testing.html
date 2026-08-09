@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Amy Herring">
+<meta name="dcterms.date" content="2026-09-28">
+<title>Hypothesis Testing – STA 198</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-0c1dff9e6a60e5f86d2e611f65f491b4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-17dcac5eb2d0e3578cb0b597fe42656c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-0c1dff9e6a60e5f86d2e611f65f491b4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link href="../site_libs/font-awesome/css/all.min.css" rel="stylesheet">
+<link href="../site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet">
+<link href="../site_libs/panelset/panelset.css" rel="stylesheet">
+<script src="../site_libs/panelset/panelset.js"></script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+<meta property="og:title" content="Hypothesis Testing – STA 198">
+<meta property="og:description" content="Introduction to Global Health Data Science">
+<meta property="og:image" content="https://sta198-fa26-2.github.io/img/catchalk.png">
+<meta property="og:site_name" content="STA 198">
+<meta property="og:image:height" content="151">
+<meta property="og:image:width" content="306">
+</head>
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Hypothesis Testing</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/sta199-f26" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
+    <a href="https://cmgr.oit.duke.edu/containers" title="RStudio containers" class="quarto-navigation-tool px-1" aria-label="RStudio containers"><i class="bi bi-code-square"></i></a>
+    <div class="dropdown">
+      <a href="" title="Support" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Support"><i class="bi bi-life-preserver"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://docs.google.com/spreadsheets/d/1ecv7aJCSpDThmbBXkY3AkkpNKSyu4ISAlDXSjZx-WQA/edit?usp=sharing">
+              <i class="bi bi-person-raised-hand pe-1"></i>
+            Office hours
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://edstem.org/">
+              <i class="bi bi-people-fill pe-1"></i>
+            Help from humans (Ed Discussion)
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://canvas.duke.edu/">
+              <i class="bi bi-robot pe-1"></i>
+            Help from AI (Chatbot)
+            </a>
+          </li>
+      </ul>
+</div>
+    <div class="dropdown">
+      <a href="" title="Canvas" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Canvas"><i class="bi bi-file-check-fill"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://canvas.duke.edu/">
+              <i class="bi bi-megaphone-fill pe-1"></i>
+            Announcements
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://canvas.duke.edu/">
+              <i class="bi bi-file-arrow-up-fill pe-1"></i>
+            Gradescope
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://canvas.duke.edu/">
+              <i class="bi bi-alphabet-uppercase pe-1"></i>
+            Gradebook
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Course information</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-support.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Support</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-team.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Team</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-links.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Useful links</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Computing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-code-alongs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code alongs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-cheatsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Labs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../hw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homeworks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exam-review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exam reviews</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#main-ideas" id="toc-main-ideas" class="nav-link active" data-scroll-target="#main-ideas">Main ideas</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#example-honor-court" id="toc-example-honor-court" class="nav-link" data-scroll-target="#example-honor-court">Example: Honor Court</a></li>
+  <li><a href="#example-honor-court-1" id="toc-example-honor-court-1" class="nav-link" data-scroll-target="#example-honor-court-1">Example: Honor Court</a></li>
+  <li><a href="#hypothesis-testing-framework" id="toc-hypothesis-testing-framework" class="nav-link" data-scroll-target="#hypothesis-testing-framework">Hypothesis Testing Framework</a></li>
+  <li><a href="#example-ultra-low-dose-contraceptives" id="toc-example-ultra-low-dose-contraceptives" class="nav-link" data-scroll-target="#example-ultra-low-dose-contraceptives">Example: Ultra Low Dose Contraceptives</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
+  <li><a href="#hypothesis-testing-steps-again" id="toc-hypothesis-testing-steps-again" class="nav-link" data-scroll-target="#hypothesis-testing-steps-again">Hypothesis Testing Steps (Again!)</a></li>
+  <li><a href="#details-step-1" id="toc-details-step-1" class="nav-link" data-scroll-target="#details-step-1">Details: Step 1</a></li>
+  <li><a href="#example-ultra-low-dose-contraception" id="toc-example-ultra-low-dose-contraception" class="nav-link" data-scroll-target="#example-ultra-low-dose-contraception">Example: Ultra Low Dose Contraception</a></li>
+  <li><a href="#practice-with-step-1" id="toc-practice-with-step-1" class="nav-link" data-scroll-target="#practice-with-step-1">Practice with Step 1</a></li>
+  <li><a href="#details-step-2" id="toc-details-step-2" class="nav-link" data-scroll-target="#details-step-2">Details: Step 2</a></li>
+  <li><a href="#details-step-3" id="toc-details-step-3" class="nav-link" data-scroll-target="#details-step-3">Details: Step 3</a></li>
+  <li><a href="#p-value" id="toc-p-value" class="nav-link" data-scroll-target="#p-value">P-Value</a></li>
+  <li>
+<a href="#p-values" id="toc-p-values" class="nav-link" data-scroll-target="#p-values">P-Values</a>
+  <ul class="collapse">
+<li><a href="#p-value-defined" id="toc-p-value-defined" class="nav-link" data-scroll-target="#p-value-defined">P-value Defined</a></li>
+  <li><a href="#incorrect-p-value-interpretations" id="toc-incorrect-p-value-interpretations" class="nav-link" data-scroll-target="#incorrect-p-value-interpretations">Incorrect P-Value Interpretations</a></li>
+  <li><a href="#incorrect-p-value-interpretations-1" id="toc-incorrect-p-value-interpretations-1" class="nav-link" data-scroll-target="#incorrect-p-value-interpretations-1">Incorrect P-Value Interpretations</a></li>
+  <li><a href="#hypothesis-testing-paradigm" id="toc-hypothesis-testing-paradigm" class="nav-link" data-scroll-target="#hypothesis-testing-paradigm">Hypothesis Testing Paradigm</a></li>
+  <li><a href="#what-do-you-do-with-a-p-value-then" id="toc-what-do-you-do-with-a-p-value-then" class="nav-link" data-scroll-target="#what-do-you-do-with-a-p-value-then">What DO You Do with a P-value, Then?</a></li>
+  <li><a href="#im-nervous-about-p-values.-what-alternatives-are-there" id="toc-im-nervous-about-p-values.-what-alternatives-are-there" class="nav-link" data-scroll-target="#im-nervous-about-p-values.-what-alternatives-are-there">I’m Nervous about P-values. What Alternatives are There?</a></li>
+  <li><a href="#correspondence-between-hypothesis-tests-and-confidence-intervals" id="toc-correspondence-between-hypothesis-tests-and-confidence-intervals" class="nav-link" data-scroll-target="#correspondence-between-hypothesis-tests-and-confidence-intervals">Correspondence between Hypothesis Tests and Confidence Intervals</a></li>
+  <li><a href="#sidedness-of-tests" id="toc-sidedness-of-tests" class="nav-link" data-scroll-target="#sidedness-of-tests">“Sidedness” of tests</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a></li>
+  <li><a href="#details-step-4" id="toc-details-step-4" class="nav-link" data-scroll-target="#details-step-4">Details: Step 4</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
+  <li><a href="#example-workplace-equity" id="toc-example-workplace-equity" class="nav-link" data-scroll-target="#example-workplace-equity">Example: Workplace Equity</a></li>
+  <li><a href="#trial-by-jury-analogy" id="toc-trial-by-jury-analogy" class="nav-link" data-scroll-target="#trial-by-jury-analogy">Trial by Jury Analogy</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"></a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6"></a></li>
+  <li><a href="#possible-errors" id="toc-possible-errors" class="nav-link" data-scroll-target="#possible-errors">Possible Errors</a></li>
+  <li><a href="#type-i-errors-in-action" id="toc-type-i-errors-in-action" class="nav-link" data-scroll-target="#type-i-errors-in-action">Type I Errors in Action</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w07-01-testing.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="w07-01-testing-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Hypothesis Testing</h1>
+<p class="subtitle lead">Introduction to Global Health Data Science</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Amy Herring </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Duke University <br> STA/GLHLTH 198 Fall 2026
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 28, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="main-ideas" class="level2"><h2 class="anchored" data-anchor-id="main-ideas">Main ideas</h2>
+<ul>
+<li><p>Understand Null Hypothesis Significance Testing Framework</p></li>
+<li><p>Understand use and misuse of p-values</p></li>
+<li><p>Learn about testing errors and how to minimize their probability</p></li>
+</ul></section><section id="packages" class="level2"><h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/infer">infer</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="example-honor-court" class="level2"><h2 class="anchored" data-anchor-id="example-honor-court">Example: Honor Court</h2>
+<p>Suppose a case of suspected cheating is brought to a university Honor Court. There are two opposing claims.</p>
+<p><strong>Student:</strong> I did not cheat on the exam.</p>
+<p><strong>Professor:</strong> The student did cheat on the exam.</p>
+<p>This Honor Court assumes students are innocent until proven guilty. The professor must provide evidence to support their claim. They explain that they had two different versions of the exam and that the student on three separate problems used numbers from the <em>other</em> version of the exam. (oops)</p>
+</section><section id="example-honor-court-1" class="level2"><h2 class="anchored" data-anchor-id="example-honor-court-1">Example: Honor Court</h2>
+<p>The honor court members agree that this would be <em>extremely unlikely</em> if it were true that the student did not cheat. They agree that the professor’s evidence is very strong and conclude that the student did cheat on the exam.</p>
+</section><section id="hypothesis-testing-framework" class="level2"><h2 class="anchored" data-anchor-id="hypothesis-testing-framework">Hypothesis Testing Framework</h2>
+<p>Steps in hypothesis testing:</p>
+<ul>
+<li><p>Start with two claims about the population (often about the value of a population parameter or about some potential association between two variables in the population). Call them claim 1 and claim 2.</p></li>
+<li><p>Choose a sampling strategy, draft an analysis plan, collect data, and summarize data</p></li>
+<li><p>Figure out how likely it is to see data like what we got, if claim 1 is true.</p></li>
+<li><p>If our data would have been unlikely if claim 1 were true, then we reject claim 1 and deem claim 2 worthy of further study. Otherwise, we cannot reject claim 1.</p></li>
+</ul></section><section id="example-ultra-low-dose-contraceptives" class="level2"><h2 class="anchored" data-anchor-id="example-ultra-low-dose-contraceptives">Example: Ultra Low Dose Contraceptives</h2>
+<p>A certain ultra-low dose oral contraceptive pill is supposed to contain 0.02 mg of estrogen. If the dose is higher, the user may risk side effects better avoided, and if the dose is lower, the user may get pregnant. The manufacturer wishes to check whether the mean concentration in a large shipment is the needed 0.02 mg or not. A random sample of <span class="math inline">\(n=50\)</span> pills is tested, and the sample mean concentration is 0.017 mg with a sample standard deviation of 0.008 mg.</p>
+<p>Let’s go through the hypothesis testing paradigm.</p>
+</section><section id="section" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section"></h2>
+<div class="step-box" style="background-color: #D3B4C1; border-left: 5px solid #A6617B;">
+<p><strong>1. State the claims</strong></p>
+<ul>
+<li><p><strong>Claim 1</strong>: The shipment is consistent with a population mean of 0.02 mg estrogen. <span class="math inline">\(H_0: \mu=0.02\)</span></p></li>
+<li><p><strong>Claim 2</strong>: The shipment is not consistent with a population mean of 0.02 mg estrogen. <span class="math inline">\(H_A: \mu \neq 0.02\)</span></p></li>
+</ul>
+</div>
+<div class="step-box" style="background-color: #8FADA2; border-left: 5px solid #1E5B45;">
+<p><strong>2. Choose sampling strategy, design analysis plan, collect, and analyze data</strong></p>
+<ul>
+<li><p>Plan is to sample 50 pills at random and use a one-sample t-test to evaluate whether they are consistent with a population with mean 0.02 mg estrogen</p></li>
+<li><p>50 pills were sampled with a sample mean <span class="math inline">\(\bar{x}=0.017\)</span> and sample standard deviation <span class="math inline">\(s=0.008\)</span></p></li>
+</ul>
+</div>
+</section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
+<div class="step-box" style="background-color: #DEA99C; border-left: 5px solid #BD5338;">
+<ol start="3" type="1">
+<li>Assess likelihood of our data, or more extreme results, if Claim 1 is true</li>
+</ol>
+<ul>
+<li>We’ll learn how to do this shortly, but for now assume the probability of getting a result like ours (or even more extreme) is just 0.01 if Claim 1 is true.</li>
+</ul>
+</div>
+<div class="step-box" style="background-color: #95AEBF; border-left: 5px solid #2B547E;">
+<ol start="4" type="1">
+<li>Conclusion: that’s pretty unlikely. We’ll reject Claim 1 and assume this warrants further investigation – the manufacturing procedure may not be consistent with one that produces pills at the required 0.02 mg dose, and further evaluation is needed to verify the dosage is sufficient to prevent breakthrough pregnancies.</li>
+</ol>
+</div>
+</section><section id="section-2" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-2"></h2>
+<p>Now, suppose the probability was relatively large, say 0.50 instead of 0.01. In this case, we would <em>fail to reject</em> Claim 1 and state that we do not have evidence to disprove Claim 1. We would not say that evidence leads us to accept Claim 1, though. This is a subtle but important difference. We assumed claim 1 was true before we did our calculation, and thus we calculated a probability about data like ours or more extreme than ours under that assumption (and not a probability of whether claim 1 was true directly).</p>
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/catchalk.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../img/catchalk.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:30%;">
+<div style="font-size:0.7em;">
+<p>The concept is the same as that in the US judicial system – we might find someone “not guilty,” but we would not proclaim them “innocent.”</p>
+</div>
+</div>
+</div>
+</section><section id="hypothesis-testing-steps-again" class="level2"><h2 class="anchored" data-anchor-id="hypothesis-testing-steps-again">Hypothesis Testing Steps (Again!)</h2>
+<ol type="1">
+<li><p>State Claim 1 and Claim 2. Claim 1 states “nothing unusual is happening” and Claim 2 challenges it.</p></li>
+<li><p>Finalize data collection and analysis plans, collect relevant data, and summarize it.</p></li>
+<li><p>Assess how surprising it would be to see data like that, or even more extreme data, <em>if Claim 1 is really true</em>.</p></li>
+<li><p>Draw conclusions.</p></li>
+</ol></section><section id="details-step-1" class="level2"><h2 class="anchored" data-anchor-id="details-step-1">Details: Step 1</h2>
+<p>Step 1 is to state Claim 1 and Claim 2.</p>
+<ul>
+<li><p>Claim 1 is called the <em>null hypothesis</em> or <span class="math inline">\(H_0\)</span>. It states that there is no change from the status quo or no relationship.</p></li>
+<li><p>Claim 2 is called the <em>alternative hypothesis</em> or <span class="math inline">\(H_A\)</span>. It states that there is something going on or some relationship. Usually, <span class="math inline">\(H_A\)</span> is what we want to check or what we really think may be going on.</p></li>
+</ul></section><section id="example-ultra-low-dose-contraception" class="level2"><h2 class="anchored" data-anchor-id="example-ultra-low-dose-contraception">Example: Ultra Low Dose Contraception</h2>
+<p>Step 1 is to state Claim 1 and Claim 2.</p>
+<ul>
+<li><p><span class="math inline">\(H_0\)</span>: The pills are consistent with a population that has mean 0.02 mg estrogen.</p></li>
+<li><p><span class="math inline">\(H_A\)</span>: The pills are not consistent with a population that has mean 0.02 mg estrogen.</p></li>
+</ul></section><section id="practice-with-step-1" class="level2"><h2 class="anchored" data-anchor-id="practice-with-step-1">Practice with Step 1</h2>
+<p>What are <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_A\)</span> in each case?</p>
+<ol type="1">
+<li><p>Researchers would like to know whether a new intervention for informing children in developing countries of their HIV status is associated with different mental health quality of life.</p></li>
+<li><p>Researchers would like to know if lead levels in the water from Flint exceed the EPA action level of 15 ppb.</p></li>
+<li><p>The WHO would like to know if the number of Bundibugyo cases in northeastern DRC and Kampala, Uganda, this week is the same as that from last week.</p></li>
+</ol></section><section id="details-step-2" class="level2"><h2 class="anchored" data-anchor-id="details-step-2">Details: Step 2</h2>
+<p>Step 2 is to make a plan for data collection and analysis, take a sample, and summarize the data. We will return to this topic, but the choice of summary statistic will depend on the type of data (e.g., categorical or continuous) as well as the distribution of the data.</p>
+</section><section id="details-step-3" class="level2"><h2 class="anchored" data-anchor-id="details-step-3">Details: Step 3</h2>
+<p>Step 3 involves assessing the evidence in our data by calculating the probability of getting data like ours, or more extreme than ours, if <span class="math inline">\(H_0\)</span> is actually true. This <strong>conditional probability</strong> will be based on our data summary statistic from Step 2. This conditional probability is often called a <em>p-value</em>.</p>
+<p>Technically, the probability of getting “data like ours, or more extreme than ours” is the probability of getting a specific test statistic based on the data, or one more extreme. (That is, the same data can yield multiple p-values or confidence intervals depending on which test is used.)</p>
+</section><section id="p-value" class="level2"><h2 class="anchored" data-anchor-id="p-value">P-Value</h2>
+<p>Note that the p-value is a conditional probability, the probability of getting data like ours or more extreme data given that <span class="math inline">\(H_0\)</span> is true, and it conditions on our null hypothesis being true. It does not provide direct information on the probability that <span class="math inline">\(H_0\)</span> is true given our data.</p>
+</section><section id="p-values" class="level1"><h1>P-Values</h1>
+<section id="p-value-defined" class="level2"><h2 class="anchored" data-anchor-id="p-value-defined">P-value Defined</h2>
+<p>The <em>p-value</em> is the conditional probability, under the assumption of no effect or no difference, <span class="math inline">\(H_0\)</span>, of obtaining a result equal to or more extreme than what was actually observed.</p>
+</section><section id="incorrect-p-value-interpretations" class="level2"><h2 class="anchored" data-anchor-id="incorrect-p-value-interpretations">Incorrect P-Value Interpretations</h2>
+<p>Many researchers think a p-value of 0.05 means the null hypothesis has a probability of only 5%. This is wrong!</p>
+</section><section id="incorrect-p-value-interpretations-1" class="level2"><h2 class="anchored" data-anchor-id="incorrect-p-value-interpretations-1">Incorrect P-Value Interpretations</h2>
+<p>Many researchers will see <span class="math inline">\(p=0.05\)</span> and state that there is a 95% or greater chance that the null hypothesis is incorrect. This is wrong!</p>
+<p>A p-value is calculated <em>assuming</em> that <span class="math inline">\(H_0\)</span> is true. It cannot be used to tell us how likely it is that assumption is correct.</p>
+</section><section id="hypothesis-testing-paradigm" class="level2"><h2 class="anchored" data-anchor-id="hypothesis-testing-paradigm">Hypothesis Testing Paradigm</h2>
+<p>The paradigm of hypothesis testing tries to limit the overall number of incorrect decisions over the long run. While we of course want to know if any one study is showing us something real, or a type I or type II error (more on those shortly!), the paradigm does not give us the tools to determine this.</p>
+</section><section id="what-do-you-do-with-a-p-value-then" class="level2"><h2 class="anchored" data-anchor-id="what-do-you-do-with-a-p-value-then">What DO You Do with a P-value, Then?</h2>
+<p>Ideally, you evaluate a p-value in light of other information, such as a proposed biological mechanism, supporting evidence in the literature, size and quality of the study, and size of the purported effect.</p>
+<p>In addition, when you interpret a p-value, be sure you are aware of other important factors that can inflate the false positive rate, e.g.&nbsp;multiple tests, “hidden” multiple tests (e.g., testing most appropriate form of covariate or for an interaction or other model selection procedures), changes to sample size, etc.</p>
+</section><section id="im-nervous-about-p-values.-what-alternatives-are-there" class="level2"><h2 class="anchored" data-anchor-id="im-nervous-about-p-values.-what-alternatives-are-there">I’m Nervous about P-values. What Alternatives are There?</h2>
+<div style="font-size:0.85em;">
+<ul>
+<li><p>Many researchers prefer confidence intervals, which better represent the range of effects that are “compatible with the data”</p></li>
+<li><p>They are sometimes used as a hypothesis test (i.e., reporting results as significant when confidence interval does not include null value) and share many of the properties of p-values we have discussed</p></li>
+<li><p>Like p-values, confidence intervals do not offer a mechanism to unite external evidence with that provided by the study at hand</p></li>
+<li><p><em>Bayesian methods</em> can be used to incorporate current study results with prior knowledge in order to provide a probability a hypothesis is true conditional on the current data (Bayes’ theorem can get us what we want to know!)</p></li>
+</ul>
+</div>
+</section><section id="correspondence-between-hypothesis-tests-and-confidence-intervals" class="level2"><h2 class="anchored" data-anchor-id="correspondence-between-hypothesis-tests-and-confidence-intervals">Correspondence between Hypothesis Tests and Confidence Intervals</h2>
+<p>We can examine a confidence interval to decide whether a proposed value for the population mean is reasonable.</p>
+<p>Suppose we are testing <span class="math inline">\(H_0:  \mu=0.02\)</span> versus <span class="math inline">\(H_A:  \mu \neq 0.02\)</span> using a significance level of <span class="math inline">\(\alpha=0.05\)</span>. An alternative way to do this is to construct a 95% confidence interval for <span class="math inline">\(\mu\)</span> and use the following decision rule.</p>
+<ul>
+<li><p>If <span class="math inline">\(0.02\)</span> falls outside the confidence interval, reject <span class="math inline">\(H_0\)</span></p></li>
+<li><p>If <span class="math inline">\(0.02\)</span> falls inside the confidence interval, do not reject <span class="math inline">\(H_0\)</span></p></li>
+</ul>
+<p>We may not want to make a binary decision but instead present a confidence interval and provide discussion.</p>
+</section><section id="sidedness-of-tests" class="level2"><h2 class="anchored" data-anchor-id="sidedness-of-tests">“Sidedness” of tests</h2>
+<p>Typically, hypothesis tests are <em>two-sided</em>, meaning that we are looking for any difference from a hypothesized value, whether smaller or larger. Sometimes, it is appropriate to conduct a <em>one-sided</em> test. For example, in the Flint data, we may only be concerned if lead levels in the Flint water are higher than the EPA action level.</p>
+<p>One-sided tests are extremely rare, and even in the Flint case it would be typical to see two-sided tests and confidence intervals presented.</p>
+</section><section id="section-3" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-3"></h2>
+<p>Illustration of p-value from one-sided hypothesis test</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/pvaluefigure.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../img/pvaluefigure.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>For a two-sided test, the p-value is doubled, but <span class="math inline">\(\alpha\)</span> is unchanged.</p>
+</section><section id="details-step-4" class="level2"><h2 class="anchored" data-anchor-id="details-step-4">Details: Step 4</h2>
+<p>Step 4 is drawing conclusions based on our test results. Generally, we reject Claim 1 when the likelihood of seeing our data (or more extreme data) when Claim 1 is true would be relatively small. Often, we consider a cutpoint (also called a significance level or <span class="math inline">\(\alpha\)</span> level) of <span class="math inline">\(\alpha=0.05\)</span> as defining the p-value as “small.” Using 0.05 as a cutpoint means that when the null hypothesis is true, we would expect to make the wrong decision only 5% of the time. When the p-value <span class="math inline">\(&lt;\alpha\)</span> you often see results described as “statistically significant.”</p>
+<p>When the p-value is <span class="math inline">\(&gt; \alpha\)</span> then we say we have insufficient evidence to reject Claim 1. Sometimes people interpret p-values in the rough range of <span class="math inline">\((\alpha, 2\alpha)\)</span> as marginally significant (so for <span class="math inline">\(\alpha=0.05\)</span> that range would be <span class="math inline">\(0.05-0.10\)</span>), but this is not recommended.</p>
+</section><section id="section-4" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-4"></h2>
+<p>Common sense should also be used in drawing conclusions. For example, if there is a very strong body of evidence in favor of the alternative hypothesis and you see <span class="math inline">\(p=0.06\)</span>, you wouldn’t necessarily use your results to refute all the prior work in an area. This is one reason confidence intervals are often used in place of hypothesis tests.</p>
+</section><section id="example-workplace-equity" class="level2"><h2 class="anchored" data-anchor-id="example-workplace-equity">Example: Workplace Equity</h2>
+<p>An employer subscribes to an “equal opportunity” policy, stating it hires employees with children and employees without children equally often in managerial positions. Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified. The data you have are the last three hires, all of which were applicants without children. How do you carry out a hypothesis test?</p>
+</section><section id="trial-by-jury-analogy" class="level2"><h2 class="anchored" data-anchor-id="trial-by-jury-analogy">Trial by Jury Analogy</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/murderkitty.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../img/murderkitty.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size:0.7em;">
+<p>A cat is on trial. Did it commit the crime? Evidence is presented as part of the trial by jury.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 30%">
+<col style="width: 42%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Truly Innocent</th>
+<th style="text-align: center;">Truly Guilty</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Jury: Not Guilty</td>
+<td style="text-align: center;"><span class="math inline">\(\checkmark\)</span></td>
+<td style="text-align: center;"><img src="../img/kittyskull.jpeg" width="60px"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jury: Guilty</td>
+<td style="text-align: center;"><img src="../img/kittyskull.jpeg" width="60px"></td>
+<td style="text-align: center;"><span class="math inline">\(\checkmark\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="section-5" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-5"></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>During the trial, we assume the cat is innocent unless it is proven guilty. The right decisions are finding an innocent feline “not guilty” and convicting a guilty cat. We could make two mistakes: we could wrongly convict an innocent kitty, or we could declare a guilty cat “not guilty.”</p>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/odin.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../img/odin.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="section-6" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-6"></h2>
+<div style="font-size:0.8em;">
+<p>Let’s translate into a hypothesis testing framework. Suppose we wish to test that the population mean equals some value, say <span class="math inline">\(\mu_0\)</span>.</p>
+<p>Test of <span class="math inline">\(H_0:  \mu=\mu_0\)</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 30%">
+<col style="width: 42%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Truly <span class="math inline">\(\mu=\mu_0\)</span>
+</th>
+<th style="text-align: center;">Truly <span class="math inline">\(\mu\neq\mu_0\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Decision: Do Not Reject <span class="math inline">\(H_0\)</span>
+</td>
+<td style="text-align: center;"><span class="math inline">\(\checkmark\)</span></td>
+<td style="text-align: center;"><img src="../img/kittyskull.jpeg" width="60px"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Decision: Reject <span class="math inline">\(H_0\)</span>
+</td>
+<td style="text-align: center;"><img src="../img/kittyskull.jpeg" width="60px"></td>
+<td style="text-align: center;"><span class="math inline">\(\checkmark\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<div style="font-size:0.8em;">
+<p>Type I error: rejecting <span class="math inline">\(H_0\)</span> when it is really true</p>
+<p>Type II error: not rejecting <span class="math inline">\(H_0\)</span> when it is false</p>
+<p>Notice these are also conditional probabilities and can be linked to the false positive and false negative rates of our test procedure if we think of it as a screening test.</p>
+</div>
+</section><section id="possible-errors" class="level2"><h2 class="anchored" data-anchor-id="possible-errors">Possible Errors</h2>
+<div style="font-size:0.8em;">
+<p>No test is perfect! Here are some potential errors we could make using this paradigm, also called the <em>Null Hypothesis Significance Testing (NHST)</em> paradigm.</p>
+<ul>
+<li><p><span class="math inline">\(\alpha\)</span> is the probability of making a Type I error. These errors, which involve incorrectly changing the status quo, are typically viewed as more severe than Type II errors. The most common value is <span class="math inline">\(\alpha=0.05\)</span>, though typically smaller values are used when multiple tests are being carried out. We specify <span class="math inline">\(\alpha\)</span> at the design stage of the study and use it in making decisions with hypothesis tests.</p></li>
+<li><p>The probability of making a Type II error is <span class="math inline">\(\beta\)</span>, which is related to the <em>power</em> of the test, given by <span class="math inline">\(1-\beta\)</span>. <span class="math inline">\(\beta\)</span> can also vary but is typically larger, say 0.20 (80% power) or 0.10 (90% power)</p></li>
+<li><p>The <em>power</em> of the test is the probability of rejecting <span class="math inline">\(H_0\)</span> when <span class="math inline">\(H_0\)</span> is indeed false. We specify the power when we design a study and determine the sample size needed, but this value is not typically needed for another purpose after the sample is drawn.</p></li>
+</ul>
+</div>
+</section><section id="type-i-errors-in-action" class="level2"><h2 class="anchored" data-anchor-id="type-i-errors-in-action">Type I Errors in Action</h2>
+<p>Circle, circle, dot, dot…we’ll conduct our own study of one of the US’s most widely-administered childhood vaccinations.</p>
+
+
+</section></section></main><!-- /main --><script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/sta198-fa26-2\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Mine Çetinkaya-Rundel, Mary Knox</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w07-01-testing.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <span style="color:#FFBE98;" aria-hidden="true"><i class="fa-solid fa-heart" aria-label="heart"></i></span> and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+</body></html>
