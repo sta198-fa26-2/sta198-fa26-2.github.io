@@ -394,3 +394,9 @@ No test is perfect! Here are some potential errors we could make using this para
 
 Circle, circle, dot, dot...we'll conduct our own study of one of the US's most widely-administered childhood  vaccinations.
 
+## Back to Example: Workplace Equity
+
+An employer subscribes to an "equal opportunity" policy, stating it hires employees with children and employees without children equally often in managerial positions.  Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified.  The data you have are the last three hires, all of which were applicants without children.  How do you carry out a hypothesis test?
+
+If the null hypothesis is true, what was the probability of seeing these data, or data even more extreme?
+
