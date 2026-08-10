@@ -585,7 +585,11 @@ Laws regarding the legal limit of blood alcohol while driving vary widely worldw
 
 Suppose a Department of Motor Vehicles wishes to compare impairment of drivers while texting to impairment after drinking two beers.  Describe an independent samples design and a matched pairs design for this question of interest.
 
-## Case Study: Personality or Looks?
+
+
+# Case Study: Personality or Looks?
+
+## Personality or Looks?
 
 <div style="font-size:0.75em;">
 
