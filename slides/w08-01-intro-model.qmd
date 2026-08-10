@@ -327,6 +327,8 @@ If $y-\hat{y}$ is positive, the observed value $y$ is higher than what the model
 
 </div>
 
+
+
 ## Multiple explanatory variables
 
 ::: {.panel-tabset}
@@ -335,15 +337,21 @@ If $y-\hat{y}$ is positive, the observed value $y$ is higher than what the model
 
 :::: {.columns}
 
-::: {.column width="30%"}
+::: {.column width="20%"}
+
+<div style="font-size:0.7em;">
 
 ::: {.question}
 How, if at all, does the relationship between hair mercury and household assets of individuals vary by whether or not they live in a town classified as native?
 :::
 
+</div>
+
+
 :::
 
-::: {.column width="70%"}
+::: {.column width="80%"}
+
 
 ```{r}
 #| ref-label: hg_asset_native
@@ -354,7 +362,7 @@ How, if at all, does the relationship between hair mercury and household assets 
 
 ::: {.fragment}
 
-<div style="font-size:0.8em;">
+<div style="font-size:0.7em;">
 
 This is an example of an interaction effect -- the relationship between assets and mercury depends on the value of a third variable, community type.
 
@@ -388,28 +396,54 @@ ggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +
 :::
 
 
+## Range of Plotted Lines
+
+```{r}
+#| ref-label: hg_asset_native
+#| echo: false
+#| warning: false
+#| out-width: 80%
+```
+
+
+Why does the native village line stop at assets around 1.5 sd?
+
 
 ## Extending regression lines
 
-<div style="font-size:0.8em;">
+<div style="font-size:0.7em;">
 
 
-Note our lines do not extrapolate beyond the range of observed data. Extrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). If we extend the lines to ultra wealthy individuals, do we believe the lines actually cross, and those in native villages have lower exposures?  
+Extrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals (say $>$3 SD above the mean asset level), do we believe the lines actually cross, and those in native villages have lower exposures?  
 
 </div>
 
+::: {.panel-tabset}
+
+## Plot
+
+```{r}
+#| ref-label: extrapolation
+#| echo: false
+#| warning: false
+#| out-width: 45%
+```
+
+## Code
 
 ```{r}
 #| label: extrapolation
-#| echo: false
+#| fig-show: hide
 #| warning: false
+#| code-line-numbers: "4"
 ggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +
   geom_point(alpha = 0.1) +
   geom_smooth(method = "lm",
+              se = FALSE,
               fullrange = TRUE) +
   labs(
     title = "Hair mercury as a function of assets, by village type",
-    subtitle = "Peruvian Amazon",
+    subtitle = "Line Artifically Extended Beyond Data Range (Native)",
     x = "Household assets (standardized)",
     y = "Hair mercury (log ppm)",
     color = NULL
@@ -417,7 +451,7 @@ ggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +
   scale_color_manual(values = c("#E48957", "#071381"))
 ```
 
-
+:::
 
 ## Models - upsides and downsides
 
