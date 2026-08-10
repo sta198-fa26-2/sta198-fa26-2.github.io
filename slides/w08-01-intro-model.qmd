@@ -432,7 +432,7 @@ is just as important as the model, if not more!
 *Statistics is the explanation of variation in the context of what remains unexplained.*
 
 - The scatter suggests that there might be other factors that account for large parts of variability in hair mercury levels, or perhaps just that randomness plays a big role.
-- Adding more explanatory variables to a model can sometimes usefully reduce the size of the scatter around the model. (We'll talk more about this later.)
+- Adding explanatory variables to a model can sometimes usefully reduce the size of the scatter around the model. (We'll talk more about this later.)
 
 ## How do we use models?
 
