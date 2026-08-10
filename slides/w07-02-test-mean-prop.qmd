@@ -680,6 +680,6 @@ Based on both the test and the 95% confidence interval, we have evidence to reje
 
 - In this case it would be possible for these men's responses to overturn the result (having a mean score for men lower than that for women is mathematically possible for this percentage of missing data)
 
-- Be cautious about results of hypothesis testing in the presence of missing data
+- Be cautious about results of hypothesis testing in the presence of missing data.
 
 </div>
