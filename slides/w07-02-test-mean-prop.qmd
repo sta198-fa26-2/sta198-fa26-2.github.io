@@ -53,7 +53,7 @@ knitr::include_graphics("../img/PeanutsMath.jpg")
 library(tidyverse)
 library(infer)
 library(readxl)
-library(BSDA)
+library(BSDA) 
 ```
 
 ## Hypothesis Testing Framework
