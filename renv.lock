@@ -9,6 +9,37 @@
     ]
   },
   "Packages": {
+    "BSDA": {
+      "Package": "BSDA",
+      "Version": "1.2.2",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Basic Statistics and Data Analysis",
+      "Date": "2023-09-14",
+      "Authors@R": "c(\nperson(\"Alan T.\", \"Arnholt\", email = \"arnholtat@appstate.edu\", role = c(\"aut\", \"cre\")),\nperson(\"Ben\", \"Evans\", email = \"ben.evans@temple.edu\", role = \"aut\"))",
+      "Maintainer": "Alan T. Arnholt <arnholtat@appstate.edu>",
+      "Description": "Data sets for book \"Basic Statistics and Data Analysis\" by\nLarry J. Kitchens.",
+      "Depends": [
+        "lattice",
+        "R (>= 2.10)"
+      ],
+      "Imports": [
+        "e1071"
+      ],
+      "License": "GPL-3",
+      "Suggests": [
+        "ggplot2 (>= 2.1.0)",
+        "dplyr",
+        "tidyr"
+      ],
+      "RoxygenNote": "7.2.3",
+      "Encoding": "UTF-8",
+      "URL": "https://github.com/alanarnholt/BSDA,\nhttps://alanarnholt.github.io/BSDA/",
+      "BugReports": "https://github.com/alanarnholt/BSDA/issues",
+      "NeedsCompilation": "no",
+      "Author": "Alan T. Arnholt [aut, cre],\nBen Evans [aut]",
+      "Repository": "CRAN"
+    },
     "DBI": {
       "Package": "DBI",
       "Version": "1.2.3",
