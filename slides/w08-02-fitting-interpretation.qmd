@@ -4,7 +4,7 @@ subtitle: "Introduction to Global Health Data Science"
 date: "2026-10-09"
 format:
   revealjs:
-    output-file: w08-02-fitting-interpretation.html
+    output-file: w08-02-fitting-interpretation-slides.html
     footer: "[🔗 sta198-fa26-2.github.io](https://sta198-fa26-2.github.io/)"
     theme: slides.scss
     transition: fade
