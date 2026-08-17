@@ -1,9 +1,5 @@
 [
   {
-    "listing": "/exam-review.html",
-    "items": []
-  },
-  {
     "listing": "/lab.html",
     "items": [
       "/lab/lab-0.html",
@@ -11,11 +7,15 @@
     ]
   },
   {
+    "listing": "/course-team.html",
+    "items": []
+  },
+  {
     "listing": "/hw.html",
     "items": []
   },
   {
-    "listing": "/course-team.html",
+    "listing": "/exam-review.html",
     "items": []
   }
 ]

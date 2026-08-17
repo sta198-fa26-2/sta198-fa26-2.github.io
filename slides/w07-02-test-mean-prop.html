@@ -73,9 +73,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0c1dff9e6a60e5f86d2e611f65f491b4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-17dcac5eb2d0e3578cb0b597fe42656c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-0c1dff9e6a60e5f86d2e611f65f491b4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a2a5d2141b2957cb469ee31a6eb36e11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-9c3d5961ae8d2ded56656e21130d8ade.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a2a5d2141b2957cb469ee31a6eb36e11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
@@ -137,7 +137,7 @@ window.Quarto = {
 </script>
 <meta property="og:title" content="Hypothesis Testing for Means and Proportions – STA 198">
 <meta property="og:description" content="Introduction to Global Health Data Science">
-<meta property="og:image" content="https://sta198-fa26-2.github.io/img/peanutsmath.jpg">
+<meta property="og:image" content="https://sta198-fa26-2.github.io/img/PeanutsMath.jpg">
 <meta property="og:site_name" content="STA 198">
 </head>
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -545,7 +545,12 @@ window.Quarto = {
 <li><a href="#two-sample-tests-of-the-mean" id="toc-two-sample-tests-of-the-mean" class="nav-link" data-scroll-target="#two-sample-tests-of-the-mean">Two-sample tests of the mean</a></li>
   <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12"></a></li>
   <li><a href="#case-study-driving-while-impaired" id="toc-case-study-driving-while-impaired" class="nav-link" data-scroll-target="#case-study-driving-while-impaired">Case Study: Driving While Impaired</a></li>
-  <li><a href="#case-study-personality-or-looks" id="toc-case-study-personality-or-looks" class="nav-link" data-scroll-target="#case-study-personality-or-looks">Case Study: Personality or Looks?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#case-study-personality-or-looks" id="toc-case-study-personality-or-looks" class="nav-link" data-scroll-target="#case-study-personality-or-looks">Case Study: Personality or Looks?</a>
+  <ul class="collapse">
+<li><a href="#personality-or-looks" id="toc-personality-or-looks" class="nav-link" data-scroll-target="#personality-or-looks">Personality or Looks?</a></li>
   <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14"></a></li>
   <li><a href="#two-sample-t-test" id="toc-two-sample-t-test" class="nav-link" data-scroll-target="#two-sample-t-test">Two-Sample T-Test</a></li>
   <li><a href="#equal-or-unequal-variance" id="toc-equal-or-unequal-variance" class="nav-link" data-scroll-target="#equal-or-unequal-variance">Equal or Unequal Variance?</a></li>
@@ -595,7 +600,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/peanutsmath.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../img/peanutsmath.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="../img/PeanutsMath.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../img/PeanutsMath.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -610,7 +615,7 @@ window.Quarto = {
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/infer">infer</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/alanarnholt/BSDA">BSDA</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/alanarnholt/BSDA">BSDA</a></span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="hypothesis-testing-framework" class="level2"><h2 class="anchored" data-anchor-id="hypothesis-testing-framework">Hypothesis Testing Framework</h2>
 <p>Steps in hypothesis testing:</p>
@@ -1157,7 +1162,8 @@ window.Quarto = {
 </section><section id="case-study-driving-while-impaired" class="level2"><h2 class="anchored" data-anchor-id="case-study-driving-while-impaired">Case Study: Driving While Impaired</h2>
 <p>Laws regarding the legal limit of blood alcohol while driving vary widely worldwide (some countries do not legislate this, while others have limits as low as 0%). Some studies have shown distraction to affect driving in similar ways as drinking.</p>
 <p>Suppose a Department of Motor Vehicles wishes to compare impairment of drivers while texting to impairment after drinking two beers. Describe an independent samples design and a matched pairs design for this question of interest.</p>
-</section><section id="case-study-personality-or-looks" class="level2"><h2 class="anchored" data-anchor-id="case-study-personality-or-looks">Case Study: Personality or Looks?</h2>
+</section></section><section id="case-study-personality-or-looks" class="level1"><h1>Case Study: Personality or Looks?</h1>
+<section id="personality-or-looks" class="level2"><h2 class="anchored" data-anchor-id="personality-or-looks">Personality or Looks?</h2>
 <div style="font-size:0.75em;">
 <p>A random sample of college students who identified as either male or female answered the question “What is more important to you – personality or looks?” on a 25 point scale, where 1 indicates personality has maximum importance and looks don’t matter, and 25 indicates that looks have maximum importance and personality plays no role. The researcher was interested in whether gender plays a role in the importance of looks versus personality.</p>
 <p>The null hypothesis is that males and females place the same emphasis on personality (score is unrelated to gender), while the alternative is that they do not (score is related to gender).</p>
@@ -1166,7 +1172,7 @@ window.Quarto = {
 <p><span class="math display">\[H_0: \mu_{MALE}-\mu_{FEMALE}=0\]</span> <span class="math display">\[H_A: \mu_{MALE}-\mu_{FEMALE}\neq 0\]</span></p>
 <section id="section-13" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-13"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tsum.test</span><span class="op">(</span>mean.x<span class="op">=</span><span class="fl">13.33</span>, s.x<span class="op">=</span><span class="fl">4.02</span>, n.x<span class="op">=</span><span class="fl">85</span>,</span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://alanarnholt.github.io/BSDA/reference/tsum.test.html">tsum.test</a></span><span class="op">(</span>mean.x<span class="op">=</span><span class="fl">13.33</span>, s.x<span class="op">=</span><span class="fl">4.02</span>, n.x<span class="op">=</span><span class="fl">85</span>,</span>
 <span>          mean.y<span class="op">=</span><span class="fl">10.73</span>, s.y<span class="op">=</span><span class="fl">4.25</span>, n.y<span class="op">=</span><span class="fl">120</span>,</span>
 <span>          var.equal<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1204,7 +1210,7 @@ window.Quarto = {
 </section><section id="section-15" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-15"></h2>
 <div style="font-size:0.7em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tsum.test</span><span class="op">(</span>mean.x<span class="op">=</span><span class="fl">13.33</span>, s.x<span class="op">=</span><span class="fl">4.02</span>, n.x<span class="op">=</span><span class="fl">85</span>,</span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://alanarnholt.github.io/BSDA/reference/tsum.test.html">tsum.test</a></span><span class="op">(</span>mean.x<span class="op">=</span><span class="fl">13.33</span>, s.x<span class="op">=</span><span class="fl">4.02</span>, n.x<span class="op">=</span><span class="fl">85</span>,</span>
 <span>          mean.y<span class="op">=</span><span class="fl">10.73</span>, s.y<span class="op">=</span><span class="fl">4.25</span>, n.y<span class="op">=</span><span class="fl">120</span>,</span>
 <span>          var.equal<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
