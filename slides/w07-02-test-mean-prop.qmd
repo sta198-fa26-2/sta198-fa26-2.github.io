@@ -36,7 +36,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
 
 
 ```{r, echo=FALSE}
-knitr::include_graphics("../img/peanutsmath.jpg")
+knitr::include_graphics("../img/PeanutsMath.jpg")
 ```
 
 ## Main ideas
