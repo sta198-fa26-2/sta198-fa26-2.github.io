@@ -17,7 +17,7 @@ Distinguish good evidence from weak or misleading evidence using statistical rea
 
 ## Required Materials
 
--   **Textbooks** (free online): *R for Data Science, 2e* and *Introduction to Modern Statistics*
+-   **Textbooks** (free online): *R for Data Science, 2e* and *Introduction to Modern Statistics*; (free in library reserves and optional): *Principles of Biostatistics* 
 -   **Computing**: Laptop required for all classes; R accessed through Duke containers, no installation needed
 -   **Platform**: Course website at [sta198-f26-2.github.io](https://sta198-f26-2.github.io) -- everything you need is there or linked from there!
 
@@ -25,7 +25,7 @@ Distinguish good evidence from weak or misleading evidence using statistical rea
 
 | Component | Weight | Details |
 |----------------------------|---------------------|-----------------------|
-| Lectures | 5% | Attendance/participation (20 lectures minimum for full score) |
+| Lectures | 5% | Attendance/participation (20 non-exam lectures minimum for full score) |
 | Labs | 10% | Individual or team-based, completed in class (lowest 2 dropped) |
 | Exam 1 | 25% | In-class |
 | Exam 2 | 25% | In-class |
@@ -84,7 +84,7 @@ The first two books are **freely available online**.
     OpenIntro Inc., 2nd Edition, 2023.
     Hard copy available [on Amazon](https://openintro.org/go?id=ims2_bw_pb&referrer=/book/ims/index.php).
     
-Thlasst book is not required. Three copies are on reserve at the library, and the problem sets and "further applications" worked examples in each chapter are quite useful for students wanting more examples and problems.
+The last book is not required. Three copies are on reserve at the library, and the problem sets and "further applications" worked examples in each chapter are *quite* useful for students wanting more examples and problems (I suggest everyone check out the further applications!).
     
 -   [Principles of Biostatistics](https://openintro-ims.netlify.app/), Pagano, Gauvreau, and Mattie.
     Taylor and Francis, 3rd Edition, 2022.
@@ -195,7 +195,7 @@ Commits to this repository will be used as a metric (one of several) of each tea
 
 #### Lectures
 
-Attendance and participation will be monitored throughout the semester. Your attendance and participation score will be calculated as the percentage of lectures in which you engaged in person (i.e., sleeping or online shopping does not count, and you must participate in class activities). The denominator used for this calculation will be 24 (we have 24 non-exam lecture days). Students who are active in 20 or more lectures will receive full credit. \textcolor{blue}{That is, if you actively attend 24 lectures, you will receive 100%; 20 lectures - 100%, 19 lectures - $100*\frac{19}{24}%=79%$.}
+Attendance and participation will be monitored throughout the semester. Your attendance and participation score will be calculated as the percentage of lectures in which you engaged in person (i.e., sleeping or online shopping does not count, and you must participate in class activities). The denominator used for this calculation will be 22 (we have 22 non-exam lecture days, excluding the first day of class). Students who are active in 20 or more lectures will receive full credit. Participation in the fall mandatory constellation group activity can count as lecture attendance. That is, if you actively attend all 22 lectures after the first day of class and the constellation activity, you will receive 100%; 20 lectures - 100%, 19 lectures + constellation activity - 100%, 19 lectures - $100*\frac{19}{24}=79$%.
 
 
 #### Labs
@@ -219,7 +219,7 @@ The exams will focus on both conceptual understanding of the content and applica
 
 | Component | Weight | Details |
 |----------------------------|---------------------|-----------------------|
-| Lectures | 5% | Attendance/participation (20 lectures minimum for full score) |
+| Lectures | 5% | Attendance/participation (20 minimum for full score) |
 | Labs | 10% | Individual or team-based, completed in class (lowest 2 dropped) |
 | Exam 1 | 25% | In-class |
 | Exam 2 | 25% | In-class |
@@ -248,10 +248,6 @@ The final letter grade will be determined based on the following thresholds.
 ### Duke Community Standard
 
 As a student in this course, you have agreed to uphold the [Duke Community Standard](https://trinity.duke.edu/undergraduate/academic-policies/community-standard-student-conduct) and the practices specific to this course.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/_KN97j30ST4" title="Duke Community Standard" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-
-</iframe>
 
 ### Academic honesty
 
@@ -323,7 +319,7 @@ Note that by submitting a regrade request, the **entire assignment may be regrad
 If you need accommodations for this class, you will need to register with the Student Disability Access Office (SDAO) and provide them with documentation related to your needs.
 SDAO will work with you to determine what accommodations are appropriate for your situation.
 Please note that accommodations are not retroactive and disability accommodations cannot be provided until a Faculty Accommodation Letter has been given to me.
-Please contact SDAO for more information: [sdao\@duke.edu](mailto:sdao@duke.edu) or [access.duke.edu](https://access.duke.edu/).
+Please contact SDAO for more information: [sdao\@duke.edu](mailto:sdao@duke.edu) or [access.duke.edu](https://access.duke.edu/). Please note that the testing center can fill, so you want to go ahead and schedule accommodations on exam days (overlapping with our exam time) as soon as possible.
 
 ### Religious accommodations
 
