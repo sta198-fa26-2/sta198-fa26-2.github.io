@@ -228,8 +228,20 @@ Amy Herring
 </div>
 </section><section id="packages" class="slide level2"><h2>Packages</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a></a><span class="fu">library</span>(infer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tibble' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'purrr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">library</span>(infer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'infer' was built under R version 4.3.3</code></pre>
+</div>
 </div>
 </section><section id="central-limit-theorem" class="slide level2"><h2>Central Limit Theorem</h2>
 <p>The <em>central limit theorem</em> says that for any distribution with a well-defined mean and variance, the distribution of <em>means</em> for a sample of size <span class="math inline">\(n\)</span> is approximately normal. This result has strong implications in many areas of statistics, including in construction of confidence intervals and in hypothesis testing.</p>
@@ -320,13 +332,13 @@ Amy Herring
 <p>Let’s generate one thousand samples from a Binomial with <span class="math inline">\(\pi\)</span>=0.018 and different values of <span class="math inline">\(n\)</span>, the size of each sample. (Remember R’s <span class="math inline">\(n\)</span>, the number of simulated datasets, is different from our <span class="math inline">\(n\)</span>, the number of samples in each dataset, also called the binomial <span class="math inline">\(n\)</span>. Below we always simulate 1000 datasets, but the number of people in each ranges from 10 to 10000.)</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>binomdata <span class="ot">=</span> <span class="fu">tibble</span>(</span>
-<span id="cb2-2"><a></a>  <span class="at">X=</span><span class="fu">c</span>(<span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">1000</span>,<span class="dv">10</span>,.<span class="dv">018</span>),</span>
-<span id="cb2-3"><a></a>      <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">1000</span>,<span class="dv">100</span>,.<span class="dv">018</span>),</span>
-<span id="cb2-4"><a></a>      <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">1000</span>,<span class="dv">1000</span>,.<span class="dv">018</span>),</span>
-<span id="cb2-5"><a></a>      <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">1000</span>,<span class="dv">10000</span>,.<span class="dv">018</span>)),</span>
-<span id="cb2-6"><a></a>  <span class="at">N=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">10</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="dv">100</span>,<span class="dv">1000</span>),</span>
-<span id="cb2-7"><a></a>      <span class="fu">rep</span>(<span class="dv">1000</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="dv">10000</span>,<span class="dv">1000</span>)),<span class="at">pihat=</span>X<span class="sc">/</span>N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>binomdata <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb7-2"><a></a>  <span class="at">X=</span><span class="fu">c</span>(<span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">1000</span>,<span class="dv">10</span>,.<span class="dv">018</span>),</span>
+<span id="cb7-3"><a></a>      <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">1000</span>,<span class="dv">100</span>,.<span class="dv">018</span>),</span>
+<span id="cb7-4"><a></a>      <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">1000</span>,<span class="dv">1000</span>,.<span class="dv">018</span>),</span>
+<span id="cb7-5"><a></a>      <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">1000</span>,<span class="dv">10000</span>,.<span class="dv">018</span>)),</span>
+<span id="cb7-6"><a></a>  <span class="at">N=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">10</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="dv">100</span>,<span class="dv">1000</span>),</span>
+<span id="cb7-7"><a></a>      <span class="fu">rep</span>(<span class="dv">1000</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="dv">10000</span>,<span class="dv">1000</span>)),<span class="at">pihat=</span>X<span class="sc">/</span>N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div style="font-size:0.7em;">
 <p>This code generates 1000 samples from a binomial <span class="math inline">\(n=10\)</span>, <span class="math inline">\(\pi=0.018\)</span> distribution, 1000 samples from a binomial <span class="math inline">\(n=100\)</span>, <span class="math inline">\(\pi=0.018\)</span> distribution, 1000 samples from a binomial <span class="math inline">\(n=1000\)</span>, <span class="math inline">\(\pi=0.018\)</span> distribution, and 10000 samples from a binomial <span class="math inline">\(n=10000\)</span>, <span class="math inline">\(\pi=0.018\)</span> distribution. The vector <span class="math inline">\(X\)</span> contains the count <span class="math inline">\(x\)</span> of infectious people in each sample, and the vector <span class="math inline">\(N\)</span> contains the sample size (so is 10 for the first 1000 entries, 100 for the second 1000, and so forth). We estimate <span class="math inline">\(\pi\)</span> as <span class="math inline">\(\hat{\pi}=\frac{x}{n}\)</span> in each sample.</p>
@@ -335,7 +347,7 @@ Amy Herring
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">head</span>(binomdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">head</span>(binomdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
       X     N pihat
@@ -350,7 +362,7 @@ Amy Herring
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">tail</span>(binomdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">tail</span>(binomdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
       X     N  pihat
@@ -367,15 +379,15 @@ Amy Herring
 <p>What do you notice about the quality of the estimates <span class="math inline">\(\hat{\pi}\)</span> and sample size <span class="math inline">\(N\)</span>?</p>
 </section><section id="section-1" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>binomdata <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pihat, <span class="at">fill =</span> <span class="fu">as.factor</span>(N))) <span class="sc">+</span> </span>
-<span id="cb7-3"><a></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
-<span id="cb7-4"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean Fraction Infectious"</span>,</span>
-<span id="cb7-5"><a></a>      <span class="at">title =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">"1000 Samples of Size N with "</span>, pi, <span class="st">"=0.018"</span>)),</span>
-<span id="cb7-6"><a></a>       <span class="at">fill =</span> <span class="st">"Sample Size (N)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>binomdata <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pihat, <span class="at">fill =</span> <span class="fu">as.factor</span>(N))) <span class="sc">+</span> </span>
+<span id="cb12-3"><a></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb12-4"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean Fraction Infectious"</span>,</span>
+<span id="cb12-5"><a></a>      <span class="at">title =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">"1000 Samples of Size N with "</span>, pi, <span class="st">"=0.018"</span>)),</span>
+<span id="cb12-6"><a></a>       <span class="at">fill =</span> <span class="st">"Sample Size (N)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w05-02-clt_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div style="font-size:0.7em;">
+<img data-src="w05-02-clt_files/figure-html/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div style="font-size:0.7em;">
 <p>How does the variability of the sampling distribution depend on the size of our random samples over which the mean is calculated (the binomial “n”)?</p>
 </div>
 </section><section id="central-limit-theorem-1" class="slide level2"><h2>Central Limit Theorem</h2>
@@ -474,20 +486,26 @@ Amy Herring
 <div style="font-size:0.8em;">
 <p>Let’s calculate the estimated proportion of homes in Flint with lead levels over 15 ppb along with a 95% confidence interval for the proportion.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">library</span>(readxl)</span>
-<span id="cb8-2"><a></a><span class="fu">library</span>(glue)</span>
-<span id="cb8-3"><a></a>flint<span class="ot">=</span><span class="fu">read_excel</span>(<span class="st">"../data/Flint-Samples.xlsx"</span>,<span class="at">sheet=</span><span class="dv">1</span>)</span>
-<span id="cb8-4"><a></a>flint<span class="ot">=</span><span class="fu">rename</span>(flint, <span class="st">"Pb_initial"</span><span class="ot">=</span><span class="st">"Pb Bottle 1 (ppb) - First Draw"</span>)</span>
-<span id="cb8-5"><a></a>res.glue <span class="ot">&lt;-</span> flint <span class="sc">%&gt;%</span></span>
-<span id="cb8-6"><a></a>  <span class="fu">mutate</span>(<span class="at">Pbover15 =</span> Pb_initial <span class="sc">&gt;</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-7"><a></a>  <span class="fu">summarize</span>(<span class="at">propover15 =</span> <span class="fu">mean</span>(Pbover15),</span>
-<span id="cb8-8"><a></a>            <span class="at">n.lead =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb8-9"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb8-10"><a></a>    <span class="at">se.lead =</span> <span class="fu">sqrt</span>(propover15 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> propover15)) <span class="sc">/</span> <span class="fu">sqrt</span>(n.lead),</span>
-<span id="cb8-11"><a></a>    <span class="at">lower.ci.lead =</span> propover15 <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>)) <span class="sc">*</span> se.lead,</span>
-<span id="cb8-12"><a></a>    <span class="at">upper.ci.lead =</span> propover15 <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>)) <span class="sc">*</span> se.lead</span>
-<span id="cb8-13"><a></a>  ) </span>
-<span id="cb8-14"><a></a>ci.glue<span class="ot">=</span><span class="fu">glue</span>(<span class="st">"({round(res.glue$lower.ci.lead,2)}, {round(res.glue$upper.ci.lead,2)})"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readxl' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">library</span>(glue)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'glue' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>flint<span class="ot">=</span><span class="fu">read_excel</span>(<span class="st">"../data/Flint-Samples.xlsx"</span>,<span class="at">sheet=</span><span class="dv">1</span>)</span>
+<span id="cb17-2"><a></a>flint<span class="ot">=</span><span class="fu">rename</span>(flint, <span class="st">"Pb_initial"</span><span class="ot">=</span><span class="st">"Pb Bottle 1 (ppb) - First Draw"</span>)</span>
+<span id="cb17-3"><a></a>res.glue <span class="ot">&lt;-</span> flint <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a></a>  <span class="fu">mutate</span>(<span class="at">Pbover15 =</span> Pb_initial <span class="sc">&gt;</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a></a>  <span class="fu">summarize</span>(<span class="at">propover15 =</span> <span class="fu">mean</span>(Pbover15),</span>
+<span id="cb17-6"><a></a>            <span class="at">n.lead =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-8"><a></a>    <span class="at">se.lead =</span> <span class="fu">sqrt</span>(propover15 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> propover15)) <span class="sc">/</span> <span class="fu">sqrt</span>(n.lead),</span>
+<span id="cb17-9"><a></a>    <span class="at">lower.ci.lead =</span> propover15 <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>)) <span class="sc">*</span> se.lead,</span>
+<span id="cb17-10"><a></a>    <span class="at">upper.ci.lead =</span> propover15 <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>)) <span class="sc">*</span> se.lead</span>
+<span id="cb17-11"><a></a>  ) </span>
+<span id="cb17-12"><a></a>ci.glue<span class="ot">=</span><span class="fu">glue</span>(<span class="st">"({round(res.glue$lower.ci.lead,2)}, {round(res.glue$upper.ci.lead,2)})"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In our sample, 17% of homes had lead levels over 15 ppb, with a 95% confidence interval for the proportion of homes with high lead of (0.12, 0.21).</p>
 </div>
@@ -568,16 +586,16 @@ Amy Herring
 </section><section id="calculating-a-confidence-interval-for-flint-lead" class="slide level2"><h2>Calculating a Confidence Interval for Flint Lead</h2>
 <p>Now we calculate a 95% confidence interval for the mean lead levels in Flint water. Because we need to estimate the standard deviation, we’ll use a t-based confidence interval.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>res.glue<span class="fl">.2</span> <span class="ot">&lt;-</span> flint <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a></a>  <span class="fu">summarize</span>(<span class="at">meanPb =</span> <span class="fu">mean</span>(Pb_initial),</span>
-<span id="cb9-3"><a></a>            <span class="at">var.lead =</span> <span class="fu">var</span>(Pb_initial),</span>
-<span id="cb9-4"><a></a>            <span class="at">n.lead =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb9-5"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb9-6"><a></a>    <span class="at">se.lead =</span> <span class="fu">sqrt</span>(var.lead<span class="sc">/</span>n.lead),</span>
-<span id="cb9-7"><a></a>    <span class="at">lower.ci.lead =</span> meanPb <span class="sc">-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>),n.lead<span class="dv">-1</span>) <span class="sc">*</span> se.lead,</span>
-<span id="cb9-8"><a></a>    <span class="at">upper.ci.lead =</span> meanPb <span class="sc">+</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>),n.lead<span class="dv">-1</span>) <span class="sc">*</span> se.lead</span>
-<span id="cb9-9"><a></a>  ) </span>
-<span id="cb9-10"><a></a>ci.glue<span class="fl">.2</span><span class="ot">=</span><span class="fu">glue</span>(<span class="st">"({round(res.glue.2$lower.ci.lead,2)}, {round(res.glue.2$upper.ci.lead,2)})"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>res.glue<span class="fl">.2</span> <span class="ot">&lt;-</span> flint <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a></a>  <span class="fu">summarize</span>(<span class="at">meanPb =</span> <span class="fu">mean</span>(Pb_initial),</span>
+<span id="cb18-3"><a></a>            <span class="at">var.lead =</span> <span class="fu">var</span>(Pb_initial),</span>
+<span id="cb18-4"><a></a>            <span class="at">n.lead =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-6"><a></a>    <span class="at">se.lead =</span> <span class="fu">sqrt</span>(var.lead<span class="sc">/</span>n.lead),</span>
+<span id="cb18-7"><a></a>    <span class="at">lower.ci.lead =</span> meanPb <span class="sc">-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>),n.lead<span class="dv">-1</span>) <span class="sc">*</span> se.lead,</span>
+<span id="cb18-8"><a></a>    <span class="at">upper.ci.lead =</span> meanPb <span class="sc">+</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>),n.lead<span class="dv">-1</span>) <span class="sc">*</span> se.lead</span>
+<span id="cb18-9"><a></a>  ) </span>
+<span id="cb18-10"><a></a>ci.glue<span class="fl">.2</span><span class="ot">=</span><span class="fu">glue</span>(<span class="st">"({round(res.glue.2$lower.ci.lead,2)}, {round(res.glue.2$upper.ci.lead,2)})"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In our sample, the estimated mean lead level in initial water samples was 10.65 ppb, with a 95% confidence interval for the mean of (8.07, 13.22).</p>
 </section><section id="confidence-interval-with-sigma-unknown" class="slide level2"><h2>Confidence Interval with <span class="math inline">\(\sigma\)</span> Unknown</h2>
@@ -587,23 +605,23 @@ Amy Herring
 <div style="font-size:0.8em;">
 <p>Now we calculate a 95% confidence interval for the mean lead levels in Flint water. Because we need to estimate the standard deviation, we’ll use a t-based confidence interval.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>res.glue<span class="fl">.2</span> <span class="ot">&lt;-</span> flint <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a></a>  <span class="fu">summarize</span>(<span class="at">meanPb =</span> <span class="fu">mean</span>(Pb_initial),</span>
-<span id="cb10-3"><a></a>            <span class="at">var.lead =</span> <span class="fu">var</span>(Pb_initial),</span>
-<span id="cb10-4"><a></a>            <span class="at">n.lead =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb10-5"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb10-6"><a></a>    <span class="at">se.lead =</span> <span class="fu">sqrt</span>(var.lead<span class="sc">/</span>n.lead),</span>
-<span id="cb10-7"><a></a>    <span class="at">lower.ci.lead =</span> meanPb <span class="sc">-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>),n.lead<span class="dv">-1</span>) <span class="sc">*</span> se.lead,</span>
-<span id="cb10-8"><a></a>    <span class="at">upper.ci.lead =</span> meanPb <span class="sc">+</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>),n.lead<span class="dv">-1</span>) <span class="sc">*</span> se.lead</span>
-<span id="cb10-9"><a></a>  ) </span>
-<span id="cb10-10"><a></a>ci.glue<span class="fl">.2</span><span class="ot">=</span><span class="fu">glue</span>(<span class="st">"({round(res.glue.2$lower.ci.lead,2)}, {round(res.glue.2$upper.ci.lead,2)})"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>res.glue<span class="fl">.2</span> <span class="ot">&lt;-</span> flint <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a></a>  <span class="fu">summarize</span>(<span class="at">meanPb =</span> <span class="fu">mean</span>(Pb_initial),</span>
+<span id="cb19-3"><a></a>            <span class="at">var.lead =</span> <span class="fu">var</span>(Pb_initial),</span>
+<span id="cb19-4"><a></a>            <span class="at">n.lead =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-6"><a></a>    <span class="at">se.lead =</span> <span class="fu">sqrt</span>(var.lead<span class="sc">/</span>n.lead),</span>
+<span id="cb19-7"><a></a>    <span class="at">lower.ci.lead =</span> meanPb <span class="sc">-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>),n.lead<span class="dv">-1</span>) <span class="sc">*</span> se.lead,</span>
+<span id="cb19-8"><a></a>    <span class="at">upper.ci.lead =</span> meanPb <span class="sc">+</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>),n.lead<span class="dv">-1</span>) <span class="sc">*</span> se.lead</span>
+<span id="cb19-9"><a></a>  ) </span>
+<span id="cb19-10"><a></a>ci.glue<span class="fl">.2</span><span class="ot">=</span><span class="fu">glue</span>(<span class="st">"({round(res.glue.2$lower.ci.lead,2)}, {round(res.glue.2$upper.ci.lead,2)})"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In our sample, the estimated mean lead level in initial water samples was 10.65 ppb, with a 95% confidence interval for the mean of (8.07, 13.22).</p>
 </div>
 </section><section id="seriously" class="slide level2"><h2>Seriously?</h2>
 <p>Ok, that was a lot of work. There’s a quick way to get it too.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">t.test</span>(flint<span class="sc">$</span>Pb_initial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">t.test</span>(flint<span class="sc">$</span>Pb_initial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -639,46 +657,46 @@ mean of x
 </div>
 </section><section id="generate-bootstrap-means" class="slide level2"><h2>Generate bootstrap means</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb13-2"><a></a>flint <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a></a>  <span class="co"># specify the variable of interest</span></span>
-<span id="cb13-4"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb22-2"><a></a>flint <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a></a>  <span class="co"># specify the variable of interest</span></span>
+<span id="cb22-4"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="generate-bootstrap-means-1" class="slide level2"><h2>Generate bootstrap means</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>flint <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a></a>  <span class="co"># specify the variable of interest</span></span>
-<span id="cb14-3"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial)</span>
-<span id="cb14-4"><a></a>  <span class="co"># generate 15000 bootstrap samples</span></span>
-<span id="cb14-5"><a></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>flint <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a></a>  <span class="co"># specify the variable of interest</span></span>
+<span id="cb23-3"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial)</span>
+<span id="cb23-4"><a></a>  <span class="co"># generate 15000 bootstrap samples</span></span>
+<span id="cb23-5"><a></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="generate-bootstrap-means-2" class="slide level2"><h2>Generate bootstrap means</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>flint <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a></a>  <span class="co"># specify the variable of interest</span></span>
-<span id="cb15-3"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial)</span>
-<span id="cb15-4"><a></a>  <span class="co"># generate 15000 bootstrap samples</span></span>
-<span id="cb15-5"><a></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>)</span>
-<span id="cb15-6"><a></a>  <span class="co"># calculate the mean of each bootstrap sample</span></span>
-<span id="cb15-7"><a></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>flint <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a></a>  <span class="co"># specify the variable of interest</span></span>
+<span id="cb24-3"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial)</span>
+<span id="cb24-4"><a></a>  <span class="co"># generate 15000 bootstrap samples</span></span>
+<span id="cb24-5"><a></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>)</span>
+<span id="cb24-6"><a></a>  <span class="co"># calculate the mean of each bootstrap sample</span></span>
+<span id="cb24-7"><a></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="generate-bootstrap-means-3" class="slide level2"><h2>Generate bootstrap means</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="co"># save resulting bootstrap distribution</span></span>
-<span id="cb16-2"><a></a>boot_flintmean <span class="ot">&lt;-</span> flint <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a></a>  <span class="co"># specify the variable of interest</span></span>
-<span id="cb16-4"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial) <span class="sc">%&gt;%</span></span>
-<span id="cb16-5"><a></a>  <span class="co"># generate 15000 bootstrap samples</span></span>
-<span id="cb16-6"><a></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-7"><a></a>  <span class="co"># calculate the mean of each bootstrap sample</span></span>
-<span id="cb16-8"><a></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="co"># save resulting bootstrap distribution</span></span>
+<span id="cb25-2"><a></a>boot_flintmean <span class="ot">&lt;-</span> flint <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a></a>  <span class="co"># specify the variable of interest</span></span>
+<span id="cb25-4"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a></a>  <span class="co"># generate 15000 bootstrap samples</span></span>
+<span id="cb25-6"><a></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-7"><a></a>  <span class="co"># calculate the mean of each bootstrap sample</span></span>
+<span id="cb25-8"><a></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="the-bootstrap-sample" class="slide level2"><h2>The bootstrap sample</h2>
 <div class="question">
 <p>How many observations are there in <code>boot_flintmean</code>? What does each observation represent?</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>boot_flintmean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>boot_flintmean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response: Pb_initial (numeric)
 # A tibble: 15,000 × 2
@@ -695,18 +713,18 @@ mean of x
 </div>
 </section><section id="visualize-the-bootstrap-distribution" class="slide level2"><h2>Visualize the bootstrap distribution</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> boot_flintmean, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> stat)) <span class="sc">+</span></span>
-<span id="cb19-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb19-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bootstrap distribution of means"</span>,</span>
-<span id="cb19-4"><a></a>       <span class="at">x =</span> <span class="st">"Means of Each Bootstrap Sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> boot_flintmean, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> stat)) <span class="sc">+</span></span>
+<span id="cb28-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb28-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bootstrap distribution of means"</span>,</span>
+<span id="cb28-4"><a></a>       <span class="at">x =</span> <span class="st">"Means of Each Bootstrap Sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w05-02-clt_files/figure-revealjs/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="calculate-the-confidence-interval" class="slide level2"><h2>Calculate the confidence interval</h2>
+<img data-src="w05-02-clt_files/figure-html/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="calculate-the-confidence-interval" class="slide level2"><h2>Calculate the confidence interval</h2>
 <p>A 95% confidence interval is bounded by the middle 95% of the bootstrap distribution.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>boot_flintmean <span class="sc">%&gt;%</span></span>
-<span id="cb20-2"><a></a>  <span class="fu">summarize</span>(<span class="at">lower =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.025</span>),</span>
-<span id="cb20-3"><a></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>boot_flintmean <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a></a>  <span class="fu">summarize</span>(<span class="at">lower =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.025</span>),</span>
+<span id="cb29-3"><a></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   lower upper
@@ -715,8 +733,15 @@ mean of x
 </div>
 </div>
 </section><section id="visualize-the-confidence-interval" class="slide level2"><h2>Visualize the confidence interval</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2
+3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
 
-<img data-src="w05-02-clt_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="interpret-the-confidence-interval" class="slide level2"><h2>Interpret the confidence interval</h2>
+</div>
+<img data-src="w05-02-clt_files/figure-html/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="interpret-the-confidence-interval" class="slide level2"><h2>Interpret the confidence interval</h2>
 <div class="question">
 <p>The 95% confidence interval for the mean lead levels of initial water samples from Flint is (8.3, 13.4). Which of the following is the correct interpretation of this interval?</p>
 <p><strong>(a)</strong> 95% of the time the mean lead level in this sample is between 8.3 and 13.4 ppb.</p>
@@ -736,7 +761,7 @@ mean of x
 <p>Which lines represent which confidence levels? Options: 90%, 95%, 99%.</p>
 </div>
 
-<img data-src="w05-02-clt_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="precision-vs.-accuracy" class="slide level2"><h2>Precision vs.&nbsp;accuracy</h2>
+<img data-src="w05-02-clt_files/figure-html/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="precision-vs.-accuracy" class="slide level2"><h2>Precision vs.&nbsp;accuracy</h2>
 <div class="question">
 <p>If we want to be very certain that we capture the population parameter, should we use a wider or a narrower interval? What drawbacks are associated with using a wider interval?</p>
 </div>
@@ -754,38 +779,38 @@ mean of x
 <p>How would you modify the following code to calculate a 90% confidence interval? How would you modify it for a 99% confidence interval?</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>flint <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial)</span>
-<span id="cb22-3"><a></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>)</span>
-<span id="cb22-4"><a></a>  <span class="co"># calculate the mean of each bootstrap sample</span></span>
-<span id="cb22-5"><a></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"mean"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb22-6"><a></a>  <span class="fu">summarize</span>(<span class="at">lower =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.025</span>),</span>
-<span id="cb22-7"><a></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>flint <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial)</span>
+<span id="cb32-3"><a></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>)</span>
+<span id="cb32-4"><a></a>  <span class="co"># calculate the mean of each bootstrap sample</span></span>
+<span id="cb32-5"><a></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"mean"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-6"><a></a>  <span class="fu">summarize</span>(<span class="at">lower =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.025</span>),</span>
+<span id="cb32-7"><a></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="now-lets-get-ci-for-the-median" class="slide level2"><h2>Now Let’s Get CI for the Median</h2>
 <p>Recall the median is the middle value in a dataset.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>boot_flintmedian <span class="ot">&lt;-</span> flint <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a></a>  <span class="co"># specify the variable of interest</span></span>
-<span id="cb23-3"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial) <span class="sc">%&gt;%</span></span>
-<span id="cb23-4"><a></a>  <span class="co"># generate 15000 bootstrap samples</span></span>
-<span id="cb23-5"><a></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-6"><a></a>  <span class="co"># calculate the mean of each bootstrap sample</span></span>
-<span id="cb23-7"><a></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"median"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>boot_flintmedian <span class="ot">&lt;-</span> flint <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a></a>  <span class="co"># specify the variable of interest</span></span>
+<span id="cb33-3"><a></a>  <span class="fu">specify</span>(<span class="at">response =</span> Pb_initial) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a></a>  <span class="co"># generate 15000 bootstrap samples</span></span>
+<span id="cb33-5"><a></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-6"><a></a>  <span class="co"># calculate the mean of each bootstrap sample</span></span>
+<span id="cb33-7"><a></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"median"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="section-6" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> boot_flintmedian, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> stat)) <span class="sc">+</span></span>
-<span id="cb24-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb24-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bootstrap distribution of medians"</span>,</span>
-<span id="cb24-4"><a></a>       <span class="at">x =</span> <span class="st">"Medians of Each Bootstrap Sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> boot_flintmedian, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> stat)) <span class="sc">+</span></span>
+<span id="cb34-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb34-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bootstrap distribution of medians"</span>,</span>
+<span id="cb34-4"><a></a>       <span class="at">x =</span> <span class="st">"Medians of Each Bootstrap Sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w05-02-clt_files/figure-revealjs/medianviz-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="section-7" class="slide level2" data-background-color="white"><h2></h2>
+<img data-src="w05-02-clt_files/figure-html/medianviz-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="section-7" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>boot_flintmedian <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a></a>  <span class="fu">summarize</span>(<span class="at">lower =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.025</span>),</span>
-<span id="cb25-3"><a></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>boot_flintmedian <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a></a>  <span class="fu">summarize</span>(<span class="at">lower =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.025</span>),</span>
+<span id="cb35-3"><a></a>            <span class="at">upper =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   lower upper
@@ -795,31 +820,31 @@ mean of x
 </div>
 </section><section id="section-8" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>lower_bound <span class="ot">&lt;-</span></span>
-<span id="cb27-2"><a></a>  boot_flintmedian <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">lower_bound =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.025</span>)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>()</span>
-<span id="cb27-3"><a></a>upper_bound <span class="ot">&lt;-</span></span>
-<span id="cb27-4"><a></a>  boot_flintmedian <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">upper_bound =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.975</span>)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>lower_bound <span class="ot">&lt;-</span></span>
+<span id="cb37-2"><a></a>  boot_flintmedian <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">lower_bound =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.025</span>)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>()</span>
+<span id="cb37-3"><a></a>upper_bound <span class="ot">&lt;-</span></span>
+<span id="cb37-4"><a></a>  boot_flintmedian <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">upper_bound =</span> <span class="fu">quantile</span>(stat, <span class="fl">0.975</span>)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="section-9" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> boot_flintmedian, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> stat)) <span class="sc">+</span></span>
-<span id="cb28-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb28-3"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(lower_bound, upper_bound), <span class="at">color =</span> <span class="st">"#A7D5E8"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb28-4"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bootstrap distribution of medians"</span>,</span>
-<span id="cb28-5"><a></a>       <span class="at">subtitle =</span> <span class="st">"and 95% confidence interval"</span>,</span>
-<span id="cb28-6"><a></a>       <span class="at">x =</span> <span class="st">"Medians of Each Bootstrap Sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> boot_flintmedian, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> stat)) <span class="sc">+</span></span>
+<span id="cb38-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb38-3"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(lower_bound, upper_bound), <span class="at">color =</span> <span class="st">"#A7D5E8"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb38-4"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bootstrap distribution of medians"</span>,</span>
+<span id="cb38-5"><a></a>       <span class="at">subtitle =</span> <span class="st">"and 95% confidence interval"</span>,</span>
+<span id="cb38-6"><a></a>       <span class="at">x =</span> <span class="st">"Medians of Each Bootstrap Sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w05-02-clt_files/figure-revealjs/plotmed-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="mean-median" class="slide level2"><h2>Mean <span class="math inline">\(&gt;&gt;\)</span> Median</h2>
+<img data-src="w05-02-clt_files/figure-html/plotmed-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="mean-median" class="slide level2"><h2>Mean <span class="math inline">\(&gt;&gt;\)</span> Median</h2>
 <p>Wow, those medians are so much smaller than the means! Perhaps we should have started with a little visualization of the raw data.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>flint <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Pb_initial)) <span class="sc">+</span></span>
-<span id="cb29-3"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb29-4"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Initial Pb Levels"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>flint <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Pb_initial)) <span class="sc">+</span></span>
+<span id="cb39-3"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb39-4"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Initial Pb Levels"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w05-02-clt_files/figure-revealjs/vizdata-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><p>Ahh, this distribution is highly skewed. Which value is a better measure of the center of the distribution?</p>
+<img data-src="w05-02-clt_files/figure-html/vizdata-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><p>Ahh, this distribution is highly skewed. Which value is a better measure of the center of the distribution?</p>
 </section><section id="recap" class="slide level2"><h2>Recap</h2>
 <ul>
 <li><p>Sample statistic <span class="math inline">\(\ne\)</span> population parameter, but if the sample is good, it can be a good estimate</p></li>
@@ -1037,41 +1062,6 @@ mean of x
           RevealZoom
         ]
       });
-    </script><script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
     </script><script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

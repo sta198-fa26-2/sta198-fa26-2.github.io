@@ -239,7 +239,7 @@ Amy Herring
 </section><section id="goal-predict-mercury-from-assets" class="slide level2"><h2>Goal: Predict mercury from assets</h2>
 <p><span class="math display">\[\widehat{y}_{i} = \widehat{\beta}_0 + \widehat{\beta}_1 \times x_{i}\]</span> Here <span class="math inline">\(y_i\)</span> represents log hair mercury for subject <span class="math inline">\(i\)</span>, and <span class="math inline">\(x_i\)</span> represents standardized household income.</p>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/hg_asset_plot-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="section" class="slide level2" data-background-color="white"><h2></h2>
+<img data-src="w08-02-fitting-interpretation_files/figure-html/hg_asset_plot-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="section" class="slide level2" data-background-color="white"><h2></h2>
 
 <img data-src="../img/tidymodels.png" class="quarto-figure quarto-figure-center r-stretch" style="width:98.0%"></section><section id="step-1-specify-model" class="slide level2"><h2>Step 1: Specify model</h2>
 <div class="cell" data-layout-align="center">
@@ -413,13 +413,13 @@ Amy Herring
 <li><p>If <span class="math inline">\(e_i = y_i - \hat{y}_i\)</span>, then, the regression line minimizes <span class="math inline">\(\sum_{i = 1}^n e_i^2\)</span>.</p></li>
 </ul>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/least-squares-illustration-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="visualizing-residuals" class="slide level2"><h2>Visualizing residuals</h2>
+<img data-src="w08-02-fitting-interpretation_files/figure-html/least-squares-illustration-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="visualizing-residuals" class="slide level2"><h2>Visualizing residuals</h2>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-1-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="visualizing-residuals-cont." class="slide level2"><h2>Visualizing residuals (cont.)</h2>
+<img data-src="w08-02-fitting-interpretation_files/figure-html/vis-res-1-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="visualizing-residuals-cont." class="slide level2"><h2>Visualizing residuals (cont.)</h2>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-2-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="visualizing-residuals-cont.-1" class="slide level2"><h2>Visualizing residuals (cont.)</h2>
+<img data-src="w08-02-fitting-interpretation_files/figure-html/vis-res-2-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="visualizing-residuals-cont.-1" class="slide level2"><h2>Visualizing residuals (cont.)</h2>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-3-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="properties-of-least-squares-regression" class="slide level2"><h2>Properties of least squares regression</h2>
+<img data-src="w08-02-fitting-interpretation_files/figure-html/vis-res-3-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="properties-of-least-squares-regression" class="slide level2"><h2>Properties of least squares regression</h2>
 <div style="font-size:0.7em;">
 <ul>
 <li>The regression line goes through the center of mass point, the coordinates corresponding to average <span class="math inline">\(x\)</span> and average <span class="math inline">\(y\)</span>, <span class="math inline">\((\bar{x}, \bar{y})\)</span>:<br><span class="math display">\[\bar{y} = b_0 + b_1 \bar{x} ~ \rightarrow ~ b_0 = \bar{y} - b_1 \bar{x}\]</span>
@@ -654,41 +654,6 @@ Amy Herring
           RevealZoom
         ]
       });
-    </script><script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
     </script><script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
