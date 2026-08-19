@@ -1,0 +1,22 @@
+{
+  "hash": "67ea64b0f8a440e6f7899bc18cba372f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"ANOVA: Analysis of Variance\"\nsubtitle: \"Introduction to Global Health Data Science\"\ndate: \"2026-10-05\"\nformat:\n  revealjs:\n    output-file: w08-01-anova-slides.html\n    footer: \"[🔗 sta198-fa26-2.github.io](https://sta198-fa26-2.github.io/)\"\n    theme: slides.scss\n    transition: fade\n    slide-number: true\n    pdf-separate-fragments: true\n    toc: false\n  html:\n    code-link: true\nfilters: \n  - ../remove-fmt-skip.lua\neditor_options: \n  chunk_output_type: console\n---\n\n\n\n\n\n\n# Data: Artisanal and Small-Scale Gold Mining in the Peruvian Amazon\n\n\n## Mercury and Community\n\n[Artisinal and small-scale gold mining is largest source of mercury pollution worldwide](https://theconversation.com/gold-rush-mercury-legacy-small-scale-mining-for-gold-has-produced-long-lasting-toxic-pollution-from-1860s-california-to-modern-peru-133324).\n\nAre mercury concentrations in hair related to community of residence?\n\n\n::: {.cell layout-align=\"center\"}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(readr)\nmercury <- readr::read_csv(\"../data/mercury_reg.csv\")\n```\n:::\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-in-header": [
+        "<link href=\"../site_libs/font-awesome/css/all.min.css\" rel=\"stylesheet\" />\n<link href=\"../site_libs/font-awesome/css/v4-shims.min.css\" rel=\"stylesheet\" />\n<link href=\"../site_libs/panelset/panelset.css\" rel=\"stylesheet\" />\n<script src=\"../site_libs/panelset/panelset.js\"></script>\n"
+      ],
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

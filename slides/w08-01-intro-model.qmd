@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Modelling"
 subtitle: "Introduction to Global Health Data Science"
-date: "2026-10-05"
+date: "2026-10-14"
 format:
   revealjs:
     output-file: w08-01-intro-model-slides.html
@@ -83,6 +83,79 @@ ggplot(df2, aes(x = x, y = y)) +
 
 ::::
 
+## Recall: Sample Standard Deviation
+
+<div style="font-size:0.7em;">
+
+
+The **sample standard deviation**, $s$, measures the **typical distance of observations from the sample mean**.
+
+$$
+s = \sqrt{\frac{\sum_{i=1}^{n}(y_i-\bar{y})^2}{n-1}}
+$$
+
+where:
+
+- $y_i$ = each observed value
+- $\bar{y}$ = sample mean
+- $n$ = sample size
+
+</div>
+
+::: {.callout-note}
+The standard deviation is expressed in the **same units as the original variable**.
+
+**Larger $s$** → more variability  
+**Smaller $s$** → less variability
+:::
+
+
+
+## Correlation coefficient, $r$
+
+<div style="font-size:0.7em;">
+
+
+The **correlation coefficient**, $r$, measures the **direction and strength of the linear relationship** between two quantitative variables.
+
+$$
+r = \frac{1}{n-1}
+\sum_{i=1}^{n}
+\left(\frac{x_i-\bar{x}}{s_x}\right)
+\left(\frac{y_i-\bar{y}}{s_y}\right)
+$$
+
+where:
+
+- $\bar{x}$ and $\bar{y}$ are the sample means
+- $s_x$ and $s_y$ are the sample standard deviations
+- $n$ is the number of observations
+
+$$
+-1 \leq r \leq 1
+$$
+
+</div>
+
+## {background-color="white"}
+
+
+$$
+r = \frac{1}{n-1}
+\sum_{i=1}^{n}
+\left(\frac{x_i-\bar{x}}{s_x}\right)
+\left(\frac{y_i-\bar{y}}{s_y}\right)
+$$
+
+**Interpretation:** 
+
+- $r > 0$: positive linear relationship
+- $r < 0$: negative linear relationship
+- $r \approx 0$: little or no linear relationship
+- $|r|$ closer to 1: stronger linear relationship
+
+
+
 # Data: Artisanal and Small-Scale Gold Mining in the Peruvian Amazon
 
 ## Mercury and Assets
@@ -147,6 +220,8 @@ In our model, we will use assets to *predict* our *response variable*, the log o
 ggplot(data = mercury, aes(x = assets_sc)) +
   geom_histogram() +
   labs(x = "Assets (standardized)", y = NULL)
+
+
 ```
 
 
@@ -184,9 +259,16 @@ ggplot(data = mercury, aes(x = assets_sc, y = lhairHg)) +
     x = "Household assets (standardized)",
     y = "Hair mercury (log ppm)"
   )
+
 ```
 
 :::
+
+<div style="font-size:0.7em;">
+
+The correlation coefficient between assets and the log of hair Hg is `r round(cor(mercury$assets_sc, mercury$lhairHg, use = "complete.obs"), 2)`.
+
+</div>
 
 ## With different cosmetic choices...
 
@@ -356,12 +438,12 @@ How, if at all, does the relationship between hair mercury and household assets 
 #| ref-label: hg_asset_native
 #| echo: false
 #| warning: false
-#| out-width: 80%
+#| out-width: 70%
 ```
 
 ::: {.fragment}
 
-<div style="font-size:0.7em;">
+<div style="font-size:0.6em;">
 
 This is an example of an interaction effect -- the relationship between assets and mercury depends on the value of a third variable, community type.
 
