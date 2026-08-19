@@ -978,3 +978,20 @@ Ahh, this distribution is highly skewed. Which value is a better measure of the 
 - We can do this for any sample statistic:
   - For a mean: `calculate(stat = "mean")`
   - For a median: `calculate(stat = "median")`
+  
+  
+## Homework (Practice)
+
+[**IMS Chapter 13**](https://openintrostat.github.io/ims/foundations-mathematical.html#sec-chp13-exercises)
+
+- Problem 1
+- Problem 14
+- Problem 15
+
+[**IMS Chapter 19**](https://openintrostat.github.io/ims/inference-one-mean.html#sec-chp19-exercises)
+
+- Problem 1
+- Problem 3
+- Problem 13
+
+
