@@ -592,7 +592,7 @@ ggplot(binomdata, aes(x = X)) +
 
 Suppose you conduct a survey of 1000 Chinese citizens and find that 30 are left-handed. If we estimate the probability of left-handedness based on the proportion who reported it in this survey, what is our estimate? Based on these data, do you think the rate of left-handedness in China is equivalent to that for the US as a whole? Why or why not?
 
----
+## {background-color="white"}
 
 <div style="font-size:0.8em;">
 
@@ -650,7 +650,8 @@ If we survey 10 students, and they are all right-handed, what is our estimate of
 
 </div>
 
----
+## {background-color="white"}
+
 <div style="font-size:0.8em;">
  
 Here we compare the studies of different sizes, with the y-axis changed to a probability scale.
@@ -983,5 +984,72 @@ Verify at home you can do the calculations when three embryos are implanted.
 | 2 | 0.25 | 0.75 | 0.25 | 0 |
 | 3 | 0.125 | 0.875 | 0.375 | 0.125 |
 
+## More Practice: One Health
 
+These exercises use the binomial distribution to model surveillance data in **rabies** and **avian influenza**, two classic zoonotic diseases where human, animal, and environmental health are directly linked. In both cases, a coordinated One Health surveillance program tracks parallel streams — animal-side testing (dogs, poultry) and human-side exposure or spillover data — feeding into a shared risk assessment and response system.
 
+```{r}
+# Reminders:
+# dbinom(k, n, p)      -> P(X = k)
+# pbinom(k, n, p)      -> P(X <= k)
+# 1 - pbinom(k, n, p)  -> P(X > k)
+```
+
+## Theme 1: Rabies Surveillance (Human & Animal Arms)
+
+**Background:** Rabies is nearly always fatal once symptomatic but is preventable with prompt post-exposure prophylaxis (PEP). In many low-resource settings, dogs are the main reservoir, so surveillance depends on testing animal brain samples *and* monitoring human bite-exposure outcomes — two arms of a One Health program.
+
+## 1. Stray Dog Testing
+
+> A field team traps and tests 20 stray dogs in a region with 12% canine rabies positivity.
+>
+> a)  What is the probability exactly 3 test positive?\
+> b)  What is the probability at least 1 tests positive (relevant for deciding whether to escalate a public health response)?
+
+## 2. Unlocated Biting Dogs
+
+> A rural clinic treats 15 patients this month for dog bites where the biting animal could not be located for testing. Regional data suggests any given unlocated biting dog has a 4% probability of having truly been rabid.
+>
+> a)  What is the expected number of the 15 patients who were exposed to a truly rabid animal?\
+> b)  What is the probability that none of the 15 were actually exposed (i.e., all PEP courses were precautionary rather than lifesaving)?\
+> c)  Discuss: does this mean the PEP given was wasted?
+
+## 3. Comparing the Animal and Human Arms
+
+> A One Health surveillance program tracks both arms in parallel:
+>
+> - **Animal arm:** 60 dog brain samples submitted from a district, historical positivity rate 10%
+> - **Human arm:** 40 patients presenting with suspected rabies exposure, historical confirmed-exposure rate 5%
+>
+> For each arm, find the expected number of positives and P(observed positives exceeds the expected number by 5 or more). Which arm has a "noisier" signal, and why does that matter for how many samples you'd need to detect a real increase in rabies activity?
+
+## Theme 2: Avian Influenza (Poultry & Human Spillover)
+
+**Background:** Avian influenza (e.g., H5N1) circulates in poultry and wild birds, with occasional spillover to humans — usually among people with direct poultry contact, such as culling workers. Surveillance happens on both the animal (flock) side and the human (occupational exposure) side.
+
+## 4. Flock Testing
+
+> During an active outbreak, 25% of birds in an affected poultry flock test positive on rapid antigen testing. A vet technician samples 16 birds from the flock.
+>
+> a)  What is the probability exactly 5 test positive?\
+> b)  What is the probability at most 2 test positive? If this were observed, what might it suggest about the true flock prevalence?
+
+## 5. Occupational Human Seroconversion
+
+> Public health data suggests that among people with heavy occupational exposure to infected poultry (e.g., culling workers), the probability of subclinical/asymptomatic seroconversion is about 2% per exposed worker. A culling operation involves 80 workers.
+>
+> a)  What is the expected number who seroconvert?\
+> b)  Find P(X ≥ 4). If 4 or more actually seroconvert, does imply human-to-human transmission must be occurring?
+
+<div style="font-size:0.5em;">
+
+Distinguishing "more spillover than expected" from "the virus is now spreading between people" is one of the central judgment calls in pandemic risk assessment, and requires additional epidemiological evidence — e.g., cases with no direct poultry contact, or clusters among the *contacts* of a worker rather than among workers themselves.
+
+</div>
+
+## 6. Cross-Species Comparison
+
+> Flock-level testing shows 25% poultry positivity (as in 4), but occupational human seroconversion is only 2% (as in 5) despite substantial exposure.
+>
+> a)  Using the binomial model, explain quantitatively why a much larger human sample would be needed to reliably detect a *change* in the human spillover rate compared to detecting a change in flock prevalence.\
+> b)  What biological and exposure factors might create this gap?
