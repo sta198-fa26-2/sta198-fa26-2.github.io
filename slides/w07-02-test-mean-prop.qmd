@@ -201,7 +201,12 @@ knitr::include_graphics("../img/tdisttwotail.png")
 
 ::: {.column width="65%"}
 
+<div style="font-size:0.8em;">
+
+
 For a *one-sided* test with $H_0: \mu > \mu_0$, the p-value is the probability of seeing a t statistic with value the same size, or smaller than, what we saw in our data. Recall $$t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.$$
+
+</div>
 
 ```{r}
 #| echo: false
@@ -239,8 +244,12 @@ knitr::include_graphics("../img/tdistlefttail.png")
 
 ::: {.column width="65%"}
 
+<div style="font-size:0.8em;">
+
+
 For a *one-sided* test with $H_0: \mu < \mu_0$, the p-value is the probability of seeing a t statistic with value the same size, or larger than, what we saw in our data. Recall $$t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.$$
 
+</div>
 
 ```{r}
 #| echo: false
@@ -606,22 +615,9 @@ OR equivalently,
 $$H_0: \mu_{MALE}-\mu_{FEMALE}=0$$
 $$H_A: \mu_{MALE}-\mu_{FEMALE}\neq 0$$
 
-
-## {background-color="white"}
-
-```{r}
-#| label: twosamplet
-tsum.test(mean.x=13.33, s.x=4.02, n.x=85,
-          mean.y=10.73, s.y=4.25, n.y=120,
-          var.equal=FALSE)
-# If we had a variable with the ratings, say y, and then a variable for gender, instead of summary data, we would use the following code
-# t.test(y~gender,var.equal=FALSE)
-```
-
-Based on both the test and the 95% confidence interval, we have evidence to reject the null hypothesis that males and females place the same emphasis on looks and personality. In this population, it appears that females place more emphasis on personality than males.
-
-
 </div>
+
+
 
 ## {background-color="white"}
 
@@ -687,3 +683,62 @@ Based on both the test and the 95% confidence interval, we have evidence to reje
 - Be cautious about results of hypothesis testing in the presence of missing data.
 
 </div>
+
+## Homework (Practice): How Do Humans Adapt to High Altitude?
+
+<div style="font-size:0.7em;">
+
+
+At high altitude, lower atmospheric oxygen creates a physiological challenge: the body must still deliver enough oxygen to its tissues. One way humans can respond is by increasing the concentration of **hemoglobin**, the oxygen-carrying protein in red blood cells.
+
+Researchers studying high-altitude adaptation in Ethiopia measured hemoglobin concentrations among members of two populations living at high altitude: the **Amhara**, living at approximately 3,700 meters, and the **Oromo**, living at approximately 4,000 meters.
+
+Among iron-replete men (men with adequate iron levels), researchers observed the following:
+
+| Population | Altitude | Sample size | Mean hemoglobin |       SD |
+| ---------- | -------: | ----------: | --------------: | -------: |
+| Amhara     |  3,700 m |          99 |       16.7 g/dL | 1.1 g/dL |
+| Oromo      |  4,000 m |          66 |       18.7 g/dL | 1.7 g/dL |
+
+We want to investigate whether **mean hemoglobin concentration differs between these two high-altitude populations**.
+
+</div>
+
+## {background-color="white"}
+
+
+**1. Define the parameters.**
+Let $\mu_A$ represent the mean hemoglobin concentration among Amhara men living at high altitude and $\mu_O$ represent the mean among Oromo men living at high altitude.
+
+Write the **null and alternative hypotheses** for the research question.
+
+**2. Choose an analysis.**
+What statistical test would you use to compare mean hemoglobin concentration between these two groups? Briefly explain why this test is appropriate.
+
+## {background-color="white"}
+
+
+**3. Conduct the test in R.**
+Use the summary statistics to perform a two-sample t-test. Assume that the population variances are not necessarily equal.
+
+Report the following:
+
+* the estimated difference in mean hemoglobin concentrations,
+* the test statistic,
+* the p-value, and
+* the 95% confidence interval for the difference in means.
+
+## {background-color="white"}
+
+
+**4. Interpret the results.**
+Based on your hypothesis test, is there evidence that mean hemoglobin concentration differs between Amhara and Oromo men living at high altitude? Explain your conclusion in plain language.
+
+**5. Statistical significance vs. scientific importance.**
+Does a small p-value tell us whether the observed difference in sample means is physiologically important? Explain.
+
+## Homework (Practice): Moving to High Altitude
+
+What happens to the human body when we move to high altitude? Design a study to investigate how a physiological measure, such as blood oxygen saturation or hemoglobin concentration, changes when people move from low to high altitude. Describe who you would study, what you would measure, and when you would take the measurements. Then propose an appropriate statistical analysis for determining whether the physiological measure changes, on average, with altitude.
+
+
