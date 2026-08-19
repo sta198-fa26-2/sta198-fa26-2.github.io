@@ -55,9 +55,9 @@ Distinguish good evidence from weak or misleading evidence using statistical rea
 ## Important Dates
 
 -   **Classes begin**: Aug 24
--   **Exam 1**: 
--   **Exam 2**:
--   **Exam 3**:
+-   **Exam 1**: Sept 30
+-   **Exam 2**: Nov 4
+-   **Exam 3**: Dec 2
 -   **Classes end**: Dec 4
 -   **Final exam**: Dec 11
 
@@ -195,7 +195,7 @@ Commits to this repository will be used as a metric (one of several) of each tea
 
 #### Lectures
 
-Attendance and participation will be monitored throughout the semester. Your attendance and participation score will be calculated as the percentage of lectures in which you engaged in person (i.e., sleeping or online shopping does not count, and you must participate in class activities). The denominator used for this calculation will be 22 (we have 22 non-exam lecture days, excluding the first day of class). Students who are active in 20 or more lectures will receive full credit. Participation in the fall mandatory constellation group activity can count as lecture attendance. That is, if you actively attend all 22 lectures after the first day of class and the constellation activity, you will receive 100%; 20 lectures - 100%, 19 lectures + constellation activity - 100%, 19 lectures - $100*\frac{19}{24}=79$%.
+Attendance and participation will be monitored throughout the semester. Your attendance and participation score will be calculated as the percentage of lectures in which you engaged in person (i.e., sleeping or online shopping does not count, and you must participate in class activities). The denominator used for this calculation will be 22 (we have 22 non-exam lecture days, excluding the first day of class). Students who are active in 20 or more lectures will receive full credit. That is, if you actively attend all 22 lectures after the first day of class and the constellation activity, you will receive 100%; 20 lectures - 100%, 19 lectures - $100*\frac{19}{22}=86$%. Note: if you have an unpleasant communicable disease, please do not share!
 
 
 #### Labs
