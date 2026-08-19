@@ -26,7 +26,7 @@ Distinguish good evidence from weak or misleading evidence using statistical rea
 | Component | Weight | Details |
 |----------------------------|---------------------|-----------------------|
 | Lectures | 5% | Attendance/participation (20 non-exam lectures minimum for full score) |
-| Labs | 10% | Individual or team-based, completed in class (lowest 2 dropped) |
+| Labs | 20% | Individual or team-based, completed in class (lowest 2 dropped) |
 | Exam 1 | 25% | In-class |
 | Exam 2 | 25% | In-class |
 | Exam 3 | 25% | In-class |
@@ -220,7 +220,7 @@ The exams will focus on both conceptual understanding of the content and applica
 | Component | Weight | Details |
 |----------------------------|---------------------|-----------------------|
 | Lectures | 5% | Attendance/participation (20 minimum for full score) |
-| Labs | 10% | Individual or team-based, completed in class (lowest 2 dropped) |
+| Labs | 20% | Individual or team-based, completed in class (lowest 2 dropped) |
 | Exam 1 | 25% | In-class |
 | Exam 2 | 25% | In-class |
 | Exam 3 | 25% | In-class |
