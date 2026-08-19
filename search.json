@@ -5150,7 +5150,7 @@
     "href": "slides/w05-02-clt.html#packages",
     "title": "Distribution of the Sample Mean",
     "section": "Packages",
-    "text": "Packages\n\nlibrary(tidyverse)\n\nWarning: package 'tibble' was built under R version 4.3.3\n\n\nWarning: package 'purrr' was built under R version 4.3.3\n\n\nWarning: package 'lubridate' was built under R version 4.3.3\n\nlibrary(infer)\n\nWarning: package 'infer' was built under R version 4.3.3"
+    "text": "Packages\n\nlibrary(tidyverse)\nlibrary(infer)"
   },
   {
     "objectID": "slides/w05-02-clt.html#central-limit-theorem",
@@ -5318,7 +5318,7 @@
     "href": "slides/w05-02-clt.html#try-it-out-flint-data",
     "title": "Distribution of the Sample Mean",
     "section": "Try it out: Flint Data",
-    "text": "Try it out: Flint Data\n\nLet’s calculate the estimated proportion of homes in Flint with lead levels over 15 ppb along with a 95% confidence interval for the proportion.\n\nlibrary(readxl)\n\nWarning: package 'readxl' was built under R version 4.3.3\n\nlibrary(glue)\n\nWarning: package 'glue' was built under R version 4.3.3\n\nflint=read_excel(\"../data/Flint-Samples.xlsx\",sheet=1)\nflint=rename(flint, \"Pb_initial\"=\"Pb Bottle 1 (ppb) - First Draw\")\nres.glue &lt;- flint %&gt;%\n  mutate(Pbover15 = Pb_initial &gt; 15) %&gt;%\n  summarize(propover15 = mean(Pbover15),\n            n.lead = n()) %&gt;%\n  mutate(\n    se.lead = sqrt(propover15 * (1 - propover15)) / sqrt(n.lead),\n    lower.ci.lead = propover15 - qnorm(1 - (0.05 / 2)) * se.lead,\n    upper.ci.lead = propover15 + qnorm(1 - (0.05 / 2)) * se.lead\n  ) \nci.glue=glue(\"({round(res.glue$lower.ci.lead,2)}, {round(res.glue$upper.ci.lead,2)})\") \n\nIn our sample, 17% of homes had lead levels over 15 ppb, with a 95% confidence interval for the proportion of homes with high lead of (0.12, 0.21)."
+    "text": "Try it out: Flint Data\n\nLet’s calculate the estimated proportion of homes in Flint with lead levels over 15 ppb along with a 95% confidence interval for the proportion.\n\nlibrary(readxl)\nlibrary(glue)\nflint=read_excel(\"../data/Flint-Samples.xlsx\",sheet=1)\nflint=rename(flint, \"Pb_initial\"=\"Pb Bottle 1 (ppb) - First Draw\")\nres.glue &lt;- flint %&gt;%\n  mutate(Pbover15 = Pb_initial &gt; 15) %&gt;%\n  summarize(propover15 = mean(Pbover15),\n            n.lead = n()) %&gt;%\n  mutate(\n    se.lead = sqrt(propover15 * (1 - propover15)) / sqrt(n.lead),\n    lower.ci.lead = propover15 - qnorm(1 - (0.05 / 2)) * se.lead,\n    upper.ci.lead = propover15 + qnorm(1 - (0.05 / 2)) * se.lead\n  ) \nci.glue=glue(\"({round(res.glue$lower.ci.lead,2)}, {round(res.glue$upper.ci.lead,2)})\") \n\nIn our sample, 17% of homes had lead levels over 15 ppb, with a 95% confidence interval for the proportion of homes with high lead of (0.12, 0.21)."
   },
   {
     "objectID": "slides/w05-02-clt.html#confidence-interval-width",
@@ -5479,7 +5479,7 @@
     "href": "slides/w05-02-clt.html#visualize-the-confidence-interval",
     "title": "Distribution of the Sample Mean",
     "section": "Visualize the confidence interval",
-    "text": "Visualize the confidence interval\n\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2\n3.4.0.\nℹ Please use `linewidth` instead."
+    "text": "Visualize the confidence interval"
   },
   {
     "objectID": "slides/w05-02-clt.html#interpret-the-confidence-interval",
@@ -5580,6 +5580,13 @@
     "text": "Recap\n\nSample statistic \\(\\ne\\) population parameter, but if the sample is good, it can be a good estimate\nWe report the estimate with a confidence interval, and the width of this interval depends on the variability of sample statistics from different samples from the population\nSince we can’t continue sampling from the population, we bootstrap from the one sample we have to estimate sampling variability\n\nWe can do this for any sample statistic:\n\nFor a mean: calculate(stat = \"mean\")\n\nFor a median: calculate(stat = \"median\")"
   },
   {
+    "objectID": "slides/w05-02-clt.html#homework-practice",
+    "href": "slides/w05-02-clt.html#homework-practice",
+    "title": "Distribution of the Sample Mean",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 13\n\nProblem 1\nProblem 14\nProblem 15\n\nIMS Chapter 19\n\nProblem 1\nProblem 3\nProblem 13"
+  },
+  {
     "objectID": "slides/w06-02-clt-slides.html#main-ideas",
     "href": "slides/w06-02-clt-slides.html#main-ideas",
     "title": "Distribution of the Sample Mean",
@@ -5591,7 +5598,7 @@
     "href": "slides/w06-02-clt-slides.html#packages",
     "title": "Distribution of the Sample Mean",
     "section": "Packages",
-    "text": "Packages\n\nlibrary(tidyverse)\n\nWarning: package 'tibble' was built under R version 4.3.3\n\n\nWarning: package 'purrr' was built under R version 4.3.3\n\n\nWarning: package 'lubridate' was built under R version 4.3.3\n\nlibrary(infer)\n\nWarning: package 'infer' was built under R version 4.3.3"
+    "text": "Packages\n\nlibrary(tidyverse)\nlibrary(infer)"
   },
   {
     "objectID": "slides/w06-02-clt-slides.html#central-limit-theorem",
@@ -5759,7 +5766,7 @@
     "href": "slides/w06-02-clt-slides.html#try-it-out-flint-data",
     "title": "Distribution of the Sample Mean",
     "section": "Try it out: Flint Data",
-    "text": "Try it out: Flint Data\n\nLet’s calculate the estimated proportion of homes in Flint with lead levels over 15 ppb along with a 95% confidence interval for the proportion.\n\nlibrary(readxl)\n\nWarning: package 'readxl' was built under R version 4.3.3\n\nlibrary(glue)\n\nWarning: package 'glue' was built under R version 4.3.3\n\nflint=read_excel(\"../data/Flint-Samples.xlsx\",sheet=1)\nflint=rename(flint, \"Pb_initial\"=\"Pb Bottle 1 (ppb) - First Draw\")\nres.glue &lt;- flint %&gt;%\n  mutate(Pbover15 = Pb_initial &gt; 15) %&gt;%\n  summarize(propover15 = mean(Pbover15),\n            n.lead = n()) %&gt;%\n  mutate(\n    se.lead = sqrt(propover15 * (1 - propover15)) / sqrt(n.lead),\n    lower.ci.lead = propover15 - qnorm(1 - (0.05 / 2)) * se.lead,\n    upper.ci.lead = propover15 + qnorm(1 - (0.05 / 2)) * se.lead\n  ) \nci.glue=glue(\"({round(res.glue$lower.ci.lead,2)}, {round(res.glue$upper.ci.lead,2)})\") \n\nIn our sample, 17% of homes had lead levels over 15 ppb, with a 95% confidence interval for the proportion of homes with high lead of (0.12, 0.21)."
+    "text": "Try it out: Flint Data\n\nLet’s calculate the estimated proportion of homes in Flint with lead levels over 15 ppb along with a 95% confidence interval for the proportion.\n\nlibrary(readxl)\nlibrary(glue)\nflint=read_excel(\"../data/Flint-Samples.xlsx\",sheet=1)\nflint=rename(flint, \"Pb_initial\"=\"Pb Bottle 1 (ppb) - First Draw\")\nres.glue &lt;- flint %&gt;%\n  mutate(Pbover15 = Pb_initial &gt; 15) %&gt;%\n  summarize(propover15 = mean(Pbover15),\n            n.lead = n()) %&gt;%\n  mutate(\n    se.lead = sqrt(propover15 * (1 - propover15)) / sqrt(n.lead),\n    lower.ci.lead = propover15 - qnorm(1 - (0.05 / 2)) * se.lead,\n    upper.ci.lead = propover15 + qnorm(1 - (0.05 / 2)) * se.lead\n  ) \nci.glue=glue(\"({round(res.glue$lower.ci.lead,2)}, {round(res.glue$upper.ci.lead,2)})\") \n\nIn our sample, 17% of homes had lead levels over 15 ppb, with a 95% confidence interval for the proportion of homes with high lead of (0.12, 0.21)."
   },
   {
     "objectID": "slides/w06-02-clt-slides.html#confidence-interval-width",
@@ -5920,7 +5927,7 @@
     "href": "slides/w06-02-clt-slides.html#visualize-the-confidence-interval",
     "title": "Distribution of the Sample Mean",
     "section": "Visualize the confidence interval",
-    "text": "Visualize the confidence interval\n\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2\n3.4.0.\nℹ Please use `linewidth` instead."
+    "text": "Visualize the confidence interval"
   },
   {
     "objectID": "slides/w06-02-clt-slides.html#interpret-the-confidence-interval",
@@ -6019,6 +6026,13 @@
     "title": "Distribution of the Sample Mean",
     "section": "Recap",
     "text": "Recap\n\nSample statistic \\(\\ne\\) population parameter, but if the sample is good, it can be a good estimate\nWe report the estimate with a confidence interval, and the width of this interval depends on the variability of sample statistics from different samples from the population\nSince we can’t continue sampling from the population, we bootstrap from the one sample we have to estimate sampling variability\n\nWe can do this for any sample statistic:\n\nFor a mean: calculate(stat = \"mean\")\n\nFor a median: calculate(stat = \"median\")"
+  },
+  {
+    "objectID": "slides/w06-02-clt-slides.html#homework-practice",
+    "href": "slides/w06-02-clt-slides.html#homework-practice",
+    "title": "Distribution of the Sample Mean",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 13\n\nProblem 1\nProblem 14\nProblem 15\n\nIMS Chapter 19\n\nProblem 1\nProblem 3\nProblem 13"
   },
   {
     "objectID": "slides/w01-02-ggplot.html",
