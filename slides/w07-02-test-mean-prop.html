@@ -545,11 +545,16 @@ window.Quarto = {
 <a href="#case-study-personality-or-looks" id="toc-case-study-personality-or-looks" class="nav-link" data-scroll-target="#case-study-personality-or-looks">Case Study: Personality or Looks?</a>
   <ul class="collapse">
 <li><a href="#personality-or-looks" id="toc-personality-or-looks" class="nav-link" data-scroll-target="#personality-or-looks">Personality or Looks?</a></li>
-  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14"></a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13"></a></li>
   <li><a href="#two-sample-t-test" id="toc-two-sample-t-test" class="nav-link" data-scroll-target="#two-sample-t-test">Two-Sample T-Test</a></li>
   <li><a href="#equal-or-unequal-variance" id="toc-equal-or-unequal-variance" class="nav-link" data-scroll-target="#equal-or-unequal-variance">Equal or Unequal Variance?</a></li>
-  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15"></a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14"></a></li>
   <li><a href="#analysis-limitations-and-sensitivity-analysis" id="toc-analysis-limitations-and-sensitivity-analysis" class="nav-link" data-scroll-target="#analysis-limitations-and-sensitivity-analysis">Analysis Limitations and Sensitivity Analysis</a></li>
+  <li><a href="#homework-practice-how-do-humans-adapt-to-high-altitude" id="toc-homework-practice-how-do-humans-adapt-to-high-altitude" class="nav-link" data-scroll-target="#homework-practice-how-do-humans-adapt-to-high-altitude">Homework (Practice): How Do Humans Adapt to High Altitude?</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15"></a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16"></a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17"></a></li>
+  <li><a href="#homework-practice-moving-to-high-altitude" id="toc-homework-practice-moving-to-high-altitude" class="nav-link" data-scroll-target="#homework-practice-moving-to-high-altitude">Homework (Practice): Moving to High Altitude</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w07-02-test-mean-prop.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="w07-02-test-mean-prop-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -776,7 +781,9 @@ window.Quarto = {
 </div><div class="column" style="width:5%;">
 
 </div><div class="column" style="width:65%;">
+<div style="font-size:0.8em;">
 <p>For a <em>one-sided</em> test with <span class="math inline">\(H_0: \mu &gt; \mu_0\)</span>, the p-value is the probability of seeing a t statistic with value the same size, or smaller than, what we saw in our data. Recall <span class="math display">\[t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.\]</span></p>
+</div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -819,7 +826,9 @@ window.Quarto = {
 </div><div class="column" style="width:5%;">
 
 </div><div class="column" style="width:65%;">
+<div style="font-size:0.8em;">
 <p>For a <em>one-sided</em> test with <span class="math inline">\(H_0: \mu &lt; \mu_0\)</span>, the p-value is the probability of seeing a t statistic with value the same size, or larger than, what we saw in our data. Recall <span class="math display">\[t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.\]</span></p>
+</div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -902,7 +911,7 @@ window.Quarto = {
 <span>       title <span class="op">=</span> <span class="st">"Simulated null distribution"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-html/visualizenull-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w07-02-test-mean-prop_files/figure-html/visualizenull-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-revealjs/visualizenull-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w07-02-test-mean-prop_files/figure-revealjs/visualizenull-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -919,7 +928,7 @@ window.Quarto = {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Sample means"</span>, y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-html/sampmean-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w07-02-test-mean-prop_files/figure-html/sampmean-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></a></p>
+<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-revealjs/sampmean-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w07-02-test-mean-prop_files/figure-revealjs/sampmean-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -937,7 +946,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="w07-02-test-mean-prop_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-revealjs/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="w07-02-test-mean-prop_files/figure-revealjs/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1010,7 +1019,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="w07-02-test-mean-prop_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-revealjs/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="w07-02-test-mean-prop_files/figure-revealjs/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1065,7 +1074,7 @@ window.Quarto = {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">diff45</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-html/next-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w07-02-test-mean-prop_files/figure-html/next-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-revealjs/next-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w07-02-test-mean-prop_files/figure-revealjs/next-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1080,7 +1089,7 @@ window.Quarto = {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">diff2</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-html/next2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w07-02-test-mean-prop_files/figure-html/next2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w07-02-test-mean-prop_files/figure-revealjs/next2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w07-02-test-mean-prop_files/figure-revealjs/next2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1164,7 +1173,22 @@ window.Quarto = {
 <p><span class="math display">\[H_0:  \mu_{MALE}=\mu_{FEMALE}\]</span> <span class="math display">\[H_A:  \mu_{MALE}\neq\mu_{FEMALE}\]</span></p>
 <p>OR equivalently,</p>
 <p><span class="math display">\[H_0: \mu_{MALE}-\mu_{FEMALE}=0\]</span> <span class="math display">\[H_A: \mu_{MALE}-\mu_{FEMALE}\neq 0\]</span></p>
-<section id="section-13" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-13"></h2>
+</div>
+</section><section id="section-13" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-13"></h2>
+<p>The researcher enrolled 239 subjects and obtained complete data on 205, with 85 males and 120 females in the complete data sample.</p>
+<p>Analyzing the data, we obtain <span class="math inline">\(\bar{x}_{MALE}=13.33\)</span>, <span class="math inline">\(\bar{x}_{FEMALE}=10.73\)</span>, <span class="math inline">\(s_{MALE}=4.02\)</span>, <span class="math inline">\(s_{FEMALE}=4.25\)</span>.</p>
+<p>Recall: 1=only personality, 25=only looks</p>
+</section><section id="two-sample-t-test" class="level2"><h2 class="anchored" data-anchor-id="two-sample-t-test">Two-Sample T-Test</h2>
+<p>The two-sample t-test for independent samples is given by <span class="math display">\[t=\frac{(\bar{x}_1-\bar{x}_2)-(\mu_1-\mu_2)}{\sqrt{s_1^2/{n_1}+s_2^2/n_2}}.\]</span> The degrees of freedom (df) depend on whether or not <span class="math inline">\(\sigma_1=\sigma_2\)</span>.</p>
+</section><section id="equal-or-unequal-variance" class="level2"><h2 class="anchored" data-anchor-id="equal-or-unequal-variance">Equal or Unequal Variance?</h2>
+<div style="font-size:0.8em;">
+<p>The choice of df depends on whether the independent samples have the same, or different, variances. There are tests for this in R (e.g., bartlett.test()), but these tests have low power when sample sizes are not large and thus tends to tell you variances are equal in this setting when in fact, they may not be.</p>
+<p>If the variances are equal, then we can use a pooled estimate of <span class="math inline">\(s^2\)</span>, and the degrees of freedom are given by <span class="math inline">\((n_1-1)+(n_2-1)=n_1+n_2-2\)</span>.</p>
+<p>If the variances are unequal, the degrees of freedom are difficult to derive, and the Welch/Satterthwaite approximation is often used (software will do this for you), which is <span class="math inline">\(df=\frac{\left(\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}\right)^2}{\frac{1}{n_1-1}\left(\frac{s_1^2}{n_1}\right)^2+\frac{1}{n_2-1}\left(\frac{s_2^2}{n_2}\right)^2}\)</span>.</p>
+<p>Unequal variances should be the default choice, as the t-test assuming equal variances can be quite unreliable if the variances differ, especially when the group sizes differ as well.</p>
+</div>
+</section><section id="section-14" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-14"></h2>
+<div style="font-size:0.7em;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://alanarnholt.github.io/BSDA/reference/tsum.test.html">tsum.test</a></span><span class="op">(</span>mean.x<span class="op">=</span><span class="fl">13.33</span>, s.x<span class="op">=</span><span class="fl">4.02</span>, n.x<span class="op">=</span><span class="fl">85</span>,</span>
 <span>          mean.y<span class="op">=</span><span class="fl">10.73</span>, s.y<span class="op">=</span><span class="fl">4.25</span>, n.y<span class="op">=</span><span class="fl">120</span>,</span>
@@ -1182,45 +1206,7 @@ window.Quarto = {
 #&gt; mean of x mean of y 
 #&gt;     13.33     10.73</code></pre>
 </div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># If we had a variable with the ratings, say y, and then a variable for gender, instead of summary data, we would use the following code</span></span>
-<span><span class="co"># t.test(y~gender,var.equal=FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Based on both the test and the 95% confidence interval, we have evidence to reject the null hypothesis that males and females place the same emphasis on looks and personality. In this population, it appears that females place more emphasis on personality than males.</p>
-</section>
-</div>
-</section><section id="section-14" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-14"></h2>
-<p>The researcher enrolled 239 subjects and obtained complete data on 205, with 85 males and 120 females in the complete data sample.</p>
-<p>Analyzing the data, we obtain <span class="math inline">\(\bar{x}_{MALE}=13.33\)</span>, <span class="math inline">\(\bar{x}_{FEMALE}=10.73\)</span>, <span class="math inline">\(s_{MALE}=4.02\)</span>, <span class="math inline">\(s_{FEMALE}=4.25\)</span>.</p>
-<p>Recall: 1=only personality, 25=only looks</p>
-</section><section id="two-sample-t-test" class="level2"><h2 class="anchored" data-anchor-id="two-sample-t-test">Two-Sample T-Test</h2>
-<p>The two-sample t-test for independent samples is given by <span class="math display">\[t=\frac{(\bar{x}_1-\bar{x}_2)-(\mu_1-\mu_2)}{\sqrt{s_1^2/{n_1}+s_2^2/n_2}}.\]</span> The degrees of freedom (df) depend on whether or not <span class="math inline">\(\sigma_1=\sigma_2\)</span>.</p>
-</section><section id="equal-or-unequal-variance" class="level2"><h2 class="anchored" data-anchor-id="equal-or-unequal-variance">Equal or Unequal Variance?</h2>
-<div style="font-size:0.8em;">
-<p>The choice of df depends on whether the independent samples have the same, or different, variances. There are tests for this in R (e.g., bartlett.test()), but these tests have low power when sample sizes are not large and thus tends to tell you variances are equal in this setting when in fact, they may not be.</p>
-<p>If the variances are equal, then we can use a pooled estimate of <span class="math inline">\(s^2\)</span>, and the degrees of freedom are given by <span class="math inline">\((n_1-1)+(n_2-1)=n_1+n_2-2\)</span>.</p>
-<p>If the variances are unequal, the degrees of freedom are difficult to derive, and the Welch/Satterthwaite approximation is often used (software will do this for you), which is <span class="math inline">\(df=\frac{\left(\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}\right)^2}{\frac{1}{n_1-1}\left(\frac{s_1^2}{n_1}\right)^2+\frac{1}{n_2-1}\left(\frac{s_2^2}{n_2}\right)^2}\)</span>.</p>
-<p>Unequal variances should be the default choice, as the t-test assuming equal variances can be quite unreliable if the variances differ, especially when the group sizes differ as well.</p>
-</div>
-</section><section id="section-15" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-15"></h2>
-<div style="font-size:0.7em;">
-<div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://alanarnholt.github.io/BSDA/reference/tsum.test.html">tsum.test</a></span><span class="op">(</span>mean.x<span class="op">=</span><span class="fl">13.33</span>, s.x<span class="op">=</span><span class="fl">4.02</span>, n.x<span class="op">=</span><span class="fl">85</span>,</span>
-<span>          mean.y<span class="op">=</span><span class="fl">10.73</span>, s.y<span class="op">=</span><span class="fl">4.25</span>, n.y<span class="op">=</span><span class="fl">120</span>,</span>
-<span>          var.equal<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; 
-#&gt;  Welch Modified Two-Sample t-Test
-#&gt; 
-#&gt; data:  Summarized x and y
-#&gt; t = 4.4548, df = 186.94, p-value = 1.444e-05
-#&gt; alternative hypothesis: true difference in means is not equal to 0
-#&gt; 95 percent confidence interval:
-#&gt;  1.44862 3.75138
-#&gt; sample estimates:
-#&gt; mean of x mean of y 
-#&gt;     13.33     10.73</code></pre>
-</div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># If we had a variable with the ratings, say y, </span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># If we had a variable with the ratings, say y, </span></span>
 <span><span class="co"># and then a variable for gender, instead of summary </span></span>
 <span><span class="co"># data, we would use the following code</span></span>
 <span><span class="co"># t.test(y~gender,var.equal=FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1237,9 +1223,93 @@ window.Quarto = {
 <li><p>Be cautious about results of hypothesis testing in the presence of missing data.</p></li>
 </ul>
 </div>
+</section><section id="homework-practice-how-do-humans-adapt-to-high-altitude" class="level2"><h2 class="anchored" data-anchor-id="homework-practice-how-do-humans-adapt-to-high-altitude">Homework (Practice): How Do Humans Adapt to High Altitude?</h2>
+<div style="font-size:0.7em;">
+<p>At high altitude, lower atmospheric oxygen creates a physiological challenge: the body must still deliver enough oxygen to its tissues. One way humans can respond is by increasing the concentration of <strong>hemoglobin</strong>, the oxygen-carrying protein in red blood cells.</p>
+<p>Researchers studying high-altitude adaptation in Ethiopia measured hemoglobin concentrations among members of two populations living at high altitude: the <strong>Amhara</strong>, living at approximately 3,700 meters, and the <strong>Oromo</strong>, living at approximately 4,000 meters.</p>
+<p>Among iron-replete men (men with adequate iron levels), researchers observed the following:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Population</th>
+<th style="text-align: right;">Altitude</th>
+<th style="text-align: right;">Sample size</th>
+<th style="text-align: right;">Mean hemoglobin</th>
+<th style="text-align: right;">SD</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Amhara</td>
+<td style="text-align: right;">3,700 m</td>
+<td style="text-align: right;">99</td>
+<td style="text-align: right;">16.7 g/dL</td>
+<td style="text-align: right;">1.1 g/dL</td>
+</tr>
+<tr class="even">
+<td>Oromo</td>
+<td style="text-align: right;">4,000 m</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">18.7 g/dL</td>
+<td style="text-align: right;">1.7 g/dL</td>
+</tr>
+</tbody>
+</table>
+<p>We want to investigate whether <strong>mean hemoglobin concentration differs between these two high-altitude populations</strong>.</p>
+</div>
+</section><section id="section-15" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-15"></h2>
+<p><strong>1. Define the parameters.</strong> Let <span class="math inline">\(\mu_A\)</span> represent the mean hemoglobin concentration among Amhara men living at high altitude and <span class="math inline">\(\mu_O\)</span> represent the mean among Oromo men living at high altitude.</p>
+<p>Write the <strong>null and alternative hypotheses</strong> for the research question.</p>
+<p><strong>2. Choose an analysis.</strong> What statistical test would you use to compare mean hemoglobin concentration between these two groups? Briefly explain why this test is appropriate.</p>
+</section><section id="section-16" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-16"></h2>
+<p><strong>3. Conduct the test in R.</strong> Use the summary statistics to perform a two-sample t-test. Assume that the population variances are not necessarily equal.</p>
+<p>Report the following:</p>
+<ul>
+<li>the estimated difference in mean hemoglobin concentrations,</li>
+<li>the test statistic,</li>
+<li>the p-value, and</li>
+<li>the 95% confidence interval for the difference in means.</li>
+</ul></section><section id="section-17" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-17"></h2>
+<p><strong>4. Interpret the results.</strong> Based on your hypothesis test, is there evidence that mean hemoglobin concentration differs between Amhara and Oromo men living at high altitude? Explain your conclusion in plain language.</p>
+<p><strong>5. Statistical significance vs.&nbsp;scientific importance.</strong> Does a small p-value tell us whether the observed difference in sample means is physiologically important? Explain.</p>
+</section><section id="homework-practice-moving-to-high-altitude" class="level2"><h2 class="anchored" data-anchor-id="homework-practice-moving-to-high-altitude">Homework (Practice): Moving to High Altitude</h2>
+<p>What happens to the human body when we move to high altitude? Design a study to investigate how a physiological measure, such as blood oxygen saturation or hemoglobin concentration, changes when people move from low to high altitude. Describe who you would study, what you would measure, and when you would take the measurements. Then propose an appropriate statistical analysis for determining whether the physiological measure changes, on average, with altitude.</p>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
