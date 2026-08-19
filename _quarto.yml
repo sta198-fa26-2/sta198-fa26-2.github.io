@@ -80,7 +80,6 @@ website:
           - href: computing-troubleshooting.qmd
             text: Troubleshooting
       - lab.qmd
-      - hw.qmd
       - exam-review.qmd
             
   page-footer:
