@@ -20,6 +20,9 @@ editor_options:
 ---
 
 ```{r, child="setup.Rmd", echo=FALSE}
+```
+
+```{r}
 library(tidyverse)
 library(tidymodels)
 library(ggtext)
@@ -727,3 +730,203 @@ Here we see estimated means by community.
 
 
 To learn more about *random effects models*, also known as *hierarchical* or *multilevel* models, check out STA 210 or STA 221 (regression analysis) sometime!
+
+# Regression models with categorical explanatory variables
+
+
+## Categorical predictor with 2 levels
+
+:::: {.columns}
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| class-output: small
+
+mercury <-
+  mercury %>%
+  # scale() subtracts the mean and divides by the SD to make the units "standard deviations" like a z-score
+  mutate(assets_sc=scale(SESassets)) %>%
+  #another variable we may use later
+  mutate(form_min_sc=scale(FM_buffer)) %>%
+  #so I don't have to remember coding
+  mutate(sex,sex_cat=ifelse(sex==1,"Male","Female")) %>%
+  mutate(native,native_cat=ifelse(native==1,"Native","Non-native")) 
+mercury %>% 
+  filter(lhairHg != "NA") %>%
+  select(lhairHg, assets_sc, native_cat) %>%
+  print(n = 20)
+```
+:::
+
+::: {.column width="60%"}
+- `Native`: community classified as native by Peruvian government
+- `Non-native`: community does not have native classification
+:::
+
+::::
+
+## Mercury & native community relationship
+
+```{r}
+#| label: hg-native-fit
+linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ native_cat, data = mercury) %>%
+  tidy()
+```
+
+
+## Mercury and native communities
+
+<div style="font-size:0.9em;">
+
+
+Define $\text{Non-native}_i$=1 if non-native community and 0 otherwise.
+
+$$\widehat{y_i} = 1.12 - 1.11~\text{Non-native}_i$$
+
+- **Slope:** Residents of non-native communities, on average, are expected to have Hg concentrations that are -1.11 log ppm lower, on average, than residents of native communities.  Alternatively, the hair Hg is expected to be lower, on average, by a factor of $e^{-1.11}=0.33$ among residents of non-native communities.
+  - Compares baseline level (`Native`) to the other level (`Non-native`)
+    
+- **Intercept:** Individuals living in native communities (`Non-native`=0) are expected to have hair mercury exposures of 1.12 log ppm.
+
+</div>
+
+
+## Relationship between mercury and individual community
+
+```{r}
+#| label: hg-community
+com_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ community, data = mercury) 
+
+tidy(com_fit)
+```
+
+## Dummy or indicator variables
+
+```{r}
+#| ref.label: "hg-comm"
+#| echo: false
+```
+
+<div style="font-size:0.9em;">
+
+
+- When the categorical explanatory variable has many levels, they're encoded to **dummy** or **indicator variables**
+- Each coefficient describes the expected difference between log mercury concentrations in that particular community compared to the baseline community 
+
+</div>
+
+## Categorical predictor with 3+ levels
+
+<div style="font-size:0.7em;">
+
+
+```{r}
+#| echo: false
+#| out.width: "60%" 
+dummy_df <- mercury %>% 
+  select(community) %>% 
+  group_by(community) %>% 
+  sample_n(1) %>%
+  mutate(
+    BI    = as.integer(ifelse(community == "Boca Isiriwe", 1L, 0)),
+    BM   = as.integer(ifelse(community == "Boca Manu", 1L, 0)),
+    Cay    = as.integer(ifelse(community =="Caychihue", 1L, 0)),
+    Cho    = as.integer(ifelse(community == "Choque", 1L, 0)),
+    Dia    = as.integer(ifelse(community == "Diamante", 1L, 0)),
+    Hue    = as.integer(ifelse(community == "Huepetuhe", 1L, 0)),
+    Isl    = as.integer(ifelse(community == "Isla de los Valles", 1L, 0)),
+    Mas    = as.integer(ifelse(community == "Masenawa", 1L, 0))
+  )
+
+
+dummy_df <-
+  dummy_df %>%
+  filter(community %in% c("Boca Colorado","Boca Isiriwe","Boca Manu","Choque","Caychihue","Diamante","Huepetuhe","Isla de los Valles","Masenawa"))
+
+dummy_df %>%
+  kable(align = "lccccccc") %>%
+  kable_styling() %>%
+  column_spec(2, width = "10em", background = spec_color(dummy_df$BI[1:11], end = 0.8), color = "white") %>%
+  column_spec(3, width = "10em", background = spec_color(dummy_df$BM[1:10], end = 0.8), color = "white") %>%
+  column_spec(4, width = "10em", background = spec_color(dummy_df$Cay[1:9], end = 0.8), color = "white") %>%
+  column_spec(5, width = "10em", background = spec_color(dummy_df$Cho[1:9], end = 0.8), color = "white") %>%
+  column_spec(6, width = "10em", background = spec_color(dummy_df$Dia[1:9], end = 0.8), color = "white") %>%
+  column_spec(7, width = "10em", background = spec_color(dummy_df$Hue[1:9], end = 0.8), color = "white") %>%
+  column_spec(8, width = "10em", background = spec_color(dummy_df$Isl[1:9], end = 0.8), color = "white") %>%
+  column_spec(9, width = "10em", background = spec_color(dummy_df$Mas[1:9], end = 0.8), color = "white") 
+```
+
+
+
+etc. for the other communities. Note Boca Colorado, the *referent community*, =0 for all vars. This is closely related to **one-hot encoding**.
+
+</div>
+
+## Relationship between mercury and community
+
+<div style="font-size:0.5em;">
+
+
+```{r hg-comm}
+#| echo: false
+#| class-output: tiny
+```
+
+::: {.tiny}
+- **Boca Colorado** hair mercury levels are expected, on average, to be **0.614 log ppm**.
+- **Boca Isiriwe** hair mercury levels are expected, on average, to be **1.2 log ppm higher** than *Boca Colorado* levels, at **1.814 log ppm** on average.
+- **Caychihue** hair mercury levels are expected, on average, to be **1.10 log ppm lower** than *Boca Colorado* levels, at **-0.486 log ppm** on average.
+- etc. It can be nice to have a table showing the estimated mean (along with uncertainty measures -- coming soon) for each community, and a plot can also be useful.
+:::
+
+</div>
+
+## Regression and ANOVA
+
+You might be wondering how this model differs from the ANOVA model we just presented when exploring how community is related to mercury levels.  In fact, the two models are equivalent!  In our ANOVA discussion, we specified our model as $$y_{ij}=\mu_i+\varepsilon_{ij}$$ with a separate mean $\mu_i$ for each community, $\mu_1, \mu_2, \ldots, \mu_{23}$.
+
+Here, we fit the same model with a slightly different **coding scheme**, where we define the regression model intercept $\beta_0$ to be the mean for the **reference** community, Boca Colorado, and the regression model parameters $\beta_1, \beta_2, \ldots, \beta_{22}$ each measure the difference in mercury levels between Boca Colorado and the community of interest. 
+
+## ANOVA as Regression
+
+Our model thus is $$y_i=\beta_0 + \beta_1\text{Boca Isiriwe}_i + \beta_2\text{Boca Manu}_i + \ldots + \beta_{22}\text{Shipitiari}_i + \varepsilon_i$$ where $\text{Boca Manu}_i$ is an indicator variable that takes value 1 if the measurement is from a resident of Boca Manu, and it takes value 0 otherwise. 
+
+---
+
+The mean for each community is given below.
+
+Boca Colorado:  $\beta_0$
+
+Boca Isiriwe: $\beta_0+\beta_1$
+
+Boca Manu: $\beta_0 + \beta_2$
+...
+Shipitiari: $\beta_0+\beta_{22}$
+
+In the ANOVA model, the Boca Colorado mean was $\mu_1$, the Boca Isiriwe mean was $\mu_2$, etc. There is a 1:1 correspondence between the parameters in the two formulations with $\mu_1=\beta_0,$ $\mu_2=\beta_0+\beta_1$, etc.
+
+## Correspondence between regression and ANOVA
+
+Here we can compare the F test from the regression model with that from ANOVA.
+
+Regression:
+```{r}
+res <- summary(lm(lhairHg~community, data = mercury))
+print(res$fstatistic)
+```
+
+## {background-color="white"}
+
+ANOVA:
+
+```{r}
+summary(aov(lhairHg~community,data=mercury))
+```
+
+
+We get the same F statistic and degrees of freedom fitting the model using either parameterization!
