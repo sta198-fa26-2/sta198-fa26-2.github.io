@@ -6,11 +6,11 @@ about:
   template: trestles
   links:
     - icon: laptop
-      href: https://sta198-f26-2.github.io
+      href: https://sta198-fa26-2.github.io
       aria-label: Link to course website
       text: Course Website
     - icon: github
-      href: https://github.com/sta198-f26-2
+      href: https://github.com/sta198-fa26-2
       aria-label: Link to course GitHub organization
       text: GitHub
 ---
