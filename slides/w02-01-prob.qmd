@@ -289,5 +289,5 @@ Define events A=carried back to the nest and B=lightly injured. Calculate the fo
 
 - $P(\overline{A} \cap \overline{B})$
 
----
+
 

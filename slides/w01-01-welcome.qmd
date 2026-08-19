@@ -182,6 +182,9 @@ Ideally, the sample is <span style="color:#012169;">representative</span>, allow
 
 ## Sampling methods
 
+<div style="font-size:0.9em;">
+
+
 <span style="color:#012169;">Probability sampling</span> (e.g., simple random sampling, stratified, cluster, or multi-stage sampling)
 
 - All units have a known chance of being selected
@@ -193,6 +196,8 @@ Ideally, the sample is <span style="color:#012169;">representative</span>, allow
 - Some units unable to be selected, with no way of knowing size or effect of sampling errors
 - Less generalizable to population of interest
 - More convenient and less costly
+
+</div>
 
 ---
 
@@ -211,11 +216,23 @@ Ideally, the sample is <span style="color:#012169;">representative</span>, allow
 - Inability to prove causality
 - Generally more susceptible to bias than experimental studies (learn more about many types of bias at the [Catalog of Bias](https://catalogofbias.org/biases/)) 
 
----
+
+## Observational Study Challenges
+
+<div style="font-size:0.8em;">
+
+Observational studies are critical in advancing health research. However, we must be more careful interpreting their results than in the experimental setting due to the possibility of bias and confounding.
+
+A **confounding variable** is one that is associated with both the explanatory and response variables. Because it is associated with both variables, it prevents the study from concluding that the explanatory variable caused the response variable. Consider an example with total ice-cream sales as the explanatory variable and murder rate as the response variable. Outside temperature is associated with both variables, and therefore we cannot conclude that high ice-cream sales are driving an increase in homicides.
+
+Confounding variables may or may not be measured as part of the study. Regardless, drawing cause-and-effect conclusions is difficult in an observational study because of the ever-present possibility of confounding variables.
+
+A fun rabbit hole to explore is [Tyler Vigen's Spurious Correlations Website](https://www.tylervigen.com/spurious-correlations).
+
+</div>
 
 # Let's dive in!
 
----
 
 ## Life Expectancy
 
@@ -241,8 +258,13 @@ Ideally, the sample is <span style="color:#012169;">representative</span>, allow
 
 ## Dataset terminology
 
+<div style="font-size:0.8em;">
+
+
 - Each row is an **observation**
-- Each column is a **variable**
+- Each column is a **variable**. A **variable** in statistics is a characteristic or measurement that can take different values across observations in a data set.
+
+</div>
 
 ::: {.small}
 
@@ -351,12 +373,10 @@ Are these data errors, realistic estimates, or neither?
 
 *(Hint: Recall how life expectancy is calculated.)*
 
----
 
 
 # Data visualization
 
----
 
 
 ## Data visualization
@@ -368,7 +388,7 @@ Are these data errors, realistic estimates, or neither?
 - There are many tools for visualizing data—R is one of them.
 - There are many approaches and systems within R for making data visualizations. **ggplot2** is one of them, and it's what we'll use in this course.
 
----
+
 
 
 
@@ -401,7 +421,7 @@ knitr::include_graphics("../img/ggplot2-part-of-tidyverse.png")
 
 ::::
 
----
+
 
 ## Grammar of Graphics
 
@@ -435,7 +455,7 @@ Source: [BloggoType](http://bloggotype.blogspot.com/2016/08/holiday-notes2-gramm
 :::
 
 
----
+
 
 ## Men's gap in life expectancy by year
 
@@ -524,7 +544,7 @@ life %>%
   geom_point()
 ```
 
----
+
 
 ## Hello ggplot2!
 
@@ -677,6 +697,19 @@ Make sure I get a letter, and make your appointments in the Testing Center now.
 -   Read the syllabus and ask questions on Ed;
 -   Complete readings and videos for next class;
 -   Send me SDAO letters and schedule testing center appointments.
+-   Check out practice problems (homework!)
+
+## Homework (Practice)
+
+[**IMS Chapter 1**](https://openintrostat.github.io/ims/data-hello.html#sec-chp1-exercises)
+
+- Problem 3
+- Problem 10
+- Problem 12
+
+Note: answers to odd-numbered problems are in the Appendix. Feel free to use Ed Discussion to raise questions with the class.
+
+
 
 ## Questions? {.larger}
 

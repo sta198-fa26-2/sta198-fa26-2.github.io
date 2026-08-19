@@ -1345,3 +1345,21 @@ lifespan2023 %>%
 :::
 
 ::::
+
+
+## Homework (Practice)
+
+[**IMS Chapter 5**](https://openintrostat.github.io/ims/explore-numerical.html#sec-chp5-exercises)
+
+- Problem 2
+- Problem 4
+- Problem 6
+- Problem 9
+- Problem 10
+- Problem 11
+- Problem 13
+- Problem 15
+- Problem 17
+- Problem 18
+
+

@@ -952,3 +952,12 @@ ggplot(
 
 ::::
 
+## Homework (Practice)
+
+[**IMS Chapter 4**](https://openintrostat.github.io/ims/explore-categorical.html#sec-chp4-exercises)
+
+- Problem 5
+- Problem 7
+- Problem 8
+
+

@@ -1498,4 +1498,15 @@ lifeexpwide %>%
 ::::
 
 
+## Homework (Practice)
+
+[**IMS Chapter 2**](https://openintrostat.github.io/ims/data-design.html#sec-chp2-exercises)
+
+- Problem 2
+- Problem 3
+- Problem 7
+- Problem 8
+- Problem 11
+- Problem 12
+
 
