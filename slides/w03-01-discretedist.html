@@ -137,7 +137,7 @@ window.Quarto = {
 </script>
 <meta property="og:title" content="Discrete Probability Distributions – STA 198">
 <meta property="og:description" content="Introduction to Global Health Data Science">
-<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w03-01-discretedist_files/figure-html/binomdist-plot-1.png">
+<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w03-01-discretedist_files/figure-revealjs/binomdist-plot-1.png">
 <meta property="og:site_name" content="STA 198">
 <meta property="og:image:height" content="2595">
 <meta property="og:image:width" content="4200">
@@ -522,6 +522,8 @@ window.Quarto = {
   <li><a href="#distribution-of-lefties-2" id="toc-distribution-of-lefties-2" class="nav-link" data-scroll-target="#distribution-of-lefties-2">Distribution of lefties</a></li>
   <li><a href="#distribution-of-lefties-3" id="toc-distribution-of-lefties-3" class="nav-link" data-scroll-target="#distribution-of-lefties-3">Distribution of lefties</a></li>
   <li><a href="#new-lefty-study" id="toc-new-lefty-study" class="nav-link" data-scroll-target="#new-lefty-study">New lefty study</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
   </ul>
 </li>
   <li>
@@ -530,8 +532,6 @@ window.Quarto = {
 <li><a href="#in-vitro-fertilization-ivf" id="toc-in-vitro-fertilization-ivf" class="nav-link" data-scroll-target="#in-vitro-fertilization-ivf">In Vitro Fertilization (IVF)</a></li>
   <li><a href="#embryos" id="toc-embryos" class="nav-link" data-scroll-target="#embryos">Embryos</a></li>
   <li><a href="#the-challenge" id="toc-the-challenge" class="nav-link" data-scroll-target="#the-challenge">The Challenge</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
   <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
   <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a></li>
   <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
@@ -539,7 +539,18 @@ window.Quarto = {
   <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6"></a></li>
   <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7"></a></li>
   <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8"></a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9"></a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10"></a></li>
   <li><a href="#you-try-it" id="toc-you-try-it" class="nav-link" data-scroll-target="#you-try-it">You try it!</a></li>
+  <li><a href="#more-practice-one-health" id="toc-more-practice-one-health" class="nav-link" data-scroll-target="#more-practice-one-health">More Practice: One Health</a></li>
+  <li><a href="#theme-1-rabies-surveillance-human-animal-arms" id="toc-theme-1-rabies-surveillance-human-animal-arms" class="nav-link" data-scroll-target="#theme-1-rabies-surveillance-human-animal-arms">Theme 1: Rabies Surveillance (Human &amp; Animal Arms)</a></li>
+  <li><a href="#stray-dog-testing" id="toc-stray-dog-testing" class="nav-link" data-scroll-target="#stray-dog-testing">1. Stray Dog Testing</a></li>
+  <li><a href="#unlocated-biting-dogs" id="toc-unlocated-biting-dogs" class="nav-link" data-scroll-target="#unlocated-biting-dogs">2. Unlocated Biting Dogs</a></li>
+  <li><a href="#comparing-the-animal-and-human-arms" id="toc-comparing-the-animal-and-human-arms" class="nav-link" data-scroll-target="#comparing-the-animal-and-human-arms">3. Comparing the Animal and Human Arms</a></li>
+  <li><a href="#theme-2-avian-influenza-poultry-human-spillover" id="toc-theme-2-avian-influenza-poultry-human-spillover" class="nav-link" data-scroll-target="#theme-2-avian-influenza-poultry-human-spillover">Theme 2: Avian Influenza (Poultry &amp; Human Spillover)</a></li>
+  <li><a href="#flock-testing" id="toc-flock-testing" class="nav-link" data-scroll-target="#flock-testing">4. Flock Testing</a></li>
+  <li><a href="#occupational-human-seroconversion" id="toc-occupational-human-seroconversion" class="nav-link" data-scroll-target="#occupational-human-seroconversion">5. Occupational Human Seroconversion</a></li>
+  <li><a href="#cross-species-comparison" id="toc-cross-species-comparison" class="nav-link" data-scroll-target="#cross-species-comparison">6. Cross-Species Comparison</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w03-01-discretedist.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="w03-01-discretedist-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -1192,7 +1203,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w03-01-discretedist_files/figure-html/binomdist-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w03-01-discretedist_files/figure-html/binomdist-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w03-01-discretedist_files/figure-revealjs/binomdist-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w03-01-discretedist_files/figure-revealjs/binomdist-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1204,13 +1215,13 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w03-01-discretedist_files/figure-html/plotbinomdatanoecho-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="w03-01-discretedist_files/figure-html/plotbinomdatanoecho-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></a></p>
+<figure class="figure"><p><a href="w03-01-discretedist_files/figure-revealjs/plotbinomdatanoecho-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="w03-01-discretedist_files/figure-revealjs/plotbinomdatanoecho-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Suppose you conduct a survey of 1000 Chinese citizens and find that 30 are left-handed. If we estimate the probability of left-handedness based on the proportion who reported it in this survey, what is our estimate? Based on these data, do you think the rate of left-handedness in China is equivalent to that for the US as a whole? Why or why not?</p>
-<hr>
+</section><section id="section" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section"></h2>
 <div style="font-size:0.8em;">
 <p>Now suppose that because of the time and money involved, you could only survey 10 Chinese citizens. The plot shows the binomial distribution with the same probability of left-handedness (10%) but with samples of <span class="math inline">\(n=10\)</span> students. (Question: why don’t the bars touch here, when they appeared to touch before?)</p>
 </div>
@@ -1231,7 +1242,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w03-01-discretedist_files/figure-html/smallbinom2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w03-01-discretedist_files/figure-html/smallbinom2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w03-01-discretedist_files/figure-revealjs/smallbinom2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w03-01-discretedist_files/figure-revealjs/smallbinom2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1241,7 +1252,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <div style="font-size:0.8em;">
 <p>If we survey 10 students, and they are all right-handed, what is our estimate of left-handedness from the sample?</p>
 </div>
-<hr>
+</section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
 <div style="font-size:0.8em;">
 <p>Here we compare the studies of different sizes, with the y-axis changed to a probability scale.</p>
 </div>
@@ -1250,7 +1261,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w03-01-discretedist_files/figure-html/big-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w03-01-discretedist_files/figure-html/big-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w03-01-discretedist_files/figure-revealjs/big-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w03-01-discretedist_files/figure-revealjs/big-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1259,7 +1270,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w03-01-discretedist_files/figure-html/small-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w03-01-discretedist_files/figure-html/small-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w03-01-discretedist_files/figure-revealjs/small-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w03-01-discretedist_files/figure-revealjs/small-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1299,7 +1310,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 </section><section id="the-challenge" class="level2"><h2 class="anchored" data-anchor-id="the-challenge">The Challenge</h2>
 <p>To maximize the success rate, specialists sometimes implant more than one embryo, especially if the patient is older or has had prior IVF failures.</p>
 <p>The American Society for Reproductive Medicine states the overarching goal is to maximize the chance of one healthy singleton birth while minimizing multiple pregnancies. We want to determine the optimum number of embryos to implant so that the likelihood of having at least one baby is high, but the likelihood of having triplets, quadruplets, or higher-order births is low.</p>
-</section><section id="section" class="level2"><h2 class="anchored" data-anchor-id="section"></h2>
+</section><section id="section-2" class="level2"><h2 class="anchored" data-anchor-id="section-2"></h2>
 <p>How do we address the challenge mathematically?</p>
 <ul>
 <li>
@@ -1310,7 +1321,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <li><p>We assume the probability of each embryo surviving is independent of the others</p></li>
 </ul>
 </li>
-</ul></section><section id="section-1" class="level2"><h2 class="anchored" data-anchor-id="section-1"></h2>
+</ul></section><section id="section-3" class="level2"><h2 class="anchored" data-anchor-id="section-3"></h2>
 <div style="font-size:0.85em;">
 <p>Binomial distribution: <span class="math inline">\(P(X=x)=\begin{pmatrix} n \\ x \end{pmatrix}\pi^x(1-\pi)^{n-x}\)</span></p>
 <ul>
@@ -1323,7 +1334,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <div style="font-size:0.5em;">
 <p>Technically, <span class="math inline">\(\pi\)</span> depends on embryo quality and the mother’s age. We’ll learn how to accommodate this formally when we study logistic regression models; we ignore it for now.</p>
 </div>
-</section><section id="section-2" class="level2"><h2 class="anchored" data-anchor-id="section-2"></h2>
+</section><section id="section-4" class="level2"><h2 class="anchored" data-anchor-id="section-4"></h2>
 <p>Binomial distribution: <span class="math inline">\(P(X=x)=\begin{pmatrix} n \\ x \end{pmatrix}\pi^x(1-\pi)^{n-x}\)</span></p>
 <ul>
 <li><p>Quick trick: <span class="math inline">\(P(X \geq 1) = 1-P(X=0)\)</span> (you either have no live births, or one or more live births)</p></li>
@@ -1333,7 +1344,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <div style="font-size:0.5em;">
 <p>*OK, not quite, as it is still possible for a single implanted embryo to divide, yielding twins, but we’ll assume that isn’t happening for now, as it’s not terribly common – most IVF twins are from multiple implantations.</p>
 </div>
-</section><section id="section-3" class="level2"><h2 class="anchored" data-anchor-id="section-3"></h2>
+</section><section id="section-5" class="level2"><h2 class="anchored" data-anchor-id="section-5"></h2>
 <div style="font-size:0.7em;">
 <p>Binomial distribution: <span class="math inline">\(P(X=x)=\begin{pmatrix} n \\ x \end{pmatrix}\pi^x(1-\pi)^{n-x}\)</span></p>
 <p>R has built-in functions for computing binomial probabilities that can save you a lot of work (especially when <span class="math inline">\(n\)</span> is large)</p>
@@ -1396,7 +1407,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 </tbody>
 </table>
 </div>
-</section><section id="section-4" class="level2"><h2 class="anchored" data-anchor-id="section-4"></h2>
+</section><section id="section-6" class="level2"><h2 class="anchored" data-anchor-id="section-6"></h2>
 <div style="font-size:0.7em;">
 <p>Binomial distribution: <span class="math inline">\(P(X=x)=\begin{pmatrix} n \\ x \end{pmatrix}\pi^x(1-\pi)^{n-x}\)</span></p>
 <table class="caption-top table">
@@ -1459,7 +1470,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 </tbody>
 </table>
 </div>
-</section><section id="section-5" class="level2"><h2 class="anchored" data-anchor-id="section-5"></h2>
+</section><section id="section-7" class="level2"><h2 class="anchored" data-anchor-id="section-7"></h2>
 <div style="font-size:0.7em;">
 <p>Binomial distribution: <span class="math inline">\(P(X=x)=\begin{pmatrix} n \\ x \end{pmatrix}\pi^x(1-\pi)^{n-x}\)</span></p>
 <table class="caption-top table">
@@ -1522,7 +1533,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 </tbody>
 </table>
 </div>
-</section><section id="section-6" class="level2"><h2 class="anchored" data-anchor-id="section-6"></h2>
+</section><section id="section-8" class="level2"><h2 class="anchored" data-anchor-id="section-8"></h2>
 <div style="font-size:0.7em;">
 <p>Binomial distribution: <span class="math inline">\(P(X=x)=\begin{pmatrix} n \\ x \end{pmatrix}\pi^x(1-\pi)^{n-x}\)</span></p>
 <table class="caption-top table">
@@ -1585,7 +1596,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 </tbody>
 </table>
 </div>
-</section><section id="section-7" class="level2"><h2 class="anchored" data-anchor-id="section-7"></h2>
+</section><section id="section-9" class="level2"><h2 class="anchored" data-anchor-id="section-9"></h2>
 <div style="font-size:0.7em;">
 <p>Binomial distribution: <span class="math inline">\(P(X=x)=\begin{pmatrix} n \\ x \end{pmatrix}\pi^x(1-\pi)^{n-x}\)</span></p>
 <table class="caption-top table">
@@ -1648,7 +1659,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 </tbody>
 </table>
 </div>
-</section><section id="section-8" class="level2"><h2 class="anchored" data-anchor-id="section-8"></h2>
+</section><section id="section-10" class="level2"><h2 class="anchored" data-anchor-id="section-10"></h2>
 <div style="font-size:0.7em;">
 <p>Binomial distribution: <span class="math inline">\(P(X=x)=\begin{pmatrix} n \\ x \end{pmatrix}\pi^x(1-\pi)^{n-x}\)</span></p>
 <table class="caption-top table">
@@ -1751,10 +1762,117 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <td style="text-align: center;">0.125</td>
 </tr>
 </tbody>
-</table>
+</table></section><section id="more-practice-one-health" class="level2"><h2 class="anchored" data-anchor-id="more-practice-one-health">More Practice: One Health</h2>
+<p>These exercises use the binomial distribution to model surveillance data in <strong>rabies</strong> and <strong>avian influenza</strong>, two classic zoonotic diseases where human, animal, and environmental health are directly linked. In both cases, a coordinated One Health surveillance program tracks parallel streams — animal-side testing (dogs, poultry) and human-side exposure or spillover data — feeding into a shared risk assessment and response system.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Reminders:</span></span>
+<span><span class="co"># dbinom(k, n, p)      -&gt; P(X = k)</span></span>
+<span><span class="co"># pbinom(k, n, p)      -&gt; P(X &lt;= k)</span></span>
+<span><span class="co"># 1 - pbinom(k, n, p)  -&gt; P(X &gt; k)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="theme-1-rabies-surveillance-human-animal-arms" class="level2"><h2 class="anchored" data-anchor-id="theme-1-rabies-surveillance-human-animal-arms">Theme 1: Rabies Surveillance (Human &amp; Animal Arms)</h2>
+<p><strong>Background:</strong> Rabies is nearly always fatal once symptomatic but is preventable with prompt post-exposure prophylaxis (PEP). In many low-resource settings, dogs are the main reservoir, so surveillance depends on testing animal brain samples <em>and</em> monitoring human bite-exposure outcomes — two arms of a One Health program.</p>
+</section><section id="stray-dog-testing" class="level2"><h2 class="anchored" data-anchor-id="stray-dog-testing">1. Stray Dog Testing</h2>
+<blockquote class="blockquote">
+<p>A field team traps and tests 20 stray dogs in a region with 12% canine rabies positivity.</p>
+<ol type="a">
+<li>What is the probability exactly 3 test positive?<br>
+</li>
+<li>What is the probability at least 1 tests positive (relevant for deciding whether to escalate a public health response)?</li>
+</ol>
+</blockquote>
+</section><section id="unlocated-biting-dogs" class="level2"><h2 class="anchored" data-anchor-id="unlocated-biting-dogs">2. Unlocated Biting Dogs</h2>
+<blockquote class="blockquote">
+<p>A rural clinic treats 15 patients this month for dog bites where the biting animal could not be located for testing. Regional data suggests any given unlocated biting dog has a 4% probability of having truly been rabid.</p>
+<ol type="a">
+<li>What is the expected number of the 15 patients who were exposed to a truly rabid animal?<br>
+</li>
+<li>What is the probability that none of the 15 were actually exposed (i.e., all PEP courses were precautionary rather than lifesaving)?<br>
+</li>
+<li>Discuss: does this mean the PEP given was wasted?</li>
+</ol>
+</blockquote>
+</section><section id="comparing-the-animal-and-human-arms" class="level2"><h2 class="anchored" data-anchor-id="comparing-the-animal-and-human-arms">3. Comparing the Animal and Human Arms</h2>
+<blockquote class="blockquote">
+<p>A One Health surveillance program tracks both arms in parallel:</p>
+<ul>
+<li>
+<strong>Animal arm:</strong> 60 dog brain samples submitted from a district, historical positivity rate 10%</li>
+<li>
+<strong>Human arm:</strong> 40 patients presenting with suspected rabies exposure, historical confirmed-exposure rate 5%</li>
+</ul>
+<p>For each arm, find the expected number of positives and P(observed positives exceeds the expected number by 5 or more). Which arm has a “noisier” signal, and why does that matter for how many samples you’d need to detect a real increase in rabies activity?</p>
+</blockquote>
+</section><section id="theme-2-avian-influenza-poultry-human-spillover" class="level2"><h2 class="anchored" data-anchor-id="theme-2-avian-influenza-poultry-human-spillover">Theme 2: Avian Influenza (Poultry &amp; Human Spillover)</h2>
+<p><strong>Background:</strong> Avian influenza (e.g., H5N1) circulates in poultry and wild birds, with occasional spillover to humans — usually among people with direct poultry contact, such as culling workers. Surveillance happens on both the animal (flock) side and the human (occupational exposure) side.</p>
+</section><section id="flock-testing" class="level2"><h2 class="anchored" data-anchor-id="flock-testing">4. Flock Testing</h2>
+<blockquote class="blockquote">
+<p>During an active outbreak, 25% of birds in an affected poultry flock test positive on rapid antigen testing. A vet technician samples 16 birds from the flock.</p>
+<ol type="a">
+<li>What is the probability exactly 5 test positive?<br>
+</li>
+<li>What is the probability at most 2 test positive? If this were observed, what might it suggest about the true flock prevalence?</li>
+</ol>
+</blockquote>
+</section><section id="occupational-human-seroconversion" class="level2"><h2 class="anchored" data-anchor-id="occupational-human-seroconversion">5. Occupational Human Seroconversion</h2>
+<blockquote class="blockquote">
+<p>Public health data suggests that among people with heavy occupational exposure to infected poultry (e.g., culling workers), the probability of subclinical/asymptomatic seroconversion is about 2% per exposed worker. A culling operation involves 80 workers.</p>
+<ol type="a">
+<li>What is the expected number who seroconvert?<br>
+</li>
+<li>Find P(X ≥ 4). If 4 or more actually seroconvert, does imply human-to-human transmission must be occurring?</li>
+</ol>
+</blockquote>
+<div style="font-size:0.5em;">
+<p>Distinguishing “more spillover than expected” from “the virus is now spreading between people” is one of the central judgment calls in pandemic risk assessment, and requires additional epidemiological evidence — e.g., cases with no direct poultry contact, or clusters among the <em>contacts</em> of a worker rather than among workers themselves.</p>
+</div>
+</section><section id="cross-species-comparison" class="level2"><h2 class="anchored" data-anchor-id="cross-species-comparison">6. Cross-Species Comparison</h2>
+<blockquote class="blockquote">
+<p>Flock-level testing shows 25% poultry positivity (as in 4), but occupational human seroconversion is only 2% (as in 5) despite substantial exposure.</p>
+<ol type="a">
+<li>Using the binomial model, explain quantitatively why a much larger human sample would be needed to reliably detect a <em>change</em> in the human spillover rate compared to detecting a change in flock prevalence.<br>
+</li>
+<li>What biological and exposure factors might create this gap?</li>
+</ol>
+</blockquote>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {

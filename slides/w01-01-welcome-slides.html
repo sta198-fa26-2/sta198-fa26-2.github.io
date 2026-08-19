@@ -297,6 +297,7 @@ Amy Herring
 <p>Unfortunately, we (usually) have to settle with a <span style="color:#012169;">sample</span> from the population.</p>
 <p>Ideally, the sample is <span style="color:#012169;">representative</span>, allowing us to use probability and statistical inference to make conclusions that are generalizable to the broader population of interest.</p>
 </section><section id="sampling-methods" class="slide level2"><h2>Sampling methods</h2>
+<div style="font-size:0.9em;">
 <p><span style="color:#012169;">Probability sampling</span> (e.g., simple random sampling, stratified, cluster, or multi-stage sampling)</p>
 <ul>
 <li>All units have a known chance of being selected</li>
@@ -308,7 +309,9 @@ Amy Herring
 <li>Some units unable to be selected, with no way of knowing size or effect of sampling errors</li>
 <li>Less generalizable to population of interest</li>
 <li>More convenient and less costly</li>
-</ul></section><section id="study-design" class="slide level2"><h2>Study design</h2>
+</ul>
+</div>
+</section><section id="study-design" class="slide level2"><h2>Study design</h2>
 <p><span style="color:#012169;">Experimental studies</span> (e.g., randomized controlled trials)</p>
 <ul>
 <li>Researchers directly control exposures or treatments</li>
@@ -321,7 +324,14 @@ Amy Herring
 <li>Real-world setting with lower burden on participants</li>
 <li>Inability to prove causality</li>
 <li>Generally more susceptible to bias than experimental studies (learn more about many types of bias at the <a href="https://catalogofbias.org/biases/">Catalog of Bias</a>)</li>
-</ul></section><section class="slide level2"></section></section><section><section id="lets-dive-in" class="title-slide slide level1 center"><h1>Let’s dive in!</h1>
+</ul></section><section id="observational-study-challenges" class="slide level2"><h2>Observational Study Challenges</h2>
+<div style="font-size:0.8em;">
+<p>Observational studies are critical in advancing health research. However, we must be more careful interpreting their results than in the experimental setting due to the possibility of bias and confounding.</p>
+<p>A <strong>confounding variable</strong> is one that is associated with both the explanatory and response variables. Because it is associated with both variables, it prevents the study from concluding that the explanatory variable caused the response variable. Consider an example with total ice-cream sales as the explanatory variable and murder rate as the response variable. Outside temperature is associated with both variables, and therefore we cannot conclude that high ice-cream sales are driving an increase in homicides.</p>
+<p>Confounding variables may or may not be measured as part of the study. Regardless, drawing cause-and-effect conclusions is difficult in an observational study because of the ever-present possibility of confounding variables.</p>
+<p>A fun rabbit hole to explore is <a href="https://www.tylervigen.com/spurious-correlations">Tyler Vigen’s Spurious Correlations Website</a>.</p>
+</div>
+</section></section><section><section id="lets-dive-in" class="title-slide slide level1 center"><h1>Let’s dive in!</h1>
 
 </section><section id="life-expectancy" class="slide level2"><h2>Life Expectancy</h2>
 <ul>
@@ -334,12 +344,13 @@ Amy Herring
 </ul></section><section class="slide level2"></section></section><section><section id="what-is-in-a-dataset" class="title-slide slide level1 center"><h1>What is in a dataset?</h1>
 
 </section><section id="dataset-terminology" class="slide level2"><h2>Dataset terminology</h2>
+<div style="font-size:0.8em;">
 <ul>
 <li>Each row is an <strong>observation</strong>
 </li>
-<li>Each column is a <strong>variable</strong>
-</li>
+<li>Each column is a <strong>variable</strong>. A <strong>variable</strong> in statistics is a characteristic or measurement that can take different values across observations in a data set.</li>
 </ul>
+</div>
 <div class="small">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>life <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"../data/lifeexpectancy_infant.csv"</span>)</span>
@@ -433,7 +444,7 @@ $ lifeexp  &lt;dbl&gt; 59.77891, 59.75369, 60.19466, 60.47221, 60.69472, 61.1455
 </div>
 <p>Are these data errors, realistic estimates, or neither?</p>
 <p><em>(Hint: Recall how life expectancy is calculated.)</em></p>
-</section><section class="slide level2"></section></section><section><section id="data-visualization" class="title-slide slide level1 center"><h1>Data visualization</h1>
+</section></section><section><section id="data-visualization" class="title-slide slide level1 center"><h1>Data visualization</h1>
 
 </section><section id="data-visualization-1" class="slide level2"><h2>Data visualization</h2>
 <blockquote>
@@ -695,7 +706,16 @@ $ lifeexp  &lt;dbl&gt; 59.77891, 59.75369, 60.19466, 60.47221, 60.69472, 61.1455
 <li>Read the syllabus and ask questions on Ed;</li>
 <li>Complete readings and videos for next class;</li>
 <li>Send me SDAO letters and schedule testing center appointments.</li>
-</ul></section><section id="questions-2" class="slide level2 larger"><h2>Questions?</h2>
+<li>Check out practice problems (homework!)</li>
+</ul></section><section id="homework-practice" class="slide level2"><h2>Homework (Practice)</h2>
+<p><a href="https://openintrostat.github.io/ims/data-hello.html#sec-chp1-exercises"><strong>IMS Chapter 1</strong></a></p>
+<ul>
+<li>Problem 3</li>
+<li>Problem 10</li>
+<li>Problem 12</li>
+</ul>
+<p>Note: answers to odd-numbered problems are in the Appendix. Feel free to use Ed Discussion to raise questions with the class.</p>
+</section><section id="questions-2" class="slide level2 larger"><h2>Questions?</h2>
 
 
 </section></section>

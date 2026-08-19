@@ -502,6 +502,7 @@ window.Quarto = {
   <li><a href="#sampling-from-the-population" id="toc-sampling-from-the-population" class="nav-link" data-scroll-target="#sampling-from-the-population">Sampling from the population</a></li>
   <li><a href="#sampling-methods" id="toc-sampling-methods" class="nav-link" data-scroll-target="#sampling-methods">Sampling methods</a></li>
   <li><a href="#study-design" id="toc-study-design" class="nav-link" data-scroll-target="#study-design">Study design</a></li>
+  <li><a href="#observational-study-challenges" id="toc-observational-study-challenges" class="nav-link" data-scroll-target="#observational-study-challenges">Observational Study Challenges</a></li>
   </ul>
 </li>
   <li>
@@ -551,6 +552,7 @@ window.Quarto = {
   <li><a href="#teams" id="toc-teams" class="nav-link" data-scroll-target="#teams">Teams</a></li>
   <li><a href="#questions-1" id="toc-questions-1" class="nav-link" data-scroll-target="#questions-1">Questions?</a></li>
   <li><a href="#this-weeks-tasks" id="toc-this-weeks-tasks" class="nav-link" data-scroll-target="#this-weeks-tasks">This week’s tasks</a></li>
+  <li><a href="#homework-practice" id="toc-homework-practice" class="nav-link" data-scroll-target="#homework-practice">Homework (Practice)</a></li>
   <li><a href="#questions-2" id="toc-questions-2" class="nav-link" data-scroll-target="#questions-2">Questions?</a></li>
   </ul>
 </li>
@@ -682,6 +684,7 @@ window.Quarto = {
 <p>Unfortunately, we (usually) have to settle with a <span style="color:#012169;">sample</span> from the population.</p>
 <p>Ideally, the sample is <span style="color:#012169;">representative</span>, allowing us to use probability and statistical inference to make conclusions that are generalizable to the broader population of interest.</p>
 <hr></section><section id="sampling-methods" class="level2"><h2 class="anchored" data-anchor-id="sampling-methods">Sampling methods</h2>
+<div style="font-size:0.9em;">
 <p><span style="color:#012169;">Probability sampling</span> (e.g., simple random sampling, stratified, cluster, or multi-stage sampling)</p>
 <ul>
 <li>All units have a known chance of being selected</li>
@@ -694,6 +697,7 @@ window.Quarto = {
 <li>Less generalizable to population of interest</li>
 <li>More convenient and less costly</li>
 </ul>
+</div>
 <hr></section><section id="study-design" class="level2"><h2 class="anchored" data-anchor-id="study-design">Study design</h2>
 <p><span style="color:#012169;">Experimental studies</span> (e.g., randomized controlled trials)</p>
 <ul>
@@ -707,9 +711,14 @@ window.Quarto = {
 <li>Real-world setting with lower burden on participants</li>
 <li>Inability to prove causality</li>
 <li>Generally more susceptible to bias than experimental studies (learn more about many types of bias at the <a href="https://catalogofbias.org/biases/">Catalog of Bias</a>)</li>
-</ul>
-<hr></section></section><section id="lets-dive-in" class="level1"><h1>Let’s dive in!</h1>
-<hr>
+</ul></section><section id="observational-study-challenges" class="level2"><h2 class="anchored" data-anchor-id="observational-study-challenges">Observational Study Challenges</h2>
+<div style="font-size:0.8em;">
+<p>Observational studies are critical in advancing health research. However, we must be more careful interpreting their results than in the experimental setting due to the possibility of bias and confounding.</p>
+<p>A <strong>confounding variable</strong> is one that is associated with both the explanatory and response variables. Because it is associated with both variables, it prevents the study from concluding that the explanatory variable caused the response variable. Consider an example with total ice-cream sales as the explanatory variable and murder rate as the response variable. Outside temperature is associated with both variables, and therefore we cannot conclude that high ice-cream sales are driving an increase in homicides.</p>
+<p>Confounding variables may or may not be measured as part of the study. Regardless, drawing cause-and-effect conclusions is difficult in an observational study because of the ever-present possibility of confounding variables.</p>
+<p>A fun rabbit hole to explore is <a href="https://www.tylervigen.com/spurious-correlations">Tyler Vigen’s Spurious Correlations Website</a>.</p>
+</div>
+</section></section><section id="lets-dive-in" class="level1"><h1>Let’s dive in!</h1>
 <section id="life-expectancy" class="level2"><h2 class="anchored" data-anchor-id="life-expectancy">Life Expectancy</h2>
 <ul>
 <li><p>The <a href="http://www.healthdata.org">Institute for Health Metrics and Evaluation (IHME)</a> is a resource for data on a variety of important health outcomes worldwide.</p></li>
@@ -723,12 +732,13 @@ window.Quarto = {
 <hr></section></section><section id="what-is-in-a-dataset" class="level1"><h1>What is in a dataset?</h1>
 <hr>
 <section id="dataset-terminology" class="level2"><h2 class="anchored" data-anchor-id="dataset-terminology">Dataset terminology</h2>
+<div style="font-size:0.8em;">
 <ul>
 <li>Each row is an <strong>observation</strong>
 </li>
-<li>Each column is a <strong>variable</strong>
-</li>
+<li>Each column is a <strong>variable</strong>. A <strong>variable</strong> in statistics is a characteristic or measurement that can take different values across observations in a data set.</li>
 </ul>
+</div>
 <div class="small">
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">life</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"../data/lifeexpectancy_infant.csv"</span><span class="op">)</span></span>
@@ -831,8 +841,7 @@ $ lifeexp  &lt;dbl&gt; 59.77891, 59.75369, 60.19466, 60.47221, 60.69472, 61.1455
 </div>
 <p>Are these data errors, realistic estimates, or neither?</p>
 <p><em>(Hint: Recall how life expectancy is calculated.)</em></p>
-<hr></section></section><section id="data-visualization" class="level1"><h1>Data visualization</h1>
-<hr>
+</section></section><section id="data-visualization" class="level1"><h1>Data visualization</h1>
 <section id="data-visualization-1" class="level2"><h2 class="anchored" data-anchor-id="data-visualization-1">Data visualization</h2>
 <blockquote class="blockquote">
 <p><em>“The simple graph has brought more information to the data analyst’s mind than any other device.”</em><br>
@@ -842,8 +851,7 @@ $ lifeexp  &lt;dbl&gt; 59.77891, 59.75369, 60.19466, 60.47221, 60.69472, 61.1455
 <li>Data visualization is the creation and study of the visual representation of data.</li>
 <li>There are many tools for visualizing data—R is one of them.</li>
 <li>There are many approaches and systems within R for making data visualizations. <strong>ggplot2</strong> is one of them, and it’s what we’ll use in this course.</li>
-</ul>
-<hr></section><section id="ggplot2-in-tidyverse" class="level2"><h2 class="anchored" data-anchor-id="ggplot2-in-tidyverse">ggplot2 <span class="math inline">\(\in\)</span> tidyverse</h2>
+</ul></section><section id="ggplot2-in-tidyverse" class="level2"><h2 class="anchored" data-anchor-id="ggplot2-in-tidyverse">ggplot2 <span class="math inline">\(\in\)</span> tidyverse</h2>
 <div class="columns v-center">
 <div class="column" style="width:60%;">
 <div class="cell">
@@ -864,7 +872,7 @@ $ lifeexp  &lt;dbl&gt; 59.77891, 59.75369, 60.19466, 60.47221, 60.69472, 61.1455
 </ul>
 </div>
 </div>
-<hr></section><section id="grammar-of-graphics" class="level2"><h2 class="anchored" data-anchor-id="grammar-of-graphics">Grammar of Graphics</h2>
+</section><section id="grammar-of-graphics" class="level2"><h2 class="anchored" data-anchor-id="grammar-of-graphics">Grammar of Graphics</h2>
 <div class="columns v-center">
 <div class="column" style="width:35%;">
 <p>A grammar of graphics is a tool that enables us to concisely describe the components of a graphic.</p>
@@ -882,7 +890,7 @@ $ lifeexp  &lt;dbl&gt; 59.77891, 59.75369, 60.19466, 60.47221, 60.69472, 61.1455
 <div class="small">
 <p>Source: <a href="http://bloggotype.blogspot.com/2016/08/holiday-notes2-grammar-of-graphics.html">BloggoType</a></p>
 </div>
-<hr></section><section id="mens-gap-in-life-expectancy-by-year" class="level2"><h2 class="anchored" data-anchor-id="mens-gap-in-life-expectancy-by-year">Men’s gap in life expectancy by year</h2>
+</section><section id="mens-gap-in-life-expectancy-by-year" class="level2"><h2 class="anchored" data-anchor-id="mens-gap-in-life-expectancy-by-year">Men’s gap in life expectancy by year</h2>
 <p>Let’s subset to a few countries to de-clutter the plot.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
@@ -936,7 +944,7 @@ $ lifeexp  &lt;dbl&gt; 59.77891, 59.75369, 60.19466, 60.47221, 60.69472, 61.1455
 <span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<hr></section><section id="hello-ggplot2" class="level2"><h2 class="anchored" data-anchor-id="hello-ggplot2">Hello ggplot2!</h2>
+</section><section id="hello-ggplot2" class="level2"><h2 class="anchored" data-anchor-id="hello-ggplot2">Hello ggplot2!</h2>
 <ul>
 <li>
 <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> is the main function in <strong>ggplot2</strong>.</li>
@@ -1098,7 +1106,16 @@ If you need testing accomodations
 <li>Read the syllabus and ask questions on Ed;</li>
 <li>Complete readings and videos for next class;</li>
 <li>Send me SDAO letters and schedule testing center appointments.</li>
-</ul></section><section id="questions-2" class="level2 larger"><h2 class="larger anchored" data-anchor-id="questions-2">Questions?</h2>
+<li>Check out practice problems (homework!)</li>
+</ul></section><section id="homework-practice" class="level2"><h2 class="anchored" data-anchor-id="homework-practice">Homework (Practice)</h2>
+<p><a href="https://openintrostat.github.io/ims/data-hello.html#sec-chp1-exercises"><strong>IMS Chapter 1</strong></a></p>
+<ul>
+<li>Problem 3</li>
+<li>Problem 10</li>
+<li>Problem 12</li>
+</ul>
+<p>Note: answers to odd-numbered problems are in the Appendix. Feel free to use Ed Discussion to raise questions with the class.</p>
+</section><section id="questions-2" class="level2 larger"><h2 class="larger anchored" data-anchor-id="questions-2">Questions?</h2>
 
 
 </section></section></main><!-- /main --><script>
