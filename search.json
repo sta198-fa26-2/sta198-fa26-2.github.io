@@ -158,17 +158,14 @@
     "href": "hw.html",
     "title": "Homeworks",
     "section": "",
-    "text": "No.\nTitle\nDue date\n\n\n\n\n\nNo matching items",
-    "crumbs": [
-      "Homeworks"
-    ]
+    "text": "No.\nTitle\nDue date\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "course-links.html",
     "href": "course-links.html",
     "title": "Useful links",
     "section": "",
-    "text": "Course GitHub organization\n🔗 on GitHub\n\n\n\nRStudio containers\n🔗 on Duke Container Manager\n\n\n\nOffice hours\n🔗 on Google Sheets\n\n\n\nEd Discussion\n🔗 on Canvas | |\n\n\n\nGradescope\n🔗 on Canvas | |\n\n\n\nGradebook\n🔗 on Canvas | |\n\n\n\nTexbooks\n🔗 R for Data Science\n🔗 Introduction to Modern Statistics\n\n\n\nPackage documentation\n🔗 ggplot2: ggplot2.tidyverse.org\n🔗 dplyr: dplyr.tidyverse.org\n🔗 tidyr: tidyr.tidyverse.org\n🔗 forcats: forcats.tidyverse.org\n🔗 stringr: stringr.tidyverse.org\n🔗 lubridate: lubridate.tidyverse.org\n🔗 readr: readr.tidyverse.org\n🔗 readxl: readxl.tidyverse.org",
+    "text": "Course GitHub organization\n🔗 on GitHub |\n\n\n\n\nRStudio containers\n🔗 on Duke Container Manager\n\n\n\n\nEd Discussion\n🔗 on Canvas | |\n\n\n\n\nGradescope\n🔗 on Canvas | |\n\n\n\n\nGradebook\n🔗 on Canvas | |\n\n\n\n\nOnline Textbooks | 🔗 R for Data Science | | | | | | 🔗 Introduction to Modern Statistics | |\n\n\n\n\n\nPackage documentation\n🔗 ggplot2: ggplot2.tidyverse.org\n🔗 dplyr: dplyr.tidyverse.org\n🔗 tidyr: tidyr.tidyverse.org\n🔗 forcats: forcats.tidyverse.org\n🔗 stringr: stringr.tidyverse.org\n🔗 lubridate: lubridate.tidyverse.org\n🔗 readr: readr.tidyverse.org\n🔗 readxl: readxl.tidyverse.org",
     "crumbs": [
       "Course information",
       "Useful links"
@@ -179,7 +176,7 @@
     "href": "computing-access.html",
     "title": "Computing access",
     "section": "",
-    "text": "To access computing resources for the introductory data science courses offered by the Duke University Department of Statistical Science, go to the Duke Container Manager website, cmgr.oit.duke.edu/containers.\nIf this is your first time accessing the containers, click on reserve STA199 on the Reservations available menu on the right. You only need to do this once, and when you do, you’ll see this container moved to the My reservations menu on the left.\nNext, click on STA199 under My reservations to access the RStudio instance you’ll use for the course.",
+    "text": "To access computing resources for the introductory data science courses offered by the Duke University Department of Statistical Science, go to the Duke Container Manager website, cmgr.oit.duke.edu/containers.\nIf this is your first time accessing the containers, click on reserve STA198 on the Reservations available menu on the right. You only need to do this once, and when you do, you’ll see this container moved to the My reservations menu on the left.\nNext, click on STA198 under My reservations to access the RStudio instance you’ll use for the course.",
     "crumbs": [
       "Computing",
       "Access"
@@ -408,6 +405,13 @@
     "title": "Visualising numeric data",
     "section": "Adding a categorical variable",
     "text": "Adding a categorical variable\n\n\n\n\nlifespan2023 %&gt;%\n  filter(sex == \"Female\") %&gt;%\n  ggplot(\n    aes(\n      x = lifeexp,\n      y = worldbankregion\n    )\n  ) +\n  geom_boxplot() +\n  labs(\n    x = \"Female life expectancy (years)\",\n    y = NULL,\n    title = \"2023 Life Expectancy of Women\",\n    subtitle = \"By region\"\n  )"
+  },
+  {
+    "objectID": "slides/w01-03-viznum-slides.html#homework-practice",
+    "href": "slides/w01-03-viznum-slides.html#homework-practice",
+    "title": "Visualising numeric data",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 5\n\nProblem 2\nProblem 4\nProblem 6\nProblem 9\nProblem 10\nProblem 11\nProblem 13\nProblem 15\nProblem 17\nProblem 18"
   },
   {
     "objectID": "slides/w01-03-viznum.html",
@@ -639,6 +643,13 @@
     "title": "Visualising numeric data",
     "section": "Adding a categorical variable",
     "text": "Adding a categorical variable\n\n\n\n\nlifespan2023 %&gt;%\n  filter(sex == \"Female\") %&gt;%\n  ggplot(\n    aes(\n      x = lifeexp,\n      y = worldbankregion\n    )\n  ) +\n  geom_boxplot() +\n  labs(\n    x = \"Female life expectancy (years)\",\n    y = NULL,\n    title = \"2023 Life Expectancy of Women\",\n    subtitle = \"By region\"\n  )"
+  },
+  {
+    "objectID": "slides/w01-03-viznum.html#homework-practice",
+    "href": "slides/w01-03-viznum.html#homework-practice",
+    "title": "Visualising numeric data",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 5\n\nProblem 2\nProblem 4\nProblem 6\nProblem 9\nProblem 10\nProblem 11\nProblem 13\nProblem 15\nProblem 17\nProblem 18"
   },
   {
     "objectID": "slides/w08-01-intro-model-slides.html#packages",
@@ -988,7 +999,7 @@
     "href": "slides/w01-01-welcome-slides.html#sampling-methods",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Sampling methods",
-    "text": "Sampling methods\nProbability sampling (e.g., simple random sampling, stratified, cluster, or multi-stage sampling)\n\nAll units have a known chance of being selected\nMore likely to be generalizable\nCan be more expensive and time-consuming\n\nNon-probability sampling (e.g., quota, convenience, or snowball sampling)\n\nSome units unable to be selected, with no way of knowing size or effect of sampling errors\nLess generalizable to population of interest\nMore convenient and less costly"
+    "text": "Sampling methods\n\nProbability sampling (e.g., simple random sampling, stratified, cluster, or multi-stage sampling)\n\nAll units have a known chance of being selected\nMore likely to be generalizable\nCan be more expensive and time-consuming\n\nNon-probability sampling (e.g., quota, convenience, or snowball sampling)\n\nSome units unable to be selected, with no way of knowing size or effect of sampling errors\nLess generalizable to population of interest\nMore convenient and less costly"
   },
   {
     "objectID": "slides/w01-01-welcome-slides.html#study-design",
@@ -996,6 +1007,13 @@
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Study design",
     "text": "Study design\nExperimental studies (e.g., randomized controlled trials)\n\nResearchers directly control exposures or treatments\nAbility to make causal statements\nLess real-world applicability and generalizability\n\nObservational studies (e.g., surveys, electronic medical records)\n\nResearchers do not assign exposures or treatments\nReal-world setting with lower burden on participants\nInability to prove causality\nGenerally more susceptible to bias than experimental studies (learn more about many types of bias at the Catalog of Bias)"
+  },
+  {
+    "objectID": "slides/w01-01-welcome-slides.html#observational-study-challenges",
+    "href": "slides/w01-01-welcome-slides.html#observational-study-challenges",
+    "title": "Welcome to STA/GLHLTH 198!",
+    "section": "Observational Study Challenges",
+    "text": "Observational Study Challenges\n\nObservational studies are critical in advancing health research. However, we must be more careful interpreting their results than in the experimental setting due to the possibility of bias and confounding.\nA confounding variable is one that is associated with both the explanatory and response variables. Because it is associated with both variables, it prevents the study from concluding that the explanatory variable caused the response variable. Consider an example with total ice-cream sales as the explanatory variable and murder rate as the response variable. Outside temperature is associated with both variables, and therefore we cannot conclude that high ice-cream sales are driving an increase in homicides.\nConfounding variables may or may not be measured as part of the study. Regardless, drawing cause-and-effect conclusions is difficult in an observational study because of the ever-present possibility of confounding variables.\nA fun rabbit hole to explore is Tyler Vigen’s Spurious Correlations Website."
   },
   {
     "objectID": "slides/w01-01-welcome-slides.html#life-expectancy",
@@ -1016,7 +1034,7 @@
     "href": "slides/w01-01-welcome-slides.html#dataset-terminology",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Dataset terminology",
-    "text": "Dataset terminology\n\nEach row is an observation\n\nEach column is a variable\n\n\n\n\nlife &lt;- readr::read_csv(\"../data/lifeexpectancy_infant.csv\")\n\nlife\n\n# A tibble: 13,872 × 4\n   location    sex     year lifeexp\n   &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n 1 Afghanistan Female  1990    59.8\n 2 Afghanistan Female  1991    59.8\n 3 Afghanistan Female  1992    60.2\n 4 Afghanistan Female  1993    60.5\n 5 Afghanistan Female  1994    60.7\n 6 Afghanistan Female  1995    61.1\n 7 Afghanistan Female  1996    61.6\n 8 Afghanistan Female  1997    61.6\n 9 Afghanistan Female  1998    60.7\n10 Afghanistan Female  1999    62.0\n# ℹ 13,862 more rows"
+    "text": "Dataset terminology\n\n\nEach row is an observation\n\nEach column is a variable. A variable in statistics is a characteristic or measurement that can take different values across observations in a data set.\n\n\n\n\nlife &lt;- readr::read_csv(\"../data/lifeexpectancy_infant.csv\")\n\nlife\n\n# A tibble: 13,872 × 4\n   location    sex     year lifeexp\n   &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n 1 Afghanistan Female  1990    59.8\n 2 Afghanistan Female  1991    59.8\n 3 Afghanistan Female  1992    60.2\n 4 Afghanistan Female  1993    60.5\n 5 Afghanistan Female  1994    60.7\n 6 Afghanistan Female  1995    61.1\n 7 Afghanistan Female  1996    61.6\n 8 Afghanistan Female  1997    61.6\n 9 Afghanistan Female  1998    60.7\n10 Afghanistan Female  1999    62.0\n# ℹ 13,862 more rows"
   },
   {
     "objectID": "slides/w01-01-welcome-slides.html#whats-in-the-life-expectancy-data",
@@ -1163,7 +1181,14 @@
     "href": "slides/w01-01-welcome-slides.html#this-weeks-tasks",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "This week’s tasks",
-    "text": "This week’s tasks\n\nAttend lectures and lab:\n\nComputational setup;\nGetting to know you survey;\n\n\nRead the syllabus and ask questions on Ed;\nComplete readings and videos for next class;\nSend me SDAO letters and schedule testing center appointments."
+    "text": "This week’s tasks\n\nAttend lectures and lab:\n\nComputational setup;\nGetting to know you survey;\n\n\nRead the syllabus and ask questions on Ed;\nComplete readings and videos for next class;\nSend me SDAO letters and schedule testing center appointments.\nCheck out practice problems (homework!)"
+  },
+  {
+    "objectID": "slides/w01-01-welcome-slides.html#homework-practice",
+    "href": "slides/w01-01-welcome-slides.html#homework-practice",
+    "title": "Welcome to STA/GLHLTH 198!",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 1\n\nProblem 3\nProblem 10\nProblem 12\n\nNote: answers to odd-numbered problems are in the Appendix. Feel free to use Ed Discussion to raise questions with the class."
   },
   {
     "objectID": "slides/w01-01-welcome-slides.html#questions-2",
@@ -1254,7 +1279,7 @@
     "href": "slides/w01-01-welcome.html#sampling-methods",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Sampling methods",
-    "text": "Sampling methods\nProbability sampling (e.g., simple random sampling, stratified, cluster, or multi-stage sampling)\n\nAll units have a known chance of being selected\nMore likely to be generalizable\nCan be more expensive and time-consuming\n\nNon-probability sampling (e.g., quota, convenience, or snowball sampling)\n\nSome units unable to be selected, with no way of knowing size or effect of sampling errors\nLess generalizable to population of interest\nMore convenient and less costly"
+    "text": "Sampling methods\n\nProbability sampling (e.g., simple random sampling, stratified, cluster, or multi-stage sampling)\n\nAll units have a known chance of being selected\nMore likely to be generalizable\nCan be more expensive and time-consuming\n\nNon-probability sampling (e.g., quota, convenience, or snowball sampling)\n\nSome units unable to be selected, with no way of knowing size or effect of sampling errors\nLess generalizable to population of interest\nMore convenient and less costly"
   },
   {
     "objectID": "slides/w01-01-welcome.html#study-design",
@@ -1262,6 +1287,13 @@
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Study design",
     "text": "Study design\nExperimental studies (e.g., randomized controlled trials)\n\nResearchers directly control exposures or treatments\nAbility to make causal statements\nLess real-world applicability and generalizability\n\nObservational studies (e.g., surveys, electronic medical records)\n\nResearchers do not assign exposures or treatments\nReal-world setting with lower burden on participants\nInability to prove causality\nGenerally more susceptible to bias than experimental studies (learn more about many types of bias at the Catalog of Bias)"
+  },
+  {
+    "objectID": "slides/w01-01-welcome.html#observational-study-challenges",
+    "href": "slides/w01-01-welcome.html#observational-study-challenges",
+    "title": "Welcome to STA/GLHLTH 198!",
+    "section": "Observational Study Challenges",
+    "text": "Observational Study Challenges\n\nObservational studies are critical in advancing health research. However, we must be more careful interpreting their results than in the experimental setting due to the possibility of bias and confounding.\nA confounding variable is one that is associated with both the explanatory and response variables. Because it is associated with both variables, it prevents the study from concluding that the explanatory variable caused the response variable. Consider an example with total ice-cream sales as the explanatory variable and murder rate as the response variable. Outside temperature is associated with both variables, and therefore we cannot conclude that high ice-cream sales are driving an increase in homicides.\nConfounding variables may or may not be measured as part of the study. Regardless, drawing cause-and-effect conclusions is difficult in an observational study because of the ever-present possibility of confounding variables.\nA fun rabbit hole to explore is Tyler Vigen’s Spurious Correlations Website."
   },
   {
     "objectID": "slides/w01-01-welcome.html#life-expectancy",
@@ -1282,7 +1314,7 @@
     "href": "slides/w01-01-welcome.html#dataset-terminology",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Dataset terminology",
-    "text": "Dataset terminology\n\nEach row is an observation\n\nEach column is a variable\n\n\n\n\nlife &lt;- readr::read_csv(\"../data/lifeexpectancy_infant.csv\")\n\nlife\n\n# A tibble: 13,872 × 4\n   location    sex     year lifeexp\n   &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n 1 Afghanistan Female  1990    59.8\n 2 Afghanistan Female  1991    59.8\n 3 Afghanistan Female  1992    60.2\n 4 Afghanistan Female  1993    60.5\n 5 Afghanistan Female  1994    60.7\n 6 Afghanistan Female  1995    61.1\n 7 Afghanistan Female  1996    61.6\n 8 Afghanistan Female  1997    61.6\n 9 Afghanistan Female  1998    60.7\n10 Afghanistan Female  1999    62.0\n# ℹ 13,862 more rows"
+    "text": "Dataset terminology\n\n\nEach row is an observation\n\nEach column is a variable. A variable in statistics is a characteristic or measurement that can take different values across observations in a data set.\n\n\n\n\nlife &lt;- readr::read_csv(\"../data/lifeexpectancy_infant.csv\")\n\nlife\n\n# A tibble: 13,872 × 4\n   location    sex     year lifeexp\n   &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n 1 Afghanistan Female  1990    59.8\n 2 Afghanistan Female  1991    59.8\n 3 Afghanistan Female  1992    60.2\n 4 Afghanistan Female  1993    60.5\n 5 Afghanistan Female  1994    60.7\n 6 Afghanistan Female  1995    61.1\n 7 Afghanistan Female  1996    61.6\n 8 Afghanistan Female  1997    61.6\n 9 Afghanistan Female  1998    60.7\n10 Afghanistan Female  1999    62.0\n# ℹ 13,862 more rows"
   },
   {
     "objectID": "slides/w01-01-welcome.html#whats-in-the-life-expectancy-data",
@@ -1429,7 +1461,14 @@
     "href": "slides/w01-01-welcome.html#this-weeks-tasks",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "This week’s tasks",
-    "text": "This week’s tasks\n\nAttend lectures and lab:\n\nComputational setup;\nGetting to know you survey;\n\n\nRead the syllabus and ask questions on Ed;\nComplete readings and videos for next class;\nSend me SDAO letters and schedule testing center appointments."
+    "text": "This week’s tasks\n\nAttend lectures and lab:\n\nComputational setup;\nGetting to know you survey;\n\n\nRead the syllabus and ask questions on Ed;\nComplete readings and videos for next class;\nSend me SDAO letters and schedule testing center appointments.\nCheck out practice problems (homework!)"
+  },
+  {
+    "objectID": "slides/w01-01-welcome.html#homework-practice",
+    "href": "slides/w01-01-welcome.html#homework-practice",
+    "title": "Welcome to STA/GLHLTH 198!",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 1\n\nProblem 3\nProblem 10\nProblem 12\n\nNote: answers to odd-numbered problems are in the Appendix. Feel free to use Ed Discussion to raise questions with the class."
   },
   {
     "objectID": "slides/w01-01-welcome.html#questions-2",
@@ -4750,6 +4789,13 @@
     "text": "Don’t need the legend\n\n\n\n\nlibrary(ggridges)\n\nduke_palette &lt;- c(\n  \"#012169\", \"#C7BDD9\", \"#9BB7A5\",\n  \"#D6C3A5\", \"#A8B7C9\", \"#C9A7A1\",\n  \"#B9C3A3\", \"#8FA4B8\", \"#D9D6CC\",\n  \"#B7AFC8\"\n)\n\nggplot(\n  gats,\n  aes(\n    x = AGE,\n    y = EDUCATION,\n    fill = EDUCATION,\n    color = EDUCATION\n  )\n) +\n  geom_density_ridges(alpha = 0.6) +\n  scale_fill_manual(values = duke_palette) +\n  scale_color_manual(values = duke_palette) +\n  theme(\n    legend.position = \"none\"\n  )"
   },
   {
+    "objectID": "slides/w01-04-vizcat.html#homework-practice",
+    "href": "slides/w01-04-vizcat.html#homework-practice",
+    "title": "Visualising categorical data",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 4\n\nProblem 5\nProblem 7\nProblem 8"
+  },
+  {
     "objectID": "slides/w01-04-vizcat-slides.html#variables",
     "href": "slides/w01-04-vizcat-slides.html#variables",
     "title": "Visualising categorical data",
@@ -4853,6 +4899,13 @@
     "title": "Visualising categorical data",
     "section": "Don’t need the legend",
     "text": "Don’t need the legend\n\n\n\n\nlibrary(ggridges)\n\nduke_palette &lt;- c(\n  \"#012169\", \"#C7BDD9\", \"#9BB7A5\",\n  \"#D6C3A5\", \"#A8B7C9\", \"#C9A7A1\",\n  \"#B9C3A3\", \"#8FA4B8\", \"#D9D6CC\",\n  \"#B7AFC8\"\n)\n\nggplot(\n  gats,\n  aes(\n    x = AGE,\n    y = EDUCATION,\n    fill = EDUCATION,\n    color = EDUCATION\n  )\n) +\n  geom_density_ridges(alpha = 0.6) +\n  scale_fill_manual(values = duke_palette) +\n  scale_color_manual(values = duke_palette) +\n  theme(\n    legend.position = \"none\"\n  )"
+  },
+  {
+    "objectID": "slides/w01-04-vizcat-slides.html#homework-practice",
+    "href": "slides/w01-04-vizcat-slides.html#homework-practice",
+    "title": "Visualising categorical data",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 4\n\nProblem 5\nProblem 7\nProblem 8"
   },
   {
     "objectID": "slides/w05-02-clt.html",
@@ -5954,6 +6007,13 @@
     "text": "Facet and color, no legend\n\n\n\nlifeexpwide %&gt;%\n  filter(\n    year %in% c(1999, 2010, 2023),\n    worldbankregion %in% c(\n      \"North America\",\n      \"South Asia\",\n      \"Sub-Saharan Africa\"\n    )\n  ) %&gt;%\n  ggplot(\n    aes(\n      x = Female,\n      y = Male,\n      color = year\n    )\n  ) +\n  geom_point() +\n  facet_wrap(~worldbankregion) +\n  guides(color = \"none\")"
   },
   {
+    "objectID": "slides/w01-02-ggplot.html#homework-practice",
+    "href": "slides/w01-02-ggplot.html#homework-practice",
+    "title": "Visualising data with ggplot2",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 2\n\nProblem 2\nProblem 3\nProblem 7\nProblem 8\nProblem 11\nProblem 12"
+  },
+  {
     "objectID": "slides/w01-02-ggplot-slides.html#ggplot2-in-tidyverse",
     "href": "slides/w01-02-ggplot-slides.html#ggplot2-in-tidyverse",
     "title": "Visualising data with ggplot2",
@@ -6155,6 +6215,13 @@
     "title": "Visualising data with ggplot2",
     "section": "Facet and color, no legend",
     "text": "Facet and color, no legend\n\n\n\nlifeexpwide %&gt;%\n  filter(\n    year %in% c(1999, 2010, 2023),\n    worldbankregion %in% c(\n      \"North America\",\n      \"South Asia\",\n      \"Sub-Saharan Africa\"\n    )\n  ) %&gt;%\n  ggplot(\n    aes(\n      x = Female,\n      y = Male,\n      color = year\n    )\n  ) +\n  geom_point() +\n  facet_wrap(~worldbankregion) +\n  guides(color = \"none\")"
+  },
+  {
+    "objectID": "slides/w01-02-ggplot-slides.html#homework-practice",
+    "href": "slides/w01-02-ggplot-slides.html#homework-practice",
+    "title": "Visualising data with ggplot2",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 2\n\nProblem 2\nProblem 3\nProblem 7\nProblem 8\nProblem 11\nProblem 12"
   },
   {
     "objectID": "slides/w04-02-wranglingII.html",
