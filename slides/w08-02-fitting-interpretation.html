@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Amy Herring">
-<meta name="dcterms.date" content="2026-10-09">
+<meta name="dcterms.date" content="2026-10-19">
 <title>Model Fitting and Interpretation – STA 198</title>
 <style>
 code{white-space: pre-wrap;}
@@ -137,7 +137,7 @@ window.Quarto = {
 </script>
 <meta property="og:title" content="Model Fitting and Interpretation – STA 198">
 <meta property="og:description" content="Introduction to Global Health Data Science">
-<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w08-02-fitting-interpretation_files/figure-html/hg_asset_plot-1.png">
+<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w08-02-fitting-interpretation_files/figure-revealjs/hg_asset_plot-1.png">
 <meta property="og:site_name" content="STA 198">
 <meta property="og:image:height" content="2966">
 <meta property="og:image:width" content="4800">
@@ -522,7 +522,9 @@ window.Quarto = {
   <li><a href="#visualizing-residuals" id="toc-visualizing-residuals" class="nav-link" data-scroll-target="#visualizing-residuals">Visualizing residuals</a></li>
   <li><a href="#visualizing-residuals-cont." id="toc-visualizing-residuals-cont." class="nav-link" data-scroll-target="#visualizing-residuals-cont.">Visualizing residuals (cont.)</a></li>
   <li><a href="#visualizing-residuals-cont.-1" id="toc-visualizing-residuals-cont.-1" class="nav-link" data-scroll-target="#visualizing-residuals-cont.-1">Visualizing residuals (cont.)</a></li>
+  <li><a href="#how-well-does-the-model-fit-r2" id="toc-how-well-does-the-model-fit-r2" class="nav-link" data-scroll-target="#how-well-does-the-model-fit-r2">How well does the model fit? <span class="math inline">\(R^2\)</span></a></li>
   <li><a href="#properties-of-least-squares-regression" id="toc-properties-of-least-squares-regression" class="nav-link" data-scroll-target="#properties-of-least-squares-regression">Properties of least squares regression</a></li>
+  <li><a href="#homework-practice" id="toc-homework-practice" class="nav-link" data-scroll-target="#homework-practice">Homework (Practice)</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w08-02-fitting-interpretation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="w08-02-fitting-interpretation-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -554,7 +556,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 9, 2026</p>
+      <p class="date">October 19, 2026</p>
     </div>
   </div>
   
@@ -586,7 +588,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-html/hg_asset_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w08-02-fitting-interpretation_files/figure-html/hg_asset_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/hg_asset_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w08-02-fitting-interpretation_files/figure-revealjs/hg_asset_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -783,7 +785,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-html/least-squares-illustration-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w08-02-fitting-interpretation_files/figure-html/least-squares-illustration-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/least-squares-illustration-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w08-02-fitting-interpretation_files/figure-revealjs/least-squares-illustration-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -792,7 +794,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-html/vis-res-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w08-02-fitting-interpretation_files/figure-html/vis-res-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -801,7 +803,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-html/vis-res-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w08-02-fitting-interpretation_files/figure-html/vis-res-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -810,20 +812,56 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-html/vis-res-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w08-02-fitting-interpretation_files/figure-html/vis-res-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
+</div>
+</div>
+</section><section id="how-well-does-the-model-fit-r2" class="level2"><h2 class="anchored" data-anchor-id="how-well-does-the-model-fit-r2">How well does the model fit? <span class="math inline">\(R^2\)</span>
+</h2>
+<div style="font-size:0.75em;">
+<p>The <strong>coefficient of determination</strong>, <span class="math inline">\(R^2\)</span>, measures the proportion of variation in the response <span class="math inline">\(y\)</span> that is explained by the regression model.</p>
+<p><span class="math display">\[
+R^2
+=
+1 -
+\frac{\sum_{i=1}^n (y_i-\widehat{y}_i)^2}
+     {\sum_{i=1}^n (y_i-\bar{y})^2}
+\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(\sum (y_i-\widehat{y}_i)^2\)</span>: variation <strong>not explained</strong> by the model</li>
+<li>
+<span class="math inline">\(\sum (y_i-\bar{y})^2\)</span>: <strong>total variation</strong> in <span class="math inline">\(y\)</span>
+</li>
+</ul>
+<div class="fragment">
+<p><span class="math inline">\(R^2\)</span> ranges from <strong>0 to 1</strong>.</p>
+<ul>
+<li>
+<span class="math inline">\(R^2 = 0\)</span>: the model explains none of the variation in <span class="math inline">\(y\)</span>
+</li>
+<li>
+<span class="math inline">\(R^2 = 1\)</span>: the model explains all of the variation in <span class="math inline">\(y\)</span>
+</li>
+</ul>
+</div>
+<div class="fragment">
+<p>For simple linear regression with one predictor:</p>
+<p><span class="math display">\[
+R^2 = r^2
+\]</span></p>
 </div>
 </div>
 </section><section id="properties-of-least-squares-regression" class="level2"><h2 class="anchored" data-anchor-id="properties-of-least-squares-regression">Properties of least squares regression</h2>
 <div style="font-size:0.7em;">
 <ul>
-<li>The regression line goes through the center of mass point, the coordinates corresponding to average <span class="math inline">\(x\)</span> and average <span class="math inline">\(y\)</span>, <span class="math inline">\((\bar{x}, \bar{y})\)</span>:<br><span class="math display">\[\bar{y} = b_0 + b_1 \bar{x} ~ \rightarrow ~ b_0 = \bar{y} - b_1 \bar{x}\]</span>
+<li>The regression line goes through the center of mass point, the coordinates corresponding to average <span class="math inline">\(x\)</span> and average <span class="math inline">\(y\)</span>, <span class="math inline">\((\bar{x}, \bar{y})\)</span>:<br><span class="math display">\[\bar{y} = \hat{\beta}_0 + \hat{\beta}_1 \bar{x} ~ \rightarrow ~ \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}\]</span>
 </li>
 </ul>
 <div class="fragment">
 <ul>
-<li>The slope has the same sign as the correlation coefficient: <span class="math inline">\(b_1 = r \frac{s_y}{s_x}\)</span>
+<li>The slope has the same sign as the correlation coefficient: <span class="math inline">\(\hat{\beta}_1 = r \frac{s_y}{s_x}\)</span>
 <ul>
 <li>
 <span class="math inline">\(s_x\)</span> is the standard deviation of the explanatory variable <span class="math inline">\(x\)</span>, and <span class="math inline">\(s_y\)</span> is the standard deviation of the response variable <span class="math inline">\(y\)</span>
@@ -848,9 +886,56 @@ window.Quarto = {
 </ul>
 </div>
 </div>
+</section><section id="homework-practice" class="level2"><h2 class="anchored" data-anchor-id="homework-practice">Homework (Practice)</h2>
+<p><a href="https://openintrostat.github.io/ims/model-slr.html#sec-chp7-exercises"><strong>IMS Chapter 7</strong></a></p>
+<ul>
+<li>Problem 3</li>
+<li>Problem 4</li>
+<li>Problem 7</li>
+<li>Problem 8</li>
+<li>Problem 12</li>
+<li>Problem 17</li>
+<li>Problem 22</li>
+<li>Problem 23</li>
+</ul>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {

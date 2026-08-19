@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Amy Herring">
+<meta name="dcterms.date" content="2026-10-19">
+<title>ANOVA: Analysis of Variance – STA 198</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a2a5d2141b2957cb469ee31a6eb36e11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-9c3d5961ae8d2ded56656e21130d8ade.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a2a5d2141b2957cb469ee31a6eb36e11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link href="../site_libs/font-awesome/css/all.min.css" rel="stylesheet">
+<link href="../site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet">
+<link href="../site_libs/panelset/panelset.css" rel="stylesheet">
+<script src="../site_libs/panelset/panelset.js"></script><script src="../site_libs/kePrint/kePrint.js"></script><link href="../site_libs/lightable/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+<meta property="og:title" content="ANOVA: Analysis of Variance – STA 198">
+<meta property="og:description" content="Introduction to Global Health Data Science">
+<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w08-03-anova_files/figure-revealjs/unnamed-chunk-4-1.png">
+<meta property="og:site_name" content="STA 198">
+<meta property="og:image:height" content="2966">
+<meta property="og:image:width" content="4800">
+</head>
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">ANOVA: Analysis of Variance</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/sta199-f26" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
+    <a href="https://cmgr.oit.duke.edu/containers" title="RStudio containers" class="quarto-navigation-tool px-1" aria-label="RStudio containers"><i class="bi bi-code-square"></i></a>
+    <div class="dropdown">
+      <a href="" title="Support" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Support"><i class="bi bi-life-preserver"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://docs.google.com/spreadsheets/d/1ecv7aJCSpDThmbBXkY3AkkpNKSyu4ISAlDXSjZx-WQA/edit?usp=sharing">
+              <i class="bi bi-person-raised-hand pe-1"></i>
+            Office hours
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://edstem.org/">
+              <i class="bi bi-people-fill pe-1"></i>
+            Help from humans (Ed Discussion)
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://canvas.duke.edu/">
+              <i class="bi bi-robot pe-1"></i>
+            Help from AI (Chatbot)
+            </a>
+          </li>
+      </ul>
+</div>
+    <div class="dropdown">
+      <a href="" title="Canvas" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Canvas"><i class="bi bi-file-check-fill"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://canvas.duke.edu/">
+              <i class="bi bi-megaphone-fill pe-1"></i>
+            Announcements
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://canvas.duke.edu/">
+              <i class="bi bi-file-arrow-up-fill pe-1"></i>
+            Gradescope
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://canvas.duke.edu/">
+              <i class="bi bi-alphabet-uppercase pe-1"></i>
+            Gradebook
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Course information</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-support.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Support</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-team.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Team</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-links.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Useful links</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Computing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-code-alongs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code alongs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-cheatsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Labs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exam-review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exam reviews</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon" id="toc-data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon" class="nav-link active" data-scroll-target="#data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon">Data: Artisanal and Small-Scale Gold Mining in the Peruvian Amazon</a>
+  <ul class="collapse">
+<li><a href="#mercury-and-community" id="toc-mercury-and-community" class="nav-link" data-scroll-target="#mercury-and-community">Mercury and Community</a></li>
+  <li><a href="#relationship-between-mercury-and-individual-community" id="toc-relationship-between-mercury-and-individual-community" class="nav-link" data-scroll-target="#relationship-between-mercury-and-individual-community">Relationship between mercury and individual community</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">ANOVA</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
+  <li><a href="#hypothesis-of-interest" id="toc-hypothesis-of-interest" class="nav-link" data-scroll-target="#hypothesis-of-interest">Hypothesis of Interest</a></li>
+  <li><a href="#multiple-comparisons" id="toc-multiple-comparisons" class="nav-link" data-scroll-target="#multiple-comparisons">Multiple Comparisons</a></li>
+  <li><a href="#anova-null-hypothesis" id="toc-anova-null-hypothesis" class="nav-link" data-scroll-target="#anova-null-hypothesis">ANOVA Null Hypothesis</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#multiple-comparisons-in-action" id="toc-multiple-comparisons-in-action" class="nav-link" data-scroll-target="#multiple-comparisons-in-action">Multiple Comparisons in Action</a>
+  <ul class="collapse">
+<li><a href="#overall-test" id="toc-overall-test" class="nav-link" data-scroll-target="#overall-test">Overall Test</a></li>
+  <li><a href="#extra-test-1-wild-blackberry" id="toc-extra-test-1-wild-blackberry" class="nav-link" data-scroll-target="#extra-test-1-wild-blackberry">Extra Test 1: Wild Blackberry</a></li>
+  <li><a href="#extra-test-2-root-beer" id="toc-extra-test-2-root-beer" class="nav-link" data-scroll-target="#extra-test-2-root-beer">Extra Test 2: Root Beer</a></li>
+  <li><a href="#extra-test-3-cotton-candy" id="toc-extra-test-3-cotton-candy" class="nav-link" data-scroll-target="#extra-test-3-cotton-candy">Extra Test 3: Cotton Candy</a></li>
+  <li><a href="#extra-test-4-island-punch" id="toc-extra-test-4-island-punch" class="nav-link" data-scroll-target="#extra-test-4-island-punch">Extra Test 4: Island Punch</a></li>
+  <li><a href="#extra-test-5-blueberry" id="toc-extra-test-5-blueberry" class="nav-link" data-scroll-target="#extra-test-5-blueberry">Extra Test 5: Blueberry</a></li>
+  <li><a href="#extra-test-6-pink-grapefruit" id="toc-extra-test-6-pink-grapefruit" class="nav-link" data-scroll-target="#extra-test-6-pink-grapefruit">Extra Test 6: Pink Grapefruit</a></li>
+  <li><a href="#extra-test-7-strawberry-jam" id="toc-extra-test-7-strawberry-jam" class="nav-link" data-scroll-target="#extra-test-7-strawberry-jam">Extra Test 7: Strawberry Jam</a></li>
+  <li><a href="#extra-test-8-berry-blue" id="toc-extra-test-8-berry-blue" class="nav-link" data-scroll-target="#extra-test-8-berry-blue">Extra Test 8: Berry Blue</a></li>
+  <li><a href="#extra-test-9-pomegranate" id="toc-extra-test-9-pomegranate" class="nav-link" data-scroll-target="#extra-test-9-pomegranate">Extra Test 9: Pomegranate</a></li>
+  <li><a href="#extra-test-10-buttered-popcorn" id="toc-extra-test-10-buttered-popcorn" class="nav-link" data-scroll-target="#extra-test-10-buttered-popcorn">Extra Test 10: Buttered Popcorn</a></li>
+  <li><a href="#extra-test-11-black-pepper" id="toc-extra-test-11-black-pepper" class="nav-link" data-scroll-target="#extra-test-11-black-pepper">Extra Test 11: Black Pepper</a></li>
+  <li><a href="#extra-test-12-ear-wax" id="toc-extra-test-12-ear-wax" class="nav-link" data-scroll-target="#extra-test-12-ear-wax">Extra Test 12: Ear Wax</a></li>
+  <li><a href="#extra-test-13-soap" id="toc-extra-test-13-soap" class="nav-link" data-scroll-target="#extra-test-13-soap">Extra Test 13: Soap</a></li>
+  <li><a href="#extra-test-14-green-apple" id="toc-extra-test-14-green-apple" class="nav-link" data-scroll-target="#extra-test-14-green-apple">Extra Test 14: Green Apple</a></li>
+  <li><a href="#extra-test-15-strawberry-cheesecake" id="toc-extra-test-15-strawberry-cheesecake" class="nav-link" data-scroll-target="#extra-test-15-strawberry-cheesecake">Extra Test 15: Strawberry Cheesecake</a></li>
+  <li><a href="#green-apple" id="toc-green-apple" class="nav-link" data-scroll-target="#green-apple">GREEN APPLE!</a></li>
+  <li><a href="#green-jelly-beans-again" id="toc-green-jelly-beans-again" class="nav-link" data-scroll-target="#green-jelly-beans-again">Green Jelly Beans Again</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#back-to-anova" id="toc-back-to-anova" class="nav-link" data-scroll-target="#back-to-anova">Back to ANOVA</a>
+  <ul class="collapse">
+<li><a href="#why-analyze-variance" id="toc-why-analyze-variance" class="nav-link" data-scroll-target="#why-analyze-variance">Why Analyze Variance?</a></li>
+  <li><a href="#general-anova-setup" id="toc-general-anova-setup" class="nav-link" data-scroll-target="#general-anova-setup">General ANOVA Setup</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a></li>
+  <li><a href="#assumptions-of-anova" id="toc-assumptions-of-anova" class="nav-link" data-scroll-target="#assumptions-of-anova">Assumptions of ANOVA</a></li>
+  <li><a href="#checking-anova-assumptions-in-mercury-data-ppm-scale" id="toc-checking-anova-assumptions-in-mercury-data-ppm-scale" class="nav-link" data-scroll-target="#checking-anova-assumptions-in-mercury-data-ppm-scale">Checking ANOVA Assumptions in Mercury Data: PPM Scale</a></li>
+  <li><a href="#checking-anova-assumptions-in-mercury-data-log-scale" id="toc-checking-anova-assumptions-in-mercury-data-log-scale" class="nav-link" data-scroll-target="#checking-anova-assumptions-in-mercury-data-log-scale">Checking ANOVA Assumptions in Mercury Data: Log Scale</a></li>
+  <li><a href="#anova-assumptions" id="toc-anova-assumptions" class="nav-link" data-scroll-target="#anova-assumptions">ANOVA Assumptions</a></li>
+  <li><a href="#anova-for-mercury-data" id="toc-anova-for-mercury-data" class="nav-link" data-scroll-target="#anova-for-mercury-data">ANOVA for Mercury Data</a></li>
+  <li><a href="#overall-variance" id="toc-overall-variance" class="nav-link" data-scroll-target="#overall-variance">Overall variance</a></li>
+  <li><a href="#within-groups-variance" id="toc-within-groups-variance" class="nav-link" data-scroll-target="#within-groups-variance">Within-groups variance</a></li>
+  <li><a href="#between-groups-variance" id="toc-between-groups-variance" class="nav-link" data-scroll-target="#between-groups-variance">Between-groups variance</a></li>
+  <li><a href="#f-test" id="toc-f-test" class="nav-link" data-scroll-target="#f-test">F test</a></li>
+  <li><a href="#f-test-1" id="toc-f-test-1" class="nav-link" data-scroll-target="#f-test-1">F test</a></li>
+  <li><a href="#f-distribution" id="toc-f-distribution" class="nav-link" data-scroll-target="#f-distribution">F Distribution</a></li>
+  <li><a href="#visualizing-anova" id="toc-visualizing-anova" class="nav-link" data-scroll-target="#visualizing-anova">Visualizing ANOVA</a></li>
+  <li><a href="#anova-for-mercury-data-1" id="toc-anova-for-mercury-data-1" class="nav-link" data-scroll-target="#anova-for-mercury-data-1">ANOVA for Mercury Data</a></li>
+  <li><a href="#step-down-tests" id="toc-step-down-tests" class="nav-link" data-scroll-target="#step-down-tests">Step-Down Tests</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
+  <li><a href="#write-up-of-methods-and-results" id="toc-write-up-of-methods-and-results" class="nav-link" data-scroll-target="#write-up-of-methods-and-results">Write-up of Methods and Results</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#wait-is-that-wrong-hold-that-thought." id="toc-wait-is-that-wrong-hold-that-thought." class="nav-link" data-scroll-target="#wait-is-that-wrong-hold-that-thought.">Wait, is that wrong? Hold that thought.</a>
+  <ul class="collapse">
+<li><a href="#bonferroni-correction" id="toc-bonferroni-correction" class="nav-link" data-scroll-target="#bonferroni-correction">Bonferroni Correction</a></li>
+  <li><a href="#violation-of-independence" id="toc-violation-of-independence" class="nav-link" data-scroll-target="#violation-of-independence">Violation of independence</a></li>
+  <li><a href="#concerns-when-independence-is-violated" id="toc-concerns-when-independence-is-violated" class="nav-link" data-scroll-target="#concerns-when-independence-is-violated">Concerns when Independence is Violated</a></li>
+  <li><a href="#simple-fix-limit-to-one-person-per-household" id="toc-simple-fix-limit-to-one-person-per-household" class="nav-link" data-scroll-target="#simple-fix-limit-to-one-person-per-household">Simple Fix: Limit to One Person Per Household</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"></a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6"></a></li>
+  <li><a href="#random-effects-anova" id="toc-random-effects-anova" class="nav-link" data-scroll-target="#random-effects-anova">Random Effects ANOVA</a></li>
+  <li><a href="#random-effects-results" id="toc-random-effects-results" class="nav-link" data-scroll-target="#random-effects-results">Random effects results</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7"></a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8"></a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9"></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#regression-models-with-categorical-explanatory-variables" id="toc-regression-models-with-categorical-explanatory-variables" class="nav-link" data-scroll-target="#regression-models-with-categorical-explanatory-variables">Regression models with categorical explanatory variables</a>
+  <ul class="collapse">
+<li><a href="#categorical-predictor-with-2-levels" id="toc-categorical-predictor-with-2-levels" class="nav-link" data-scroll-target="#categorical-predictor-with-2-levels">Categorical predictor with 2 levels</a></li>
+  <li><a href="#mercury-native-community-relationship" id="toc-mercury-native-community-relationship" class="nav-link" data-scroll-target="#mercury-native-community-relationship">Mercury &amp; native community relationship</a></li>
+  <li><a href="#mercury-and-native-communities" id="toc-mercury-and-native-communities" class="nav-link" data-scroll-target="#mercury-and-native-communities">Mercury and native communities</a></li>
+  <li><a href="#relationship-between-mercury-and-individual-community-1" id="toc-relationship-between-mercury-and-individual-community-1" class="nav-link" data-scroll-target="#relationship-between-mercury-and-individual-community-1">Relationship between mercury and individual community</a></li>
+  <li><a href="#dummy-or-indicator-variables" id="toc-dummy-or-indicator-variables" class="nav-link" data-scroll-target="#dummy-or-indicator-variables">Dummy or indicator variables</a></li>
+  <li><a href="#categorical-predictor-with-3-levels" id="toc-categorical-predictor-with-3-levels" class="nav-link" data-scroll-target="#categorical-predictor-with-3-levels">Categorical predictor with 3+ levels</a></li>
+  <li><a href="#relationship-between-mercury-and-community" id="toc-relationship-between-mercury-and-community" class="nav-link" data-scroll-target="#relationship-between-mercury-and-community">Relationship between mercury and community</a></li>
+  <li><a href="#regression-and-anova" id="toc-regression-and-anova" class="nav-link" data-scroll-target="#regression-and-anova">Regression and ANOVA</a></li>
+  <li><a href="#anova-as-regression" id="toc-anova-as-regression" class="nav-link" data-scroll-target="#anova-as-regression">ANOVA as Regression</a></li>
+  <li><a href="#correspondence-between-regression-and-anova" id="toc-correspondence-between-regression-and-anova" class="nav-link" data-scroll-target="#correspondence-between-regression-and-anova">Correspondence between regression and ANOVA</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10"></a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w08-03-anova.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="w08-03-anova-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">ANOVA: Analysis of Variance</h1>
+<p class="subtitle lead">Introduction to Global Health Data Science</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Amy Herring </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Duke University <br> STA/GLHLTH 198 Fall 2026
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 19, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggtext/">ggtext</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>dplyr.print_min <span class="op">=</span> <span class="fl">10</span>, dplyr.print_max <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon" class="level1"><h1>Data: Artisanal and Small-Scale Gold Mining in the Peruvian Amazon</h1>
+<section id="mercury-and-community" class="level2"><h2 class="anchored" data-anchor-id="mercury-and-community">Mercury and Community</h2>
+<p><a href="https://theconversation.com/gold-rush-mercury-legacy-small-scale-mining-for-gold-has-produced-long-lasting-toxic-pollution-from-1860s-california-to-modern-peru-133324">Artisinal and small-scale gold mining is largest source of mercury pollution worldwide</a>.</p>
+<p>Are mercury concentrations in hair related to community of residence?</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
+<span><span class="va">mercury</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"../data/mercury_reg.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="relationship-between-mercury-and-individual-community" class="level2"><h2 class="anchored" data-anchor-id="relationship-between-mercury-and-individual-community">Relationship between mercury and individual community</h2>
+<p>One way to explore this relationship is through a linear regression model, with <em>dummy</em> or <em>indicator variables</em> for community as predictors.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">community</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">tidy</span><span class="op">(</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span>,n<span class="op">=</span><span class="fl">23</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="section" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section"></h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 5
+   term                     estimate std.error statistic  p.value
+   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 (Intercept)                0.614     0.0644     9.54  3.55e-21
+ 2 communityBoca Isiriwe      1.20      0.159      7.56  5.77e-14
+ 3 communityBoca Manu         0.833     0.129      6.43  1.56e-10
+ 4 communityCaychihue        -1.10      0.132     -8.36  1.09e-16
+ 5 communityChoque           -0.778     0.117     -6.68  3.04e-11
+ 6 communityDiamante          1.06      0.109      9.67  1.00e-21
+ 7 communityHuepetuhe        -0.694     0.0732    -9.48  5.96e-21
+ 8 communityIsla de los Va…   1.12      0.245      4.57  5.18e- 6
+ 9 communityMasenawa          1.20      0.401      3.00  2.74e- 3
+10 communityPalotoa Teparo    0.350     0.148      2.36  1.82e- 2
+11 communityPuerto Azul       1.22      0.230      5.27  1.45e- 7
+12 communityPuerto Luz        0.494     0.0991     4.98  6.67e- 7
+13 communityPunquiri         -0.678     0.176     -3.84  1.26e- 4
+14 communityPuquiri           0.0842    0.192      0.439 6.61e- 1
+15 communityQuebrada Neuva   -0.812     0.0966    -8.41  7.21e-17
+16 communityQueros           -0.707     0.245     -2.89  3.93e- 3
+17 communityQuimiri          -0.621     0.274     -2.26  2.38e- 2
+18 communityQuincemil        -0.822     0.0858    -9.57  2.55e-21
+19 communitySalvacion        -0.732     0.0850    -8.61  1.31e-17
+20 communitySan Lorenzo      -0.245     0.124     -1.98  4.82e- 2
+21 communitySetapo            0.517     0.319      1.62  1.05e- 1
+22 communityShintuya          0.130     0.122      1.07  2.86e- 1
+23 communityShipitiari        0.532     0.161      3.30  9.65e- 4</code></pre>
+</div>
+</div>
+</section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
+<ul>
+<li><p>When the categorical explanatory variable has many levels, they’re encoded to <strong>indicator</strong> or <strong>dummy variables</strong></p></li>
+<li><p>Each coefficient describes the expected difference between hair mercury levels in that particular community compared to the baseline level</p></li>
+<li><p>Here, the community mean hair mercury levels are different from those in Boca Colorado (the <em>referent</em> group, selected alphabetically) with the exception of Puquiri, Setapo, and Shintuya.</p></li>
+<li><p>What if we want to make comparisons between pairs of communities that don’t involve Boca Colorado? We’ll address that shortly!</p></li>
+</ul></section><section id="anova" class="level2"><h2 class="anchored" data-anchor-id="anova">ANOVA</h2>
+<p>When our predictor variable is categorical and the response is (approximately) normal (perhaps after transformation), often this type of model is fitted as an <strong>ANOVA</strong> model. <strong>ANOVA or Analysis of Variance</strong> refers to an approach when we have all categorical predictors, in which the hypothesis of interest is related to the degree of variability in the means across groups (versus within-group variability).</p>
+<p>We can think of ANOVA as a special case of regression, when all predictors are categorical. Technically, ANOVA is more of a tool to break apart different sources of variation in data.</p>
+</section><section id="section-2" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-2"></h2>
+<p>First, let’s explore hair Hg levels (in log ppm) by community in our data visually.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Plot</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w08-03-anova_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w08-03-anova_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mercury</span>,</span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">community</span>, y <span class="op">=</span> <span class="va">lhairHg</span>,</span>
+<span>           color <span class="op">=</span> <span class="va">community</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"NULL"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Hair Hg (log ppm)"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Community"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span></span>
+<span>      angle <span class="op">=</span> <span class="fl">45</span>,</span>
+<span>      vjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>      hjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>      size <span class="op">=</span> <span class="fl">6</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    legend.position <span class="op">=</span> <span class="st">"none"</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="hypothesis-of-interest" class="level2"><h2 class="anchored" data-anchor-id="hypothesis-of-interest">Hypothesis of Interest</h2>
+<p>We might be interested in testing whether all the community means are the same or not.</p>
+<p><span class="math display">\[H_0: \mu_{Boca Col}=\mu_{Boca Isi}=\cdots=\mu_{Shipitiari}\]</span></p>
+<p>versus the alternative hypothesis that at least one of the community means is different.</p>
+<p>One way to do this would be to use t-tests on all possible pairs of communities. In this case, with 23 communities we would need to do <span class="math inline">\(\begin{pmatrix} 23 \\ 2 \end{pmatrix}=253\)</span> tests! In addition to being time-consuming, carrying out multiple tests typically leads to an <em>inflated type I error rate</em>.</p>
+</section><section id="multiple-comparisons" class="level2"><h2 class="anchored" data-anchor-id="multiple-comparisons">Multiple Comparisons</h2>
+<div style="font-size:0.9em;">
+<ul>
+<li><p>Suppose all means are truly equal, and we conduct all 253 pairwise tests</p></li>
+<li><p>Suppose also the tests are independent and done at a 0.05 significance level</p></li>
+<li><p>Then the probability we fail to reject all 253 tests (the right decision) is <span class="math inline">\((1-0.05)^{253}=0.95^{253} \approx 0\)</span>, and the probability of rejecting at least one of the 253 null hypotheses, called the <strong>family-wise error rate</strong>, is <span class="math inline">\(\approx 1 &gt;&gt;0.05\)</span></p></li>
+<li><p>In reality, this is a little more complicated (tests are not independent), but we still have the problem of an inflated type I error rate.</p></li>
+<li><p>ANOVA extends the t-test and is one way to control the overall type I error rate at a fixed level <span class="math inline">\(\alpha\)</span>, if we only test pairwise differences when the <em>chunk</em> or <em>overall test</em> is rejected</p></li>
+</ul>
+</div>
+</section><section id="anova-null-hypothesis" class="level2"><h2 class="anchored" data-anchor-id="anova-null-hypothesis">ANOVA Null Hypothesis</h2>
+<p>In ANOVA, we typically follow this testing procedure.</p>
+<ul>
+<li>
+<p>First, you conduct an <em>overall</em> or <em>chunk</em> test of the null hypothesis that the means of all of the groups are equal.</p>
+<ul>
+<li><p>If you reject this null hypothesis, then we usually <em>step down</em> to see which means are different from each other. A <em>multiple comparisons</em> correction is sometimes used for these pairwise comparisons of means.</p></li>
+<li><p>If you do not reject the null hypothesis, this means our data are consistent with a population in which the means are all equal. Generally, no further testing should be done.</p></li>
+</ul>
+</li>
+</ul></section></section><section id="multiple-comparisons-in-action" class="level1"><h1>Multiple Comparisons in Action</h1>
+<section id="overall-test" class="level2"><h2 class="anchored" data-anchor-id="overall-test">Overall Test</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jb1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../img/jb1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-1-wild-blackberry" class="level2"><h2 class="anchored" data-anchor-id="extra-test-1-wild-blackberry">Extra Test 1: Wild Blackberry</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbpurple.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../img/jbpurple.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-2-root-beer" class="level2"><h2 class="anchored" data-anchor-id="extra-test-2-root-beer">Extra Test 2: Root Beer</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbbrown.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../img/jbbrown.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-3-cotton-candy" class="level2"><h2 class="anchored" data-anchor-id="extra-test-3-cotton-candy">Extra Test 3: Cotton Candy</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbpink.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../img/jbpink.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-4-island-punch" class="level2"><h2 class="anchored" data-anchor-id="extra-test-4-island-punch">Extra Test 4: Island Punch</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbblue.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../img/jbblue.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-5-blueberry" class="level2"><h2 class="anchored" data-anchor-id="extra-test-5-blueberry">Extra Test 5: Blueberry</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbteal.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="../img/jbteal.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-6-pink-grapefruit" class="level2"><h2 class="anchored" data-anchor-id="extra-test-6-pink-grapefruit">Extra Test 6: Pink Grapefruit</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbsalmon.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../img/jbsalmon.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-7-strawberry-jam" class="level2"><h2 class="anchored" data-anchor-id="extra-test-7-strawberry-jam">Extra Test 7: Strawberry Jam</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbred.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../img/jbred.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-8-berry-blue" class="level2"><h2 class="anchored" data-anchor-id="extra-test-8-berry-blue">Extra Test 8: Berry Blue</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbturquoise.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="../img/jbturquoise.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-9-pomegranate" class="level2"><h2 class="anchored" data-anchor-id="extra-test-9-pomegranate">Extra Test 9: Pomegranate</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbmagenta.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="../img/jbmagenta.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-10-buttered-popcorn" class="level2"><h2 class="anchored" data-anchor-id="extra-test-10-buttered-popcorn">Extra Test 10: Buttered Popcorn</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbyellow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="../img/jbyellow.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-11-black-pepper" class="level2"><h2 class="anchored" data-anchor-id="extra-test-11-black-pepper">Extra Test 11: Black Pepper</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbgrey.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="../img/jbgrey.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-12-ear-wax" class="level2"><h2 class="anchored" data-anchor-id="extra-test-12-ear-wax">Extra Test 12: Ear Wax</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbtan.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="../img/jbtan.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-13-soap" class="level2"><h2 class="anchored" data-anchor-id="extra-test-13-soap">Extra Test 13: Soap</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbcyan.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="../img/jbcyan.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="extra-test-14-green-apple" class="level2"><h2 class="anchored" data-anchor-id="extra-test-14-green-apple">Extra Test 14: Green Apple</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbgreen.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="../img/jbgreen.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section><section id="extra-test-15-strawberry-cheesecake" class="level2"><h2 class="anchored" data-anchor-id="extra-test-15-strawberry-cheesecake">Extra Test 15: Strawberry Cheesecake</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/jbmauve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="../img/jbmauve.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<hr></section><section id="green-apple" class="level2"><h2 class="anchored" data-anchor-id="green-apple">GREEN APPLE!</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/greenbeans.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="../img/greenbeans.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="green-jelly-beans-again" class="level2"><h2 class="anchored" data-anchor-id="green-jelly-beans-again">Green Jelly Beans Again</h2>
+<p>Disclaimer: So, uh, we did the green study again and got no link. It was probably a – “RESEARCH CONFLICTED ON GREEN JELLY BEAN-ACNE LINK; MORE STUDY RECOMMENDED!” headline.</p>
+<p>Later, we’ll learn how to control type I error rate for many comparisons.</p>
+</section></section><section id="back-to-anova" class="level1"><h1>Back to ANOVA</h1>
+<section id="why-analyze-variance" class="level2"><h2 class="anchored" data-anchor-id="why-analyze-variance">Why Analyze Variance?</h2>
+<p>ANOVA stands for <em>analysis of variance</em>.</p>
+<p>What does variance have to do with our null hypothesis, which is about equality of means, say <span class="math inline">\(H_0: \mu_1=\mu_2=\cdots=\mu_K\)</span> for K means?</p>
+</section><section id="general-anova-setup" class="level2"><h2 class="anchored" data-anchor-id="general-anova-setup">General ANOVA Setup</h2>
+<ul>
+<li><p><span class="math inline">\(H_0:  \mu_1=\mu_2=\cdots=\mu_K\)</span></p></li>
+<li>
+<p><span class="math inline">\(H_A:\)</span> at least one of the means is different</p>
+<ul>
+<li>NOT ONLY <span class="math inline">\(H_A: \mu_1 \neq \mu_2 \neq \cdots \neq \mu_K\)</span> (this would force all means to be different)</li>
+</ul>
+</li>
+<li><p>Let the response of subject <span class="math inline">\(j\)</span> in group <span class="math inline">\(i\)</span> be given by <span class="math inline">\(y_{ij}\)</span>, <span class="math inline">\(i=1,2,\ldots,K\)</span>, <span class="math inline">\(j=1,\ldots,n_i\)</span></p></li>
+<li><p><span class="math inline">\(K\)</span> is the number of groups</p></li>
+<li><p><span class="math inline">\(n_i\)</span> is the number of subjects in group <span class="math inline">\(i\)</span></p></li>
+</ul></section><section id="section-3" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-3"></h2>
+<div style="font-size:0.85em;">
+<p>ANOVA model is <span class="math display">\[y_{ij}=\mu_i+\varepsilon_{ij}\]</span> where we assume the <span class="math inline">\(\varepsilon_{ij}\)</span> are independent and normally distributed with mean 0 and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<ul>
+<li><p><span class="math inline">\(\varepsilon_{ij}\)</span> represent random error about each group mean, <span class="math inline">\(\mu_i\)</span></p></li>
+<li><p>Model assumes the <span class="math inline">\(y_{ij}\)</span> are independent and normally distributed with mean <span class="math inline">\(\mu_i\)</span> and variance <span class="math inline">\(\sigma^2\)</span></p></li>
+<li><p>Sometimes you see the model broken out with <span class="math inline">\(\mu_i=\mu+\alpha_i\)</span>, where <span class="math inline">\(\mu\)</span> represents the overall or <em>grand mean</em> and <span class="math inline">\(\alpha_i\)</span> represents each group’s deviation from the overall mean</p></li>
+<li><p>Alternatively <em>reference cell</em> coding, like we used when fitting the regression model, could be used, where one group is the <em>referent group</em> and the other coefficients represent differences between each group and the referent group</p></li>
+</ul>
+</div>
+</section><section id="assumptions-of-anova" class="level2"><h2 class="anchored" data-anchor-id="assumptions-of-anova">Assumptions of ANOVA</h2>
+<ul>
+<li><p>Outcomes within groups are normally distributed</p></li>
+<li><p><em>Homoscedastic variance</em> (same variance of individual observations in each group)</p></li>
+<li><p>Samples are independent</p></li>
+</ul></section><section id="checking-anova-assumptions-in-mercury-data-ppm-scale" class="level2"><h2 class="anchored" data-anchor-id="checking-anova-assumptions-in-mercury-data-ppm-scale">Checking ANOVA Assumptions in Mercury Data: PPM Scale</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Plot</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w08-03-anova_files/figure-revealjs/facethistppm-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="w08-03-anova_files/figure-revealjs/facethistppm-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mercury</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">lhairHg</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">community</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Mercury (ppm)"</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="checking-anova-assumptions-in-mercury-data-log-scale" class="level2"><h2 class="anchored" data-anchor-id="checking-anova-assumptions-in-mercury-data-log-scale">Checking ANOVA Assumptions in Mercury Data: Log Scale</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Plot</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w08-03-anova_files/figure-revealjs/facethist-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="w08-03-anova_files/figure-revealjs/facethist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mercury</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lhairHg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">community</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Mercury (log ppm)"</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="anova-assumptions" class="level2"><h2 class="anchored" data-anchor-id="anova-assumptions">ANOVA Assumptions</h2>
+<ul>
+<li><p>Normality: nothing looks terribly non-normal on the log scale, though some communities have relatively few measures</p></li>
+<li><p>Equal variances: more or less ok on the log scale</p></li>
+<li><p>Independence: this is an issue with these data, as some households provided multiple hair samples, and individuals within households may share exposure sources (e.g., meals), leading to correlated data within household. We will address this issue shortly.</p></li>
+</ul></section><section id="anova-for-mercury-data" class="level2"><h2 class="anchored" data-anchor-id="anova-for-mercury-data">ANOVA for Mercury Data</h2>
+<ul>
+<li><p>Let the hair mercury of subject <span class="math inline">\(j\)</span> in community <span class="math inline">\(i\)</span> be given by <span class="math inline">\(y_{ij}\)</span>, <span class="math inline">\(i=1,2,\ldots, 23\)</span>, <span class="math inline">\(j=1,\ldots,n_i\)</span></p></li>
+<li><p>We have 23 communities with <span class="math inline">\(n_i\)</span> subjects in each</p></li>
+<li><p>For each community, calculate the sample mean and variance, so now we have <span class="math inline">\(\bar{y}_1\)</span> and <span class="math inline">\({s_1}^2\)</span>, <span class="math inline">\(\bar{y}_2\)</span> and <span class="math inline">\({s_2}^2\)</span>, and so on <span class="math inline">\(\bar{y}_i\)</span> and <span class="math inline">\({s_i}^2\)</span> <span class="math inline">\(i=1,\ldots,23\)</span></p></li>
+<li>
+<p>ANOVA is concerned with two different types of variances:</p>
+<ul>
+<li><p><em>Within-groups variance</em>: variance of the individual observations around their respective community means</p></li>
+<li><p><em>Between-groups variance</em>: variance of the community means around the overall mean of all observations, <span class="math inline">\(\bar{y}_\cdot\)</span></p></li>
+</ul>
+</li>
+</ul></section><section id="overall-variance" class="level2"><h2 class="anchored" data-anchor-id="overall-variance">Overall variance</h2>
+<p>Variance of <span class="math inline">\(y\)</span> is estimated as <span class="math display">\[s^2=\frac{\sum_{i=1}^K \sum_{j=1}^{n_i} (y_{ij}-\bar{y})^2}{n-1},\]</span> where <span class="math inline">\(n=\sum_{i=1}^K n_i\)</span> is the total sample size across all communities</p>
+</section><section id="within-groups-variance" class="level2"><h2 class="anchored" data-anchor-id="within-groups-variance">Within-groups variance</h2>
+<div style="font-size:0.85em;">
+<p>Each community’s variance <span class="math display">\[{s}^2_i=\frac{\sum_{j=1}^{n_i} (y_{ij}-\overline{y}_i)^2}{n_i-1}\]</span> is a measure of the variance of the individuals around that community mean. To get a pooled estimate of the common variance of individuals around their community means, we can calculate <span class="math display">\[{s_W}^2=\frac{(n_1-1){s_1}^2 + (n_2-1){s_2}^2 + \cdots + (n_K-1){s_K}^2}{n - K},\]</span> where <span class="math inline">\(K\)</span> is the number of groups and <span class="math inline">\(n=n_1+n_2+\cdots+n_K\)</span>. We can think of the within-groups variance as the inherent variability in the population.</p>
+</div>
+</section><section id="between-groups-variance" class="level2"><h2 class="anchored" data-anchor-id="between-groups-variance">Between-groups variance</h2>
+<p>The between groups variance is estimated by <span class="math display">\[s_B^2=\frac{n_1(\bar{y}_1-\bar{y}_\cdot)^2+n_2(\bar{y}_2-\bar{y}_\cdot)^2 + \cdots + n_K(\bar{y}_K-\bar{y}_\cdot)^2}{K-1}.\]</span></p>
+<p>We can think of the between-groups variance as the sum of inherent variability <em>and</em> any kind of systematic variability due to the group/community effect.</p>
+</section><section id="f-test" class="level2"><h2 class="anchored" data-anchor-id="f-test">F test</h2>
+<div style="font-size:0.85em;">
+<p>Both <span class="math inline">\({s_W}^2\)</span> and <span class="math inline">\({s_B}^2\)</span> are estimates of the population variance <span class="math inline">\(\sigma^2\)</span> if <span class="math inline">\(H_0\)</span> is true. Now, if the sample means vary around the overall mean (this variance measured by <span class="math inline">\({s_B}^2\)</span>) more than the individual observations vary around the sample means (measured by <span class="math inline">\({s_W}^2\)</span>), we have evidence that the corresponding group population means are in fact different (so that all <span class="math inline">\(K\)</span> means are not the same).</p>
+<p>How do we compare the variances? Consider <span class="math display">\[F=\frac{\text{inherent variability + group effect}}{\text{inherent variability}}.\]</span> If there is little to no group effect (no group effect implies <span class="math inline">\(H_0\)</span> is true), this ratio will be very close to 1.</p>
+</div>
+</section><section id="f-test-1" class="level2"><h2 class="anchored" data-anchor-id="f-test-1">F test</h2>
+<div style="font-size:0.85em;">
+<p>Thus the F statistic is given by <span class="math display">\[F={s_B}^2/{s_W}^2,\]</span> which if <span class="math inline">\(H_0\)</span> is true has an <span class="math inline">\(F\)</span> distribution with <span class="math inline">\(K-1\)</span> and <span class="math inline">\(n-K\)</span> df. The df associated with <span class="math inline">\({s_B}^2\)</span> are called the <em>numerator degrees of freedom</em> and correspond to the total number of groups minus 1. The df associated with <span class="math inline">\({s_W}^2\)</span> are called the <em>denominator degrees of freedom</em> and equal the total sample size minus the number of groups (we lose one df for each group mean we estimate). For ANOVA the test is inherently one-tailed, rejecting <span class="math inline">\(H_0\)</span> only if <span class="math inline">\(F\)</span> is considerably larger than one. (This does not mean we have a one-sided alternative; we just look at one tail of the F distribution to get the p-value, as the F statistic is never negative because variances cannot be negative.)</p>
+<p>If there are only two groups, then the F test gives the same result as the t-test (with equal variances).</p>
+</div>
+</section><section id="f-distribution" class="level2"><h2 class="anchored" data-anchor-id="f-distribution">F Distribution</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/fdists.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="../img/fdists.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The numerator and denominator degrees of freedom (ndf and ddf) determine the cutpoint for a given <span class="math inline">\(\alpha\)</span> level. The ndf is one less than the number of groups, and the ddf is the total number of observations minus the number of groups.</p>
+</section><section id="visualizing-anova" class="level2"><h2 class="anchored" data-anchor-id="visualizing-anova">Visualizing ANOVA</h2>
+<p>We can visualize the between and within groups variances, as well as how testing variances tells us about means, using <a href="https://gallery.shinyapps.io/anova_shiny_rstudio/">this cool R Shiny app</a>.</p>
+</section><section id="anova-for-mercury-data-1" class="level2"><h2 class="anchored" data-anchor-id="anova-for-mercury-data-1">ANOVA for Mercury Data</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#: label: anovahg</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">lhairHg</span><span class="op">~</span><span class="va">community</span>,data<span class="op">=</span><span class="va">mercury</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Df Sum Sq Mean Sq F value Pr(&gt;F)    
+community     22  909.6   41.34   52.82 &lt;2e-16 ***
+Residuals   2285 1788.7    0.78                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+1775 observations deleted due to missingness</code></pre>
+</div>
+</div>
+<p>Here’s the <strong>overall test</strong> of the null hypothesis that all 23 means are equal, versus the alternative that at least one mean is different. Based on that p-value, these data, or more extreme data, would be highly unlikely if the null hypothesis were true. Next, we probably wish to know which means are different!</p>
+</section><section id="step-down-tests" class="level2"><h2 class="anchored" data-anchor-id="step-down-tests">Step-Down Tests</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># label: holm</span></span>
+<span><span class="co"># Holm's correction gives us good protection against type I errors</span></span>
+<span><span class="co"># under a wide variety of settings</span></span>
+<span><span class="va">hairpair</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/pairwise.t.test.html">pairwise.t.test</a></span><span class="op">(</span><span class="va">mercury</span><span class="op">$</span><span class="va">lhairHg</span>,    <span class="va">mercury</span><span class="op">$</span><span class="va">community</span>, p.adj <span class="op">=</span> <span class="st">"holm"</span><span class="op">)</span></span>
+<span><span class="va">sigpairs</span> <span class="op">&lt;-</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">hairpair</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">p.value</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">group1</span>,<span class="va">group2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">sigpairs</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 138</code></pre>
+</div>
+</div>
+<p>OK, that’s a lot of differences! More community pairs are different than not.</p>
+</section><section id="section-4" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-4"></h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">sigpairs</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 138 × 3
+   group1       group2         p.value
+   &lt;chr&gt;        &lt;chr&gt;            &lt;dbl&gt;
+ 1 Boca Isiriwe Boca Colorado 1.13e-11
+ 2 Boca Manu    Boca Colorado 2.82e- 8
+ 3 Caychihue    Boca Colorado 2.31e-14
+ 4 Caychihue    Boca Isiriwe  5.64e-32
+ 5 Caychihue    Boca Manu     5.52e-30
+ 6 Choque       Boca Colorado 5.56e- 9
+ 7 Choque       Boca Isiriwe  1.35e-26
+ 8 Choque       Boca Manu     2.18e-24
+ 9 Diamante     Boca Colorado 2.30e-19
+10 Diamante     Caychihue     1.68e-45
+# ℹ 128 more rows</code></pre>
+</div>
+</div>
+<p>Most communities do differ in levels of hair mercury!</p>
+</section><section id="write-up-of-methods-and-results" class="level2"><h2 class="anchored" data-anchor-id="write-up-of-methods-and-results">Write-up of Methods and Results</h2>
+<div style="font-size:0.85em;">
+<p>The data were analyzed using one-way ANOVA to test the overall hypothesis of no difference across communities, with planned step-down tests using a Holm correction for multiple comparisons when the overall hypothesis was rejected.</p>
+<p>Using the overall F test (ndf=22, ddf=2285), a significant difference among the communities was identified (p&lt;0.0001). Step-down tests indicated that mercury levels differed across the majority of pairwise community comparisons.</p>
+<p>One challenge to the validity of this analysis is that multiple measures were obtained per household. If shared exposures or other factors induced positive correlations in mercury measures among household members, our standard errors would be too small, and our estimated significance levels would be anti-conservative.</p>
+</div>
+</section></section><section id="wait-is-that-wrong-hold-that-thought." class="level1"><h1>Wait, is that wrong? Hold that thought.</h1>
+<section id="bonferroni-correction" class="level2"><h2 class="anchored" data-anchor-id="bonferroni-correction">Bonferroni Correction</h2>
+<p>As we showed earlier, conducting multiple tests on a data set increases the <em>family-wise error rate</em>. One very conservative way to ensure this is not the case is to divide <span class="math inline">\(\alpha\)</span> by the number of tests to be done and to use that as the significance level. This procedure is called the Bonferroni correction. For example for two tests, to preserve an overall 0.05 type I error rate, the Bonferroni correction would use <span class="math inline">\(\frac{\alpha}{2}=0.025\)</span> as the significance level for each individual test instead of <span class="math inline">\(0.05\)</span>. Bonferroni is a conservative multiple comparisons correction (like saving your money in your mattress!), making it harder to reject the null hypothesis, but it is a safe bet in controlling the type I error rate. A less conservative method that also offers strong control of the error rate is Holm’s method, which we used in our code.</p>
+</section><section id="violation-of-independence" class="level2"><h2 class="anchored" data-anchor-id="violation-of-independence">Violation of independence</h2>
+<p>The violation of the independence assumption due to the inclusion of multiple household members is indeed a concern. To explore this, let’s calculate the fraction of households (coded using <code>hid</code>) that provided hair measures from more than one household member.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Output</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 2
+   community          avgct
+   &lt;chr&gt;              &lt;dbl&gt;
+ 1 Boca Colorado      0.794
+ 2 Boca Isiriwe       0.973
+ 3 Boca Manu          0.903
+ 4 Caychihue          0.831
+ 5 Choque             0.807
+ 6 Diamante           0.842
+ 7 Huepetuhe          0.842
+ 8 Isla de los Valles 0.929
+ 9 Masenawa           0.6  
+10 Palotoa Teparo     0.977
+# ℹ 13 more rows</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mercury</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">lhairHg</span><span class="op">)</span><span class="op">==</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">hid</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hhobs<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>         multmeas<span class="op">=</span><span class="op">(</span><span class="va">hhobs</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">community</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>avgct<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">multmeas</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="concerns-when-independence-is-violated" class="level2"><h2 class="anchored" data-anchor-id="concerns-when-independence-is-violated">Concerns when Independence is Violated</h2>
+<p>Typically, observations within a household are positively correlated (e.g., if one family member has a high level of hair mercury, another family member is more likely to have high hair mercury). Ignoring this type of positive correlation within household can lead to estimated standard errors (and thus p-values) that are <strong>too small</strong> when we’re estimating group means, invalidating our inferences.</p>
+</section><section id="simple-fix-limit-to-one-person-per-household" class="level2"><h2 class="anchored" data-anchor-id="simple-fix-limit-to-one-person-per-household">Simple Fix: Limit to One Person Per Household</h2>
+<p>The easiest solution to this problem is to limit the dataset to a single person per household. In this case, we’ll limit to the household member denoted <code>withinid=1</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mercuryone</span> <span class="op">&lt;-</span> <span class="va">mercury</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">withinid</span><span class="op">==</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">lhairHg</span><span class="op">~</span><span class="va">community</span>,data<span class="op">=</span><span class="va">mercuryone</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df Sum Sq Mean Sq F value Pr(&gt;F)    
+community    22  237.4  10.792   11.84 &lt;2e-16 ***
+Residuals   669  610.0   0.912                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+434 observations deleted due to missingness</code></pre>
+</div>
+</div>
+<p>Our dataset is much smaller now, but we still see differences across communities and reject the overall test.</p>
+</section><section id="section-5" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-5"></h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hairpair</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/pairwise.t.test.html">pairwise.t.test</a></span><span class="op">(</span><span class="va">mercuryone</span><span class="op">$</span><span class="va">lhairHg</span>,    <span class="va">mercuryone</span><span class="op">$</span><span class="va">community</span>, p.adj <span class="op">=</span> <span class="st">"holm"</span><span class="op">)</span></span>
+<span><span class="va">sigpairs</span> <span class="op">&lt;-</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">hairpair</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">p.value</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">group1</span>,<span class="va">group2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">sigpairs</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 55</code></pre>
+</div>
+</div>
+</section><section id="section-6" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-6"></h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">sigpairs</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 55 × 3
+   group1    group2             p.value
+   &lt;chr&gt;     &lt;chr&gt;                &lt;dbl&gt;
+ 1 Caychihue Boca Colorado 0.0210      
+ 2 Caychihue Boca Isiriwe  0.0000188   
+ 3 Caychihue Boca Manu     0.00279     
+ 4 Choque    Boca Isiriwe  0.000240    
+ 5 Choque    Boca Manu     0.0344      
+ 6 Diamante  Boca Colorado 0.00478     
+ 7 Diamante  Caychihue     0.0000000397
+ 8 Diamante  Choque        0.000000507 
+ 9 Huepetuhe Boca Colorado 0.000282    
+10 Huepetuhe Boca Isiriwe  0.0000169   
+# ℹ 45 more rows</code></pre>
+</div>
+</div>
+<p>Now just 55 community pair comparisons are different – still a marked difference across communities.</p>
+</section><section id="random-effects-anova" class="level2"><h2 class="anchored" data-anchor-id="random-effects-anova">Random Effects ANOVA</h2>
+<div style="font-size:0.85em;">
+<p>Another way to address multiple measures in each household is to add a <strong>random effect</strong> for household, to allow data from individuals within households to be positively correlated. This allows us to use all the data but controls for the within-household correlation that causes us to violate the independence assumption, replacing it with a <em>conditional independence</em> assumption: conditional on household, individuals are independent.</p>
+<p>The random effect allows the model to capture correlation between residents of the same household.</p>
+<p>NOTE: this discussion of <em>random effects ANOVA</em> is something you get for free with STA 198! I’m not going to expect you to fit these models, but I will expect you just to know that if you have correlated data, a <em>random effects model</em> is a good option!</p>
+</div>
+</section><section id="random-effects-results" class="level2"><h2 class="anchored" data-anchor-id="random-effects-results">Random effects results</h2>
+<div style="font-size:0.85em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span></span>
+<span><span class="co"># need a factor version of hid</span></span>
+<span><span class="va">mercury</span> <span class="op">&lt;-</span> <span class="va">mercury</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hhid<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">hid</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">m1</span><span class="op">=</span><span class="fu">lmer</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">community</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">hhid</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+          npar Sum Sq Mean Sq F value
+community   22 258.74  11.761  28.853</code></pre>
+</div>
+</div>
+<p>As you can see, the F statistic is markedly smaller after accounting for within-household correlation. R does not provide a p-value here, as testing in this setting is quite tricky. The story at the end of the day is the same – community matters. If you want to learn more about these models (also called multi-level or hierarchical models), we have more classes for you to do just that!</p>
+</div>
+</section><section id="section-7" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-7"></h2>
+<p>We can estimate the correlation, called the <strong>inter class correlation</strong> or <strong>ICC</strong>, as the ratio of the group variance to the total variance:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
+<span><span class="fu">icc</span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.488
+  Unadjusted ICC: 0.331</code></pre>
+</div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># you want the adjusted ICC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We interpret the ICC=0.49 as the correlation inside a household, or the fraction of variance explained by household membership. The correlation here is quite large. We should not be making any decisions based on the first analysis that included multiple individuals per household with no adjustment for correlated data (the analysis limiting to one person per household is still fine).</p>
+</section><section id="section-8" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-8"></h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvlenth.github.io/emmeans/">emmeans</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR">lmerTest</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://people.math.aau.dk/~sorenh/software/pbkrtest/">pbkrtest</a></span><span class="op">)</span></span>
+<span><span class="va">paired</span> <span class="op">&lt;-</span> <span class="va">m1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">emmeans</span><span class="op">(</span><span class="va">pairwise</span><span class="op">~</span><span class="va">community</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">paired</span><span class="op">$</span><span class="va">emmeans</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> community           emmean     SE   df lower.CL upper.CL
+ Boca Colorado       0.6170 0.0784 1103   0.4631   0.7708
+ Boca Isiriwe        1.7817 0.2120  805   1.3646   2.1988
+ Boca Manu           1.4431 0.1460  967   1.1569   1.7292
+ Caychihue          -0.4783 0.1480 1014  -0.7694  -0.1872
+ Choque             -0.1554 0.1260 1054  -0.4017   0.0909
+ Diamante            1.6189 0.1100 1040   1.4026   1.8352
+ Huepetuhe          -0.0541 0.0450 1007  -0.1424   0.0342
+ Isla de los Valles  1.6244 0.3360  854   0.9656   2.2832
+ Masenawa            1.9044 0.4760 1199   0.9706   2.8382
+ Palotoa Teparo      0.9485 0.1770  895   0.6005   1.2964
+ Puerto Azul         1.7967 0.2860  925   1.2359   2.3576
+ Puerto Luz          1.1175 0.1140  791   0.8944   1.3406
+ Punquiri           -0.0923 0.2090 1007  -0.5017   0.3171
+ Puquiri             0.5921 0.2380 1026   0.1253   1.0588
+ Quebrada Neuva     -0.1655 0.0963  966  -0.3545   0.0234
+ Queros             -0.1532 0.3110  925  -0.7634   0.4570
+ Quimiri             0.0981 0.3790  876  -0.6452   0.8415
+ Quincemil          -0.1945 0.0746  995  -0.3408  -0.0482
+ Salvacion          -0.1259 0.0727  963  -0.2685   0.0167
+ San Lorenzo         0.3246 0.1500  847   0.0308   0.6185
+ Setapo              1.1185 0.4440  916   0.2466   1.9905
+ Shintuya            0.7482 0.1370  933   0.4788   1.0177
+ Shipitiari          1.1867 0.1930  958   0.8085   1.5650
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 </code></pre>
+</div>
+</div>
+<p>Here we see estimated means by community.</p>
+</section><section id="section-9" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-9"></h2>
+<p>To learn more about <em>random effects models</em>, also known as <em>hierarchical</em> or <em>multilevel</em> models, check out STA 210 or STA 221 (regression analysis) sometime!</p>
+</section></section><section id="regression-models-with-categorical-explanatory-variables" class="level1"><h1>Regression models with categorical explanatory variables</h1>
+<section id="categorical-predictor-with-2-levels" class="level2"><h2 class="anchored" data-anchor-id="categorical-predictor-with-2-levels">Categorical predictor with 2 levels</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre class="small"><code># A tibble: 2,308 × 3
+   lhairHg assets_sc[,1] native_cat
+     &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;     
+ 1  0.676         -0.837 Non-native
+ 2  0.0908         0.197 Non-native
+ 3  1.67          -0.280 Non-native
+ 4  0.450         -0.280 Non-native
+ 5  0.704         -0.280 Non-native
+ 6 -0.512         -0.280 Non-native
+ 7 -0.125          0.826 Non-native
+ 8 -0.103          0.826 Non-native
+ 9  0.351         -1.27  Non-native
+10  0.0444        -1.27  Non-native
+11  0.662         -0.359 Non-native
+12  1.01           1.29  Non-native
+13 -0.149          1.29  Non-native
+14  0.881          0.517 Non-native
+15  1.51           0.517 Non-native
+16  0.328         -0.658 Non-native
+17  0.0553         0.533 Non-native
+18  0.768          1.29  Non-native
+19  0.431          1.30  Non-native
+20  1.55           1.30  Non-native
+# ℹ 2,288 more rows</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:60%;">
+<ul>
+<li>
+<code>Native</code>: community classified as native by Peruvian government</li>
+<li>
+<code>Non-native</code>: community does not have native classification</li>
+</ul>
+</div>
+</div>
+</section><section id="mercury-native-community-relationship" class="level2"><h2 class="anchored" data-anchor-id="mercury-native-community-relationship">Mercury &amp; native community relationship</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">native_cat</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">tidy</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term                 estimate std.error statistic   p.value
+  &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)              1.12    0.0416      26.9 4.97e-139
+2 native_catNon-native    -1.11    0.0476     -23.2 2.94e-107</code></pre>
+</div>
+</div>
+</section><section id="mercury-and-native-communities" class="level2"><h2 class="anchored" data-anchor-id="mercury-and-native-communities">Mercury and native communities</h2>
+<div style="font-size:0.9em;">
+<p>Define <span class="math inline">\(\text{Non-native}_i\)</span>=1 if non-native community and 0 otherwise.</p>
+<p><span class="math display">\[\widehat{y_i} = 1.12 - 1.11~\text{Non-native}_i\]</span></p>
+<ul>
+<li>
+<strong>Slope:</strong> Residents of non-native communities, on average, are expected to have Hg concentrations that are -1.11 log ppm lower, on average, than residents of native communities. Alternatively, the hair Hg is expected to be lower, on average, by a factor of <span class="math inline">\(e^{-1.11}=0.33\)</span> among residents of non-native communities.
+<ul>
+<li>Compares baseline level (<code>Native</code>) to the other level (<code>Non-native</code>)</li>
+</ul>
+</li>
+<li>
+<strong>Intercept:</strong> Individuals living in native communities (<code>Non-native</code>=0) are expected to have hair mercury exposures of 1.12 log ppm.</li>
+</ul>
+</div>
+</section><section id="relationship-between-mercury-and-individual-community-1" class="level2"><h2 class="anchored" data-anchor-id="relationship-between-mercury-and-individual-community-1">Relationship between mercury and individual community</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">com_fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">community</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu">tidy</span><span class="op">(</span><span class="va">com_fit</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 5
+   term                     estimate std.error statistic  p.value
+   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 (Intercept)                 0.614    0.0644      9.54 3.55e-21
+ 2 communityBoca Isiriwe       1.20     0.159       7.56 5.77e-14
+ 3 communityBoca Manu          0.833    0.129       6.43 1.56e-10
+ 4 communityCaychihue         -1.10     0.132      -8.36 1.09e-16
+ 5 communityChoque            -0.778    0.117      -6.68 3.04e-11
+ 6 communityDiamante           1.06     0.109       9.67 1.00e-21
+ 7 communityHuepetuhe         -0.694    0.0732     -9.48 5.96e-21
+ 8 communityIsla de los Va…    1.12     0.245       4.57 5.18e- 6
+ 9 communityMasenawa           1.20     0.401       3.00 2.74e- 3
+10 communityPalotoa Teparo     0.350    0.148       2.36 1.82e- 2
+# ℹ 13 more rows</code></pre>
+</div>
+</div>
+</section><section id="dummy-or-indicator-variables" class="level2"><h2 class="anchored" data-anchor-id="dummy-or-indicator-variables">Dummy or indicator variables</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 5
+   term                     estimate std.error statistic  p.value
+   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 (Intercept)                0.614     0.0644     9.54  3.55e-21
+ 2 communityBoca Isiriwe      1.20      0.159      7.56  5.77e-14
+ 3 communityBoca Manu         0.833     0.129      6.43  1.56e-10
+ 4 communityCaychihue        -1.10      0.132     -8.36  1.09e-16
+ 5 communityChoque           -0.778     0.117     -6.68  3.04e-11
+ 6 communityDiamante          1.06      0.109      9.67  1.00e-21
+ 7 communityHuepetuhe        -0.694     0.0732    -9.48  5.96e-21
+ 8 communityIsla de los Va…   1.12      0.245      4.57  5.18e- 6
+ 9 communityMasenawa          1.20      0.401      3.00  2.74e- 3
+10 communityPalotoa Teparo    0.350     0.148      2.36  1.82e- 2
+11 communityPuerto Azul       1.22      0.230      5.27  1.45e- 7
+12 communityPuerto Luz        0.494     0.0991     4.98  6.67e- 7
+13 communityPunquiri         -0.678     0.176     -3.84  1.26e- 4
+14 communityPuquiri           0.0842    0.192      0.439 6.61e- 1
+15 communityQuebrada Neuva   -0.812     0.0966    -8.41  7.21e-17
+16 communityQueros           -0.707     0.245     -2.89  3.93e- 3
+17 communityQuimiri          -0.621     0.274     -2.26  2.38e- 2
+18 communityQuincemil        -0.822     0.0858    -9.57  2.55e-21
+19 communitySalvacion        -0.732     0.0850    -8.61  1.31e-17
+20 communitySan Lorenzo      -0.245     0.124     -1.98  4.82e- 2
+21 communitySetapo            0.517     0.319      1.62  1.05e- 1
+22 communityShintuya          0.130     0.122      1.07  2.86e- 1
+23 communityShipitiari        0.532     0.161      3.30  9.65e- 4</code></pre>
+</div>
+</div>
+<div style="font-size:0.9em;">
+<ul>
+<li>When the categorical explanatory variable has many levels, they’re encoded to <strong>dummy</strong> or <strong>indicator variables</strong>
+</li>
+<li>Each coefficient describes the expected difference between log mercury concentrations in that particular community compared to the baseline community</li>
+</ul>
+</div>
+</section><section id="categorical-predictor-with-3-levels" class="level2"><h2 class="anchored" data-anchor-id="categorical-predictor-with-3-levels">Categorical predictor with 3+ levels</h2>
+<div style="font-size:0.7em;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">community</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">BI</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">BM</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Cay</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Cho</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Dia</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Hue</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Isl</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Mas</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Boca Colorado</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: left; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Boca Isiriwe</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(122, 209, 81, 255) !important;">1</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: left; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Boca Manu</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(122, 209, 81, 255) !important;">1</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: left; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Caychihue</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(122, 209, 81, 255) !important;">1</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: left; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Choque</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(122, 209, 81, 255) !important;">1</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: left; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Diamante</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(122, 209, 81, 255) !important;">1</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: left; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Huepetuhe</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(122, 209, 81, 255) !important;">1</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: left; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Isla de los Valles</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(122, 209, 81, 255) !important;">1</td>
+<td style="text-align: left; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Masenawa</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: center; width: 10em; color: white !important; background-color: rgba(68, 1, 84, 255) !important;">0</td>
+<td style="text-align: left; width: 10em; color: white !important; background-color: rgba(122, 209, 81, 255) !important;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>etc. for the other communities. Note Boca Colorado, the <em>referent community</em>, =0 for all vars. This is closely related to <strong>one-hot encoding</strong>.</p>
+</div>
+</section><section id="relationship-between-mercury-and-community" class="level2"><h2 class="anchored" data-anchor-id="relationship-between-mercury-and-community">Relationship between mercury and community</h2>
+<div style="font-size:0.5em;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre class="tiny"><code># A tibble: 23 × 5
+   term                     estimate std.error statistic  p.value
+   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 (Intercept)                0.614     0.0644     9.54  3.55e-21
+ 2 communityBoca Isiriwe      1.20      0.159      7.56  5.77e-14
+ 3 communityBoca Manu         0.833     0.129      6.43  1.56e-10
+ 4 communityCaychihue        -1.10      0.132     -8.36  1.09e-16
+ 5 communityChoque           -0.778     0.117     -6.68  3.04e-11
+ 6 communityDiamante          1.06      0.109      9.67  1.00e-21
+ 7 communityHuepetuhe        -0.694     0.0732    -9.48  5.96e-21
+ 8 communityIsla de los Va…   1.12      0.245      4.57  5.18e- 6
+ 9 communityMasenawa          1.20      0.401      3.00  2.74e- 3
+10 communityPalotoa Teparo    0.350     0.148      2.36  1.82e- 2
+11 communityPuerto Azul       1.22      0.230      5.27  1.45e- 7
+12 communityPuerto Luz        0.494     0.0991     4.98  6.67e- 7
+13 communityPunquiri         -0.678     0.176     -3.84  1.26e- 4
+14 communityPuquiri           0.0842    0.192      0.439 6.61e- 1
+15 communityQuebrada Neuva   -0.812     0.0966    -8.41  7.21e-17
+16 communityQueros           -0.707     0.245     -2.89  3.93e- 3
+17 communityQuimiri          -0.621     0.274     -2.26  2.38e- 2
+18 communityQuincemil        -0.822     0.0858    -9.57  2.55e-21
+19 communitySalvacion        -0.732     0.0850    -8.61  1.31e-17
+20 communitySan Lorenzo      -0.245     0.124     -1.98  4.82e- 2
+21 communitySetapo            0.517     0.319      1.62  1.05e- 1
+22 communityShintuya          0.130     0.122      1.07  2.86e- 1
+23 communityShipitiari        0.532     0.161      3.30  9.65e- 4</code></pre>
+</div>
+</div>
+<div class="tiny">
+<ul>
+<li>
+<strong>Boca Colorado</strong> hair mercury levels are expected, on average, to be <strong>0.614 log ppm</strong>.</li>
+<li>
+<strong>Boca Isiriwe</strong> hair mercury levels are expected, on average, to be <strong>1.2 log ppm higher</strong> than <em>Boca Colorado</em> levels, at <strong>1.814 log ppm</strong> on average.</li>
+<li>
+<strong>Caychihue</strong> hair mercury levels are expected, on average, to be <strong>1.10 log ppm lower</strong> than <em>Boca Colorado</em> levels, at <strong>-0.486 log ppm</strong> on average.</li>
+<li>etc. It can be nice to have a table showing the estimated mean (along with uncertainty measures – coming soon) for each community, and a plot can also be useful.</li>
+</ul>
+</div>
+</div>
+</section><section id="regression-and-anova" class="level2"><h2 class="anchored" data-anchor-id="regression-and-anova">Regression and ANOVA</h2>
+<p>You might be wondering how this model differs from the ANOVA model we just presented when exploring how community is related to mercury levels. In fact, the two models are equivalent! In our ANOVA discussion, we specified our model as <span class="math display">\[y_{ij}=\mu_i+\varepsilon_{ij}\]</span> with a separate mean <span class="math inline">\(\mu_i\)</span> for each community, <span class="math inline">\(\mu_1, \mu_2, \ldots, \mu_{23}\)</span>.</p>
+<p>Here, we fit the same model with a slightly different <strong>coding scheme</strong>, where we define the regression model intercept <span class="math inline">\(\beta_0\)</span> to be the mean for the <strong>reference</strong> community, Boca Colorado, and the regression model parameters <span class="math inline">\(\beta_1, \beta_2, \ldots, \beta_{22}\)</span> each measure the difference in mercury levels between Boca Colorado and the community of interest.</p>
+</section><section id="anova-as-regression" class="level2"><h2 class="anchored" data-anchor-id="anova-as-regression">ANOVA as Regression</h2>
+<p>Our model thus is <span class="math display">\[y_i=\beta_0 + \beta_1\text{Boca Isiriwe}_i + \beta_2\text{Boca Manu}_i + \ldots + \beta_{22}\text{Shipitiari}_i + \varepsilon_i\]</span> where <span class="math inline">\(\text{Boca Manu}_i\)</span> is an indicator variable that takes value 1 if the measurement is from a resident of Boca Manu, and it takes value 0 otherwise.</p>
+<hr>
+<p>The mean for each community is given below.</p>
+<p>Boca Colorado: <span class="math inline">\(\beta_0\)</span></p>
+<p>Boca Isiriwe: <span class="math inline">\(\beta_0+\beta_1\)</span></p>
+<p>Boca Manu: <span class="math inline">\(\beta_0 + \beta_2\)</span> … Shipitiari: <span class="math inline">\(\beta_0+\beta_{22}\)</span></p>
+<p>In the ANOVA model, the Boca Colorado mean was <span class="math inline">\(\mu_1\)</span>, the Boca Isiriwe mean was <span class="math inline">\(\mu_2\)</span>, etc. There is a 1:1 correspondence between the parameters in the two formulations with <span class="math inline">\(\mu_1=\beta_0,\)</span> <span class="math inline">\(\mu_2=\beta_0+\beta_1\)</span>, etc.</p>
+</section><section id="correspondence-between-regression-and-anova" class="level2"><h2 class="anchored" data-anchor-id="correspondence-between-regression-and-anova">Correspondence between regression and ANOVA</h2>
+<p>Here we can compare the F test from the regression model with that from ANOVA.</p>
+<p>Regression:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">lhairHg</span><span class="op">~</span><span class="va">community</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">fstatistic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     value      numdf      dendf 
+  52.81756   22.00000 2285.00000 </code></pre>
+</div>
+</div>
+</section><section id="section-10" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-10"></h2>
+<p>ANOVA:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">lhairHg</span><span class="op">~</span><span class="va">community</span>,data<span class="op">=</span><span class="va">mercury</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Df Sum Sq Mean Sq F value Pr(&gt;F)    
+community     22  909.6   41.34   52.82 &lt;2e-16 ***
+Residuals   2285 1788.7    0.78                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+1775 observations deleted due to missingness</code></pre>
+</div>
+</div>
+<p>We get the same F statistic and degrees of freedom fitting the model using either parameterization!</p>
+
+
+</section></section></main><!-- /main --><script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/sta198-fa26-2\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Mine Çetinkaya-Rundel, Mary Knox</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w08-03-anova.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <span style="color:#FFBE98;" aria-hidden="true"><i class="fa-solid fa-heart" aria-label="heart"></i></span> and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+</body></html>

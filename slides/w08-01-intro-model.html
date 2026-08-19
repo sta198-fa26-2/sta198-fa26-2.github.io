@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Amy Herring">
-<meta name="dcterms.date" content="2026-10-05">
+<meta name="dcterms.date" content="2026-10-14">
 <title>Introduction to Modelling – STA 198</title>
 <style>
 code{white-space: pre-wrap;}
@@ -492,14 +492,17 @@ window.Quarto = {
   <ul>
 <li><a href="#packages" id="toc-packages" class="nav-link active" data-scroll-target="#packages">Packages</a></li>
   <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling">Modelling</a></li>
+  <li><a href="#recall-sample-standard-deviation" id="toc-recall-sample-standard-deviation" class="nav-link" data-scroll-target="#recall-sample-standard-deviation">Recall: Sample Standard Deviation</a></li>
+  <li><a href="#correlation-coefficient-r" id="toc-correlation-coefficient-r" class="nav-link" data-scroll-target="#correlation-coefficient-r">Correlation coefficient, <span class="math inline">\(r\)</span></a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li>
 <a href="#data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon" id="toc-data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon" class="nav-link" data-scroll-target="#data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon">Data: Artisanal and Small-Scale Gold Mining in the Peruvian Amazon</a>
   <ul class="collapse">
 <li><a href="#mercury-and-assets" id="toc-mercury-and-assets" class="nav-link" data-scroll-target="#mercury-and-assets">Mercury and Assets</a></li>
   <li><a href="#data-manipulation" id="toc-data-manipulation" class="nav-link" data-scroll-target="#data-manipulation">Data Manipulation</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
   <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a></li>
   <li><a href="#models-as-functions" id="toc-models-as-functions" class="nav-link" data-scroll-target="#models-as-functions">Models as functions</a></li>
   <li><a href="#hair-mercury-as-a-function-of-assets" id="toc-hair-mercury-as-a-function-of-assets" class="nav-link" data-scroll-target="#hair-mercury-as-a-function-of-assets">Hair mercury as a function of assets</a></li>
   <li><a href="#with-different-cosmetic-choices" id="toc-with-different-cosmetic-choices" class="nav-link" data-scroll-target="#with-different-cosmetic-choices">With different cosmetic choices…</a></li>
@@ -543,7 +546,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 5, 2026</p>
+      <p class="date">October 14, 2026</p>
     </div>
   </div>
   
@@ -584,7 +587,77 @@ window.Quarto = {
 </div>
 </div>
 </div>
-</section><section id="data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon" class="level1"><h1>Data: Artisanal and Small-Scale Gold Mining in the Peruvian Amazon</h1>
+</section><section id="recall-sample-standard-deviation" class="level2"><h2 class="anchored" data-anchor-id="recall-sample-standard-deviation">Recall: Sample Standard Deviation</h2>
+<div style="font-size:0.7em;">
+<p>The <strong>sample standard deviation</strong>, <span class="math inline">\(s\)</span>, measures the <strong>typical distance of observations from the sample mean</strong>.</p>
+<p><span class="math display">\[
+s = \sqrt{\frac{\sum_{i=1}^{n}(y_i-\bar{y})^2}{n-1}}
+\]</span></p>
+<p>where:</p>
+<ul>
+<li>
+<span class="math inline">\(y_i\)</span> = each observed value</li>
+<li>
+<span class="math inline">\(\bar{y}\)</span> = sample mean</li>
+<li>
+<span class="math inline">\(n\)</span> = sample size</li>
+</ul>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The standard deviation is expressed in the <strong>same units as the original variable</strong>.</p>
+<p><strong>Larger <span class="math inline">\(s\)</span></strong> → more variability<br><strong>Smaller <span class="math inline">\(s\)</span></strong> → less variability</p>
+</div>
+</div>
+</section><section id="correlation-coefficient-r" class="level2"><h2 class="anchored" data-anchor-id="correlation-coefficient-r">Correlation coefficient, <span class="math inline">\(r\)</span>
+</h2>
+<div style="font-size:0.7em;">
+<p>The <strong>correlation coefficient</strong>, <span class="math inline">\(r\)</span>, measures the <strong>direction and strength of the linear relationship</strong> between two quantitative variables.</p>
+<p><span class="math display">\[
+r = \frac{1}{n-1}
+\sum_{i=1}^{n}
+\left(\frac{x_i-\bar{x}}{s_x}\right)
+\left(\frac{y_i-\bar{y}}{s_y}\right)
+\]</span></p>
+<p>where:</p>
+<ul>
+<li>
+<span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(\bar{y}\)</span> are the sample means</li>
+<li>
+<span class="math inline">\(s_x\)</span> and <span class="math inline">\(s_y\)</span> are the sample standard deviations</li>
+<li>
+<span class="math inline">\(n\)</span> is the number of observations</li>
+</ul>
+<p><span class="math display">\[
+-1 \leq r \leq 1
+\]</span></p>
+</div>
+</section><section id="section" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section"></h2>
+<p><span class="math display">\[
+r = \frac{1}{n-1}
+\sum_{i=1}^{n}
+\left(\frac{x_i-\bar{x}}{s_x}\right)
+\left(\frac{y_i-\bar{y}}{s_y}\right)
+\]</span></p>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>
+<span class="math inline">\(r &gt; 0\)</span>: positive linear relationship</li>
+<li>
+<span class="math inline">\(r &lt; 0\)</span>: negative linear relationship</li>
+<li>
+<span class="math inline">\(r \approx 0\)</span>: little or no linear relationship</li>
+<li>
+<span class="math inline">\(|r|\)</span> closer to 1: stronger linear relationship</li>
+</ul></section><section id="data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon" class="level1"><h1>Data: Artisanal and Small-Scale Gold Mining in the Peruvian Amazon</h1>
 <section id="mercury-and-assets" class="level2"><h2 class="anchored" data-anchor-id="mercury-and-assets">Mercury and Assets</h2>
 <p>Are wealthier individuals less likely to have high mercury exposures?</p>
 <p>Today we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country).</p>
@@ -602,7 +675,7 @@ window.Quarto = {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">sex</span>,sex_cat<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">sex</span><span class="op">==</span><span class="fl">1</span>,<span class="st">"Male"</span>,<span class="st">"Female"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">native</span>,native_cat<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">native</span><span class="op">==</span><span class="fl">1</span>,<span class="st">"Native"</span>,<span class="st">"Non-native"</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="section" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section"></h2>
+</section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
 <p>The distribution of hair mercury in ppm is skewed.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># lhairHg is the natural log of mercury in hair</span></span>
@@ -617,7 +690,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-</section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
+</section><section id="section-2" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-2"></h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mercury</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lhairHg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -630,7 +703,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Because the models we will discuss to start prefer data that are approximately normally distributed, we will work with the log of hair mercury concentrations.</p>
-</section><section id="section-2" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-2"></h2>
+</section><section id="section-3" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-3"></h2>
 <p>In our model, we will use assets to <em>predict</em> our <em>response variable</em>, the log of hair mercury concentrations. The regression model does not require predictors to follow any specific distributions, which is a good thing here!</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mercury</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">assets_sc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -685,6 +758,9 @@ window.Quarto = {
 </div>
 </div>
 </div>
+</div>
+<div style="font-size:0.7em;">
+<p>The correlation coefficient between assets and the log of hair Hg is -0.33.</p>
 </div>
 </section><section id="with-different-cosmetic-choices" class="level2"><h2 class="anchored" data-anchor-id="with-different-cosmetic-choices">With different cosmetic choices…</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -837,13 +913,13 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="fragment">
-<div style="font-size:0.7em;">
+<div style="font-size:0.6em;">
 <p>This is an example of an interaction effect – the relationship between assets and mercury depends on the value of a third variable, community type.</p>
 </div>
 </div>
