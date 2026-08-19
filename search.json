@@ -56,9 +56,9 @@
   {
     "objectID": "course-overview.html",
     "href": "course-overview.html",
-    "title": "STA 199Fall 2026",
+    "title": "STA 198Fall 2026",
     "section": "",
-    "text": "Intro to data science and statistical thinking. Learn to explore, visualize, and analyze data to understand natural phenomena, investigate patterns, model outcomes, and make predictions, all in a reproducible and shareable manner. Gain experience in data wrangling and munging, exploratory data analysis, predictive modeling, data visualization, and effective communication of results. Work on problems and case studies inspired by and based on real-world questions and data. The course will focus on the R statistical computing language. No statistical or computing background is necessary. Not open to students who have taken a 100-level Statistical Science course, Statistical Science 210, or a Statistical Science course numbered 300 or above.",
+    "text": "Learn to explore, visualize, and analyze data using R and RStudio while examining real-world global health problems. You will study best practices in data wrangling, visualization, modeling, and statistical inference. You will also learn to communicate results in plain language that is accessible to non-experts and to distinguish strong evidence from weak or misleading evidence using statistical reasoning. Throughout the course, you will work on problems and case studies inspired by real-world questions and datasets. The course will focus on the R statistical computing language. No prior background in statistics or computing is necessary.",
     "crumbs": [
       "Course information",
       "Overview"
@@ -67,9 +67,9 @@
   {
     "objectID": "course-overview.html#overview",
     "href": "course-overview.html#overview",
-    "title": "STA 199Fall 2026",
+    "title": "STA 198Fall 2026",
     "section": "",
-    "text": "Intro to data science and statistical thinking. Learn to explore, visualize, and analyze data to understand natural phenomena, investigate patterns, model outcomes, and make predictions, all in a reproducible and shareable manner. Gain experience in data wrangling and munging, exploratory data analysis, predictive modeling, data visualization, and effective communication of results. Work on problems and case studies inspired by and based on real-world questions and data. The course will focus on the R statistical computing language. No statistical or computing background is necessary. Not open to students who have taken a 100-level Statistical Science course, Statistical Science 210, or a Statistical Science course numbered 300 or above.",
+    "text": "Learn to explore, visualize, and analyze data using R and RStudio while examining real-world global health problems. You will study best practices in data wrangling, visualization, modeling, and statistical inference. You will also learn to communicate results in plain language that is accessible to non-experts and to distinguish strong evidence from weak or misleading evidence using statistical reasoning. Throughout the course, you will work on problems and case studies inspired by real-world questions and datasets. The course will focus on the R statistical computing language. No prior background in statistics or computing is necessary.",
     "crumbs": [
       "Course information",
       "Overview"
@@ -78,9 +78,9 @@
   {
     "objectID": "course-overview.html#meetings",
     "href": "course-overview.html#meetings",
-    "title": "STA 199Fall 2026",
+    "title": "STA 198Fall 2026",
     "section": "Meetings",
-    "text": "Meetings\n\n\n\n\n\n\n\n\n\nMeeting\nLocation\nTime\nInstructor / TAs\n\n\n\n\nLecture\nBiological Sciences 111\nMon & Wed 1:25 - 2:40 pm\nDr. Mine Çetinkaya-Rundel\n\n\nLab 01\nPerkins LINK 087 (Classroom 3)\nThur 8:30 - 9:45 am\nTBD\n\n\nLab 02\nPerkins LINK 087 (Classroom 3)\nThur 10:05 - 11:20 am\nTBD\n\n\nLab 03\nOld Chemistry 001\nThur 10:05 - 11:20 am\nTBD\n\n\nLab 04\nPerkins LINK 087 (Classroom 3)\nThur 11:45 am - 1:00 pm\nTBD\n\n\nLab 05\nPerkins LINK 071 (Classroom 5)\nThur 11:45 am - 1:00 pm\nTBD\n\n\nLab 06\nPerkins LINK 087 (Classroom 3)\nThur 1:25 - 2:40 pm\nTBD\n\n\nLab 07\nPerkins LINK 071 (Classroom 5)\nThur 1:25 - 2:40 pm\nTBD\n\n\nLab 08\nPerkins LINK 087 (Classroom 3)\nThur 3:05 - 4:20 pm\nTBD\n\n\nLab 09\nPerkins LINK 071 (Classroom 5)\nThur 3:05 - 4:20 pm\nTBD\n\n\nLab 10\nPerkins LINK 087 (Classroom 3)\nThur 4:40 - 5:55 pm\nTBD",
+    "text": "Meetings\n\n\n\n\n\n\n\n\n\nMeeting\nLocation\nTime\nInstructor / TAs\n\n\n\n\nLecture\nPerkins LINK 087 (Classroom 3)\nMon & Wed 11:45 am - 1:00 pm\nProf. Amy Herring\n\n\nLab.\nPerkins LINK 087 (Classroom 3)\nFri 11:45 am - 1:00 pm\nMr. George Nowacek",
     "crumbs": [
       "Course information",
       "Overview"
