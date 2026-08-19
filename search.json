@@ -3200,6 +3200,41 @@
     "text": "You try it!\n\n\nCoquerel’s sifaka has birth weight distribution with mean 100g and sd 7.5g.\n\nWhat is the probability a new baby sifaka would weigh less than 80g?\nWhat is the probability it would weigh more than 110g?\nWhat is the probability it would weigh between 90 and 110g?\n\n\n\n\n\n\n\n\nCoquerel’s sifaka (Propithecus coquereli), Duke Lemur Center"
   },
   {
+    "objectID": "slides/w05-01-gaussian-slides.html#homework-practice-birth-weights-of-british-shorthair-kittens",
+    "href": "slides/w05-01-gaussian-slides.html#homework-practice-birth-weights-of-british-shorthair-kittens",
+    "title": "Normal (Gaussian) Distribution",
+    "section": "Homework (Practice): Birth Weights of British Shorthair kittens",
+    "text": "Homework (Practice): Birth Weights of British Shorthair kittens\nA veterinarian is studying the birth weights of British Shorthair kittens. Suppose that, for this exercise, birth weights are approximately normally distributed with a mean of 100 grams and a standard deviation of 10 grams.\n1. Meet Biscuit. Biscuit weighed 120 grams at birth.\n\nHow many standard deviations from the mean is Biscuit’s birth weight?\nWhat is Biscuit’s z-score?\nWould you consider Biscuit’s birth weight unusual? Why or why not?"
+  },
+  {
+    "objectID": "slides/w05-01-gaussian-slides.html#section-14",
+    "href": "slides/w05-01-gaussian-slides.html#section-14",
+    "title": "Normal (Gaussian) Distribution",
+    "section": "",
+    "text": "2. Meet Crumpet. Crumpet weighed just 85 grams at birth.\nUse R to calculate the proportion of kittens expected to weigh less than Crumpet. Write your answer as a complete sentence describing what the probability means."
+  },
+  {
+    "objectID": "slides/w05-01-gaussian-slides.html#section-15",
+    "href": "slides/w05-01-gaussian-slides.html#section-15",
+    "title": "Normal (Gaussian) Distribution",
+    "section": "",
+    "text": "3. A whole litter! The veterinarian considers kittens weighing between 80 and 120 grams to be within a particular monitoring range. What proportion of British Shorthair kittens would we expect to fall within this range?\nHint: Think about how you could use two calls to pnorm() to find the area between two values."
+  },
+  {
+    "objectID": "slides/w05-01-gaussian-slides.html#section-16",
+    "href": "slides/w05-01-gaussian-slides.html#section-16",
+    "title": "Normal (Gaussian) Distribution",
+    "section": "",
+    "text": "4. Put it into words. A client asks, “Should I be worried that my kitten weighs less than most other kittens?”\nIn a few sentences, provide guidance for the client, citing data reported in a 2023 study that shows British shorthair kittens in the bottom 10% of birth weight are at elevated mortality risk and kittens in the bottom 0.5% of birth weight are at very high risk of mortality, and translating these values into the relevant birth weights."
+  },
+  {
+    "objectID": "slides/w05-01-gaussian-slides.html#section-17",
+    "href": "slides/w05-01-gaussian-slides.html#section-17",
+    "title": "Normal (Gaussian) Distribution",
+    "section": "",
+    "text": "No worries here, Odin was a little guy who is now happily overseeing STA198 prep!"
+  },
+  {
     "objectID": "slides/w05-01-gaussian.html",
     "href": "slides/w05-01-gaussian.html",
     "title": "Normal (Gaussian) Distribution",
@@ -3345,6 +3380,41 @@
     "title": "Normal (Gaussian) Distribution",
     "section": "You try it!",
     "text": "You try it!\n\n\nCoquerel’s sifaka has birth weight distribution with mean 100g and sd 7.5g.\n\nWhat is the probability a new baby sifaka would weigh less than 80g?\nWhat is the probability it would weigh more than 110g?\nWhat is the probability it would weigh between 90 and 110g?\n\n\n\n\n\n\n\n\n\n\n\nCoquerel’s sifaka (Propithecus coquereli), Duke Lemur Center"
+  },
+  {
+    "objectID": "slides/w05-01-gaussian.html#homework-practice-birth-weights-of-british-shorthair-kittens",
+    "href": "slides/w05-01-gaussian.html#homework-practice-birth-weights-of-british-shorthair-kittens",
+    "title": "Normal (Gaussian) Distribution",
+    "section": "Homework (Practice): Birth Weights of British Shorthair kittens",
+    "text": "Homework (Practice): Birth Weights of British Shorthair kittens\nA veterinarian is studying the birth weights of British Shorthair kittens. Suppose that, for this exercise, birth weights are approximately normally distributed with a mean of 100 grams and a standard deviation of 10 grams.\n1. Meet Biscuit. Biscuit weighed 120 grams at birth.\n\nHow many standard deviations from the mean is Biscuit’s birth weight?\nWhat is Biscuit’s z-score?\nWould you consider Biscuit’s birth weight unusual? Why or why not?"
+  },
+  {
+    "objectID": "slides/w05-01-gaussian.html#section-14",
+    "href": "slides/w05-01-gaussian.html#section-14",
+    "title": "Normal (Gaussian) Distribution",
+    "section": "",
+    "text": "2. Meet Crumpet. Crumpet weighed just 85 grams at birth.\nUse R to calculate the proportion of kittens expected to weigh less than Crumpet. Write your answer as a complete sentence describing what the probability means."
+  },
+  {
+    "objectID": "slides/w05-01-gaussian.html#section-15",
+    "href": "slides/w05-01-gaussian.html#section-15",
+    "title": "Normal (Gaussian) Distribution",
+    "section": "",
+    "text": "3. A whole litter! The veterinarian considers kittens weighing between 80 and 120 grams to be within a particular monitoring range. What proportion of British Shorthair kittens would we expect to fall within this range?\nHint: Think about how you could use two calls to pnorm() to find the area between two values."
+  },
+  {
+    "objectID": "slides/w05-01-gaussian.html#section-16",
+    "href": "slides/w05-01-gaussian.html#section-16",
+    "title": "Normal (Gaussian) Distribution",
+    "section": "",
+    "text": "4. Put it into words. A client asks, “Should I be worried that my kitten weighs less than most other kittens?”\nIn a few sentences, provide guidance for the client, citing data reported in a 2023 study that shows British shorthair kittens in the bottom 10% of birth weight are at elevated mortality risk and kittens in the bottom 0.5% of birth weight are at very high risk of mortality, and translating these values into the relevant birth weights."
+  },
+  {
+    "objectID": "slides/w05-01-gaussian.html#section-17",
+    "href": "slides/w05-01-gaussian.html#section-17",
+    "title": "Normal (Gaussian) Distribution",
+    "section": "",
+    "text": "No worries here, Odin was a little guy who is now happily overseeing STA198 prep!"
   },
   {
     "objectID": "slides/w04-01-wrangling-slides.html#main-ideas",
