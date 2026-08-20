@@ -5115,14 +5115,14 @@
     "href": "slides/w08-02-fitting-interpretation.html",
     "title": "Model Fitting and Interpretation",
     "section": "",
-    "text": "Are mercury concentrations in hair related to household socioeconomic position, as measured by assets?\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(readr)\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\")) \n\n\n\\[\\widehat{y}_{i} = \\widehat{\\beta}_0 + \\widehat{\\beta}_1 \\times x_{i}\\] Here \\(y_i\\) represents log hair mercury for subject \\(i\\), and \\(x_i\\) represents standardized household income.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nlinear_reg()\n\n#&gt; Linear Regression Model Specification (regression)\n#&gt; \n#&gt; Computational engine: lm\n\n\n\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") # lm: linear model\n\n#&gt; Linear Regression Model Specification (regression)\n#&gt; \n#&gt; Computational engine: lm\n\n\n\n… using formula syntax\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      0.2795      -0.3577\n\n\n\n\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      0.2795      -0.3577\n\n\n\n\\[\\widehat{y}_{i} = 0.2795 - 0.3577 \\times x_{i}\\]\n\n\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury) %&gt;%\n  tidy()\n\n#&gt; # A tibble: 2 × 5\n#&gt;   term        estimate std.error statistic  p.value\n#&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n#&gt; 1 (Intercept)    0.280    0.0213      13.1 7.49e-38\n#&gt; 2 assets_sc     -0.358    0.0216     -16.5 3.90e-58\n\n\n\n\\[\\widehat{y}_{i} = 0.280 - 0.358 \\times x_{i}\\]\n\n\n\n\\[\\widehat{y}_{i} = 0.280 - 0.358 \\times x_{i}\\]\n\n\n\n\n\nSlope: For each standard deviation increase in assets, the log hair mercury level is expected to be lower, on average, by 0.358 log ppm.\n\nperhaps not a very useful statement given the scale\n\n\n\nIntercept: Individuals with household assets at the mean level (assets_sc=0) are expected to have hair mercury concentrations of 0.280 log ppm, on average\n\nRemember assets_sc was standardized, so assets_sc=0 does not mean “no assets” but instead means “average assets” as it corresponds to an assets z-score of 0.\n\n\n\n\n\n\nInterpretation is a little easier without a log transformation. Suppose our outcome \\(y\\) is exam score, and the predictor \\(x\\) is hours studied, and we fit a linear model and get the following estimated line.\n\n\\[\\widehat{y}_{i} = 60 + 5 \\times x_{i}\\]\n\n\n\n\nSlope: For each additional hour of study, the exam score is expected to be higher, on average, by 5 points.\nIntercept: Individuals who do not study are expected to have exam scores of 60 points, on average\nNote: now you can see the danger of extrapolating beyond the range of the data. We don’t expect someone who studies 20 hours to have an exam score of 160 on a 100-point scale – at some point, mastery (hopefully not futility!) is reached."
+    "text": "Are mercury concentrations in hair related to household socioeconomic position, as measured by assets?\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(readr)\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\")) %&gt;%\n  mutate(hairHg=exp(lhairHg))\n\n\n\\[\\widehat{y}_{i} = \\widehat{\\beta}_0 + \\widehat{\\beta}_1 \\times x_{i}\\] Here \\(y_i\\) represents log hair mercury for subject \\(i\\), and \\(x_i\\) represents standardized household income.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nlinear_reg()\n\n#&gt; Linear Regression Model Specification (regression)\n#&gt; \n#&gt; Computational engine: lm\n\n\n\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") # lm: linear model\n\n#&gt; Linear Regression Model Specification (regression)\n#&gt; \n#&gt; Computational engine: lm\n\n\n\n… using formula syntax\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      0.2795      -0.3577\n\n\n\n\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      0.2795      -0.3577\n\n\n\n\\[\\widehat{y}_{i} = 0.2795 - 0.3577 \\times x_{i}\\]\n\n\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury) %&gt;%\n  tidy()\n\n#&gt; # A tibble: 2 × 5\n#&gt;   term        estimate std.error statistic  p.value\n#&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n#&gt; 1 (Intercept)    0.280    0.0213      13.1 7.49e-38\n#&gt; 2 assets_sc     -0.358    0.0216     -16.5 3.90e-58\n\n\n\n\\[\\widehat{y}_{i} = 0.280 - 0.358 \\times x_{i}\\]\n\n\n\n\\[\\widehat{y}_{i} = 0.280 - 0.358 \\times x_{i}\\]\n\n\n\n\n\nSlope: For each standard deviation increase in assets, the log hair mercury level is expected to be lower, on average, by 0.358 log ppm.\n\nperhaps not a very useful statement given the scale\n\n\n\nIntercept: Individuals with household assets at the mean level (assets_sc=0) are expected to have hair mercury concentrations of 0.280 log ppm, on average\n\nRemember assets_sc was standardized, so assets_sc=0 does not mean “no assets” but instead means “average assets” as it corresponds to an assets z-score of 0.\n\n\n\n\n\n\nInterpretation is a little easier without a log transformation. Suppose our outcome \\(y\\) is exam score, and the predictor \\(x\\) is hours studied, and we fit a linear model and get the following estimated line.\n\n\\[\\widehat{y}_{i} = 60 + 5 \\times x_{i}\\]\n\n\n\n\nSlope: For each additional hour of study, the exam score is expected to be higher, on average, by 5 points.\nIntercept: Individuals who do not study are expected to have exam scores of 60 points, on average\nNote: now you can see the danger of extrapolating beyond the range of the data. We don’t expect someone who studies 20 hours to have an exam score of 160 on a 100-point scale – at some point, mastery (hopefully not futility!) is reached."
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation.html#mercury-and-assets",
     "href": "slides/w08-02-fitting-interpretation.html#mercury-and-assets",
     "title": "Model Fitting and Interpretation",
     "section": "",
-    "text": "Are mercury concentrations in hair related to household socioeconomic position, as measured by assets?\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(readr)\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\"))"
+    "text": "Are mercury concentrations in hair related to household socioeconomic position, as measured by assets?\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(readr)\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\")) %&gt;%\n  mutate(hairHg=exp(lhairHg))"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation.html#goal-predict-mercury-from-assets",
@@ -5258,6 +5258,125 @@
     "text": "Properties of least squares regression\n\n\nThe regression line goes through the center of mass point, the coordinates corresponding to average \\(x\\) and average \\(y\\), \\((\\bar{x}, \\bar{y})\\):\\[\\bar{y} = \\hat{\\beta}_0 + \\hat{\\beta}_1 \\bar{x} ~ \\rightarrow ~ \\hat{\\beta}_0 = \\bar{y} - \\hat{\\beta}_1 \\bar{x}\\]\n\n\n\n\nThe slope has the same sign as the correlation coefficient: \\(\\hat{\\beta}_1 = r \\frac{s_y}{s_x}\\)\n\n\n\\(s_x\\) is the standard deviation of the explanatory variable \\(x\\), and \\(s_y\\) is the standard deviation of the response variable \\(y\\)\n\nIf \\(y\\) varies a lot more than \\(x\\) does (large \\(s_y\\) relative to \\(s_x\\)), the slope will be steeper for the same correlation — a small change in \\(x\\) corresponds to a much bigger typical change in \\(y\\)\n\nIn our example, \\(s_x\\) is the standard deviation of assets_sc (which is 1, since it was standardized), and \\(s_y\\) is the standard deviation of lhairHg\n\n\n\n\n\n\n\nThe sum of the residuals is zero: \\(\\sum_{i = 1}^n e_i = 0\\)\n\n\n\n\n\nThe residuals and \\(x\\) values are uncorrelated"
   },
   {
+    "objectID": "slides/w08-02-fitting-interpretation.html#linear-models",
+    "href": "slides/w08-02-fitting-interpretation.html#linear-models",
+    "title": "Model Fitting and Interpretation",
+    "section": "“Linear” models",
+    "text": "“Linear” models\n\nWe’re fitting a “linear” model, which assumes a linear relationship between our explanatory and response variables.\nBut how do we assess this?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#graphical-diagnostic-residuals-plot-ppm-units",
+    "href": "slides/w08-02-fitting-interpretation.html#graphical-diagnostic-residuals-plot-ppm-units",
+    "title": "Model Fitting and Interpretation",
+    "section": "Graphical diagnostic: residuals plot (ppm units)",
+    "text": "Graphical diagnostic: residuals plot (ppm units)\n\n\nPlot\nCode\nAugment\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhg_asset_fit &lt;- linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury)\nhg_asset_fit_aug &lt;- augment(hg_asset_fit$fit)\nggplot(hg_asset_fit_aug, mapping = aes(x = .fitted, y = .resid)) +\n  geom_point(alpha = 0.5) +\n  geom_hline(yintercept = 0, color = \"gray\", lty = \"dashed\") +\n  labs(x = \"Predicted mercury (ppm)\", y = \"Residuals\")\n\n\n\n\nhg_asset_fit_aug\n\n#&gt; # A tibble: 2,300 × 9\n#&gt;   .rownames hairHg assets_sc[,1] .fitted .resid     .hat .sigma\n#&gt;   &lt;chr&gt;      &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1 1          1.97         -0.837    3.05 -1.08  0.000750   2.77\n#&gt; 2 3          1.10          0.197    2.12 -1.03  0.000452   2.77\n#&gt; 3 11         5.34         -0.280    2.55  2.79  0.000471   2.77\n#&gt; 4 13         1.57         -0.280    2.55 -0.981 0.000471   2.77\n#&gt; 5 14         2.02         -0.280    2.55 -0.528 0.000471   2.77\n#&gt; 6 15         0.599        -0.280    2.55 -1.95  0.000471   2.77\n#&gt; # ℹ 2,294 more rows\n#&gt; # ℹ 2 more variables: .cooksd &lt;dbl&gt;, .std.resid &lt;dbl&gt;"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#more-on-augment",
+    "href": "slides/w08-02-fitting-interpretation.html#more-on-augment",
+    "title": "Model Fitting and Interpretation",
+    "section": "More on augment()\n",
+    "text": "More on augment()\n\n\nglimpse(hg_asset_fit_aug)\n\n#&gt; Rows: 2,300\n#&gt; Columns: 9\n#&gt; $ .rownames  &lt;chr&gt; \"1\", \"3\", \"11\", \"13\", \"14\", \"15\", \"16\", \"17\"…\n#&gt; $ hairHg     &lt;dbl&gt; 1.9652, 1.0951, 5.3366, 1.5683, 2.0218, 0.59…\n#&gt; $ assets_sc  &lt;dbl[,1]&gt; &lt;matrix[21 x 1]&gt;\n#&gt; $ .fitted    &lt;dbl&gt; 3.045165, 2.124332, 2.549503, 2.549503, …\n#&gt; $ .resid     &lt;dbl&gt; -1.0799648, -1.0292319, 2.7870974, -0.981202…\n#&gt; $ .hat       &lt;dbl&gt; 0.0007495801, 0.0004516563, 0.0004705556, 0.…\n#&gt; $ .sigma     &lt;dbl&gt; 2.769771, 2.769779, 2.769252, 2.769787, 2.76…\n#&gt; $ .cooksd    &lt;dbl&gt; 5.708620e-05, 3.122263e-05, 2.385430e-04, 2.…\n#&gt; $ .std.resid &lt;dbl&gt; -0.3901294, -0.3717471, 1.0066782, -0.354402…"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#looking-for",
+    "href": "slides/w08-02-fitting-interpretation.html#looking-for",
+    "title": "Model Fitting and Interpretation",
+    "section": "Looking for…",
+    "text": "Looking for…\n\nResiduals distributed randomly around 0\nWith no visible pattern along the x or y axes"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#not-hoping-for",
+    "href": "slides/w08-02-fitting-interpretation.html#not-hoping-for",
+    "title": "Model Fitting and Interpretation",
+    "section": "Not hoping for…",
+    "text": "Not hoping for…\n\nFan shapes\n\n\n\n\n\n\n\n\n\n(Evidence of non-constant variance in residuals across the range of predicted values)"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#not-looking-for",
+    "href": "slides/w08-02-fitting-interpretation.html#not-looking-for",
+    "title": "Model Fitting and Interpretation",
+    "section": "Not looking for…",
+    "text": "Not looking for…\n\nGroups of patterns\n\n\n\n\n\n\n\n\n\n(Evidence of a missing predictor)"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#not-looking-for-1",
+    "href": "slides/w08-02-fitting-interpretation.html#not-looking-for-1",
+    "title": "Model Fitting and Interpretation",
+    "section": "Not looking for…",
+    "text": "Not looking for…\n\nOther non-random structure"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#not-looking-for-2",
+    "href": "slides/w08-02-fitting-interpretation.html#not-looking-for-2",
+    "title": "Model Fitting and Interpretation",
+    "section": "Not looking for…",
+    "text": "Not looking for…\n\nAny patterns!"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#section-2",
+    "href": "slides/w08-02-fitting-interpretation.html#section-2",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "What patterns does the residual plot reveal that should make us question whether a linear model is a good fit for modeling the relationship between mercury (ppm) and assets?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#data-mercury",
+    "href": "slides/w08-02-fitting-interpretation.html#data-mercury",
+    "title": "Model Fitting and Interpretation",
+    "section": "Data: Mercury",
+    "text": "Data: Mercury"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#mercury-vs.-assets",
+    "href": "slides/w08-02-fitting-interpretation.html#mercury-vs.-assets",
+    "title": "Model Fitting and Interpretation",
+    "section": "Mercury vs. assets",
+    "text": "Mercury vs. assets"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#mercury-vs-assets",
+    "href": "slides/w08-02-fitting-interpretation.html#mercury-vs-assets",
+    "title": "Model Fitting and Interpretation",
+    "section": "Mercury vs assets",
+    "text": "Mercury vs assets\n\nWhich plot shows a more linear relationship?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#mercury-and-assets-residuals",
+    "href": "slides/w08-02-fitting-interpretation.html#mercury-and-assets-residuals",
+    "title": "Model Fitting and Interpretation",
+    "section": "Mercury and Assets, residuals",
+    "text": "Mercury and Assets, residuals\n\nWhich plot shows a residuals that are uncorrelated with predicted values from the model? Also, what is the unit of the residuals?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#transforming-the-data",
+    "href": "slides/w08-02-fitting-interpretation.html#transforming-the-data",
+    "title": "Model Fitting and Interpretation",
+    "section": "Transforming the data",
+    "text": "Transforming the data\n\n\nWe saw that hairHg has a right-skewed distribution, and the residuals of that model don’t look great.\nIn these situations a transformation applied to the response variable may be useful.\nIn order to decide which transformation to use, we should examine the distribution of the response variable.\nThe extremely right skewed distribution suggests that a log transformation may be useful.\n\nlog = natural log, \\(ln\\)\n\nDefault base of the log function in R is the natural log: log(x, base = exp(1))"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#transformations",
+    "href": "slides/w08-02-fitting-interpretation.html#transformations",
+    "title": "Model Fitting and Interpretation",
+    "section": "Transformations",
+    "text": "Transformations\n\n\n\nNon-constant variance is one of the most common model violations, however it is usually fixable by transforming the response (y) variable.\nThe most common transformation when the response variable is right skewed is the log transform: \\(log(y)\\), especially useful when the response variable is (extremely) right skewed.\nThis transformation is also useful for variance stabilization.\nWhen using a log transformation on the response variable the interpretation of the slope changes: “For each unit increase in x, y is expected on average to be higher/lower by a factor of \\(e^{\\hat{\\beta}_1}\\).”\n\nAnother useful transformation is the square root: \\(\\sqrt{y}\\), especially useful when the response variable is a count."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#transform-or-learn-more",
+    "href": "slides/w08-02-fitting-interpretation.html#transform-or-learn-more",
+    "title": "Model Fitting and Interpretation",
+    "section": "Transform, or learn more?",
+    "text": "Transform, or learn more?\n\nData transformations may also be useful when the relationship is non-linear\nHowever in those cases a polynomial regression may be more appropriate\n\nThis is beyond the scope of this course, but you’re welcomed to try it on your own, and I’d be happy to provide further guidance!"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#aside-when-y-0",
+    "href": "slides/w08-02-fitting-interpretation.html#aside-when-y-0",
+    "title": "Model Fitting and Interpretation",
+    "section": "Aside: when \\(y = 0\\)\n",
+    "text": "Aside: when \\(y = 0\\)\n\nIn some cases the value of the response variable might be 0, and\n\nlog(0)\n\n#&gt; [1] -Inf\n\n\n\nThe trick is to add a very small number to the value of the response variable for these cases so that the log function can still be applied:\n\nlog(0 + 0.00001)\n\n#&gt; [1] -11.51293\n\n\n\n\nIf there are a lot of 0 values for \\(y\\), this trick is not such a good idea, and you may need to take an alternative approach (e.g., a zero-inflated model)."
+  },
+  {
     "objectID": "slides/w08-02-fitting-interpretation.html#homework-practice",
     "href": "slides/w08-02-fitting-interpretation.html#homework-practice",
     "title": "Model Fitting and Interpretation",
@@ -5269,7 +5388,7 @@
     "href": "slides/w08-02-fitting-interpretation-slides.html#mercury-and-assets",
     "title": "Model Fitting and Interpretation",
     "section": "Mercury and Assets",
-    "text": "Mercury and Assets\nAre mercury concentrations in hair related to household socioeconomic position, as measured by assets?\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(readr)\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\"))"
+    "text": "Mercury and Assets\nAre mercury concentrations in hair related to household socioeconomic position, as measured by assets?\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(readr)\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\")) %&gt;%\n  mutate(hairHg=exp(lhairHg))"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation-slides.html#goal-predict-mercury-from-assets",
@@ -5403,6 +5522,125 @@
     "title": "Model Fitting and Interpretation",
     "section": "Properties of least squares regression",
     "text": "Properties of least squares regression\n\n\nThe regression line goes through the center of mass point, the coordinates corresponding to average \\(x\\) and average \\(y\\), \\((\\bar{x}, \\bar{y})\\):\\[\\bar{y} = \\hat{\\beta}_0 + \\hat{\\beta}_1 \\bar{x} ~ \\rightarrow ~ \\hat{\\beta}_0 = \\bar{y} - \\hat{\\beta}_1 \\bar{x}\\]\n\n\n\n\nThe slope has the same sign as the correlation coefficient: \\(\\hat{\\beta}_1 = r \\frac{s_y}{s_x}\\)\n\n\n\\(s_x\\) is the standard deviation of the explanatory variable \\(x\\), and \\(s_y\\) is the standard deviation of the response variable \\(y\\)\n\nIf \\(y\\) varies a lot more than \\(x\\) does (large \\(s_y\\) relative to \\(s_x\\)), the slope will be steeper for the same correlation — a small change in \\(x\\) corresponds to a much bigger typical change in \\(y\\)\n\nIn our example, \\(s_x\\) is the standard deviation of assets_sc (which is 1, since it was standardized), and \\(s_y\\) is the standard deviation of lhairHg\n\n\n\n\n\n\n\nThe sum of the residuals is zero: \\(\\sum_{i = 1}^n e_i = 0\\)\n\n\n\n\n\nThe residuals and \\(x\\) values are uncorrelated"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#linear-models",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#linear-models",
+    "title": "Model Fitting and Interpretation",
+    "section": "“Linear” models",
+    "text": "“Linear” models\n\nWe’re fitting a “linear” model, which assumes a linear relationship between our explanatory and response variables.\nBut how do we assess this?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#graphical-diagnostic-residuals-plot-ppm-units",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#graphical-diagnostic-residuals-plot-ppm-units",
+    "title": "Model Fitting and Interpretation",
+    "section": "Graphical diagnostic: residuals plot (ppm units)",
+    "text": "Graphical diagnostic: residuals plot (ppm units)\n\n\nPlot\nCode\nAugment\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhg_asset_fit &lt;- linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury)\nhg_asset_fit_aug &lt;- augment(hg_asset_fit$fit)\nggplot(hg_asset_fit_aug, mapping = aes(x = .fitted, y = .resid)) +\n  geom_point(alpha = 0.5) +\n  geom_hline(yintercept = 0, color = \"gray\", lty = \"dashed\") +\n  labs(x = \"Predicted mercury (ppm)\", y = \"Residuals\")\n\n\n\n\nhg_asset_fit_aug\n\n#&gt; # A tibble: 2,300 × 9\n#&gt;   .rownames hairHg assets_sc[,1] .fitted .resid     .hat .sigma\n#&gt;   &lt;chr&gt;      &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1 1          1.97         -0.837    3.05 -1.08  0.000750   2.77\n#&gt; 2 3          1.10          0.197    2.12 -1.03  0.000452   2.77\n#&gt; 3 11         5.34         -0.280    2.55  2.79  0.000471   2.77\n#&gt; 4 13         1.57         -0.280    2.55 -0.981 0.000471   2.77\n#&gt; 5 14         2.02         -0.280    2.55 -0.528 0.000471   2.77\n#&gt; 6 15         0.599        -0.280    2.55 -1.95  0.000471   2.77\n#&gt; # ℹ 2,294 more rows\n#&gt; # ℹ 2 more variables: .cooksd &lt;dbl&gt;, .std.resid &lt;dbl&gt;"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#more-on-augment",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#more-on-augment",
+    "title": "Model Fitting and Interpretation",
+    "section": "More on augment()\n",
+    "text": "More on augment()\n\n\nglimpse(hg_asset_fit_aug)\n\n#&gt; Rows: 2,300\n#&gt; Columns: 9\n#&gt; $ .rownames  &lt;chr&gt; \"1\", \"3\", \"11\", \"13\", \"14\", \"15\", \"16\", \"17\"…\n#&gt; $ hairHg     &lt;dbl&gt; 1.9652, 1.0951, 5.3366, 1.5683, 2.0218, 0.59…\n#&gt; $ assets_sc  &lt;dbl[,1]&gt; &lt;matrix[21 x 1]&gt;\n#&gt; $ .fitted    &lt;dbl&gt; 3.045165, 2.124332, 2.549503, 2.549503, …\n#&gt; $ .resid     &lt;dbl&gt; -1.0799648, -1.0292319, 2.7870974, -0.981202…\n#&gt; $ .hat       &lt;dbl&gt; 0.0007495801, 0.0004516563, 0.0004705556, 0.…\n#&gt; $ .sigma     &lt;dbl&gt; 2.769771, 2.769779, 2.769252, 2.769787, 2.76…\n#&gt; $ .cooksd    &lt;dbl&gt; 5.708620e-05, 3.122263e-05, 2.385430e-04, 2.…\n#&gt; $ .std.resid &lt;dbl&gt; -0.3901294, -0.3717471, 1.0066782, -0.354402…"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#looking-for",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#looking-for",
+    "title": "Model Fitting and Interpretation",
+    "section": "Looking for…",
+    "text": "Looking for…\n\nResiduals distributed randomly around 0\nWith no visible pattern along the x or y axes"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#not-hoping-for",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#not-hoping-for",
+    "title": "Model Fitting and Interpretation",
+    "section": "Not hoping for…",
+    "text": "Not hoping for…\n\nFan shapes\n\n\n(Evidence of non-constant variance in residuals across the range of predicted values)"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#not-looking-for",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#not-looking-for",
+    "title": "Model Fitting and Interpretation",
+    "section": "Not looking for…",
+    "text": "Not looking for…\n\nGroups of patterns\n\n\n(Evidence of a missing predictor)"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#not-looking-for-1",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#not-looking-for-1",
+    "title": "Model Fitting and Interpretation",
+    "section": "Not looking for…",
+    "text": "Not looking for…\n\nOther non-random structure"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#not-looking-for-2",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#not-looking-for-2",
+    "title": "Model Fitting and Interpretation",
+    "section": "Not looking for…",
+    "text": "Not looking for…\n\nAny patterns!"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#section-2",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#section-2",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "What patterns does the residual plot reveal that should make us question whether a linear model is a good fit for modeling the relationship between mercury (ppm) and assets?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#data-mercury",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#data-mercury",
+    "title": "Model Fitting and Interpretation",
+    "section": "Data: Mercury",
+    "text": "Data: Mercury"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#mercury-vs.-assets",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#mercury-vs.-assets",
+    "title": "Model Fitting and Interpretation",
+    "section": "Mercury vs. assets",
+    "text": "Mercury vs. assets"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#mercury-vs-assets",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#mercury-vs-assets",
+    "title": "Model Fitting and Interpretation",
+    "section": "Mercury vs assets",
+    "text": "Mercury vs assets\n\nWhich plot shows a more linear relationship?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#mercury-and-assets-residuals",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#mercury-and-assets-residuals",
+    "title": "Model Fitting and Interpretation",
+    "section": "Mercury and Assets, residuals",
+    "text": "Mercury and Assets, residuals\n\nWhich plot shows a residuals that are uncorrelated with predicted values from the model? Also, what is the unit of the residuals?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#transforming-the-data",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#transforming-the-data",
+    "title": "Model Fitting and Interpretation",
+    "section": "Transforming the data",
+    "text": "Transforming the data\n\nWe saw that hairHg has a right-skewed distribution, and the residuals of that model don’t look great.\nIn these situations a transformation applied to the response variable may be useful.\nIn order to decide which transformation to use, we should examine the distribution of the response variable.\nThe extremely right skewed distribution suggests that a log transformation may be useful.\n\nlog = natural log, \\(ln\\)\n\nDefault base of the log function in R is the natural log: log(x, base = exp(1))"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#transformations",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#transformations",
+    "title": "Model Fitting and Interpretation",
+    "section": "Transformations",
+    "text": "Transformations\n\n\nNon-constant variance is one of the most common model violations, however it is usually fixable by transforming the response (y) variable.\nThe most common transformation when the response variable is right skewed is the log transform: \\(log(y)\\), especially useful when the response variable is (extremely) right skewed.\nThis transformation is also useful for variance stabilization.\nWhen using a log transformation on the response variable the interpretation of the slope changes: “For each unit increase in x, y is expected on average to be higher/lower by a factor of \\(e^{\\hat{\\beta}_1}\\).”\n\nAnother useful transformation is the square root: \\(\\sqrt{y}\\), especially useful when the response variable is a count."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#transform-or-learn-more",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#transform-or-learn-more",
+    "title": "Model Fitting and Interpretation",
+    "section": "Transform, or learn more?",
+    "text": "Transform, or learn more?\n\nData transformations may also be useful when the relationship is non-linear\nHowever in those cases a polynomial regression may be more appropriate\n\nThis is beyond the scope of this course, but you’re welcomed to try it on your own, and I’d be happy to provide further guidance!"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#aside-when-y-0",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#aside-when-y-0",
+    "title": "Model Fitting and Interpretation",
+    "section": "Aside: when \\(y = 0\\)\n",
+    "text": "Aside: when \\(y = 0\\)\n\nIn some cases the value of the response variable might be 0, and\n\nlog(0)\n\n#&gt; [1] -Inf\n\n\n\nThe trick is to add a very small number to the value of the response variable for these cases so that the log function can still be applied:\n\nlog(0 + 0.00001)\n\n#&gt; [1] -11.51293\n\n\n\n\nIf there are a lot of 0 values for \\(y\\), this trick is not such a good idea, and you may need to take an alternative approach (e.g., a zero-inflated model)."
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation-slides.html#homework-practice",

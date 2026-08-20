@@ -701,7 +701,7 @@ Tip
 <p>Reshape (pivot) <code>country_inflation</code> such that each row represents a country/year combination. Then, display the resulting data frame and state how many rows and columns it has and write a sentence stating the number of rows and columns as well as the names of the columns of the resulting data frame.</p>
 <p>Requirements:</p>
 <ul>
-<li>Your code must use one of <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> or <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>. There are other ways you can do this reshaping move in R, but this question requires solving this problem by pivoting.</li>
+<li>Your code must use one of <code><a href="https://rdrr.io/pkg/tidyr/man/pivot_longer.html">pivot_longer()</a></code> or <code><a href="https://rdrr.io/pkg/tidyr/man/pivot_wider.html">pivot_wider()</a></code>. There are other ways you can do this reshaping move in R, but this question requires solving this problem by pivoting.</li>
 <li>In your <code>pivot_*()</code> function, you must use <code>names_transform = as.numeric</code> as an argument to transform the variable type to numeric as you pivot the data so that in the resulting data frame the year variable is numeric.</li>
 <li>The resulting data frame must be saved as something other than <code>country_inflation</code> so you (1) can refer to this data frame later in your analysis and (2) do not overwrite <code>country_inflation</code>. Use a short but informative name.</li>
 </ul>
