@@ -233,7 +233,7 @@ Amy Herring
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figure><p><img data-src="w08-01-intro-model_files/figure-html/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -242,7 +242,7 @@ Amy Herring
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figure><p><img data-src="w08-01-intro-model_files/figure-html/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -347,14 +347,14 @@ r = \frac{1}{n-1}
 <span id="cb3-5"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mercury (ppm)"</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w08-01-intro-model_files/figure-revealjs/outcomedistcheck-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="section-2" class="slide level2" data-background-color="white"><h2></h2>
+<img data-src="w08-01-intro-model_files/figure-html/outcomedistcheck-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="section-2" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mercury, <span class="fu">aes</span>(<span class="at">x =</span> lhairHg)) <span class="sc">+</span></span>
 <span id="cb4-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
 <span id="cb4-3"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mercury (log ppm)"</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w08-01-intro-model_files/figure-revealjs/xformhist-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><p>Because the models we will discuss to start prefer data that are approximately normally distributed, we will work with the log of hair mercury concentrations.</p>
+<img data-src="w08-01-intro-model_files/figure-html/xformhist-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><p>Because the models we will discuss to start prefer data that are approximately normally distributed, we will work with the log of hair mercury concentrations.</p>
 </section><section id="section-3" class="slide level2" data-background-color="white"><h2></h2>
 <p>In our model, we will use assets to <em>predict</em> our <em>response variable</em>, the log of hair mercury concentrations. The regression model does not require predictors to follow any specific distributions, which is a good thing here!</p>
 <div class="cell" data-layout-align="center">
@@ -363,7 +363,7 @@ r = \frac{1}{n-1}
 <span id="cb5-3"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Assets (standardized)"</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w08-01-intro-model_files/figure-revealjs/assetshist-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:40.0%"></section><section id="models-as-functions" class="slide level2"><h2>Models as functions</h2>
+<img data-src="w08-01-intro-model_files/figure-html/assetshist-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:40.0%"></section><section id="models-as-functions" class="slide level2"><h2>Models as functions</h2>
 <ul>
 <li>We can represent relationships between variables using <strong>functions</strong>
 </li>
@@ -385,7 +385,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+<figure><p><img data-src="w08-01-intro-model_files/figure-html/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
 </figure>
 </div>
 </div>
@@ -420,7 +420,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+<figure><p><img data-src="w08-01-intro-model_files/figure-html/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
 </figure>
 </div>
 </div>
@@ -453,7 +453,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+<figure><p><img data-src="w08-01-intro-model_files/figure-html/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
 </figure>
 </div>
 </div>
@@ -505,7 +505,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+<figure><p><img data-src="w08-01-intro-model_files/figure-html/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
 </figure>
 </div>
 </div>
@@ -560,7 +560,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+<figure><p><img data-src="w08-01-intro-model_files/figure-html/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
 </figure>
 </div>
 </div>
@@ -591,7 +591,7 @@ r = \frac{1}{n-1}
 </div>
 </section><section id="range-of-plotted-lines" class="slide level2"><h2>Range of Plotted Lines</h2>
 
-<img data-src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>Why does the native village line stop at assets around 1.5 sd?</p>
+<img data-src="w08-01-intro-model_files/figure-html/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>Why does the native village line stop at assets around 1.5 sd?</p>
 </section><section id="extending-regression-lines" class="slide level2"><h2>Extending regression lines</h2>
 <div style="font-size:0.7em;">
 <p>Extrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals (say $&gt;$3 SD above the mean asset level), do we believe the lines actually cross, and those in native villages have lower exposures?</p>
@@ -606,7 +606,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:45.0%"></p>
+<figure><p><img data-src="w08-01-intro-model_files/figure-html/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:45.0%"></p>
 </figure>
 </div>
 </div>
@@ -849,41 +849,6 @@ r = \frac{1}{n-1}
           RevealZoom
         ]
       });
-    </script><script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
     </script><script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
