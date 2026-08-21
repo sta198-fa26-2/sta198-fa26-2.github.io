@@ -125,12 +125,12 @@ Your success in this course depends very much on you and the effort you put into
 
 1.  **Keep up with the material.**
 
-Come prepared so you can deeply engage with the material during lectures and labs. The schedule lists extensive additional resources if you need additional support -- take advantage so you don't fall behind.
+Come prepared by doing readings so you can deeply engage with the material during lectures and labs. The schedule lists extensive additional resources if you need additional support -- take advantage if needed so you don't fall behind.
 
 2.  **Be present and engaged in every lecture and lab.**
 
 In lectures ask questions and participate in discussions.
-In labs, work on the lab exercises, ask questions, and collaborate with your teammates.
+In labs, work on the lab exercises, ask questions, and collaborate with your teammates -- this is your chance for coding with strong support from your peers and the TA.
 If you miss a class, make sure to catch up on the material before the next class.
 
 3.  **Ask questions.**
@@ -143,6 +143,7 @@ If you get a question wrong on an assessment, ask us why.
 If you’re not sure about the lab, ask.
 If you hear something on the news that sounds related to what we discussed, ask.
 If the reading is confusing, ask.
+If something seems overwhelming, ask.
 
 4.  **Do the work.**
 
