@@ -24,18 +24,6 @@ website:
       - icon: code-square
         href: https://cmgr.oit.duke.edu/containers
         text: "RStudio containers"
-      - icon: life-preserver
-        text: Support
-        menu:
-          - icon: person-raised-hand
-            text: Office hours
-            href: https://docs.google.com/spreadsheets/d/1ecv7aJCSpDThmbBXkY3AkkpNKSyu4ISAlDXSjZx-WQA/edit?usp=sharing
-          - icon: people-fill
-            text: Help from humans (Ed Discussion)
-            href: https://edstem.org/
-          - icon: robot
-            text: Help from AI (Chatbot)
-            href: https://canvas.duke.edu/
       - icon: file-check-fill
         text: "Canvas"
         menu:
@@ -84,7 +72,7 @@ website:
             
   page-footer:
     background: "#005871"
-    left: "&copy; Copyright 2026, Mine Çetinkaya-Rundel, Mary Knox"
+    left: "&copy; Copyright 2026, Mine Çetinkaya-Rundel, Mary Knox, Amy Herring"
     right: 'This page is built with [{{< fa heart >}}]{style="color:#FFBE98;" aria-hidden="true"} and [Quarto](https://quarto.org/).'
     
 format: 
