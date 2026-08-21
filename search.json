@@ -1020,7 +1020,7 @@
     "href": "slides/w01-01-welcome-slides.html#statistical-process",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Statistical process",
-    "text": "Statistical process\nConvert data into useful information, whereby practitioners - form a question of interest, - collect, summarize, and analyze the data, - and interpret the results"
+    "text": "Statistical process\nConvert data into useful information, whereby practitioners\n\nform a question of interest,\ncollect, summarize, and analyze the data,\nand interpret the results"
   },
   {
     "objectID": "slides/w01-01-welcome-slides.html#identifying-the-question-of-interest",
@@ -1139,14 +1139,7 @@
     "href": "slides/w01-01-welcome-slides.html#hello-ggplot2",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Hello ggplot2!",
-    "text": "Hello ggplot2!\n\n\nggplot() is the main function in ggplot2.\nPlots are constructed in layers.\nThe structure of the code for plots can be summarized as:\n\n\nggplot(\n  data = [dataset],\n  mapping = aes(x = [x-variable], y = [y-variable])\n) +\n  geom_xxx() +\n  other_options\n\n\nThe ggplot2 package comes with the tidyverse.\n\n\nlibrary(tidyverse)\n\n\nFor help with ggplot2, see https://ggplot2.tidyverse.org/."
-  },
-  {
-    "objectID": "slides/w01-01-welcome-slides.html#questions",
-    "href": "slides/w01-01-welcome-slides.html#questions",
-    "title": "Welcome to STA/GLHLTH 198!",
-    "section": "Questions?",
-    "text": "Questions?"
+    "text": "Hello ggplot2!\n\n\n\nggplot() is the main function in ggplot2.\nPlots are constructed in layers.\nThe structure of the code for plots can be summarized as:\n\n\nggplot(\n  data = [dataset],\n  mapping = aes(x = [x-variable], y = [y-variable])\n) +\n  geom_xxx() +\n  other_options\n\n\nThe ggplot2 package comes with the tidyverse.\n\n\nlibrary(tidyverse)\n\n\nFor help with ggplot2, see https://ggplot2.tidyverse.org/. We will learn more this week and next about its use."
   },
   {
     "objectID": "slides/w01-01-welcome-slides.html#homepage",
@@ -1167,53 +1160,39 @@
     "href": "slides/w01-01-welcome-slides.html#activities",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Activities",
-    "text": "Activities\n\nIntroduce new content and prepare for lectures by watching the videos and completing the readings\nAttend and actively participate in lectures (and answer questions for participation credit) and labs, office hours, team meetings\nPractice applying statistical concepts and computing with application exercises during lecture\nPut together what you’ve learned to analyze real-world data\n\nLab assignments\nQuizzes\nExams"
+    "text": "Activities\n\nIntroduce new content and prepare for lectures by completing the readings (videos are sometimes included if you want extra support!)\nAttend and actively participate in lectures, labs, and office hours\nPractice applying statistical concepts and computing with application exercises during lecture\n\nPut together what you’ve learned to analyze real-world data\n\nLab assignments\nPractice problems\nExams"
   },
   {
     "objectID": "slides/w01-01-welcome-slides.html#grading",
     "href": "slides/w01-01-welcome-slides.html#grading",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Grading",
-    "text": "Grading\n\n\nCategory\nPercentage\n\n\n\nLectures (attendance + participation)\n10%\n\n\nLabs\n15%\n\n\nMidterm 1\n25%\n\n\nMidterm 2\n25%\n\n\nMidterm 3\n25%\n\n\nFinal\nReplace lowest midterm\n\n\n\nSee course syllabus for how the final letter grade will be determined."
-  },
-  {
-    "objectID": "slides/w01-01-welcome-slides.html#wiggle-room",
-    "href": "slides/w01-01-welcome-slides.html#wiggle-room",
-    "title": "Welcome to STA/GLHLTH 198!",
-    "section": "Wiggle room",
-    "text": "Wiggle room\n\nAfter Drop/Add, you can miss 4 lectures and still receive full attendance credit;\nWe drop the two lowest labs;\nWe will give the opportunity for oral exam retakes for partial credit;\nWe replace the lowest midterm score with your final exam score (if it’s better; otherwise the final does not affect your grade)."
-  },
-  {
-    "objectID": "slides/w01-01-welcome-slides.html#attendance-and-participation",
-    "href": "slides/w01-01-welcome-slides.html#attendance-and-participation",
-    "title": "Welcome to STA/GLHLTH 198!",
-    "section": "Attendance and participation",
-    "text": "Attendance and participation\n\nDaily in lecture\nTracked for credit, but not based on correctness, only participation (often questions designed to make you think that might not have a single right answer!)"
+    "text": "Grading\n\n\nCategory\nPercentage\n\n\n\nLectures (attendance + participation)\n5%\n\n\nLabs\n20%\n\n\nMidterm 1\n25%\n\n\nMidterm 2\n25%\n\n\nMidterm 3\n25%\n\n\nFinal\nReplace lowest midterm\n\n\n\nSee course syllabus for how the final letter grade will be determined."
   },
   {
     "objectID": "slides/w01-01-welcome-slides.html#labs",
     "href": "slides/w01-01-welcome-slides.html#labs",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Labs",
-    "text": "Labs\n\nHands-on practice with data analysis\nA single exercise per lab, graded based on being there and turning in something reasonable + correctness\nCompleted in-person, in lab, in teams\nTeams randomized each week for roughly first half of course\nDeveloped collaboratively, but turned in individually by the end of the lab session\nWeekly throughout semester, two lowest scores dropped\nNo late work accepted"
+    "text": "Labs\n\nHands-on practice with data analysis\nA single exercise per lab, graded based on being there and turning in something reasonable + correctness\nCompleted in-person, in lab, or in teams\nTeams randomized for roughly first half of course\nTeam lab solutions developed collaboratively, but turned in individually by the end of the lab session\nWeekly throughout semester, two lowest scores dropped\nNo late work accepted"
   },
   {
     "objectID": "slides/w01-01-welcome-slides.html#exams",
     "href": "slides/w01-01-welcome-slides.html#exams",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Exams",
-    "text": "Exams\n\nThree in-class midterm exams during semester\nFinal (optional to replace lowest grade on midterm)\nNo extensions or make-ups.\n\n\n\n\n\n\n\nCaution\n\n\nExam dates cannot be changed, and no make-up exams will be given. If you can’t take the exams on these dates, you should drop this class or be comfortable with relying on the make-up exam.\n\n\n\n\n\n\n\n\n\nIf you need testing accomodations\n\n\nMake sure I get a letter, and make your appointments in the Testing Center now."
+    "text": "Exams\n\nThree in-class midterm exams during semester\nFinal (optional to replace lowest grade on midterm)\nNo extensions or make-ups.\n\n\n\n\n\n\n\nCaution\n\n\nExam dates cannot be changed, and no make-up exams will be given. If you can’t take the exams on these dates, you should drop this class or be comfortable with relying on the make-up exam. (If you know of an issue well in advance, let’s talk.)\n\n\n\n\n\n\n\n\n\nIf you need testing accomodations\n\n\nMake sure I get a letter, and make your appointments in the Testing Center now, as slots fill out!"
   },
   {
     "objectID": "slides/w01-01-welcome-slides.html#teams",
     "href": "slides/w01-01-welcome-slides.html#teams",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Teams",
-    "text": "Teams\n\nRandomized at first for weekly labs\nThen selected by you or assigned by me if you don’t express a preference for remaining labs\n\nExpectations and roles\n\nEveryone is expected to contribute equal effort\n\nEveryone is expected to understand all code turned in\nIndividual contribution evaluated by peer evaluation, commits, etc."
+    "text": "Teams\n\nRandomized at first for weekly labs (some labs will be individual)\n\nExpectations and roles\n\nEveryone is expected to contribute equal effort\n\nEveryone is expected to understand all code turned in\nIndividual contribution evaluated by peer evaluation, commits, etc."
   },
   {
-    "objectID": "slides/w01-01-welcome-slides.html#questions-1",
-    "href": "slides/w01-01-welcome-slides.html#questions-1",
+    "objectID": "slides/w01-01-welcome-slides.html#questions",
+    "href": "slides/w01-01-welcome-slides.html#questions",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Questions?",
     "text": "Questions?"
@@ -1223,7 +1202,7 @@
     "href": "slides/w01-01-welcome-slides.html#this-weeks-tasks",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "This week’s tasks",
-    "text": "This week’s tasks\n\nAttend lectures and lab:\n\nComputational setup;\nGetting to know you survey;\n\n\nRead the syllabus and ask questions on Ed;\nComplete readings and videos for next class;\nSend me SDAO letters and schedule testing center appointments.\nCheck out practice problems (homework!)"
+    "text": "This week’s tasks\n\nAttend lectures and lab:\n\nComputational setup;\nGetting to know you survey;\n\n\nRead the syllabus and ask questions on Ed;\nComplete readings for next class;\nSend me SDAO letters and schedule testing center appointments.\nCheck out practice problems (homework!)"
   },
   {
     "objectID": "slides/w01-01-welcome-slides.html#homework-practice",
@@ -1233,8 +1212,8 @@
     "text": "Homework (Practice)\nIMS Chapter 1\n\nProblem 3\nProblem 10\nProblem 12\n\nNote: answers to odd-numbered problems are in the Appendix. Feel free to use Ed Discussion to raise questions with the class."
   },
   {
-    "objectID": "slides/w01-01-welcome-slides.html#questions-2",
-    "href": "slides/w01-01-welcome-slides.html#questions-2",
+    "objectID": "slides/w01-01-welcome-slides.html#questions-1",
+    "href": "slides/w01-01-welcome-slides.html#questions-1",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Questions?",
     "text": "Questions?"
@@ -1300,7 +1279,7 @@
     "href": "slides/w01-01-welcome.html#statistical-process",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Statistical process",
-    "text": "Statistical process\nConvert data into useful information, whereby practitioners - form a question of interest, - collect, summarize, and analyze the data, - and interpret the results"
+    "text": "Statistical process\nConvert data into useful information, whereby practitioners\n\nform a question of interest,\ncollect, summarize, and analyze the data,\nand interpret the results"
   },
   {
     "objectID": "slides/w01-01-welcome.html#identifying-the-question-of-interest",
@@ -1419,14 +1398,7 @@
     "href": "slides/w01-01-welcome.html#hello-ggplot2",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Hello ggplot2!",
-    "text": "Hello ggplot2!\n\n\nggplot() is the main function in ggplot2.\nPlots are constructed in layers.\nThe structure of the code for plots can be summarized as:\n\n\nggplot(\n  data = [dataset],\n  mapping = aes(x = [x-variable], y = [y-variable])\n) +\n  geom_xxx() +\n  other_options\n\n\nThe ggplot2 package comes with the tidyverse.\n\n\nlibrary(tidyverse)\n\n\nFor help with ggplot2, see https://ggplot2.tidyverse.org/."
-  },
-  {
-    "objectID": "slides/w01-01-welcome.html#questions",
-    "href": "slides/w01-01-welcome.html#questions",
-    "title": "Welcome to STA/GLHLTH 198!",
-    "section": "Questions?",
-    "text": "Questions?"
+    "text": "Hello ggplot2!\n\n\n\nggplot() is the main function in ggplot2.\nPlots are constructed in layers.\nThe structure of the code for plots can be summarized as:\n\n\nggplot(\n  data = [dataset],\n  mapping = aes(x = [x-variable], y = [y-variable])\n) +\n  geom_xxx() +\n  other_options\n\n\nThe ggplot2 package comes with the tidyverse.\n\n\nlibrary(tidyverse)\n\n\nFor help with ggplot2, see https://ggplot2.tidyverse.org/. We will learn more this week and next about its use."
   },
   {
     "objectID": "slides/w01-01-welcome.html#homepage",
@@ -1447,53 +1419,39 @@
     "href": "slides/w01-01-welcome.html#activities",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Activities",
-    "text": "Activities\n\nIntroduce new content and prepare for lectures by watching the videos and completing the readings\nAttend and actively participate in lectures (and answer questions for participation credit) and labs, office hours, team meetings\nPractice applying statistical concepts and computing with application exercises during lecture\nPut together what you’ve learned to analyze real-world data\n\nLab assignments\nQuizzes\nExams"
+    "text": "Activities\n\nIntroduce new content and prepare for lectures by completing the readings (videos are sometimes included if you want extra support!)\nAttend and actively participate in lectures, labs, and office hours\nPractice applying statistical concepts and computing with application exercises during lecture\n\nPut together what you’ve learned to analyze real-world data\n\nLab assignments\nPractice problems\nExams"
   },
   {
     "objectID": "slides/w01-01-welcome.html#grading",
     "href": "slides/w01-01-welcome.html#grading",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Grading",
-    "text": "Grading\n\n\nCategory\nPercentage\n\n\n\nLectures (attendance + participation)\n10%\n\n\nLabs\n15%\n\n\nMidterm 1\n25%\n\n\nMidterm 2\n25%\n\n\nMidterm 3\n25%\n\n\nFinal\nReplace lowest midterm\n\n\n\nSee course syllabus for how the final letter grade will be determined."
-  },
-  {
-    "objectID": "slides/w01-01-welcome.html#wiggle-room",
-    "href": "slides/w01-01-welcome.html#wiggle-room",
-    "title": "Welcome to STA/GLHLTH 198!",
-    "section": "Wiggle room",
-    "text": "Wiggle room\n\nAfter Drop/Add, you can miss 4 lectures and still receive full attendance credit;\nWe drop the two lowest labs;\nWe will give the opportunity for oral exam retakes for partial credit;\nWe replace the lowest midterm score with your final exam score (if it’s better; otherwise the final does not affect your grade)."
-  },
-  {
-    "objectID": "slides/w01-01-welcome.html#attendance-and-participation",
-    "href": "slides/w01-01-welcome.html#attendance-and-participation",
-    "title": "Welcome to STA/GLHLTH 198!",
-    "section": "Attendance and participation",
-    "text": "Attendance and participation\n\nDaily in lecture\nTracked for credit, but not based on correctness, only participation (often questions designed to make you think that might not have a single right answer!)"
+    "text": "Grading\n\n\nCategory\nPercentage\n\n\n\nLectures (attendance + participation)\n5%\n\n\nLabs\n20%\n\n\nMidterm 1\n25%\n\n\nMidterm 2\n25%\n\n\nMidterm 3\n25%\n\n\nFinal\nReplace lowest midterm\n\n\n\nSee course syllabus for how the final letter grade will be determined."
   },
   {
     "objectID": "slides/w01-01-welcome.html#labs",
     "href": "slides/w01-01-welcome.html#labs",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Labs",
-    "text": "Labs\n\nHands-on practice with data analysis\nA single exercise per lab, graded based on being there and turning in something reasonable + correctness\nCompleted in-person, in lab, in teams\nTeams randomized each week for roughly first half of course\nDeveloped collaboratively, but turned in individually by the end of the lab session\nWeekly throughout semester, two lowest scores dropped\nNo late work accepted"
+    "text": "Labs\n\nHands-on practice with data analysis\nA single exercise per lab, graded based on being there and turning in something reasonable + correctness\nCompleted in-person, in lab, or in teams\nTeams randomized for roughly first half of course\nTeam lab solutions developed collaboratively, but turned in individually by the end of the lab session\nWeekly throughout semester, two lowest scores dropped\nNo late work accepted"
   },
   {
     "objectID": "slides/w01-01-welcome.html#exams",
     "href": "slides/w01-01-welcome.html#exams",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Exams",
-    "text": "Exams\n\nThree in-class midterm exams during semester\nFinal (optional to replace lowest grade on midterm)\nNo extensions or make-ups.\n\n\n\n\n\n\n\nCaution\n\n\n\nExam dates cannot be changed, and no make-up exams will be given. If you can’t take the exams on these dates, you should drop this class or be comfortable with relying on the make-up exam.\n\n\n\n\n\n\n\n\nIf you need testing accomodations\n\n\n\nMake sure I get a letter, and make your appointments in the Testing Center now."
+    "text": "Exams\n\nThree in-class midterm exams during semester\nFinal (optional to replace lowest grade on midterm)\nNo extensions or make-ups.\n\n\n\n\n\n\n\nCaution\n\n\n\nExam dates cannot be changed, and no make-up exams will be given. If you can’t take the exams on these dates, you should drop this class or be comfortable with relying on the make-up exam. (If you know of an issue well in advance, let’s talk.)\n\n\n\n\n\n\n\n\nIf you need testing accomodations\n\n\n\nMake sure I get a letter, and make your appointments in the Testing Center now, as slots fill out!"
   },
   {
     "objectID": "slides/w01-01-welcome.html#teams",
     "href": "slides/w01-01-welcome.html#teams",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Teams",
-    "text": "Teams\n\nRandomized at first for weekly labs\nThen selected by you or assigned by me if you don’t express a preference for remaining labs\n\nExpectations and roles\n\nEveryone is expected to contribute equal effort\n\nEveryone is expected to understand all code turned in\nIndividual contribution evaluated by peer evaluation, commits, etc."
+    "text": "Teams\n\nRandomized at first for weekly labs (some labs will be individual)\n\nExpectations and roles\n\nEveryone is expected to contribute equal effort\n\nEveryone is expected to understand all code turned in\nIndividual contribution evaluated by peer evaluation, commits, etc."
   },
   {
-    "objectID": "slides/w01-01-welcome.html#questions-1",
-    "href": "slides/w01-01-welcome.html#questions-1",
+    "objectID": "slides/w01-01-welcome.html#questions",
+    "href": "slides/w01-01-welcome.html#questions",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Questions?",
     "text": "Questions?"
@@ -1503,7 +1461,7 @@
     "href": "slides/w01-01-welcome.html#this-weeks-tasks",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "This week’s tasks",
-    "text": "This week’s tasks\n\nAttend lectures and lab:\n\nComputational setup;\nGetting to know you survey;\n\n\nRead the syllabus and ask questions on Ed;\nComplete readings and videos for next class;\nSend me SDAO letters and schedule testing center appointments.\nCheck out practice problems (homework!)"
+    "text": "This week’s tasks\n\nAttend lectures and lab:\n\nComputational setup;\nGetting to know you survey;\n\n\nRead the syllabus and ask questions on Ed;\nComplete readings for next class;\nSend me SDAO letters and schedule testing center appointments.\nCheck out practice problems (homework!)"
   },
   {
     "objectID": "slides/w01-01-welcome.html#homework-practice",
@@ -1513,8 +1471,8 @@
     "text": "Homework (Practice)\nIMS Chapter 1\n\nProblem 3\nProblem 10\nProblem 12\n\nNote: answers to odd-numbered problems are in the Appendix. Feel free to use Ed Discussion to raise questions with the class."
   },
   {
-    "objectID": "slides/w01-01-welcome.html#questions-2",
-    "href": "slides/w01-01-welcome.html#questions-2",
+    "objectID": "slides/w01-01-welcome.html#questions-1",
+    "href": "slides/w01-01-welcome.html#questions-1",
     "title": "Welcome to STA/GLHLTH 198!",
     "section": "Questions?",
     "text": "Questions?"
