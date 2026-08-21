@@ -144,21 +144,24 @@ for our computing toolkit.
 
 ![](../img/data-science-cycle.001.png)
 
----
+
 
 # The statistical process
 
----
+
 
 ## Statistical process
 
 
 Convert data into useful information, whereby practitioners
+
 - form a question of interest,
+
 - collect, summarize, and analyze the data,
+
 - and interpret the results
 
----
+
 
 ## Identifying the question of interest
 
@@ -170,7 +173,7 @@ The <span style="color:#012169;">population</span> is the group we would like to
 
 If we had data from every unit in the population, we could just calculate what we wanted and be done!
 
----
+
 
 ## Sampling from the population
 
@@ -178,7 +181,7 @@ Unfortunately, we (usually) have to settle with a <span style="color:#012169;">s
 
 Ideally, the sample is <span style="color:#012169;">representative</span>, allowing us to use probability and statistical inference to make conclusions that are generalizable to the broader population of interest.
 
----
+
 
 ## Sampling methods
 
@@ -199,7 +202,7 @@ Ideally, the sample is <span style="color:#012169;">representative</span>, allow
 
 </div>
 
----
+
 
 ## Study design
 
@@ -240,7 +243,7 @@ A fun rabbit hole to explore is [Tyler Vigen's Spurious Correlations Website](ht
 
 - IHME maintains the [Global Burden of Disease (GBD)](http://ghdx.healthdata.org), a valuable resource for policymakers and others that quantifies health loss due to a variety of risk factors, diseases, and injuries.
 
----
+
 
 ## Life Expectancy
 
@@ -250,11 +253,11 @@ A fun rabbit hole to explore is [Tyler Vigen's Spurious Correlations Website](ht
 - Here **life expectancy** is the \# of years an infant can expect to live if mortality rates in the current year remain unchanged for the rest of their life. Life expectancy usually underestimates how long the baby will actually live because mortality rates have been declining over time.
 
 
----
+
 
 # What is in a dataset?
 
----
+
 
 ## Dataset terminology
 
@@ -313,11 +316,10 @@ ncol(life) # number of columns
 dim(life)  # dimensions (rows, columns)
 ```
 
----
 
 # Exploratory data analysis
 
----
+
 
 ## What is EDA?
 
@@ -325,7 +327,7 @@ dim(life)  # dimensions (rows, columns)
 - Often, this is visual -- this is what we'll focus on first
 - But we might also calculate summary statistics and perform data wrangling/manipulation/transformation at (or before) this stage of the analysis -- this is what we'll focus on next
 
----
+
 
 ## Life expectancy over time
 
@@ -548,6 +550,9 @@ life %>%
 
 ## Hello ggplot2!
 
+<div style="font-size:0.9em;">
+
+
 - `ggplot()` is the main function in **ggplot2**.
 - Plots are constructed in layers.
 - The structure of the code for plots can be summarized as:
@@ -569,12 +574,10 @@ ggplot(
 library(tidyverse)
 ```
 
-- For help with **ggplot2**, see <https://ggplot2.tidyverse.org/>.
+- For help with **ggplot2**, see <https://ggplot2.tidyverse.org/>. We will learn more this week and next about its use.
 
+</div>
 
----
-
-## Questions? {.larger}
 
 # Syllabus highlights
 
@@ -596,12 +599,16 @@ All linked from the course website:
 
 ## Activities {.smaller}
 
--   Introduce new content and prepare for lectures by watching the videos and completing the readings
--   Attend and actively participate in lectures (and answer questions for participation credit) and labs, office hours, team meetings
+-   Introduce new content and prepare for lectures by completing the readings (videos are sometimes included if you want extra support!)
+
+-   Attend and actively participate in lectures, labs, and office hours
+
 -   Practice applying statistical concepts and computing with application exercises during lecture
+
 -   Put together what you've learned to analyze real-world data
+
     -   Lab assignments
-    -   Quizzes
+    -   Practice problems
     -   Exams
 
     
@@ -609,8 +616,8 @@ All linked from the course website:
 
 | Category              | Percentage |
 |-----------------------|------------|
-| Lectures (attendance + participation) | 10%         |
-| Labs                  | 15%         |
+| Lectures (attendance + participation) | 5%         |
+| Labs                  | 20%         |
 | Midterm 1                | 25%        |
 | Midterm 2                | 25%        |
 | Midterm 3               | 25%        |
@@ -619,32 +626,17 @@ All linked from the course website:
 See course syllabus for how the final letter grade will be determined.
 
 
-
-## Wiggle room
-
-- After Drop/Add, you can miss 4 lectures and still receive full attendance credit;
-- We drop the two lowest labs;
-- We will give the opportunity for oral exam retakes for partial credit;
-- We replace the lowest midterm score with your final exam score (if it’s better; otherwise the final does not affect your grade).
-
-## Attendance and participation {.smaller}
-
--   Daily in lecture
-
--   Tracked for credit, but not based on correctness, only participation (often questions designed to make you think that might not have a single right answer!)
-
-
 ## Labs {.smaller}
 
 -   Hands-on practice with data analysis
 
 -   A single exercise per lab, graded based on being there and turning in something reasonable + correctness
 
--   Completed in-person, in lab, in teams
+-   Completed in-person, in lab, or in teams
 
--   Teams randomized each week for roughly first half of course
+-   Teams randomized for roughly first half of course
 
--   Developed collaboratively, but turned in individually by the end of the lab session
+-   Team lab solutions developed collaboratively, but turned in individually by the end of the lab session
 
 -   Weekly throughout semester, two lowest scores dropped
 
@@ -659,24 +651,22 @@ See course syllabus for how the final letter grade will be determined.
 
 -   Final (optional to replace lowest grade on midterm)
 
-- No extensions or make-ups.
+-   No extensions or make-ups.
 
 ::: callout-caution
-Exam dates cannot be changed, and no make-up exams will be given. If you can’t take the exams on these dates, you should drop this class or be comfortable with relying on the make-up exam.
+Exam dates cannot be changed, and no make-up exams will be given. If you can’t take the exams on these dates, you should drop this class or be comfortable with relying on the make-up exam. (If you know of an issue well in advance, let's talk.)
 :::
 
 ::: callout-note
 ## If you need testing accomodations
-Make sure I get a letter, and make your appointments in the Testing Center now.
+Make sure I get a letter, and make your appointments in the Testing Center now, as slots fill out!
 :::
 
 
 
 ## Teams {.smaller}
 
--   Randomized at first for weekly labs
-
--   Then selected by you or assigned by me if you don't express a preference for remaining labs
+-   Randomized at first for weekly labs (some labs will be individual)
 
 -   Expectations and roles
     -   Everyone is expected to contribute equal *effort*
@@ -695,7 +685,7 @@ Make sure I get a letter, and make your appointments in the Testing Center now.
     -   Computational setup;
     -   Getting to know you survey;
 -   Read the syllabus and ask questions on Ed;
--   Complete readings and videos for next class;
+-   Complete readings for next class;
 -   Send me SDAO letters and schedule testing center appointments.
 -   Check out practice problems (homework!)
 
