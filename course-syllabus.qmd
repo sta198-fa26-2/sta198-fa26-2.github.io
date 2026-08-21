@@ -281,9 +281,9 @@ Please abide by the following as you work on assignments in this course:
 
     -   [{{< fa check >}}]{aria-hidden="true"} **AI tools for code:** You may use generative AI tools when you need help with assignments. However you should first attempt to solve the problem yourself. Your submission should not be a copy-paste of AI-generated content -- you must edit the content to ensure it reflects your understanding, has your voice and intellectual input, and conforms with course materials, syntax, terminology, and style. Additionally, **the prompt you use should not be copied and pasted directly from the assignment; you should create a prompt yourself.**
 
-    You must also explicitly cite work submitted that is based on AI-generated content.
-    You may use [these guidelines](https://guides.lib.monash.edu/c.php?g=219786&p=6972087) to cite AI-generated content.
-    **The bare minimum citation must include the AI tool you're using (e.g., ChatGPT), the model the tool uses, the date when you ran the prompt, and a link to the full transcript of the session starting with your prompt.** A new citation must be included for each exercise where you used AI tools, with a new link to the full transceipt of the interaction.
+    It is also good practice to cite work submitted that is based on AI-generated content.
+    
+    Course materials are revised with assistance from OpenAI’s ChatGPT (GPT-5.6 Sol) and Anthropic's Claude (Sonnet 5), accessed in summer and fall 2026.
     
 While you're welcomed to ask AI tools questions that might help your learning and understanding in this course, you should be critical of the answers you receive, as AI-generated content may not always be accurate or reliable. Use it to supplement your understanding, not as a substitute for learning. You are ultimately responsible for the work you turn in; it should reflect *your* understanding of the course content.
 
