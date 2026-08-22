@@ -233,7 +233,7 @@ Amy Herring
 </div>
 </section><section id="goal-visualize-statsci-majors-over-the-years" class="slide level2"><h2>Goal: Visualize StatSci Majors Over the Years</h2>
 
-<img data-src="w04-03-tidy_files/figure-html/plot-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div style="font-size:0.5em;">
+<img data-src="w04-03-tidy_files/figure-revealjs/plot-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div style="font-size:0.5em;">
 <p>Any ideas about the big bump in 2023?</p>
 </div>
 </section><section id="data" class="slide level2 smaller"><h2>Data</h2>
@@ -272,7 +272,7 @@ Amy Herring
 </section><section id="lets-plan" class="slide level2 smaller"><h2>Let’s plan!</h2>
 <p>Review the goal plot and sketch the data frame needed to create it. What would go inside <code>aes</code> when we call <code>ggplot</code>?</p>
 
-<img data-src="w04-03-tidy_files/figure-html/plot2-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="the-goal" class="slide level2 smaller nostretch"><h2>The Goal</h2>
+<img data-src="w04-03-tidy_files/figure-revealjs/plot2-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="the-goal" class="slide level2 smaller nostretch"><h2>The Goal</h2>
 <p>We want to write code that starts something like this:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">ggplot</span>(degrees, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> count, <span class="at">color =</span> degree_type, <span class="at">linetype =</span> degree_type)) <span class="sc">+</span> </span>
@@ -681,7 +681,7 @@ Amy Herring
 <span id="cb35-3"><a></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w04-03-tidy_files/figure-html/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section class="slide level2"><p>First, let’s fix the labels.</p>
+<img data-src="w04-03-tidy_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section class="slide level2"><p>First, let’s fix the labels.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="fu">ggplot</span>(degrees_long, </span>
 <span id="cb36-2"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> count, <span class="at">color =</span> degree_type)) <span class="sc">+</span></span>
@@ -694,7 +694,7 @@ Amy Herring
 <span id="cb36-9"><a></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w04-03-tidy_files/figure-html/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section class="slide level2"><p>I’d like to make it print all the year values, not just every 5th year.</p>
+<img data-src="w04-03-tidy_files/figure-revealjs/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section class="slide level2"><p>I’d like to make it print all the year values, not just every 5th year.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">ggplot</span>(degrees_long, </span>
 <span id="cb37-2"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> count, <span class="at">color =</span> degree_type)) <span class="sc">+</span></span>
@@ -708,7 +708,7 @@ Amy Herring
 <span id="cb37-10"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">unique</span>(degrees_long<span class="sc">$</span>year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="w04-03-tidy_files/figure-html/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section class="slide level2"><div style="font-size:0.75em;">
+<img data-src="w04-03-tidy_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section class="slide level2"><div style="font-size:0.75em;">
 <p>Yuck, the years print on top of each other. Let’s adjust that.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="fu">ggplot</span>(degrees_long, </span>
@@ -723,7 +723,7 @@ Amy Herring
 <span id="cb38-10"><a></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w04-03-tidy_files/figure-html/unnamed-chunk-24-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+<figure><p><img data-src="w04-03-tidy_files/figure-revealjs/unnamed-chunk-24-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
 </figure>
 </div>
 </div>
@@ -967,6 +967,41 @@ Amy Herring
           RevealZoom
         ]
       });
+    </script><script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
     </script><script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
