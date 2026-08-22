@@ -169,24 +169,24 @@ gats <- gats |>
 
 # Recap
 
----
+
 
 ## Variables
 
 - **Numerical** variables can be classified as **continuous** or **discrete** based on whether or not the variable can take on an infinite number of values.
 - If the variable is **categorical**, we can determine if it is **ordinal** based on whether or not the levels have a natural ordering.
 
----
 
-### Data
+
+## Data
 
 We consider data from the Global Adult Tobacco Survey (GATS), which is designed to provide nationally-representative data on non-institutionalized people 15 years and older. This survey is a global standard for systematically monitoring adult tobacco use and is produced by the Centers for Disease Control (CDC) in collaboration with the World Health Organization (WHO), RTI International, and Johns Hopkins University.
 
 China has the largest smoking population in the world and accounts for roughly 40% of tobacco consumption worldwide. We will focus on GATS data from China in 2018 (the most recent survey year), but note data from other countries are available from the [WHO's Microdata Repository](https://extranet.who.int/ncdsmicrodata/index.php/home).
 
----
 
-### Data
+
+## Data
 
 ```{r}
 #| echo: true
@@ -194,9 +194,9 @@ China has the largest smoking population in the world and accounts for roughly 4
 glimpse(gats)
 ```
 
----
 
-### Selected variables
+
+## Selected variables
 
 | Variable | Description |
 |----------|-------------|
@@ -208,11 +208,11 @@ glimpse(gats)
 
 Other variables are also available in the dataset. Sample survey weights are not included but should be used to obtain nationally representative estimates (our unweighted estimates are fairly close for the quantities we consider today).
 
----
+
 
 # Bar plot
 
----
+
 
 ## Bar plot
 
@@ -248,7 +248,7 @@ ggplot(gats, aes(x = CURRENTSMOKE)) +
 
 ::::
 
----
+
 
 
 ## Stacked bar plot
@@ -297,7 +297,7 @@ ggplot(
 
 ::::
 
----
+
 
 ## Ok, I dislike those colors
 
@@ -368,7 +368,7 @@ ggplot(
 
 ::::
 
----
+
 
 ## Segmented bar plot
 
@@ -444,7 +444,7 @@ Here, instead of looking at raw counts, we're looking at the proportion of smoke
 
 ::::
 
----
+
 
 ## Which plot is more useful?
 
@@ -513,7 +513,7 @@ ggplot(
 
 ::::
 
----
+
 
 ## Customizing bar plots
 
@@ -587,7 +587,7 @@ ggplot(
 
 ::::
 
----
+
 
 ## Side-by-side bar plot
 
@@ -661,20 +661,19 @@ ggplot(
 
 # Relationships between numerical and categorical variables
 
----
 
 ## Already talked about...
 
 - Coloring and faceting histograms and density plots
 - Side-by-side box plots
 
----
+
 
 ## Violin plots
 
 Violin plots are like boxplots, but instead of showing the quartiles (25th, 50th, and 75th %iles), they show rotated density plots on each side.
 
----
+
 
 ## Violin plots
 
@@ -722,13 +721,13 @@ ggplot(
 
 ::::
 
----
+
 
 ## Ridge plots
 
 Ridge plots also show density estimates across categorical groups
 
----
+
 
 ## Ridge plots
 
@@ -784,7 +783,7 @@ ggplot(
 
 ::::
 
----
+
 
 ## Muted color palette
 
@@ -871,7 +870,7 @@ ggplot(
 
 ::::
 
----
+
 
 ## Don't need the legend
 
