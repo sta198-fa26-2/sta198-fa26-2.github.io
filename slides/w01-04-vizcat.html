@@ -445,14 +445,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <a href="#recap" id="toc-recap" class="nav-link active" data-scroll-target="#recap">Recap</a>
   <ul class="collapse">
-<li>
-<a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a>
-  <ul class="collapse">
-<li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+<li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
   <li><a href="#data-1" id="toc-data-1" class="nav-link" data-scroll-target="#data-1">Data</a></li>
   <li><a href="#selected-variables" id="toc-selected-variables" class="nav-link" data-scroll-target="#selected-variables">Selected variables</a></li>
-  </ul>
-</li>
   </ul>
 </li>
   <li>
@@ -519,18 +515,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </header><section id="recap" class="level1"><h1>Recap</h1>
-<hr>
 <section id="variables" class="level2"><h2 class="anchored" data-anchor-id="variables">Variables</h2>
 <ul>
 <li>
 <strong>Numerical</strong> variables can be classified as <strong>continuous</strong> or <strong>discrete</strong> based on whether or not the variable can take on an infinite number of values.</li>
 <li>If the variable is <strong>categorical</strong>, we can determine if it is <strong>ordinal</strong> based on whether or not the levels have a natural ordering.</li>
-</ul>
-<hr>
-<section id="data" class="level3"><h3 class="anchored" data-anchor-id="data">Data</h3>
+</ul></section><section id="data" class="level2"><h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>We consider data from the Global Adult Tobacco Survey (GATS), which is designed to provide nationally-representative data on non-institutionalized people 15 years and older. This survey is a global standard for systematically monitoring adult tobacco use and is produced by the Centers for Disease Control (CDC) in collaboration with the World Health Organization (WHO), RTI International, and Johns Hopkins University.</p>
 <p>China has the largest smoking population in the world and accounts for roughly 40% of tobacco consumption worldwide. We will focus on GATS data from China in 2018 (the most recent survey year), but note data from other countries are available from the <a href="https://extranet.who.int/ncdsmicrodata/index.php/home">WHO’s Microdata Repository</a>.</p>
-<hr></section><section id="data-1" class="level3"><h3 class="anchored" data-anchor-id="data-1">Data</h3>
+</section><section id="data-1" class="level2"><h2 class="anchored" data-anchor-id="data-1">Data</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">glimpse</span><span class="op">(</span><span class="va">gats</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -556,7 +549,7 @@ $ SMOKESICK      &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …
 $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code></pre>
 </div>
 </div>
-<hr></section><section id="selected-variables" class="level3"><h3 class="anchored" data-anchor-id="selected-variables">Selected variables</h3>
+</section><section id="selected-variables" class="level2"><h2 class="anchored" data-anchor-id="selected-variables">Selected variables</h2>
 <table class="caption-top table">
 <thead><tr class="header">
 <th>Variable</th>
@@ -586,8 +579,7 @@ $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code><
 </tbody>
 </table>
 <p>Other variables are also available in the dataset. Sample survey weights are not included but should be used to obtain nationally representative estimates (our unweighted estimates are fairly close for the quantities we consider today).</p>
-<hr></section></section></section><section id="bar-plot" class="level1"><h1>Bar plot</h1>
-<hr>
+</section></section><section id="bar-plot" class="level1"><h1>Bar plot</h1>
 <section id="bar-plot-1" class="level2"><h2 class="anchored" data-anchor-id="bar-plot-1">Bar plot</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -608,7 +600,7 @@ $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code><
 </div>
 </div>
 </div>
-<hr></section><section id="stacked-bar-plot" class="level2"><h2 class="anchored" data-anchor-id="stacked-bar-plot">Stacked bar plot</h2>
+</section><section id="stacked-bar-plot" class="level2"><h2 class="anchored" data-anchor-id="stacked-bar-plot">Stacked bar plot</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div style="font-size:0.80em;">
@@ -634,7 +626,7 @@ $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code><
 </div>
 </div>
 </div>
-<hr></section><section id="ok-i-dislike-those-colors" class="level2"><h2 class="anchored" data-anchor-id="ok-i-dislike-those-colors">Ok, I dislike those colors</h2>
+</section><section id="ok-i-dislike-those-colors" class="level2"><h2 class="anchored" data-anchor-id="ok-i-dislike-those-colors">Ok, I dislike those colors</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -671,7 +663,7 @@ $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code><
 </div>
 </div>
 </div>
-<hr></section><section id="segmented-bar-plot" class="level2"><h2 class="anchored" data-anchor-id="segmented-bar-plot">Segmented bar plot</h2>
+</section><section id="segmented-bar-plot" class="level2"><h2 class="anchored" data-anchor-id="segmented-bar-plot">Segmented bar plot</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -711,7 +703,7 @@ $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code><
 </div>
 </div>
 </div>
-<hr></section><section id="which-plot-is-more-useful" class="level2"><h2 class="anchored" data-anchor-id="which-plot-is-more-useful">Which plot is more useful?</h2>
+</section><section id="which-plot-is-more-useful" class="level2"><h2 class="anchored" data-anchor-id="which-plot-is-more-useful">Which plot is more useful?</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -733,7 +725,7 @@ $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code><
 </div>
 </div>
 </div>
-<hr></section><section id="customizing-bar-plots" class="level2"><h2 class="anchored" data-anchor-id="customizing-bar-plots">Customizing bar plots</h2>
+</section><section id="customizing-bar-plots" class="level2"><h2 class="anchored" data-anchor-id="customizing-bar-plots">Customizing bar plots</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -772,7 +764,7 @@ $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code><
 </div>
 </div>
 </div>
-<hr></section><section id="side-by-side-bar-plot" class="level2"><h2 class="anchored" data-anchor-id="side-by-side-bar-plot">Side-by-side bar plot</h2>
+</section><section id="side-by-side-bar-plot" class="level2"><h2 class="anchored" data-anchor-id="side-by-side-bar-plot">Side-by-side bar plot</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -810,15 +802,13 @@ $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code><
 </div>
 </div>
 <hr></section></section><section id="relationships-between-numerical-and-categorical-variables" class="level1"><h1>Relationships between numerical and categorical variables</h1>
-<hr>
 <section id="already-talked-about" class="level2"><h2 class="anchored" data-anchor-id="already-talked-about">Already talked about…</h2>
 <ul>
 <li>Coloring and faceting histograms and density plots</li>
 <li>Side-by-side box plots</li>
-</ul>
-<hr></section><section id="violin-plots" class="level2"><h2 class="anchored" data-anchor-id="violin-plots">Violin plots</h2>
+</ul></section><section id="violin-plots" class="level2"><h2 class="anchored" data-anchor-id="violin-plots">Violin plots</h2>
 <p>Violin plots are like boxplots, but instead of showing the quartiles (25th, 50th, and 75th %iles), they show rotated density plots on each side.</p>
-<hr></section><section id="violin-plots-1" class="level2"><h2 class="anchored" data-anchor-id="violin-plots-1">Violin plots</h2>
+</section><section id="violin-plots-1" class="level2"><h2 class="anchored" data-anchor-id="violin-plots-1">Violin plots</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -844,9 +834,9 @@ $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code><
 </div>
 </div>
 </div>
-<hr></section><section id="ridge-plots" class="level2"><h2 class="anchored" data-anchor-id="ridge-plots">Ridge plots</h2>
+</section><section id="ridge-plots" class="level2"><h2 class="anchored" data-anchor-id="ridge-plots">Ridge plots</h2>
 <p>Ridge plots also show density estimates across categorical groups</p>
-<hr></section><section id="ridge-plots-1" class="level2"><h2 class="anchored" data-anchor-id="ridge-plots-1">Ridge plots</h2>
+</section><section id="ridge-plots-1" class="level2"><h2 class="anchored" data-anchor-id="ridge-plots-1">Ridge plots</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -876,7 +866,7 @@ $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code><
 </div>
 </div>
 </div>
-<hr></section><section id="muted-color-palette" class="level2"><h2 class="anchored" data-anchor-id="muted-color-palette">Muted color palette</h2>
+</section><section id="muted-color-palette" class="level2"><h2 class="anchored" data-anchor-id="muted-color-palette">Muted color palette</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -922,7 +912,7 @@ $ SMOKECANCER    &lt;fct&gt; Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, …</code><
 </div>
 </div>
 </div>
-<hr></section><section id="dont-need-the-legend" class="level2"><h2 class="anchored" data-anchor-id="dont-need-the-legend">Don’t need the legend</h2>
+</section><section id="dont-need-the-legend" class="level2"><h2 class="anchored" data-anchor-id="dont-need-the-legend">Don’t need the legend</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.75em;">
