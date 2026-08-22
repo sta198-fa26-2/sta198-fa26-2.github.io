@@ -30,6 +30,7 @@ editor_options:
 #| warning: false
 
 library(tidyverse)
+
 library(knitr)
 options(
   dplyr.print_min = 10, 
