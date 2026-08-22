@@ -137,7 +137,7 @@ window.Quarto = {
 </script>
 <meta property="og:title" content="Visualising numeric data – STA 198">
 <meta property="og:description" content="Introduction to Global Health Data Science">
-<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w01-03-viznum_files/figure-html/unnamed-chunk-4-1.png">
+<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w01-03-viznum_files/figure-revealjs/unnamed-chunk-4-1.png">
 <meta property="og:site_name" content="STA 198">
 <meta property="og:image:height" content="2966">
 <meta property="og:image:width" content="4800">
@@ -574,21 +574,17 @@ window.Quarto = {
 
 
 </header><section id="terminology" class="level1"><h1>Terminology</h1>
-<hr>
 <section id="number-of-variables-involved" class="level2"><h2 class="anchored" data-anchor-id="number-of-variables-involved">Number of variables involved</h2>
 <ul>
 <li>Univariate data analysis - distribution of single variable</li>
 <li>Bivariate data analysis - relationship between two variables</li>
 <li>Multivariable/multivariate data analysis - relationship between many variables at once, sometimes focusing on the relationship between two while conditioning for others. (Often we reserve <em>multivariate</em> for multiple outcomes, and <em>multivariable</em> for multiple predictors.)</li>
-</ul>
-<hr></section><section id="types-of-variables" class="level2"><h2 class="anchored" data-anchor-id="types-of-variables">Types of variables</h2>
+</ul></section><section id="types-of-variables" class="level2"><h2 class="anchored" data-anchor-id="types-of-variables">Types of variables</h2>
 <ul>
 <li>
 <strong>Numerical variables</strong> can be classified as <strong>continuous</strong> or <strong>discrete</strong> based on whether or not the variable can take on an infinite number of values or only a finite number of distinct values (e.g., counts), respectively.</li>
 <li>If the variable is <strong>categorical</strong>, we can determine if it is <strong>ordinal</strong> based on whether or not the levels have a natural ordering.</li>
-</ul>
-<hr></section></section><section id="data" class="level1"><h1>Data</h1>
-<hr>
+</ul></section></section><section id="data" class="level1"><h1>Data</h1>
 <section id="data-life-expectancy" class="level2"><h2 class="anchored" data-anchor-id="data-life-expectancy">Data: Life Expectancy</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -610,7 +606,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 </div>
 </div>
 </div>
-<hr></section><section id="selected-variables" class="level2"><h2 class="anchored" data-anchor-id="selected-variables">Selected variables</h2>
+</section><section id="selected-variables" class="level2"><h2 class="anchored" data-anchor-id="selected-variables">Selected variables</h2>
 <p><br></p>
 <div style="font-size:0.85em;">
 <table class="caption-top table">
@@ -642,7 +638,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 </tbody>
 </table>
 </div>
-<hr></section><section id="variable-types" class="level2"><h2 class="anchored" data-anchor-id="variable-types">Variable types</h2>
+</section><section id="variable-types" class="level2"><h2 class="anchored" data-anchor-id="variable-types">Variable types</h2>
 <p><br></p>
 <div style="font-size:0.85em;">
 <table class="caption-top table">
@@ -675,8 +671,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 </table>
 </div>
 <p>In the full data (not subset to 2023), <code>year</code> is an additional numerical, discrete variable.</p>
-<hr></section></section><section id="visualizing-numerical-data" class="level1"><h1>Visualizing numerical data</h1>
-<hr>
+</section></section><section id="visualizing-numerical-data" class="level1"><h1>Visualizing numerical data</h1>
 <section id="describing-shapes-of-numerical-distributions" class="level2"><h2 class="anchored" data-anchor-id="describing-shapes-of-numerical-distributions">Describing shapes of numerical distributions</h2>
 <ul>
 <li>
@@ -691,15 +686,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <li>
 <strong>Spread:</strong> range (<code>range</code>), standard deviation (<code>sd</code>), variance (square of <code>sd</code>), interquartile range (<code>IQR</code>)</li>
 <li><strong>Unusual observations</strong></li>
-</ul>
-<hr></section><section id="measures-of-center" class="level2"><h2 class="anchored" data-anchor-id="measures-of-center">Measures of center</h2>
+</ul></section><section id="measures-of-center" class="level2"><h2 class="anchored" data-anchor-id="measures-of-center">Measures of center</h2>
 <p>Consider a random variable <span class="math inline">\(x_i\)</span> that is the estimated life expectancy for country <span class="math inline">\(i\)</span>, <span class="math inline">\(i = 1, \ldots, n\)</span>, among <span class="math inline">\(n\)</span> countries.</p>
 <ul>
 <li>
 <strong>Mean:</strong> estimated as</li>
 </ul>
 <p><span class="math display">\[ \bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}\]</span></p>
-<hr></section><section id="measures-of-center-1" class="level2"><h2 class="anchored" data-anchor-id="measures-of-center-1">Measures of center</h2>
+</section><section id="measures-of-center-1" class="level2"><h2 class="anchored" data-anchor-id="measures-of-center-1">Measures of center</h2>
 <ul>
 <li>
 <strong>Median:</strong> middle number (50th percentile), <span class="math inline">\(x_{(n+1)/2}\)</span>
@@ -711,8 +705,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 </li>
 <li>
 <strong>Mode:</strong> most frequent value in the data set</li>
-</ul>
-<hr></section><section id="measures-of-spread" class="level2"><h2 class="anchored" data-anchor-id="measures-of-spread">Measures of spread</h2>
+</ul></section><section id="measures-of-spread" class="level2"><h2 class="anchored" data-anchor-id="measures-of-spread">Measures of spread</h2>
 <ul>
 <li><p>variance: average squared distance from mean</p></li>
 <li>
@@ -721,8 +714,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <li>we think of 1 sd as a sizeable difference. For example, height of college students in the US has a sd <span class="math inline">\(\approx\)</span> 3 in men and <span class="math inline">\(\approx\)</span> 2.5 in women</li>
 </ul>
 </li>
-</ul>
-<hr></section><section id="measures-of-spread-1" class="level2"><h2 class="anchored" data-anchor-id="measures-of-spread-1">Measures of spread</h2>
+</ul></section><section id="measures-of-spread-1" class="level2"><h2 class="anchored" data-anchor-id="measures-of-spread-1">Measures of spread</h2>
 <ul>
 <li><p>range: difference between highest and lowest values, e.g.&nbsp;<span class="math inline">\(x_{(n)}-x_{(1)}\)</span></p></li>
 <li>
@@ -733,9 +725,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <li>for female students, the 75th %ile is 5’5.6”, 25th %ile is 5’1.6”, and IQR is also 4”</li>
 </ul>
 </li>
-</ul>
-<hr></section></section><section id="visualizing-relationships-among-numerical-variables" class="level1"><h1>Visualizing relationships among numerical variables</h1>
-<hr>
+</ul></section></section><section id="visualizing-relationships-among-numerical-variables" class="level1"><h1>Visualizing relationships among numerical variables</h1>
 <section id="scatterplot" class="level2"><h2 class="anchored" data-anchor-id="scatterplot">Scatterplot</h2>
 <p>Previously we viewed a scatterplot showing the relationship between life expectancy of females and males in each location.</p>
 <div class="columns">
@@ -760,15 +750,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section></section><section id="histogram" class="level1"><h1>Histogram</h1>
-<hr>
+</section></section><section id="histogram" class="level1"><h1>Histogram</h1>
 <section id="histogram-1" class="level2"><h2 class="anchored" data-anchor-id="histogram-1">Histogram</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -784,14 +773,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="histograms-and-binwidth-binwidth-0.5" class="level2"><h2 class="anchored" data-anchor-id="histograms-and-binwidth-binwidth-0.5">Histograms and binwidth: <code>binwidth = 0.5</code>
+</section><section id="histograms-and-binwidth-binwidth-0.5" class="level2"><h2 class="anchored" data-anchor-id="histograms-and-binwidth-binwidth-0.5">Histograms and binwidth: <code>binwidth = 0.5</code>
 </h2>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -808,14 +797,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="histograms-and-binwidth-binwidth-3" class="level2"><h2 class="anchored" data-anchor-id="histograms-and-binwidth-binwidth-3">Histograms and binwidth: <code>binwidth = 3</code>
+</section><section id="histograms-and-binwidth-binwidth-3" class="level2"><h2 class="anchored" data-anchor-id="histograms-and-binwidth-binwidth-3">Histograms and binwidth: <code>binwidth = 3</code>
 </h2>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -831,14 +820,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="histograms-and-binwidth-binwidth-10" class="level2"><h2 class="anchored" data-anchor-id="histograms-and-binwidth-binwidth-10">Histograms and binwidth: <code>binwidth = 10</code>
+</section><section id="histograms-and-binwidth-binwidth-10" class="level2"><h2 class="anchored" data-anchor-id="histograms-and-binwidth-binwidth-10">Histograms and binwidth: <code>binwidth = 10</code>
 </h2>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -854,14 +843,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="customizing-histograms" class="level2"><h2 class="anchored" data-anchor-id="customizing-histograms">Customizing histograms</h2>
+</section><section id="customizing-histograms" class="level2"><h2 class="anchored" data-anchor-id="customizing-histograms">Customizing histograms</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell" data-layout-align="center">
@@ -881,14 +870,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="fill-with-a-categorical-variable" class="level2"><h2 class="anchored" data-anchor-id="fill-with-a-categorical-variable">Fill with a categorical variable</h2>
+</section><section id="fill-with-a-categorical-variable" class="level2"><h2 class="anchored" data-anchor-id="fill-with-a-categorical-variable">Fill with a categorical variable</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell" data-layout-align="center">
@@ -914,14 +903,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="facet-with-a-categorical-variable" class="level2"><h2 class="anchored" data-anchor-id="facet-with-a-categorical-variable">Facet with a categorical variable</h2>
+</section><section id="facet-with-a-categorical-variable" class="level2"><h2 class="anchored" data-anchor-id="facet-with-a-categorical-variable">Facet with a categorical variable</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -950,14 +939,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="facet-with-a-categorical-variable-fixing-labels" class="level2"><h2 class="anchored" data-anchor-id="facet-with-a-categorical-variable-fixing-labels">Facet with a categorical variable (fixing labels)</h2>
+</section><section id="facet-with-a-categorical-variable-fixing-labels" class="level2"><h2 class="anchored" data-anchor-id="facet-with-a-categorical-variable-fixing-labels">Facet with a categorical variable (fixing labels)</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -991,7 +980,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-20-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-20-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1001,8 +990,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 </div>
 </div>
 </div>
-<hr></section></section><section id="density-plot" class="level1"><h1>Density plot</h1>
-<hr>
+</section></section><section id="density-plot" class="level1"><h1>Density plot</h1>
 <section id="density-plot-1" class="level2"><h2 class="anchored" data-anchor-id="density-plot-1">Density plot</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -1021,14 +1009,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-22-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-22-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="density-plots-adjust-0.5" class="level2"><h2 class="anchored" data-anchor-id="density-plots-adjust-0.5">Density plots: <code>adjust = 0.5</code>
+</section><section id="density-plots-adjust-0.5" class="level2"><h2 class="anchored" data-anchor-id="density-plots-adjust-0.5">Density plots: <code>adjust = 0.5</code>
 </h2>
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -1047,7 +1035,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-24-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1072,14 +1060,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-26-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-26-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-26-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="density-plots-adjust-2" class="level2"><h2 class="anchored" data-anchor-id="density-plots-adjust-2">Density plots: <code>adjust = 2</code>
+</section><section id="density-plots-adjust-2" class="level2"><h2 class="anchored" data-anchor-id="density-plots-adjust-2">Density plots: <code>adjust = 2</code>
 </h2>
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -1097,14 +1085,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-28-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-28-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-28-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="customizing-density-plots" class="level2"><h2 class="anchored" data-anchor-id="customizing-density-plots">Customizing density plots</h2>
+</section><section id="customizing-density-plots" class="level2"><h2 class="anchored" data-anchor-id="customizing-density-plots">Customizing density plots</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div style="font-size:0.80em;">
@@ -1126,14 +1114,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-30-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-30-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-30-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="adding-a-categorical-variable" class="level2"><h2 class="anchored" data-anchor-id="adding-a-categorical-variable">Adding a categorical variable</h2>
+</section><section id="adding-a-categorical-variable" class="level2"><h2 class="anchored" data-anchor-id="adding-a-categorical-variable">Adding a categorical variable</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -1159,14 +1147,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-32-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-32-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-32-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section></section><section id="box-plot" class="level1"><h1>Box plot</h1>
+</section></section><section id="box-plot" class="level1"><h1>Box plot</h1>
 <hr>
 <section id="box-plot-1" class="level2"><h2 class="anchored" data-anchor-id="box-plot-1">Box plot</h2>
 <div class="columns">
@@ -1189,20 +1177,20 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-34-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-34-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-34-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="box-plot-2" class="level2"><h2 class="anchored" data-anchor-id="box-plot-2">Box plot</h2>
+</section><section id="box-plot-2" class="level2"><h2 class="anchored" data-anchor-id="box-plot-2">Box plot</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-35-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-35-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-35-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1221,13 +1209,13 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 </ul>
 </div>
 </div>
-<hr></section><section id="comparing-box-plots-and-density-plots" class="level2"><h2 class="anchored" data-anchor-id="comparing-box-plots-and-density-plots">Comparing box plots and density plots</h2>
+</section><section id="comparing-box-plots-and-density-plots" class="level2"><h2 class="anchored" data-anchor-id="comparing-box-plots-and-density-plots">Comparing box plots and density plots</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-36-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-36-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-36-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1241,14 +1229,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 </ul>
 </div>
 </div>
-<hr></section><section id="box-plot-3" class="level2"><h2 class="anchored" data-anchor-id="box-plot-3">Box plot</h2>
+</section><section id="box-plot-3" class="level2"><h2 class="anchored" data-anchor-id="box-plot-3">Box plot</h2>
 <p>The distribution of population is highly skewed.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-37-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-37-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-37-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1262,7 +1250,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 </ul>
 </div>
 </div>
-<hr></section><section id="box-plot-4" class="level2"><h2 class="anchored" data-anchor-id="box-plot-4">Box plot</h2>
+</section><section id="box-plot-4" class="level2"><h2 class="anchored" data-anchor-id="box-plot-4">Box plot</h2>
 <div style="font-size:0.85em;">
 <p>Here we plot the natural logarithm of the population because the original population values are highly skewed (primarily due to China and India). On the log scale, the largest countries are no longer extreme outliers, and the smallest populations become the outliers.</p>
 </div>
@@ -1271,7 +1259,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-38-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-38-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-38-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1287,7 +1275,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 </div>
 </div>
 </div>
-<hr></section><section id="customizing-box-plots" class="level2"><h2 class="anchored" data-anchor-id="customizing-box-plots">Customizing box plots</h2>
+</section><section id="customizing-box-plots" class="level2"><h2 class="anchored" data-anchor-id="customizing-box-plots">Customizing box plots</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -1311,14 +1299,14 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-40-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-40-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-40-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<hr></section><section id="adding-a-categorical-variable-1" class="level2"><h2 class="anchored" data-anchor-id="adding-a-categorical-variable-1">Adding a categorical variable</h2>
+</section><section id="adding-a-categorical-variable-1" class="level2"><h2 class="anchored" data-anchor-id="adding-a-categorical-variable-1">Adding a categorical variable</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="font-size:0.80em;">
@@ -1344,7 +1332,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w01-03-viznum_files/figure-html/unnamed-chunk-42-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="w01-03-viznum_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w01-03-viznum_files/figure-revealjs/unnamed-chunk-42-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="w01-03-viznum_files/figure-revealjs/unnamed-chunk-42-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1352,6 +1340,7 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 </div>
 </div>
 </section><section id="homework-practice" class="level2"><h2 class="anchored" data-anchor-id="homework-practice">Homework (Practice)</h2>
+<div style="font-size:0.9em;">
 <p><a href="https://openintrostat.github.io/ims/explore-numerical.html#sec-chp5-exercises"><strong>IMS Chapter 5</strong></a></p>
 <ul>
 <li>Problem 2</li>
@@ -1365,9 +1354,45 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <li>Problem 17</li>
 <li>Problem 18</li>
 </ul>
+</div>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {

@@ -144,7 +144,7 @@
     "href": "lab/lab-0.html#hello-sta-198",
     "title": "Lab 0",
     "section": "6. Hello STA 198!",
-    "text": "6. Hello STA 198!\nFill out the course “Getting to know you” survey on Canvas: https://canvas.duke.edu/courses/72135/quizzes/44911.\nWe will use the information collected in this survey for a variety of goals, from inviting you to the course GitHub organization (more on that later) to getting to know you as a person and your course goals and concerns."
+    "text": "6. Hello STA 198!\nFill out the short GitHub user name quiz on Canvas!\nIf you haven’t done the getting to know you quiz, fill that one out too."
   },
   {
     "objectID": "lab/lab-0.html#footnotes",
@@ -411,14 +411,14 @@
     "href": "slides/w01-03-viznum-slides.html#homework-practice",
     "title": "Visualising numeric data",
     "section": "Homework (Practice)",
-    "text": "Homework (Practice)\nIMS Chapter 5\n\nProblem 2\nProblem 4\nProblem 6\nProblem 9\nProblem 10\nProblem 11\nProblem 13\nProblem 15\nProblem 17\nProblem 18"
+    "text": "Homework (Practice)\n\nIMS Chapter 5\n\nProblem 2\nProblem 4\nProblem 6\nProblem 9\nProblem 10\nProblem 11\nProblem 13\nProblem 15\nProblem 17\nProblem 18"
   },
   {
     "objectID": "slides/w01-03-viznum.html",
     "href": "slides/w01-03-viznum.html",
     "title": "Visualising numeric data",
     "section": "",
-    "text": "Univariate data analysis - distribution of single variable\nBivariate data analysis - relationship between two variables\nMultivariable/multivariate data analysis - relationship between many variables at once, sometimes focusing on the relationship between two while conditioning for others. (Often we reserve multivariate for multiple outcomes, and multivariable for multiple predictors.)\n\n\n\n\nNumerical variables can be classified as continuous or discrete based on whether or not the variable can take on an infinite number of values or only a finite number of distinct values (e.g., counts), respectively.\nIf the variable is categorical, we can determine if it is ordinal based on whether or not the levels have a natural ordering."
+    "text": "Univariate data analysis - distribution of single variable\nBivariate data analysis - relationship between two variables\nMultivariable/multivariate data analysis - relationship between many variables at once, sometimes focusing on the relationship between two while conditioning for others. (Often we reserve multivariate for multiple outcomes, and multivariable for multiple predictors.)\n\n\n\nNumerical variables can be classified as continuous or discrete based on whether or not the variable can take on an infinite number of values or only a finite number of distinct values (e.g., counts), respectively.\nIf the variable is categorical, we can determine if it is ordinal based on whether or not the levels have a natural ordering."
   },
   {
     "objectID": "slides/w01-03-viznum.html#number-of-variables-involved",
@@ -649,7 +649,7 @@
     "href": "slides/w01-03-viznum.html#homework-practice",
     "title": "Visualising numeric data",
     "section": "Homework (Practice)",
-    "text": "Homework (Practice)\nIMS Chapter 5\n\nProblem 2\nProblem 4\nProblem 6\nProblem 9\nProblem 10\nProblem 11\nProblem 13\nProblem 15\nProblem 17\nProblem 18"
+    "text": "Homework (Practice)\n\nIMS Chapter 5\n\nProblem 2\nProblem 4\nProblem 6\nProblem 9\nProblem 10\nProblem 11\nProblem 13\nProblem 15\nProblem 17\nProblem 18"
   },
   {
     "objectID": "slides/w08-01-intro-model-slides.html#packages",
