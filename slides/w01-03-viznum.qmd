@@ -58,7 +58,7 @@ lifeexpwide2023 <- lifespan %>%
 
 # Terminology
 
----
+
 
 ## Number of variables involved
 
@@ -66,19 +66,19 @@ lifeexpwide2023 <- lifespan %>%
 - Bivariate data analysis - relationship between two variables
 - Multivariable/multivariate data analysis - relationship between many variables at once, sometimes focusing on the relationship between two while conditioning for others. (Often we reserve *multivariate* for multiple outcomes, and *multivariable* for multiple predictors.)
 
----
+
 
 ## Types of variables
 
 - **Numerical variables** can be classified as **continuous** or **discrete** based on whether or not the variable can take on an infinite number of values or only a finite number of distinct values (e.g., counts), respectively.
 - If the variable is **categorical**, we can determine if it is **ordinal** based on whether or not the levels have a natural ordering.
 
----
+
 
 
 # Data
 
----
+
 
 
 ## Data: Life Expectancy
@@ -103,7 +103,7 @@ glimpse(lifespan2023)
 
 ::::
 
----
+
 
 ## Selected variables
 
@@ -121,7 +121,7 @@ glimpse(lifespan2023)
 
 </div>
 
----
+
 
 ## Variable types
 
@@ -141,11 +141,11 @@ glimpse(lifespan2023)
 
 In the full data (not subset to 2023), `year` is an additional numerical, discrete variable.
 
----
+
 
 # Visualizing numerical data
 
----
+
 
 ## Describing shapes of numerical distributions
 
@@ -156,7 +156,7 @@ In the full data (not subset to 2023), `year` is an additional numerical, discre
 - **Spread:** range (`range`), standard deviation (`sd`), variance (square of `sd`), interquartile range (`IQR`)
 - **Unusual observations**
 
----
+
 
 ## Measures of center
 
@@ -166,7 +166,7 @@ Consider a random variable $x_i$ that is the estimated life expectancy for count
 
 $$ \bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}$$
 
----
+
 
 ## Measures of center
 
@@ -177,7 +177,7 @@ $$ \bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}$$
 
 - **Mode:** most frequent value in the data set
 
----
+
 
 ## Measures of spread
 
@@ -187,7 +187,7 @@ $$ \bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}$$
 
   - we think of 1 sd as a sizeable difference. For example, height of college students in the US has a sd $\approx$ 3 in men and $\approx$ 2.5 in women
 
----
+
 
 ## Measures of spread
 
@@ -199,11 +199,11 @@ $$ \bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}$$
   - 75th %ile of height among male college students in the US is 5'11", and the 25th %ile is 5'7", so the IQR is 4"
   - for female students, the 75th %ile is 5'5.6", 25th %ile is 5'1.6", and IQR is also 4"
 
----
+
 
 # Visualizing relationships among numerical variables
 
----
+
 
 ## Scatterplot
 
@@ -261,11 +261,11 @@ ggplot(
 
 ::::
 
----
+
 
 # Histogram
 
----
+
 
 ## Histogram
 
@@ -305,7 +305,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Histograms and binwidth: `binwidth = 0.5`
 
@@ -347,7 +347,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Histograms and binwidth: `binwidth = 3`
 
@@ -387,7 +387,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Histograms and binwidth: `binwidth = 10`
 
@@ -427,7 +427,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Customizing histograms
 
@@ -477,7 +477,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Fill with a categorical variable
 
@@ -539,7 +539,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Facet with a categorical variable
 
@@ -607,7 +607,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Facet with a categorical variable (fixing labels)
 
@@ -693,11 +693,11 @@ Which version of all these plots seems most useful, and why?
 ::::
 
 
----
+
 
 # Density plot
 
----
+
 
 ## Density plot
 
@@ -745,7 +745,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Density plots: `adjust = 0.5`
 
@@ -835,7 +835,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Density plots: `adjust = 2`
 
@@ -879,7 +879,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Customizing density plots
 
@@ -933,7 +933,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Adding a categorical variable
 
@@ -995,7 +995,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 # Box plot
 
@@ -1051,7 +1051,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Box plot
 
@@ -1091,7 +1091,7 @@ lifespan2023 %>%
 ::::
 
 
----
+
 
 ## Comparing box plots and density plots
 
@@ -1149,7 +1149,7 @@ p1 / p2
 
 ::::
 
----
+
 
 ## Box plot
 
@@ -1184,7 +1184,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Box plot
 
@@ -1226,7 +1226,6 @@ lifespan2023 %>%
 
 ::::
 
----
 
 ## Customizing box plots
 
@@ -1284,7 +1283,7 @@ lifespan2023 %>%
 
 ::::
 
----
+
 
 ## Adding a categorical variable
 
@@ -1349,6 +1348,9 @@ lifespan2023 %>%
 
 ## Homework (Practice)
 
+<div style="font-size:0.9em;">
+
+
 [**IMS Chapter 5**](https://openintrostat.github.io/ims/explore-numerical.html#sec-chp5-exercises)
 
 - Problem 2
@@ -1362,4 +1364,4 @@ lifespan2023 %>%
 - Problem 17
 - Problem 18
 
-
+</div>
