@@ -42,7 +42,7 @@ For example, instead of the **marginal** probability of contracting COVID (regar
 
 These are examples of **conditional probability**. The conditional probability that an ant is carried back (A) given that they are lightly injured (B) is denoted $P(A|B)$, which we say as "probability of A given B."
 
----
+
 
 ## Simple Example
 
@@ -53,7 +53,7 @@ If we feel this set is a sample representative of a population of interest, we c
 
 We may be interested in the conditional probability an ant is carried back given that it is only lightly injured, which we can estimate as $\frac{9}{9+1}=0.9$ -- we just change the denominator to correspond to our smaller population of interest.
 
----
+
 
 ## Conditional probability and multiplicative rule
 
@@ -62,7 +62,7 @@ $P(A|B)=\frac{P(A \cap B)}{P(B)}$ (verify this on your own using the simple exam
 
 Manipulating this formula, we get the **multiplicative rule of probability**: $P(A \cap B)=P(B)P(A|B)$.
 
----
+
 
 ## Law of total probability
 
@@ -70,7 +70,7 @@ One more helpful rule is the **law of total probability**:
 
 $P(A)= P(A \cap B)+P(A \cap \overline{B})=P(A \mid B)P(B) + P(A \mid \overline{B})P(\overline{B}),$ which translates to the obvious statement that the probability that A occurs is equal to the sum of the probabilities that A occurs with B and that A occurs without B.
 
----
+
 
 ## Back to ant outcomes
 
@@ -132,11 +132,51 @@ For two **disjoint** or **mutually exclusive** events, knowing that one event ha
 
 Disjoint events are therefore *not* independent!
 
----
+
+## Relative Risk
+
+**Relative risk** is a useful concept for comparing the probabilities of an outcome event across groups.  Sometimes we think of these groups as exposed and unexposed, but we can think of any two groups.
+
+The **relative risk** or **RR** is the probability a member of the exposed group will experience the outcome relative to the probability a member of the unexposed group will experience the outcome.
+
+$$RR = \frac{P(\text{outcome}|\text{exposed})}{P(\text{outcome}|\text{unexposed})}$$
+A relative risk of 1.0 indicates that the probabilities of the outcomes in the two groups are identical.
+
+Note that the value of the relative risk is independent of the size of the probabilities -- it is important to bear in mind that a RR=6 may not be that dramatic if the probability of an event is near zero in both groups.
+
+## Termite-Raiding Ants: Relative Risk
+
+Recall our termite-raiding ant data:
+
+<div style="height: 40px;"></div>
+
+|      | **Carried Back** | **Carried Away** | **Not Carried** |
+|---------------------|:----------------:|:--------------:|:------:|
+| **Lightly Injured** |    45  | 0 | 5 |
+| **Heavily Injured** |     5 | 5|    20   |
+
+<div style="font-size:0.7em;">
+
+
+What is the relative risk of not being carried back among those heavily injured, relative to that among those who are lightly injured?
+
+::: {.fragment}
+$$RR = \frac{P(\text{outcome}|\text{exposed})}{P(\text{outcome}|\text{unexposed})}$$
+:::
+
+::: {.fragment}
+$$RR = \frac{P(\text{not carried back}|\text{heavily injured})}{P(\text{not carried back}|\text{lightly injured})}$$
+:::
+
+::: {.fragment}
+$$RR = \frac{\frac{5+20}{5+5+20}}{\frac{5}{45+5}}=\frac{25}{3}=8\frac{1}{3}$$
+:::
+
+</div>
 
 # Example: Breast Cancer Screening
 
----
+
 
 ## Mammogram result
 
@@ -179,7 +219,7 @@ Increasing sensitivity usually comes at the expense of specificity, and increasi
   
 </div>
 
----
+
 
 ## Bayes' Theorem
 
@@ -189,7 +229,7 @@ In this example, a 40 year old woman with a positive screening mammogram may wis
 
 We'll consider two ways to solve this problem: one way using Bayes' formula directly, and another based on a "hypothetical 10000" table, which applies known probabilities to a hypothetical population of 10,000 40 year old women.
 
----
+
 
 ## Hypothetical Population of 10,000
 
@@ -444,7 +484,7 @@ At this point, it's easy to calculate the conditional probability of cancer give
 
 ::::
 
----
+
 
 ## Bayes' Theorem in Action
 
@@ -460,7 +500,7 @@ Alternatively, we could just use Bayes' Theorem directly.
 
 - How do we get $P(B)$?
 
----
+
 
 ## Bayes' Theorem in Action
 
@@ -488,14 +528,14 @@ Here, we can think of the 1% prevalence of breast cancer among 40 year old women
 
 In this example, cancer would be confirmed or ruled out by subsequent medical care, such as a diagnostic mammogram, ultrasound, and/or biopsy. 
 
----
+
 
 ## You Try It!
 
 Most people who have a negative test result (e.g., mammogram looks good or COVID test negative) don't worry any longer about whether they really do have disease. Are they right not to worry? Suppose our 40 year old woman with a baseline 1% breast cancer risk instead had a negative (all clear) mammogram. What is the updated probability she has breast cancer given this test result?
 
 
----
+
 
 ## You Try It!
 
@@ -504,6 +544,8 @@ The prevalence of cancer is strongly dependent on age.  Calculate the conditiona
 1. Women in their 20's, for whom cancer prevalence is roughly $\frac{1}{10000}$
 2. Women in their 50's, for whom cancer prevalence is roughly $\frac{1}{50}$
 3. Women in their 60's, for whom cancer prevalence is roughly $\frac{1}{30}$
+
+What is the relative risk of breast cancer comparing women in their 60's to women in their 40's?  What about comparing women in their 40's to women in their 20's?
 
 What other factors might influence this conditional probability (that is, are we happy with our assumptions here)?
 
