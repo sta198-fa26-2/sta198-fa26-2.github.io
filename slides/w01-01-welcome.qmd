@@ -583,7 +583,7 @@ library(tidyverse)
 
 ## Homepage
 
-[https://fall-2026-global-health-data-science.github.io/stat-fun/index.html](https://fall-2026-global-health-data-science.github.io/stat-fun/index.html){.uri}
+[https://sta198-fa26-2.github.io](https://sta198-fa26-2.github.io){.uri}
 
 -   All course materials
 -   Links to Canvas, GitHub, RStudio containers, etc.
@@ -592,7 +592,7 @@ library(tidyverse)
 
 All linked from the course website:
 
--   GitHub organization: [github.com/Fall-2026-Global-Health-Data-Science](https://github.com/Fall-2026-Global-Health-Data-Science)
+-   GitHub organization: [github.com/sta198-fa26-2](https://github.com/sta198-fa26-2/sta198-fa26-2.github.io)
 -   RStudio containers: [cmgr.oit.duke.edu/containers](https://cmgr.oit.duke.edu/containers)
 -   Communication: Ed Discussion
 -   Assignment submission and feedback: Gradescope
