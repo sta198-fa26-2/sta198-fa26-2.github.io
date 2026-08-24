@@ -553,7 +553,7 @@ What other factors might influence this conditional probability (that is, are we
 
 Pagano, Gauvreau, and Mattie
 
-Section 5.6, problems 3, 4, 5, 6, 8, 13
+Section 5.6, problems 3, 4, 6, 8, 13
 
 Section 6.8, problems 1, 6, 7 (a and b only)
 
