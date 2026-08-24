@@ -4733,6 +4733,13 @@
     "text": "You Try It!\nThe prevalence of cancer is strongly dependent on age. Calculate the conditional probability of cancer given a positive mammogram for women in the following age groups.\n\nWomen in their 20’s, for whom cancer prevalence is roughly \\(\\frac{1}{10000}\\)\n\nWomen in their 50’s, for whom cancer prevalence is roughly \\(\\frac{1}{50}\\)\n\nWomen in their 60’s, for whom cancer prevalence is roughly \\(\\frac{1}{30}\\)\n\n\nWhat is the relative risk of breast cancer comparing women in their 60’s to women in their 40’s? What about comparing women in their 40’s to women in their 20’s?\nWhat other factors might influence this conditional probability (that is, are we happy with our assumptions here)?"
   },
   {
+    "objectID": "slides/w02-02-condprob.html#more-practice",
+    "href": "slides/w02-02-condprob.html#more-practice",
+    "title": "Conditional Probability",
+    "section": "More practice",
+    "text": "More practice\nPagano, Gauvreau, and Mattie\nSection 5.6, problems 3, 4, 5, 6, 8, 13\nSection 6.8, problems 1, 6, 7 (a and b only)"
+  },
+  {
     "objectID": "slides/w02-02-condprob-slides.html#conditional-probability",
     "href": "slides/w02-02-condprob-slides.html#conditional-probability",
     "title": "Conditional Probability",
@@ -4906,6 +4913,13 @@
     "title": "Conditional Probability",
     "section": "You Try It!",
     "text": "You Try It!\nThe prevalence of cancer is strongly dependent on age. Calculate the conditional probability of cancer given a positive mammogram for women in the following age groups.\n\nWomen in their 20’s, for whom cancer prevalence is roughly \\(\\frac{1}{10000}\\)\n\nWomen in their 50’s, for whom cancer prevalence is roughly \\(\\frac{1}{50}\\)\n\nWomen in their 60’s, for whom cancer prevalence is roughly \\(\\frac{1}{30}\\)\n\n\nWhat is the relative risk of breast cancer comparing women in their 60’s to women in their 40’s? What about comparing women in their 40’s to women in their 20’s?\nWhat other factors might influence this conditional probability (that is, are we happy with our assumptions here)?"
+  },
+  {
+    "objectID": "slides/w02-02-condprob-slides.html#more-practice",
+    "href": "slides/w02-02-condprob-slides.html#more-practice",
+    "title": "Conditional Probability",
+    "section": "More practice",
+    "text": "More practice\nPagano, Gauvreau, and Mattie\nSection 5.6, problems 3, 4, 5, 6, 8, 13\nSection 6.8, problems 1, 6, 7 (a and b only)"
   },
   {
     "objectID": "slides/w04-03-tidy.html",
