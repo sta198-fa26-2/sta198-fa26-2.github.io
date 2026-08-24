@@ -436,6 +436,8 @@ window.Quarto = {
   <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence">Independence</a></li>
   <li><a href="#checking-independence" id="toc-checking-independence" class="nav-link" data-scroll-target="#checking-independence">Checking Independence</a></li>
   <li><a href="#independent-vs-disjoint-events" id="toc-independent-vs-disjoint-events" class="nav-link" data-scroll-target="#independent-vs-disjoint-events">Independent vs Disjoint Events</a></li>
+  <li><a href="#relative-risk" id="toc-relative-risk" class="nav-link" data-scroll-target="#relative-risk">Relative Risk</a></li>
+  <li><a href="#termite-raiding-ants-relative-risk" id="toc-termite-raiding-ants-relative-risk" class="nav-link" data-scroll-target="#termite-raiding-ants-relative-risk">Termite-Raiding Ants: Relative Risk</a></li>
   <li>
 <a href="#example-breast-cancer-screening" id="toc-example-breast-cancer-screening" class="nav-link" data-scroll-target="#example-breast-cancer-screening">Example: Breast Cancer Screening</a>
   <ul class="collapse">
@@ -497,17 +499,17 @@ window.Quarto = {
 <p>Often we wish to know the probabilty an event will occur given that another event has occured.</p>
 <p>For example, instead of the <strong>marginal</strong> probability of contracting COVID (regardless of vaccination status), we may wish to know the probability that someone will contract COVID given that they have been vaccinated, or the probability someone will contract COVID given that they have not been vaccinated.</p>
 <p>These are examples of <strong>conditional probability</strong>. The conditional probability that an ant is carried back (A) given that they are lightly injured (B) is denoted <span class="math inline">\(P(A|B)\)</span>, which we say as “probability of A given B.”</p>
-<hr></section><section id="simple-example" class="level2"><h2 class="anchored" data-anchor-id="simple-example">Simple Example</h2>
+</section><section id="simple-example" class="level2"><h2 class="anchored" data-anchor-id="simple-example">Simple Example</h2>
 <p>Suppose we have a small set containing 9 ants with light injuries carried back to the nest, 1 ant with a light injury that is not carried back, and 10 heavily-injured ants that are not carried back.</p>
 <p>If we feel this set is a sample representative of a population of interest, we can <strong>estimate</strong> the probability an ant is carried back as <span class="math inline">\(\frac{9}{9+1+10}=0.45\)</span>.</p>
 <p>We may be interested in the conditional probability an ant is carried back given that it is only lightly injured, which we can estimate as <span class="math inline">\(\frac{9}{9+1}=0.9\)</span> – we just change the denominator to correspond to our smaller population of interest.</p>
-<hr></section><section id="conditional-probability-and-multiplicative-rule" class="level2"><h2 class="anchored" data-anchor-id="conditional-probability-and-multiplicative-rule">Conditional probability and multiplicative rule</h2>
+</section><section id="conditional-probability-and-multiplicative-rule" class="level2"><h2 class="anchored" data-anchor-id="conditional-probability-and-multiplicative-rule">Conditional probability and multiplicative rule</h2>
 <p>More formally, we define <strong>conditional probability</strong> as <span class="math inline">\(P(A|B)=\frac{P(A \cap B)}{P(B)}\)</span> (verify this on your own using the simple example on the prior slide).</p>
 <p>Manipulating this formula, we get the <strong>multiplicative rule of probability</strong>: <span class="math inline">\(P(A \cap B)=P(B)P(A|B)\)</span>.</p>
-<hr></section><section id="law-of-total-probability" class="level2"><h2 class="anchored" data-anchor-id="law-of-total-probability">Law of total probability</h2>
+</section><section id="law-of-total-probability" class="level2"><h2 class="anchored" data-anchor-id="law-of-total-probability">Law of total probability</h2>
 <p>One more helpful rule is the <strong>law of total probability</strong>:</p>
 <p><span class="math inline">\(P(A)= P(A \cap B)+P(A \cap \overline{B})=P(A \mid B)P(B) + P(A \mid \overline{B})P(\overline{B}),\)</span> which translates to the obvious statement that the probability that A occurs is equal to the sum of the probabilities that A occurs with B and that A occurs without B.</p>
-<hr></section><section id="back-to-ant-outcomes" class="level2"><h2 class="anchored" data-anchor-id="back-to-ant-outcomes">Back to ant outcomes</h2>
+</section><section id="back-to-ant-outcomes" class="level2"><h2 class="anchored" data-anchor-id="back-to-ant-outcomes">Back to ant outcomes</h2>
 <p>Recall our termite-raiding ant data:</p>
 <div style="height: 40px;">
 
@@ -556,8 +558,51 @@ window.Quarto = {
 <p>For <strong>independent events</strong> <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, <span class="math inline">\(P(A \mid B)=P(A)\)</span> and <span class="math inline">\(P(B \mid A)=P(B)\)</span>, so knowing one event occurred tells us <em>nothing</em> about the chances the other event will occur.</p>
 <p>For two <strong>disjoint</strong> or <strong>mutually exclusive</strong> events, knowing that one event has occurred tells us that the other event definitely has not occurred, e.g.&nbsp;<span class="math inline">\(P(A \cap B)=0\)</span>.</p>
 <p>Disjoint events are therefore <em>not</em> independent!</p>
-<hr></section><section id="example-breast-cancer-screening" class="level1"><h1>Example: Breast Cancer Screening</h1>
-<hr>
+</section><section id="relative-risk" class="level2"><h2 class="anchored" data-anchor-id="relative-risk">Relative Risk</h2>
+<p><strong>Relative risk</strong> is a useful concept for comparing the probabilities of an outcome event across groups. Sometimes we think of these groups as exposed and unexposed, but we can think of any two groups.</p>
+<p>The <strong>relative risk</strong> or <strong>RR</strong> is the probability a member of the exposed group will experience the outcome relative to the probability a member of the unexposed group will experience the outcome.</p>
+<p><span class="math display">\[RR = \frac{P(\text{outcome}|\text{exposed})}{P(\text{outcome}|\text{unexposed})}\]</span> A relative risk of 1.0 indicates that the probabilities of the outcomes in the two groups are identical.</p>
+<p>Note that the value of the relative risk is independent of the size of the probabilities – it is important to bear in mind that a RR=6 may not be that dramatic if the probability of an event is near zero in both groups.</p>
+</section><section id="termite-raiding-ants-relative-risk" class="level2"><h2 class="anchored" data-anchor-id="termite-raiding-ants-relative-risk">Termite-Raiding Ants: Relative Risk</h2>
+<p>Recall our termite-raiding ant data:</p>
+<div style="height: 40px;">
+
+</div>
+<table class="caption-top table">
+<thead><tr class="header">
+<th></th>
+<th style="text-align: center;"><strong>Carried Back</strong></th>
+<th style="text-align: center;"><strong>Carried Away</strong></th>
+<th style="text-align: center;"><strong>Not Carried</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Lightly Injured</strong></td>
+<td style="text-align: center;">45</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="even">
+<td><strong>Heavily Injured</strong></td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">20</td>
+</tr>
+</tbody>
+</table>
+<div style="font-size:0.7em;">
+<p>What is the relative risk of not being carried back among those heavily injured, relative to that among those who are lightly injured?</p>
+<div class="fragment">
+<p><span class="math display">\[RR = \frac{P(\text{outcome}|\text{exposed})}{P(\text{outcome}|\text{unexposed})}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[RR = \frac{P(\text{not carried back}|\text{heavily injured})}{P(\text{not carried back}|\text{lightly injured})}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[RR = \frac{\frac{5+20}{5+5+20}}{\frac{5}{45+5}}=\frac{25}{3}=8\frac{1}{3}\]</span></p>
+</div>
+</div>
+</section><section id="example-breast-cancer-screening" class="level1"><h1>Example: Breast Cancer Screening</h1>
 <section id="mammogram-result" class="level2"><h2 class="anchored" data-anchor-id="mammogram-result">Mammogram result</h2>
 <p>Let <span class="math inline">\(A\)</span> be the event that a woman has breast cancer (e.g., <strong>prevalence</strong> in population for a certain age group). Say <span class="math inline">\(P(A)=0.01\)</span> for a 40-year-old woman.</p>
 <p>Let <span class="math inline">\(B\)</span> be the event that a screening mammogram is positive.</p>
@@ -587,11 +632,11 @@ window.Quarto = {
 </li>
 </ul>
 </div>
-<hr></section><section id="bayes-theorem" class="level2"><h2 class="anchored" data-anchor-id="bayes-theorem">Bayes’ Theorem</h2>
+</section><section id="bayes-theorem" class="level2"><h2 class="anchored" data-anchor-id="bayes-theorem">Bayes’ Theorem</h2>
 <p><strong>Bayes’ theorem</strong> gives us a formal way to update our beliefs based on new information. It says <span class="math inline">\(P(A \mid B)=\frac{P(B \mid A)P(A)}{P(B)}=\frac{P(A \cap B)}{P(B)}\)</span>.</p>
 <p>In this example, a 40 year old woman with a positive screening mammogram may wish to know her chances of having cancer. Several papers have shown that even doctors tend to strongly overestimate her chances of having cancer.</p>
 <p>We’ll consider two ways to solve this problem: one way using Bayes’ formula directly, and another based on a “hypothetical 10000” table, which applies known probabilities to a hypothetical population of 10,000 40 year old women.</p>
-<hr></section><section id="hypothetical-population-of-10000" class="level2"><h2 class="anchored" data-anchor-id="hypothetical-population-of-10000">Hypothetical Population of 10,000</h2>
+</section><section id="hypothetical-population-of-10000" class="level2"><h2 class="anchored" data-anchor-id="hypothetical-population-of-10000">Hypothetical Population of 10,000</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div style="font-size:0.8em;">
@@ -911,7 +956,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<hr></section><section id="bayes-theorem-in-action" class="level2"><h2 class="anchored" data-anchor-id="bayes-theorem-in-action">Bayes’ Theorem in Action</h2>
+</section><section id="bayes-theorem-in-action" class="level2"><h2 class="anchored" data-anchor-id="bayes-theorem-in-action">Bayes’ Theorem in Action</h2>
 <p>Alternatively, we could just use Bayes’ Theorem directly.</p>
 <ul>
 <li><p>Baseline probability of cancer <span class="math inline">\(P(A)=0.01\)</span> (prevalence)</p></li>
@@ -919,8 +964,7 @@ window.Quarto = {
 <li><p>Bayes’ Theorem: <span class="math inline">\(P(A \mid B)=\frac{P(B \mid A)P(A)}{P(B)}\)</span>.</p></li>
 <li><p>Sensitivity is <span class="math inline">\(P(B \mid A)=0.85\)</span>.</p></li>
 <li><p>How do we get <span class="math inline">\(P(B)\)</span>?</p></li>
-</ul>
-<hr></section><section id="bayes-theorem-in-action-1" class="level2"><h2 class="anchored" data-anchor-id="bayes-theorem-in-action-1">Bayes’ Theorem in Action</h2>
+</ul></section><section id="bayes-theorem-in-action-1" class="level2"><h2 class="anchored" data-anchor-id="bayes-theorem-in-action-1">Bayes’ Theorem in Action</h2>
 <div style="font-size:0.75em;">
 <ul>
 <li><p>How do we get <span class="math inline">\(P(B)\)</span>? We can get this using the law of total probability: <span class="math inline">\(P(B)=P(B \mid A)P(A) + P(B \mid \overline{A})P(\overline{A})\)</span>.</p></li>
@@ -933,9 +977,9 @@ window.Quarto = {
 <p>Here, we can think of the 1% prevalence of breast cancer among 40 year old women as our <strong>prior probability</strong> a woman has cancer, and 7.9% as the <strong>posterior probability</strong> she has cancer after we see the data that her screening mammogram is positive.</p>
 <p><strong>Bayesian statistics</strong> is a framework for updating our beliefs about an event or hypothesis as new evidence emerges.</p>
 <p>In this example, cancer would be confirmed or ruled out by subsequent medical care, such as a diagnostic mammogram, ultrasound, and/or biopsy.</p>
-<hr></section><section id="you-try-it" class="level2"><h2 class="anchored" data-anchor-id="you-try-it">You Try It!</h2>
+</section><section id="you-try-it" class="level2"><h2 class="anchored" data-anchor-id="you-try-it">You Try It!</h2>
 <p>Most people who have a negative test result (e.g., mammogram looks good or COVID test negative) don’t worry any longer about whether they really do have disease. Are they right not to worry? Suppose our 40 year old woman with a baseline 1% breast cancer risk instead had a negative (all clear) mammogram. What is the updated probability she has breast cancer given this test result?</p>
-<hr></section><section id="you-try-it-1" class="level2"><h2 class="anchored" data-anchor-id="you-try-it-1">You Try It!</h2>
+</section><section id="you-try-it-1" class="level2"><h2 class="anchored" data-anchor-id="you-try-it-1">You Try It!</h2>
 <p>The prevalence of cancer is strongly dependent on age. Calculate the conditional probability of cancer given a positive mammogram for women in the following age groups.</p>
 <ol type="1">
 <li>Women in their 20’s, for whom cancer prevalence is roughly <span class="math inline">\(\frac{1}{10000}\)</span>
@@ -945,6 +989,7 @@ window.Quarto = {
 <li>Women in their 60’s, for whom cancer prevalence is roughly <span class="math inline">\(\frac{1}{30}\)</span>
 </li>
 </ol>
+<p>What is the relative risk of breast cancer comparing women in their 60’s to women in their 40’s? What about comparing women in their 40’s to women in their 20’s?</p>
 <p>What other factors might influence this conditional probability (that is, are we happy with our assumptions here)?</p>
 
 
