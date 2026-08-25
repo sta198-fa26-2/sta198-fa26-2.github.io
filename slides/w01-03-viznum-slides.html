@@ -913,15 +913,16 @@ $ pop             &lt;dbl&gt; 38041757, 38041757, 2854191, 2854191, 4…</code><
 <span id="cb19-2"><a></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"Female"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb19-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lifeexp)) <span class="sc">+</span></span>
 <span id="cb19-4"><a></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb19-5"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-6"><a></a>    <span class="at">x =</span> <span class="st">"Female life expectancy (years)"</span>,</span>
-<span id="cb19-7"><a></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb19-8"><a></a>    <span class="at">title =</span> <span class="st">"2023 Life Expectancy of Women"</span></span>
-<span id="cb19-9"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb19-10"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb19-11"><a></a>    <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb19-12"><a></a>    <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb19-13"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-5"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">breaks_width</span>(<span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb19-6"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-7"><a></a>    <span class="at">x =</span> <span class="st">"Female life expectancy (years)"</span>,</span>
+<span id="cb19-8"><a></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb19-9"><a></a>    <span class="at">title =</span> <span class="st">"2023 Life Expectancy of Women"</span></span>
+<span id="cb19-10"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb19-11"><a></a>  <span class="fu">theme</span>(</span>
+<span id="cb19-12"><a></a>    <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-13"><a></a>    <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb19-14"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div><div class="column" style="width:60%;">
