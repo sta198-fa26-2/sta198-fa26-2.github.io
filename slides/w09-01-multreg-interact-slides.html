@@ -312,7 +312,38 @@ Amy Herring
 </div>
 </section><section id="todo" class="slide level2"><h2>todo</h2>
 <p>Amy this is from the multiple regression part of the first diagnostics lecture in 2022</p>
-<p>go back and see if I explained t-test to them, how to get CI for slope, how to interpret</p>
+<p>I fixed up the simple regression notes with more details, so now I can build from here.</p>
+<p>You need the interaction. we can evaluate that, and interpret the different lines. Then add a predictor for which we don’t need an interaction – I have a more advanced model and can point out male isn’t important, can do a test of that, can note the <span class="math inline">\(R^2\)</span> improved maybe due to age (mercury doesn’t leave right?), talk about 1-year vs 10-year increase in age and rescale age? Give interpretation conditional on other stuff in model held fixed.</p>
+</section><section id="section" class="slide level2" data-background-color="white"><h2></h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> native_cat<span class="sc">+</span>age<span class="sc">+</span>assets_sc<span class="sc">+</span>sex_cat<span class="sc">+</span>native_cat<span class="sc">*</span>assets_sc,</span>
+<span id="cb5-4"><a></a>      <span class="at">data =</span> mercury) </span>
+<span id="cb5-5"><a></a>fit <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a></a>  <span class="fu">tidy</span>(<span class="at">exponentiate=</span><span class="cn">TRUE</span>,<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+  term   estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Inte…    1.84    0.0673     9.08   2.25e-19    1.61      2.10 
+2 nativ…    0.450   0.0619   -12.9    8.48e-37    0.399     0.508
+3 age       1.01    0.00123    7.50   9.10e-14    1.01      1.01 
+4 asset…    0.747   0.0426    -6.86   9.14e-12    0.687     0.812
+5 sex_c…    1.00    0.0415     0.0563 9.55e- 1    0.924     1.09 
+6 nativ…    1.22    0.0513     3.91   9.42e- 5    1.11      1.35 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>fit <span class="sc">%&gt;%</span> <span class="fu">glance</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">width =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic   p.value    df logLik
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1     0.227         0.225 0.952      135. 2.54e-125     5 -3144.
+    AIC   BIC deviance df.residual  nobs
+  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+1 6302. 6342.    2078.        2291  2297</code></pre>
+</div>
+</div>
 
 
 </section></section>

@@ -4590,7 +4590,14 @@
     "href": "slides/w09-01-multreg-interact.html#todo",
     "title": "Multiple Regression and Interaction",
     "section": "todo",
-    "text": "todo\nAmy this is from the multiple regression part of the first diagnostics lecture in 2022\ngo back and see if I explained t-test to them, how to get CI for slope, how to interpret"
+    "text": "todo\nAmy this is from the multiple regression part of the first diagnostics lecture in 2022\nI fixed up the simple regression notes with more details, so now I can build from here.\nYou need the interaction. we can evaluate that, and interpret the different lines. Then add a predictor for which we don’t need an interaction – I have a more advanced model and can point out male isn’t important, can do a test of that, can note the \\(R^2\\) improved maybe due to age (mercury doesn’t leave right?), talk about 1-year vs 10-year increase in age and rescale age? Give interpretation conditional on other stuff in model held fixed."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact.html#section",
+    "href": "slides/w09-01-multreg-interact.html#section",
+    "title": "Multiple Regression and Interaction",
+    "section": "",
+    "text": "fit &lt;- linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ native_cat+age+assets_sc+sex_cat+native_cat*assets_sc,\n      data = mercury) \nfit %&gt;%\n  tidy(exponentiate=TRUE,conf.int=TRUE)\n\n# A tibble: 6 × 7\n  term   estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Inte…    1.84    0.0673     9.08   2.25e-19    1.61      2.10 \n2 nativ…    0.450   0.0619   -12.9    8.48e-37    0.399     0.508\n3 age       1.01    0.00123    7.50   9.10e-14    1.01      1.01 \n4 asset…    0.747   0.0426    -6.86   9.14e-12    0.687     0.812\n5 sex_c…    1.00    0.0415     0.0563 9.55e- 1    0.924     1.09 \n6 nativ…    1.22    0.0513     3.91   9.42e- 5    1.11      1.35 \n\nfit %&gt;% glance() %&gt;% print(width = Inf)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic   p.value    df logLik\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1     0.227         0.225 0.952      135. 2.54e-125     5 -3144.\n    AIC   BIC deviance df.residual  nobs\n  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n1 6302. 6342.    2078.        2291  2297"
   },
   {
     "objectID": "slides/w09-01-multreg-interact-slides.html#multiple-explanatory-variables",
@@ -4611,7 +4618,14 @@
     "href": "slides/w09-01-multreg-interact-slides.html#todo",
     "title": "Multiple Regression and Interaction",
     "section": "todo",
-    "text": "todo\nAmy this is from the multiple regression part of the first diagnostics lecture in 2022\ngo back and see if I explained t-test to them, how to get CI for slope, how to interpret"
+    "text": "todo\nAmy this is from the multiple regression part of the first diagnostics lecture in 2022\nI fixed up the simple regression notes with more details, so now I can build from here.\nYou need the interaction. we can evaluate that, and interpret the different lines. Then add a predictor for which we don’t need an interaction – I have a more advanced model and can point out male isn’t important, can do a test of that, can note the \\(R^2\\) improved maybe due to age (mercury doesn’t leave right?), talk about 1-year vs 10-year increase in age and rescale age? Give interpretation conditional on other stuff in model held fixed."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact-slides.html#section",
+    "href": "slides/w09-01-multreg-interact-slides.html#section",
+    "title": "Multiple Regression and Interaction",
+    "section": "",
+    "text": "fit &lt;- linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ native_cat+age+assets_sc+sex_cat+native_cat*assets_sc,\n      data = mercury) \nfit %&gt;%\n  tidy(exponentiate=TRUE,conf.int=TRUE)\n\n# A tibble: 6 × 7\n  term   estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Inte…    1.84    0.0673     9.08   2.25e-19    1.61      2.10 \n2 nativ…    0.450   0.0619   -12.9    8.48e-37    0.399     0.508\n3 age       1.01    0.00123    7.50   9.10e-14    1.01      1.01 \n4 asset…    0.747   0.0426    -6.86   9.14e-12    0.687     0.812\n5 sex_c…    1.00    0.0415     0.0563 9.55e- 1    0.924     1.09 \n6 nativ…    1.22    0.0513     3.91   9.42e- 5    1.11      1.35 \n\nfit %&gt;% glance() %&gt;% print(width = Inf)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic   p.value    df logLik\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1     0.227         0.225 0.952      135. 2.54e-125     5 -3144.\n    AIC   BIC deviance df.residual  nobs\n  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n1 6302. 6342.    2078.        2291  2297"
   },
   {
     "objectID": "slides/w02-02-condprob.html",

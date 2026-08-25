@@ -109,7 +109,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script><link href="../site_libs/font-awesome/css/all.min.css" rel="stylesheet">
 <link href="../site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet">
 <link href="../site_libs/panelset/panelset.css" rel="stylesheet">
-<script src="../site_libs/panelset/panelset.js"></script>
+<script src="../site_libs/panelset/panelset.js"></script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 <meta property="og:title" content="Multiple Regression and Interaction – STA 198">
 <meta property="og:description" content="Introduction to Global Health Data Science">
 <meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w09-01-multreg-interact_files/figure-revealjs/unnamed-chunk-3-1.png">
@@ -448,6 +473,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#multiple-explanatory-variables" id="toc-multiple-explanatory-variables" class="nav-link" data-scroll-target="#multiple-explanatory-variables">Multiple explanatory variables</a></li>
   <li><a href="#multiple-explanatory-variables-1" id="toc-multiple-explanatory-variables-1" class="nav-link" data-scroll-target="#multiple-explanatory-variables-1">Multiple explanatory variables</a></li>
   <li><a href="#todo" id="toc-todo" class="nav-link" data-scroll-target="#todo">todo</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w09-01-multreg-interact.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="w09-01-multreg-interact-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -583,7 +609,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section><section id="todo" class="level2"><h2 class="anchored" data-anchor-id="todo">todo</h2>
 <p>Amy this is from the multiple regression part of the first diagnostics lecture in 2022</p>
-<p>go back and see if I explained t-test to them, how to get CI for slope, how to interpret</p>
+<p>I fixed up the simple regression notes with more details, so now I can build from here.</p>
+<p>You need the interaction. we can evaluate that, and interpret the different lines. Then add a predictor for which we don’t need an interaction – I have a more advanced model and can point out male isn’t important, can do a test of that, can note the <span class="math inline">\(R^2\)</span> improved maybe due to age (mercury doesn’t leave right?), talk about 1-year vs 10-year increase in age and rescale age? Give interpretation conditional on other stuff in model held fixed.</p>
+</section><section id="section" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section"></h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">native_cat</span><span class="op">+</span><span class="va">age</span><span class="op">+</span><span class="va">assets_sc</span><span class="op">+</span><span class="va">sex_cat</span><span class="op">+</span><span class="va">native_cat</span><span class="op">*</span><span class="va">assets_sc</span>,</span>
+<span>      data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span> </span>
+<span><span class="va">fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">tidy</span><span class="op">(</span>exponentiate<span class="op">=</span><span class="cn">TRUE</span>,conf.int<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+  term   estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Inte…    1.84    0.0673     9.08   2.25e-19    1.61      2.10 
+2 nativ…    0.450   0.0619   -12.9    8.48e-37    0.399     0.508
+3 age       1.01    0.00123    7.50   9.10e-14    1.01      1.01 
+4 asset…    0.747   0.0426    -6.86   9.14e-12    0.687     0.812
+5 sex_c…    1.00    0.0415     0.0563 9.55e- 1    0.924     1.09 
+6 nativ…    1.22    0.0513     3.91   9.42e- 5    1.11      1.35 </code></pre>
+</div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">glance</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic   p.value    df logLik
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1     0.227         0.225 0.952      135. 2.54e-125     5 -3144.
+    AIC   BIC deviance df.residual  nobs
+  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+1 6302. 6342.    2078.        2291  2297</code></pre>
+</div>
+</div>
 
 
 </section></section></main><!-- /main --><script>
