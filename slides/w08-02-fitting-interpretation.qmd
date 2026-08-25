@@ -66,6 +66,8 @@ mercury <-
 
 $$\widehat{y}_{i} = \widehat{\beta}_0 + \widehat{\beta}_1 \times x_{i}$$
 Here $y_i$ represents log hair mercury for subject $i$, and $x_i$ represents standardized household income.
+
+
 ```{r}
 #| label: hg_asset_plot
 #| echo: false
@@ -80,6 +82,49 @@ ggplot(data = mercury, aes(x = assets_sc, y = lhairHg)) +
     y = "Hair Mercury (log ppm)"
   )
 ```
+
+
+## Goal: Predict mercury from assets
+
+The model itself is given by $$y_i=\beta_0+\beta_1x_i+\varepsilon_i,$$ where $\varepsilon_i$ represents a Gaussian error term, which implies that $y_i$ itself follows a Gaussian distribution conditional on the predictor $x_i$.
+
+The typical hypothesis of interest is $$H_0:  \beta=0,$$ which corresponds to no (linear) relationship between the predictor $x$ and response $y$, against the alternative $$H_0: \beta \neq 0.$$
+
+## $t$-test from a linear model
+
+<div style="font-size:0.7em;">
+
+
+For the linear model
+
+$$
+y_i = \beta_0 + \beta_1 x_i + \varepsilon_i,
+$$
+
+a $t$-test evaluates whether $X$ is associated with $Y$:
+
+$$
+H_0: \beta_1 = 0
+\qquad \text{versus} \qquad
+H_A: \beta_1 \ne 0.
+$$
+
+The test statistic compares the estimated coefficient with its uncertainty:
+
+$$
+t = \frac{\widehat{\beta}_1}{\operatorname{SE}(\widehat{\beta}_1)}.
+$$
+
+Under $H_0$,
+
+$$
+T \sim t_{n-p},
+$$
+where $p$ is the number of parameters in the mean specification of the model (here, $p=2$ as we have $\beta_0$ and $\beta_1$ in the mean).
+
+A large $|t|$—and correspondingly small $p$-value—provides evidence that $X$ is associated with $Y$.
+
+</div>
 
 
 ## {background-color="white"}
@@ -130,12 +175,40 @@ $$\widehat{y}_{i} = 0.2795 - 0.3577 \times x_{i}$$
 linear_reg() %>%
   set_engine("lm") %>%
   fit(lhairHg ~ assets_sc, data = mercury) %>%
-  tidy()
+  tidy(conf.int=TRUE)
 ```
 
-::: {.large}
-$$\widehat{y}_{i} = 0.280 - 0.358 \times x_{i}$$
-:::
+<div style="font-size:0.7em;">
+
+
+The key quantity here is the slope for assets, which represents the relationship between household assets and hair mercury. The estimate and standard error provided in the output are used to evaluate the hypothesis $H_0: \beta_1=0$, which states that there is no (linear) relationship between assets and mercury. The p-value for this hypothesis test is given by the p.value column for the asset row; the statistic column is calculated by dividing the estimate column entries by their standard errors. We have to do more digging to get the right degrees of freedom for the test, though.
+
+We can also look at the 95% confidence interval for $\beta_1$, which is given here by $(-0.40,-0.32)$ -- because it does not contain the null value 0, we can say there is evidence of a relationship between assets and hair mercury.
+
+
+</div>
+
+## A closer look at model output
+
+<div style="font-size:0.7em;">
+
+
+The tidy output sweeps a few quantities  under the rug, but we can tease them out using the glance function from `broom` instead.
+
+```{r}
+fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc, data = mercury)
+fit %>% tidy(conf.int=TRUE)
+fit %>% glance() %>% print(width = Inf)
+```
+
+Here we see the $df=n-p$ for the t-test in the df.residual column. nobs contains the number of observations used in model fitting.
+
+Note a different statistic is presented here -- it is the square of the statistic from tidy (there was some rounding). If you take a regression course, you will learn this statistic, the square of the t-statistic, follows an $F$ distribution, which is widely used in linear models.
+
+</div>
+
 
 ## Slope and intercept
 
@@ -178,7 +251,7 @@ $$\widehat{y}_{i} = 60 + 5 \times x_{i}$$
 
 </div>
 
-# Better Interpretation in Models wiht Log Transformation
+# Better Interpretation in Models with Log Transformation
 
 ## Working with logs
 
@@ -192,7 +265,7 @@ $$\widehat{y}_{i} = 60 + 5 \times x_{i}$$
 
 ## Interpreting the slope
 
-The slope coefficient for the log transformed model is -0.3577, meaning the log mercury difference between people whose household incomes are one SD apart is predicted to be -0.3577 log ppm.
+The slope coefficient for the log transformed model is -0.3577, meaning the log mercury difference between people whose household incomes are one SD apart is predicted to be -0.3577 (95% CI=(-0.400,-0.315)) log ppm.
 
 ::: {.fragment}
 ::: {.question}
@@ -229,6 +302,19 @@ For each SD increase in assets, the hair Hg is expected to be lower, on average,
 
 </div>
 
+## You said I didn't need a calculator!
+
+Yup, R can do this for you!
+
+```{r}
+fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc, data = mercury)
+fit %>% tidy(exponentiate=TRUE, conf.int=TRUE)
+```
+
+For each SD increase in assets, the hair Hg is expected to be lower, on average, by a factor of 0.70 (95% CI=(0.67, 0.73)).
+
 ## Correlation does not imply causation
 
 Remember this when interpreting model coefficients
@@ -247,6 +333,9 @@ Source: XKCD, [Cell phones](https://xkcd.com/925/)
 
 ## Linear model with a single predictor
 
+<div style="font-size:0.75em;">
+
+
 - We're interested in $\beta_0$ (population parameter for the intercept) and $\beta_1$ (population parameter for the slope) in the following model:
 
 $$y_{i} = \beta_0 + \beta_1~x_{i}+\varepsilon_i$$
@@ -263,12 +352,16 @@ where $\varepsilon$ represents random error around our mean
 $$\widehat{y}_{i} = b_0 + b_1~x_{i}$$ or $$\widehat{y}_i = \widehat{\beta}_0 + \widehat{\beta}_1~x_i$$
 :::
 
+</div>
+
 ## Least squares regression
 
-- The regression line minimizes the sum of squared residuals.
+- The regression line minimizes the sum of squared residuals (the residuals are estimates of the error $\varepsilon_i$).
 
 - If $e_i = y_i - \hat{y}_i$, then, the regression line minimizes 
 $\sum_{i = 1}^n e_i^2$.
+
+- Why do we square the residuals?
 
 
 ```{r}
@@ -390,6 +483,20 @@ $$
 
 </div>
 
+## {background-color="white"}
+
+We can get $R^2$ from the glance function.
+
+```{r}
+fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc, data = mercury)
+fit %>% glance() %>% print(width = Inf)
+```
+
+While $R^2=0.106$ may seem quite low (the corresponding estimated correlation between $x$ and $y$ is $\sqrt{0.106}=0.33$), it's actually not too alarming given that we have observational data from humans with highly variable activities and exposures.
+
+
 ## Properties of least squares regression
 
 <div style="font-size:0.7em;">
@@ -414,6 +521,7 @@ $$\bar{y} = \hat{\beta}_0 + \hat{\beta}_1 \bar{x} ~ \rightarrow ~ \hat{\beta}_0 
 :::
 
 </div>
+
 
 
 # Model checking

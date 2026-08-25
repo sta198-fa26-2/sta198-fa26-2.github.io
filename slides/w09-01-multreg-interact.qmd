@@ -1,0 +1,142 @@
+---
+title: "Multiple Regression and Interaction"
+subtitle: "Introduction to Global Health Data Science"
+date: "2026-10-26"
+format:
+  revealjs:
+    output-file: w09-01-multreg-interact-slides.html
+    footer: "[🔗 sta198-fa26-2.github.io](https://sta198-fa26-2.github.io/)"
+    theme: slides.scss
+    transition: fade
+    slide-number: true
+    pdf-separate-fragments: true
+    toc: false
+  html:
+    code-link: true
+filters: 
+  - ../remove-fmt-skip.lua
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child="setup.Rmd", echo=FALSE}
+```
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(ggtext)
+library(knitr)
+library(kableExtra)
+options(dplyr.print_min = 10, dplyr.print_max = 6)
+mercury <- readr::read_csv("../data/mercury_reg.csv")
+mercury <-
+  mercury %>%
+  # scale() subtracts the mean and divides by the SD to make the units "standard deviations" like a z-score
+  mutate(assets_sc=scale(SESassets)) %>%
+    #another variable we may use later
+  mutate(form_min_sc=scale(FM_buffer)) %>%
+  #so I don't have to remember coding
+  mutate(sex,sex_cat=ifelse(sex==1,"Male","Female")) %>%
+  mutate(native,native_cat=ifelse(native==1,"Native","Non-native")) 
+# limit to one observation per household (household ID=1)
+mercury1 <-
+  mercury %>%
+  filter(withinid==1)
+```
+
+
+# The linear model with multiple predictors
+
+## Multiple explanatory variables
+
+<div style="font-size:0.8em;">
+
+
+We previously explored how the relationship between assets and mercury in hair depended on whether a person lives in a native community.
+
+
+</div>
+
+::: {.panel-tabset}
+
+## Plot
+
+:::: {.columns}
+
+::: {.column width="20%"}
+
+<div style="font-size:0.7em;">
+
+::: {.question}
+How, if at all, does the relationship between hair mercury and household assets of individuals vary by whether or not they live in a town classified as native?
+:::
+
+</div>
+
+
+:::
+
+::: {.column width="80%"}
+
+
+```{r}
+#| ref-label: hg_asset_native
+#| echo: false
+#| warning: false
+#| out-width: 70%
+```
+
+::: {.fragment}
+
+<div style="font-size:0.6em;">
+
+This is an example of an interaction effect -- the relationship between assets and mercury depends on the value of a third variable, community type. 
+
+</div>
+
+:::
+
+:::
+
+::::
+
+## Code
+
+```{r}
+#| label: hg_asset_native
+#| fig-show: hide
+#| warning: false
+ggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "Hair mercury as a function of assets, by village type",
+    subtitle = "Peruvian Amazon",
+    x = "Household assets (standardized)",
+    y = "Hair mercury (log ppm)",
+    color = NULL
+  ) +
+  scale_color_manual(values = c("#E48957", "#071381"))
+```
+
+:::
+
+
+## Multiple explanatory variables
+
+Code to fit this model is given below.
+
+```{r}
+linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,
+      data = mercury) %>%
+  tidy()
+```  
+
+## todo
+
+Amy this is from the multiple regression part of the first diagnostics lecture in 2022
+
+go back and see if I explained t-test to them, how to get CI for slope, how to interpret

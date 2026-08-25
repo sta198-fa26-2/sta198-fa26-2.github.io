@@ -445,7 +445,7 @@ How, if at all, does the relationship between hair mercury and household assets 
 
 <div style="font-size:0.6em;">
 
-This is an example of an interaction effect -- the relationship between assets and mercury depends on the value of a third variable, community type.
+This is an example of an interaction effect -- the relationship between assets and mercury depends on the value of a third variable, community type. We will discuss **multiple regression** in more depth later in the course.
 
 </div>
 
