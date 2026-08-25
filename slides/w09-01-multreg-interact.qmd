@@ -139,4 +139,19 @@ linear_reg() %>%
 
 Amy this is from the multiple regression part of the first diagnostics lecture in 2022
 
-go back and see if I explained t-test to them, how to get CI for slope, how to interpret
+I fixed up the simple regression notes with more details, so now I can build from here.
+
+You need the interaction. we can evaluate that, and interpret the different lines. Then add a predictor for which we don't need an interaction -- I have a more advanced model and can point out male isn't important, can do a test of that, can note the $R^2$ improved maybe due to age (mercury doesn't leave right?), talk about 1-year vs 10-year increase in age and rescale age?  Give interpretation conditional on other stuff in model held fixed.
+
+## {background-color="white"}
+
+
+```{r}
+fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ native_cat+age+assets_sc+sex_cat+native_cat*assets_sc,
+      data = mercury) 
+fit %>%
+  tidy(exponentiate=TRUE,conf.int=TRUE)
+fit %>% glance() %>% print(width = Inf)
+```  
