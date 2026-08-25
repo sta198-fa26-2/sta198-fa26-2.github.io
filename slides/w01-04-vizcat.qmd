@@ -1,5 +1,5 @@
 ---
-title: "Visualising categorical data"
+title: "Visualizing categorical data"
 subtitle: "Introduction to Global Health Data Science"
 date: "2026-08-26"
 format:

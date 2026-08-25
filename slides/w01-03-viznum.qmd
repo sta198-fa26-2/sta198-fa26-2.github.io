@@ -1242,6 +1242,7 @@ lifespan2023 %>%
   filter(sex == "Female") %>%
   ggplot(aes(x = lifeexp)) +
   geom_boxplot() +
+  scale_x_continuous(breaks = scales::breaks_width(5)) +
   labs(
     x = "Female life expectancy (years)",
     y = NULL,
@@ -1268,6 +1269,7 @@ lifespan2023 %>%
   filter(sex == "Female") %>%
   ggplot(aes(x = lifeexp)) +
   geom_boxplot() +
+  scale_x_continuous(breaks = scales::breaks_width(5)) +
   labs(
     x = "Female life expectancy (years)",
     y = NULL,
