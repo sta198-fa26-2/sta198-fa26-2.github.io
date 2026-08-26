@@ -125,7 +125,46 @@ ggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +
 
 ## Multiple explanatory variables
 
-Code to fit this model is given below.
+
+```{r}
+#| ref-label: hg_asset_native
+#| echo: false
+#| warning: false
+#| out-width: 70%
+```
+
+<div style="font-size:0.6em;">
+
+
+This figure corresponds to the model
+
+$$y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \varepsilon_i,$$
+
+where $y_i$ represents log hair mercury for subject $i$, $x_i$ represents standardized assets, $z_i=1$ if an individual lives in a non-native community and $z_i=0$ otherwise, and $x_iz_i$ is the interaction between assets and community status.
+
+
+A natural question is whether the slopes of these lines are significantly different -- do we have evidence of different relationships between assets and hair mercury for those living in native and non-native communities? 
+
+</div>
+
+## {background-color="white"}
+
+$$y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \varepsilon_i$$
+
+- $y_i$ log hair mercury for subject $i$
+- $x_i$ represents standardized assets 
+- $z_i=1$ for non-native community and $z_i=0$ otherwise
+
+Fitting this model, we get $$\widehat{y}_i=\widehat{\beta}_0+\widehat{\beta}_1 x_i + \widehat{\beta}_2 z_i + \widehat{\beta}_3 x_iz_i$$ so the equations of the two lines in the figure are
+
+Native:  $\widehat{y}_i=\widehat{\beta}_0+\widehat{\beta}_1 x_i$
+
+Non-Native: $\widehat{y}_i=(\widehat{\beta}_0+\widehat{\beta}_2) + (\widehat{\beta}_1 + \widehat{\beta}_3) x_i$
+
+## {background-color="white"}
+
+<div style="font-size:0.6em;">
+
 
 ```{r}
 linear_reg() %>%
@@ -134,6 +173,32 @@ linear_reg() %>%
       data = mercury) %>%
   tidy()
 ```  
+
+Native:  $\widehat{y}_i=0.845 -0.295x_i$
+
+Non-Native: $\widehat{y}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i$
+
+```{r}
+#| ref-label: hg_asset_native
+#| echo: false
+#| warning: false
+#| out-width: 40%
+```
+
+You can see that at the mean asset level ($x_i=0$), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities.
+
+</div>
+
+## next
+
+work through the model with and without interaction and the hypothesis test. first check the $R^2$ from assets-only model and compare to this one using glance. then do interaction test to see if we need that.
+
+
+## Multiple explanatory variables
+
+
+Code to fit this model is given below.
+
 
 ## todo
 
