@@ -687,6 +687,13 @@
     "text": "\\[\nr = \\frac{1}{n-1}\n\\sum_{i=1}^{n}\n\\left(\\frac{x_i-\\bar{x}}{s_x}\\right)\n\\left(\\frac{y_i-\\bar{y}}{s_y}\\right)\n\\]\nInterpretation:\n\n\n\\(r &gt; 0\\): positive linear relationship\n\n\\(r &lt; 0\\): negative linear relationship\n\n\\(r \\approx 0\\): little or no linear relationship\n\n\\(|r|\\) closer to 1: stronger linear relationship"
   },
   {
+    "objectID": "slides/w08-01-intro-model-slides.html#study",
+    "href": "slides/w08-01-intro-model-slides.html#study",
+    "title": "Introduction to Modelling",
+    "section": "Study",
+    "text": "Study\nA growing body of scientific work has shown that a wide variety of species are threatened by mercury pollution. We will explore data from Duke researcher Prof. Bill Pan, collected in the Peruvian Amazon. He gives a thorough introduction to artisanal and small-scale gold mining in this environment here."
+  },
+  {
     "objectID": "slides/w08-01-intro-model-slides.html#mercury-and-assets",
     "href": "slides/w08-01-intro-model-slides.html#mercury-and-assets",
     "title": "Introduction to Modelling",
@@ -846,6 +853,13 @@
     "title": "Introduction to Modelling",
     "section": "",
     "text": "\\[\nr = \\frac{1}{n-1}\n\\sum_{i=1}^{n}\n\\left(\\frac{x_i-\\bar{x}}{s_x}\\right)\n\\left(\\frac{y_i-\\bar{y}}{s_y}\\right)\n\\]\nInterpretation:\n\n\n\\(r &gt; 0\\): positive linear relationship\n\n\\(r &lt; 0\\): negative linear relationship\n\n\\(r \\approx 0\\): little or no linear relationship\n\n\\(|r|\\) closer to 1: stronger linear relationship"
+  },
+  {
+    "objectID": "slides/w08-01-intro-model.html#study",
+    "href": "slides/w08-01-intro-model.html#study",
+    "title": "Introduction to Modelling",
+    "section": "Study",
+    "text": "Study\nA growing body of scientific work has shown that a wide variety of species are threatened by mercury pollution. We will explore data from Duke researcher Prof. Bill Pan, collected in the Peruvian Amazon. He gives a thorough introduction to artisanal and small-scale gold mining in this environment here."
   },
   {
     "objectID": "slides/w08-01-intro-model.html#mercury-and-assets",
@@ -4597,7 +4611,28 @@
     "href": "slides/w09-01-multreg-interact.html#section-1",
     "title": "Multiple Regression and Interaction",
     "section": "",
-    "text": "linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,\n      data = mercury) %&gt;%\n  tidy()\n\n# A tibble: 4 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                  0.845    0.0575     14.7  9.93e-47\n2 assets_sc                   -0.295    0.0430     -6.85 9.33e-12\n3 native_catNon-native        -0.807    0.0626    -12.9  9.10e-37\n4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5\n\n\nNative: \\(\\widehat{y}_i=0.845 -0.295x_i\\)\nNon-Native: \\(\\widehat{y}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i\\)\n\n\n\n\n\n\n\n\nYou can see that at the mean asset level (\\(x_i=0\\)), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities."
+    "text": "linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,\n      data = mercury) %&gt;%\n  tidy()\n\n# A tibble: 4 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                  0.845    0.0575     14.7  9.93e-47\n2 assets_sc                   -0.295    0.0430     -6.85 9.33e-12\n3 native_catNon-native        -0.807    0.0626    -12.9  9.10e-37\n4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5\n\n\nNative: \\(\\widehat{y}_i=0.845 -0.295x_i\\)\nNon-Native: \\(\\widehat{y}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i\\)\n\n\n\n\n\n\n\n\nYou can see that at the mean asset level (\\(x_i=0\\)), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities, but a decrease with increasing assets in native communities."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact.html#comparing-model-fit",
+    "href": "slides/w09-01-multreg-interact.html#comparing-model-fit",
+    "title": "Multiple Regression and Interaction",
+    "section": "Comparing model fit",
+    "text": "Comparing model fit\n\nLet’s fit the assets-only model and compare it to the fit of this model.\n\nfit1 &lt;- \n  linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc,\n      data = mercury)\n\nfit2 &lt;- \n  linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,\n      data = mercury) \n\nfit1 %&gt;% glance() %&gt;% print(width = Inf)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic  p.value    df logLik\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1     0.106         0.106  1.02      274. 3.90e-58     1 -3316.\n    AIC   BIC deviance df.residual  nobs\n  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n1 6638. 6655.    2407.        2298  2300\n\nfit2 %&gt;% glance() %&gt;% print(width = Inf)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic   p.value    df logLik\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1     0.208         0.207 0.964      201. 1.28e-115     3 -3177.\n    AIC   BIC deviance df.residual  nobs\n  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n1 6365. 6394.    2134.        2296  2300\n\n\nWe see the adjusted \\(R^2\\) has increased from 0.11 in the assets-only model to 0.21 in the model that contains community status and the interaction. Adjusted \\(R^2\\) is preferred to the standard \\(R^2\\) in a model with more than one predictor; \\(R^2\\) can never decrease when more variables are added, so it can be suboptimal at identifying predictors that are not helpful; adjusted \\(R^2\\) adds a penalty for having “too many” variables in a model."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact.html#evaluating-the-interaction-term",
+    "href": "slides/w09-01-multreg-interact.html#evaluating-the-interaction-term",
+    "title": "Multiple Regression and Interaction",
+    "section": "Evaluating the interaction term",
+    "text": "Evaluating the interaction term\nWe can also conduct a formal hypothesis test of whether the interaction term improves our model \\(y_i=\\beta_0+\\beta_1 x_i + \\beta_2 z_i + \\beta_3 x_iz_i + \\varepsilon_i\\) by evaluating \\(H_0: \\beta_3=0\\) against the alternative \\(H_0: \\beta_3 \\neq 0\\).\n\nfit2 %&gt;% tidy(confint=TRUE)\n\n# A tibble: 4 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                  0.845    0.0575     14.7  9.93e-47\n2 assets_sc                   -0.295    0.0430     -6.85 9.33e-12\n3 native_catNon-native        -0.807    0.0626    -12.9  9.10e-37\n4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5\n\n\nIf we look at the last line of output, corresponding to the interaction term, we see that the p-value is quite small, which leads us to reject the null hypothesis and conclude that the interaction term does add to the model fit."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact.html#sex",
+    "href": "slides/w09-01-multreg-interact.html#sex",
+    "title": "Multiple Regression and Interaction",
+    "section": "Sex",
+    "text": "Sex\nAnother variable that may help explain variability in hair Hg levels is sex. Let’s add it to see if that helps (\\(male_i=1\\) if male and 0 if not). Our model now is \\(y_i=\\beta_0+\\beta_1 x_i + \\beta_2 z_i + \\beta_3 x_iz_i + \\beta_4 \\text{male}_i + \\varepsilon_i\\).\n\nfit3 &lt;- \n  linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat + sex_cat,\n      data = mercury) \nfit3 %&gt;% tidy(confint=TRUE)\n\n# A tibble: 5 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                0.847      0.0602    14.1   3.61e-43\n2 assets_sc                 -0.295      0.0430    -6.85  9.66e-12\n3 native_catNon-native      -0.807      0.0627   -12.9   1.08e-36\n4 sex_catMale               -0.00460    0.0420    -0.109 9.13e- 1\n5 assets_sc:native_catNon-…  0.217      0.0519     4.18  3.04e- 5\n\nfit3 %&gt;% glance() %&gt;% print(width = Inf)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic   p.value    df logLik\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1     0.208         0.206 0.964      151. 1.95e-114     4 -3177.\n    AIC   BIC deviance df.residual  nobs\n  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n1 6367. 6401.    2134.        2295  2300"
   },
   {
     "objectID": "slides/w09-01-multreg-interact.html#next",
@@ -4653,7 +4688,28 @@
     "href": "slides/w09-01-multreg-interact-slides.html#section-1",
     "title": "Multiple Regression and Interaction",
     "section": "",
-    "text": "linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,\n      data = mercury) %&gt;%\n  tidy()\n\n# A tibble: 4 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                  0.845    0.0575     14.7  9.93e-47\n2 assets_sc                   -0.295    0.0430     -6.85 9.33e-12\n3 native_catNon-native        -0.807    0.0626    -12.9  9.10e-37\n4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5\n\n\nNative: \\(\\widehat{y}_i=0.845 -0.295x_i\\)\nNon-Native: \\(\\widehat{y}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i\\)\n\n\n\n\n\n\n\n\nYou can see that at the mean asset level (\\(x_i=0\\)), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities."
+    "text": "linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,\n      data = mercury) %&gt;%\n  tidy()\n\n# A tibble: 4 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                  0.845    0.0575     14.7  9.93e-47\n2 assets_sc                   -0.295    0.0430     -6.85 9.33e-12\n3 native_catNon-native        -0.807    0.0626    -12.9  9.10e-37\n4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5\n\n\nNative: \\(\\widehat{y}_i=0.845 -0.295x_i\\)\nNon-Native: \\(\\widehat{y}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i\\)\n\n\n\n\n\n\n\n\nYou can see that at the mean asset level (\\(x_i=0\\)), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities, but a decrease with increasing assets in native communities."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact-slides.html#comparing-model-fit",
+    "href": "slides/w09-01-multreg-interact-slides.html#comparing-model-fit",
+    "title": "Multiple Regression and Interaction",
+    "section": "Comparing model fit",
+    "text": "Comparing model fit\n\nLet’s fit the assets-only model and compare it to the fit of this model.\n\nfit1 &lt;- \n  linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc,\n      data = mercury)\n\nfit2 &lt;- \n  linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,\n      data = mercury) \n\nfit1 %&gt;% glance() %&gt;% print(width = Inf)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic  p.value    df logLik\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1     0.106         0.106  1.02      274. 3.90e-58     1 -3316.\n    AIC   BIC deviance df.residual  nobs\n  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n1 6638. 6655.    2407.        2298  2300\n\nfit2 %&gt;% glance() %&gt;% print(width = Inf)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic   p.value    df logLik\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1     0.208         0.207 0.964      201. 1.28e-115     3 -3177.\n    AIC   BIC deviance df.residual  nobs\n  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n1 6365. 6394.    2134.        2296  2300\n\n\nWe see the adjusted \\(R^2\\) has increased from 0.11 in the assets-only model to 0.21 in the model that contains community status and the interaction. Adjusted \\(R^2\\) is preferred to the standard \\(R^2\\) in a model with more than one predictor; \\(R^2\\) can never decrease when more variables are added, so it can be suboptimal at identifying predictors that are not helpful; adjusted \\(R^2\\) adds a penalty for having “too many” variables in a model."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact-slides.html#evaluating-the-interaction-term",
+    "href": "slides/w09-01-multreg-interact-slides.html#evaluating-the-interaction-term",
+    "title": "Multiple Regression and Interaction",
+    "section": "Evaluating the interaction term",
+    "text": "Evaluating the interaction term\nWe can also conduct a formal hypothesis test of whether the interaction term improves our model \\(y_i=\\beta_0+\\beta_1 x_i + \\beta_2 z_i + \\beta_3 x_iz_i + \\varepsilon_i\\) by evaluating \\(H_0: \\beta_3=0\\) against the alternative \\(H_0: \\beta_3 \\neq 0\\).\n\nfit2 %&gt;% tidy(confint=TRUE)\n\n# A tibble: 4 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                  0.845    0.0575     14.7  9.93e-47\n2 assets_sc                   -0.295    0.0430     -6.85 9.33e-12\n3 native_catNon-native        -0.807    0.0626    -12.9  9.10e-37\n4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5\n\n\nIf we look at the last line of output, corresponding to the interaction term, we see that the p-value is quite small, which leads us to reject the null hypothesis and conclude that the interaction term does add to the model fit."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact-slides.html#sex",
+    "href": "slides/w09-01-multreg-interact-slides.html#sex",
+    "title": "Multiple Regression and Interaction",
+    "section": "Sex",
+    "text": "Sex\nAnother variable that may help explain variability in hair Hg levels is sex. Let’s add it to see if that helps (\\(male_i=1\\) if male and 0 if not). Our model now is \\(y_i=\\beta_0+\\beta_1 x_i + \\beta_2 z_i + \\beta_3 x_iz_i + \\beta_4 \\text{male}_i + \\varepsilon_i\\).\n\nfit3 &lt;- \n  linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat + sex_cat,\n      data = mercury) \nfit3 %&gt;% tidy(confint=TRUE)\n\n# A tibble: 5 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                0.847      0.0602    14.1   3.61e-43\n2 assets_sc                 -0.295      0.0430    -6.85  9.66e-12\n3 native_catNon-native      -0.807      0.0627   -12.9   1.08e-36\n4 sex_catMale               -0.00460    0.0420    -0.109 9.13e- 1\n5 assets_sc:native_catNon-…  0.217      0.0519     4.18  3.04e- 5\n\nfit3 %&gt;% glance() %&gt;% print(width = Inf)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic   p.value    df logLik\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1     0.208         0.206 0.964      151. 1.95e-114     4 -3177.\n    AIC   BIC deviance df.residual  nobs\n  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n1 6367. 6401.    2134.        2295  2300"
   },
   {
     "objectID": "slides/w09-01-multreg-interact-slides.html#next",
