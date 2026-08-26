@@ -4583,7 +4583,35 @@
     "href": "slides/w09-01-multreg-interact.html#multiple-explanatory-variables-1",
     "title": "Multiple Regression and Interaction",
     "section": "Multiple explanatory variables",
-    "text": "Multiple explanatory variables\nCode to fit this model is given below.\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,\n      data = mercury) %&gt;%\n  tidy()\n\n# A tibble: 4 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                  0.845    0.0575     14.7  9.93e-47\n2 assets_sc                   -0.295    0.0430     -6.85 9.33e-12\n3 native_catNon-native        -0.807    0.0626    -12.9  9.10e-37\n4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5"
+    "text": "Multiple explanatory variables\n\n\n\n\n\n\n\n\n\nThis figure corresponds to the model\n\\[y_i=\\beta_0+\\beta_1 x_i + \\beta_2 z_i + \\beta_3 x_iz_i + \\varepsilon_i,\\]\nwhere \\(y_i\\) represents log hair mercury for subject \\(i\\), \\(x_i\\) represents standardized assets, \\(z_i=1\\) if an individual lives in a non-native community and \\(z_i=0\\) otherwise, and \\(x_iz_i\\) is the interaction between assets and community status.\nA natural question is whether the slopes of these lines are significantly different – do we have evidence of different relationships between assets and hair mercury for those living in native and non-native communities?"
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact.html#section",
+    "href": "slides/w09-01-multreg-interact.html#section",
+    "title": "Multiple Regression and Interaction",
+    "section": "",
+    "text": "\\[y_i=\\beta_0+\\beta_1 x_i + \\beta_2 z_i + \\beta_3 x_iz_i + \\varepsilon_i\\]\n\n\n\\(y_i\\) log hair mercury for subject \\(i\\)\n\n\n\\(x_i\\) represents standardized assets\n\n\\(z_i=1\\) for non-native community and \\(z_i=0\\) otherwise\n\nFitting this model, we get \\[\\widehat{y}_i=\\widehat{\\beta}_0+\\widehat{\\beta}_1 x_i + \\widehat{\\beta}_2 z_i + \\widehat{\\beta}_3 x_iz_i\\] so the equations of the two lines in the figure are\nNative: \\(\\widehat{y}_i=\\widehat{\\beta}_0+\\widehat{\\beta}_1 x_i\\)\nNon-Native: \\(\\widehat{y}_i=(\\widehat{\\beta}_0+\\widehat{\\beta}_2) + (\\widehat{\\beta}_1 + \\widehat{\\beta}_3) x_i\\)"
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact.html#section-1",
+    "href": "slides/w09-01-multreg-interact.html#section-1",
+    "title": "Multiple Regression and Interaction",
+    "section": "",
+    "text": "linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,\n      data = mercury) %&gt;%\n  tidy()\n\n# A tibble: 4 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                  0.845    0.0575     14.7  9.93e-47\n2 assets_sc                   -0.295    0.0430     -6.85 9.33e-12\n3 native_catNon-native        -0.807    0.0626    -12.9  9.10e-37\n4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5\n\n\nNative: \\(\\widehat{y}_i=0.845 -0.295x_i\\)\nNon-Native: \\(\\widehat{y}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i\\)\n\n\n\n\n\n\n\n\nYou can see that at the mean asset level (\\(x_i=0\\)), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact.html#next",
+    "href": "slides/w09-01-multreg-interact.html#next",
+    "title": "Multiple Regression and Interaction",
+    "section": "next",
+    "text": "next\nwork through the model with and without interaction and the hypothesis test. first check the \\(R^2\\) from assets-only model and compare to this one using glance. then do interaction test to see if we need that."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact.html#multiple-explanatory-variables-2",
+    "href": "slides/w09-01-multreg-interact.html#multiple-explanatory-variables-2",
+    "title": "Multiple Regression and Interaction",
+    "section": "Multiple explanatory variables",
+    "text": "Multiple explanatory variables\nCode to fit this model is given below."
   },
   {
     "objectID": "slides/w09-01-multreg-interact.html#todo",
@@ -4593,8 +4621,8 @@
     "text": "todo\nAmy this is from the multiple regression part of the first diagnostics lecture in 2022\nI fixed up the simple regression notes with more details, so now I can build from here.\nYou need the interaction. we can evaluate that, and interpret the different lines. Then add a predictor for which we don’t need an interaction – I have a more advanced model and can point out male isn’t important, can do a test of that, can note the \\(R^2\\) improved maybe due to age (mercury doesn’t leave right?), talk about 1-year vs 10-year increase in age and rescale age? Give interpretation conditional on other stuff in model held fixed."
   },
   {
-    "objectID": "slides/w09-01-multreg-interact.html#section",
-    "href": "slides/w09-01-multreg-interact.html#section",
+    "objectID": "slides/w09-01-multreg-interact.html#section-2",
+    "href": "slides/w09-01-multreg-interact.html#section-2",
     "title": "Multiple Regression and Interaction",
     "section": "",
     "text": "fit &lt;- linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ native_cat+age+assets_sc+sex_cat+native_cat*assets_sc,\n      data = mercury) \nfit %&gt;%\n  tidy(exponentiate=TRUE,conf.int=TRUE)\n\n# A tibble: 6 × 7\n  term   estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Inte…    1.84    0.0673     9.08   2.25e-19    1.61      2.10 \n2 nativ…    0.450   0.0619   -12.9    8.48e-37    0.399     0.508\n3 age       1.01    0.00123    7.50   9.10e-14    1.01      1.01 \n4 asset…    0.747   0.0426    -6.86   9.14e-12    0.687     0.812\n5 sex_c…    1.00    0.0415     0.0563 9.55e- 1    0.924     1.09 \n6 nativ…    1.22    0.0513     3.91   9.42e- 5    1.11      1.35 \n\nfit %&gt;% glance() %&gt;% print(width = Inf)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic   p.value    df logLik\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1     0.227         0.225 0.952      135. 2.54e-125     5 -3144.\n    AIC   BIC deviance df.residual  nobs\n  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n1 6302. 6342.    2078.        2291  2297"
@@ -4611,7 +4639,35 @@
     "href": "slides/w09-01-multreg-interact-slides.html#multiple-explanatory-variables-1",
     "title": "Multiple Regression and Interaction",
     "section": "Multiple explanatory variables",
-    "text": "Multiple explanatory variables\nCode to fit this model is given below.\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,\n      data = mercury) %&gt;%\n  tidy()\n\n# A tibble: 4 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                  0.845    0.0575     14.7  9.93e-47\n2 assets_sc                   -0.295    0.0430     -6.85 9.33e-12\n3 native_catNon-native        -0.807    0.0626    -12.9  9.10e-37\n4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5"
+    "text": "Multiple explanatory variables\n\n\nThis figure corresponds to the model\n\\[y_i=\\beta_0+\\beta_1 x_i + \\beta_2 z_i + \\beta_3 x_iz_i + \\varepsilon_i,\\]\nwhere \\(y_i\\) represents log hair mercury for subject \\(i\\), \\(x_i\\) represents standardized assets, \\(z_i=1\\) if an individual lives in a non-native community and \\(z_i=0\\) otherwise, and \\(x_iz_i\\) is the interaction between assets and community status.\nA natural question is whether the slopes of these lines are significantly different – do we have evidence of different relationships between assets and hair mercury for those living in native and non-native communities?"
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact-slides.html#section",
+    "href": "slides/w09-01-multreg-interact-slides.html#section",
+    "title": "Multiple Regression and Interaction",
+    "section": "",
+    "text": "\\[y_i=\\beta_0+\\beta_1 x_i + \\beta_2 z_i + \\beta_3 x_iz_i + \\varepsilon_i\\]\n\n\n\\(y_i\\) log hair mercury for subject \\(i\\)\n\n\n\\(x_i\\) represents standardized assets\n\n\\(z_i=1\\) for non-native community and \\(z_i=0\\) otherwise\n\nFitting this model, we get \\[\\widehat{y}_i=\\widehat{\\beta}_0+\\widehat{\\beta}_1 x_i + \\widehat{\\beta}_2 z_i + \\widehat{\\beta}_3 x_iz_i\\] so the equations of the two lines in the figure are\nNative: \\(\\widehat{y}_i=\\widehat{\\beta}_0+\\widehat{\\beta}_1 x_i\\)\nNon-Native: \\(\\widehat{y}_i=(\\widehat{\\beta}_0+\\widehat{\\beta}_2) + (\\widehat{\\beta}_1 + \\widehat{\\beta}_3) x_i\\)"
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact-slides.html#section-1",
+    "href": "slides/w09-01-multreg-interact-slides.html#section-1",
+    "title": "Multiple Regression and Interaction",
+    "section": "",
+    "text": "linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,\n      data = mercury) %&gt;%\n  tidy()\n\n# A tibble: 4 × 5\n  term                      estimate std.error statistic  p.value\n  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                  0.845    0.0575     14.7  9.93e-47\n2 assets_sc                   -0.295    0.0430     -6.85 9.33e-12\n3 native_catNon-native        -0.807    0.0626    -12.9  9.10e-37\n4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5\n\n\nNative: \\(\\widehat{y}_i=0.845 -0.295x_i\\)\nNon-Native: \\(\\widehat{y}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i\\)\n\n\n\n\n\n\n\n\nYou can see that at the mean asset level (\\(x_i=0\\)), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact-slides.html#next",
+    "href": "slides/w09-01-multreg-interact-slides.html#next",
+    "title": "Multiple Regression and Interaction",
+    "section": "next",
+    "text": "next\nwork through the model with and without interaction and the hypothesis test. first check the \\(R^2\\) from assets-only model and compare to this one using glance. then do interaction test to see if we need that."
+  },
+  {
+    "objectID": "slides/w09-01-multreg-interact-slides.html#multiple-explanatory-variables-2",
+    "href": "slides/w09-01-multreg-interact-slides.html#multiple-explanatory-variables-2",
+    "title": "Multiple Regression and Interaction",
+    "section": "Multiple explanatory variables",
+    "text": "Multiple explanatory variables\nCode to fit this model is given below."
   },
   {
     "objectID": "slides/w09-01-multreg-interact-slides.html#todo",
@@ -4621,8 +4677,8 @@
     "text": "todo\nAmy this is from the multiple regression part of the first diagnostics lecture in 2022\nI fixed up the simple regression notes with more details, so now I can build from here.\nYou need the interaction. we can evaluate that, and interpret the different lines. Then add a predictor for which we don’t need an interaction – I have a more advanced model and can point out male isn’t important, can do a test of that, can note the \\(R^2\\) improved maybe due to age (mercury doesn’t leave right?), talk about 1-year vs 10-year increase in age and rescale age? Give interpretation conditional on other stuff in model held fixed."
   },
   {
-    "objectID": "slides/w09-01-multreg-interact-slides.html#section",
-    "href": "slides/w09-01-multreg-interact-slides.html#section",
+    "objectID": "slides/w09-01-multreg-interact-slides.html#section-2",
+    "href": "slides/w09-01-multreg-interact-slides.html#section-2",
     "title": "Multiple Regression and Interaction",
     "section": "",
     "text": "fit &lt;- linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ native_cat+age+assets_sc+sex_cat+native_cat*assets_sc,\n      data = mercury) \nfit %&gt;%\n  tidy(exponentiate=TRUE,conf.int=TRUE)\n\n# A tibble: 6 × 7\n  term   estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Inte…    1.84    0.0673     9.08   2.25e-19    1.61      2.10 \n2 nativ…    0.450   0.0619   -12.9    8.48e-37    0.399     0.508\n3 age       1.01    0.00123    7.50   9.10e-14    1.01      1.01 \n4 asset…    0.747   0.0426    -6.86   9.14e-12    0.687     0.812\n5 sex_c…    1.00    0.0415     0.0563 9.55e- 1    0.924     1.09 \n6 nativ…    1.22    0.0513     3.91   9.42e- 5    1.11      1.35 \n\nfit %&gt;% glance() %&gt;% print(width = Inf)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic   p.value    df logLik\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1     0.227         0.225 0.952      135. 2.54e-125     5 -3144.\n    AIC   BIC deviance df.residual  nobs\n  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n1 6302. 6342.    2078.        2291  2297"

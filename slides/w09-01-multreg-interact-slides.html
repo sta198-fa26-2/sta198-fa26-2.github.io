@@ -293,7 +293,29 @@ Amy Herring
 </div>
 </div>
 </section><section id="multiple-explanatory-variables-1" class="slide level2"><h2>Multiple explanatory variables</h2>
-<p>Code to fit this model is given below.</p>
+
+<img data-src="w09-01-multreg-interact_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><div style="font-size:0.6em;">
+<p>This figure corresponds to the model</p>
+<p><span class="math display">\[y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \varepsilon_i,\]</span></p>
+<p>where <span class="math inline">\(y_i\)</span> represents log hair mercury for subject <span class="math inline">\(i\)</span>, <span class="math inline">\(x_i\)</span> represents standardized assets, <span class="math inline">\(z_i=1\)</span> if an individual lives in a non-native community and <span class="math inline">\(z_i=0\)</span> otherwise, and <span class="math inline">\(x_iz_i\)</span> is the interaction between assets and community status.</p>
+<p>A natural question is whether the slopes of these lines are significantly different – do we have evidence of different relationships between assets and hair mercury for those living in native and non-native communities?</p>
+</div>
+</section><section id="section" class="slide level2" data-background-color="white"><h2></h2>
+<p><span class="math display">\[y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \varepsilon_i\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(y_i\)</span> log hair mercury for subject <span class="math inline">\(i\)</span>
+</li>
+<li>
+<span class="math inline">\(x_i\)</span> represents standardized assets</li>
+<li>
+<span class="math inline">\(z_i=1\)</span> for non-native community and <span class="math inline">\(z_i=0\)</span> otherwise</li>
+</ul>
+<p>Fitting this model, we get <span class="math display">\[\widehat{y}_i=\widehat{\beta}_0+\widehat{\beta}_1 x_i + \widehat{\beta}_2 z_i + \widehat{\beta}_3 x_iz_i\]</span> so the equations of the two lines in the figure are</p>
+<p>Native: <span class="math inline">\(\widehat{y}_i=\widehat{\beta}_0+\widehat{\beta}_1 x_i\)</span></p>
+<p>Non-Native: <span class="math inline">\(\widehat{y}_i=(\widehat{\beta}_0+\widehat{\beta}_2) + (\widehat{\beta}_1 + \widehat{\beta}_3) x_i\)</span></p>
+</section><section id="section-1" class="slide level2" data-background-color="white"><h2></h2>
+<div style="font-size:0.6em;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
@@ -310,11 +332,27 @@ Amy Herring
 4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5</code></pre>
 </div>
 </div>
+<p>Native: <span class="math inline">\(\widehat{y}_i=0.845 -0.295x_i\)</span></p>
+<p>Non-Native: <span class="math inline">\(\widehat{y}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="w09-01-multreg-interact_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:40.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You can see that at the mean asset level (<span class="math inline">\(x_i=0\)</span>), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities.</p>
+</div>
+</section><section id="next" class="slide level2"><h2>next</h2>
+<p>work through the model with and without interaction and the hypothesis test. first check the <span class="math inline">\(R^2\)</span> from assets-only model and compare to this one using glance. then do interaction test to see if we need that.</p>
+</section><section id="multiple-explanatory-variables-2" class="slide level2"><h2>Multiple explanatory variables</h2>
+<p>Code to fit this model is given below.</p>
 </section><section id="todo" class="slide level2"><h2>todo</h2>
 <p>Amy this is from the multiple regression part of the first diagnostics lecture in 2022</p>
 <p>I fixed up the simple regression notes with more details, so now I can build from here.</p>
 <p>You need the interaction. we can evaluate that, and interpret the different lines. Then add a predictor for which we don’t need an interaction – I have a more advanced model and can point out male isn’t important, can do a test of that, can note the <span class="math inline">\(R^2\)</span> improved maybe due to age (mercury doesn’t leave right?), talk about 1-year vs 10-year increase in age and rescale age? Give interpretation conditional on other stuff in model held fixed.</p>
-</section><section id="section" class="slide level2" data-background-color="white"><h2></h2>
+</section><section id="section-2" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
