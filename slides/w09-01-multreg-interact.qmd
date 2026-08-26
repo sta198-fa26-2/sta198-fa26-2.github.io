@@ -185,9 +185,70 @@ Non-Native: $\widehat{y}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i$
 #| out-width: 40%
 ```
 
-You can see that at the mean asset level ($x_i=0$), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities.
+You can see that at the mean asset level ($x_i=0$), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities, but a decrease with increasing assets in native communities.
 
 </div>
+
+## Comparing model fit
+
+<div style="font-size:0.55em;">
+
+Let's fit the assets-only model and compare it to the fit of this model.
+
+```{r}
+fit1 <- 
+  linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc,
+      data = mercury)
+
+fit2 <- 
+  linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,
+      data = mercury) 
+
+fit1 %>% glance() %>% print(width = Inf)
+fit2 %>% glance() %>% print(width = Inf)
+
+```  
+
+```{r}
+#| echo: false
+
+adj_r2_1 <- fit1 %>% glance() %>% pull(adj.r.squared)
+
+adj_r2_2 <- fit2 %>% glance() %>% pull(adj.r.squared)
+```
+
+We see the **adjusted** $R^2$ has increased from `r round(adj_r2_1, 2)` in the assets-only model to `r round(adj_r2_2, 2)` in the model that contains community status and the interaction. Adjusted $R^2$ is preferred to the standard $R^2$ in a model with more than one predictor; $R^2$ can never decrease when more variables are added, so it can be suboptimal at identifying predictors that are not helpful; adjusted $R^2$ adds a penalty for having "too many" variables in a model.
+
+</div>
+
+## Evaluating the interaction term
+
+We can also conduct a formal hypothesis test of whether the interaction term improves our model $y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \varepsilon_i$ by evaluating $H_0: \beta_3=0$ against the alternative $H_0: \beta_3 \neq 0$.
+
+```{r}
+fit2 %>% tidy(confint=TRUE)
+```
+
+If we look at the last line of output, corresponding to the interaction term, we see that the p-value is quite small, which leads us to reject the null hypothesis and conclude that the interaction term does add to the model fit.
+
+## Sex
+
+Another variable that may help explain variability in hair Hg levels is sex. Let's add it to see if that helps ($male_i=1$ if male and 0 if not). Our model now is $y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \beta_4 \text{male}_i + \varepsilon_i$. 
+
+```{r}
+fit3 <- 
+  linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat + sex_cat,
+      data = mercury) 
+fit3 %>% tidy(confint=TRUE)
+fit3 %>% glance() %>% print(width = Inf)
+```
+
 
 ## next
 
