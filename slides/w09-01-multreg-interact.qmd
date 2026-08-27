@@ -50,7 +50,7 @@ mercury1 <-
 
 ## Multiple explanatory variables
 
-<div style="font-size:0.8em;">
+<div style="font-size:0.7em;">
 
 
 We previously explored how the relationship between assets and mercury in hair depended on whether a person lives in a native community.
@@ -66,36 +66,44 @@ We previously explored how the relationship between assets and mercury in hair d
 
 ::: {.column width="20%"}
 
-<div style="font-size:0.7em;">
 
 ::: {.question}
+
+
+<div style="font-size:0.6em;">
+
 How, if at all, does the relationship between hair mercury and household assets of individuals vary by whether or not they live in a town classified as native?
-:::
 
 </div>
 
+:::
+
+
+
 
 :::
 
-::: {.column width="80%"}
+::: {.column width="50%"}
 
 
 ```{r}
 #| ref-label: hg_asset_native
 #| echo: false
 #| warning: false
-#| out-width: 70%
+#| out-width: 100%
 ```
 
-::: {.fragment}
 
-<div style="font-size:0.6em;">
+
+:::
+
+::: {.column width = "20%"}
+
+<div style="font-size:0.7em;">
 
 This is an example of an interaction effect -- the relationship between assets and mercury depends on the value of a third variable, community type. 
 
 </div>
-
-:::
 
 :::
 
@@ -138,9 +146,9 @@ ggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +
 
 This figure corresponds to the model
 
-$$y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \varepsilon_i,$$
+$$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i,$$
 
-where $y_i$ represents log hair mercury for subject $i$, $x_i$ represents standardized assets, $z_i=1$ if an individual lives in a non-native community and $z_i=0$ otherwise, and $x_iz_i$ is the interaction between assets and community status.
+where $\text{lnHg}_i$ represents log hair mercury for subject $i$, $\text{sdas}_i$ represents standardized assets, $\text{nn}_i=1$ if an individual lives in a non-native community and $\text{nn}_i=0$ otherwise, and $\text{nn}_i\text{sdas}_i$ is the interaction between assets and community status. (The interaction allows the slope of the line to differ across community status.)
 
 
 A natural question is whether the slopes of these lines are significantly different -- do we have evidence of different relationships between assets and hair mercury for those living in native and non-native communities? 
@@ -149,22 +157,51 @@ A natural question is whether the slopes of these lines are significantly differ
 
 ## {background-color="white"}
 
-$$y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \varepsilon_i$$
+## From model to two lines
 
-- $y_i$ log hair mercury for subject $i$
-- $x_i$ represents standardized assets 
-- $z_i=1$ for non-native community and $z_i=0$ otherwise
+<div style="font-size:0.6em;">
 
-Fitting this model, we get $$\widehat{y}_i=\widehat{\beta}_0+\widehat{\beta}_1 x_i + \widehat{\beta}_2 z_i + \widehat{\beta}_3 x_iz_i$$ so the equations of the two lines in the figure are
 
-Native:  $\widehat{y}_i=\widehat{\beta}_0+\widehat{\beta}_1 x_i$
+::: {style="background-color:#f5f5f5; border-left: 6px solid #666; padding: 0.6em 1em; margin-bottom: 0.5em;"}
+**Full interaction model**
 
-Non-Native: $\widehat{y}_i=(\widehat{\beta}_0+\widehat{\beta}_2) + (\widehat{\beta}_1 + \widehat{\beta}_3) x_i$
+$$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i$$
+:::
+
+::: {style="background-color:#f5f5f5; border-left: 6px solid #666; padding: 0.6em 1em; margin-bottom: 0.8em;"}
+**Fitted model**
+
+$$\widehat{\text{lnHg}}_i=\widehat{\beta}_0+\widehat{\beta}_1 \text{sdas}_i + \widehat{\beta}_2 \text{nn}_i + \widehat{\beta}_3 \text{nn}_i\text{sdas}_i$$
+:::
+
+This gives two separate lines, one for each group:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {style="background-color:#fdf1ea; border: 2px solid #E48957; border-radius: 8px; padding: 0.8em; text-align:center;"}
+**Native**
+
+$$\widehat{\text{lnHg}}_i=\widehat{\beta}_0+\widehat{\beta}_1 \text{sdas}_i$$
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em; text-align:center;"}
+**Non-Native**
+
+$$\widehat{\text{lnHg}}_i=(\widehat{\beta}_0+\widehat{\beta}_2) + (\widehat{\beta}_1 + \widehat{\beta}_3) \text{sdas}_i$$
+:::
+:::
+
+::::
+
+</div>
+
 
 ## {background-color="white"}
 
 <div style="font-size:0.6em;">
-
 
 ```{r}
 linear_reg() %>%
@@ -172,30 +209,42 @@ linear_reg() %>%
   fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat,
       data = mercury) %>%
   tidy()
-```  
+```
 
-Native:  $\widehat{y}_i=0.845 -0.295x_i$
+Native:  $\widehat{\text{lnHg}}_i=0.845 -0.295x_i$
 
-Non-Native: $\widehat{y}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i$
+Non-Native: $\widehat{\text{lnHg}}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i$
 
+:::: {.columns}
+
+::: {.column width="50%"}
 ```{r}
 #| ref-label: hg_asset_native
 #| echo: false
 #| warning: false
-#| out-width: 40%
+#| out-width: 100%
 ```
+:::
 
-You can see that at the mean asset level ($x_i=0$), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities, but a decrease with increasing assets in native communities.
+::: {.column width="50%"}
+You can see that at the mean asset level ($\text{sdas}_i=0$), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities, but a decrease with increasing assets in native communities.
+:::
+
+::::
 
 </div>
 
 ## Comparing model fit
-
 <div style="font-size:0.55em;">
 
 Let's fit the assets-only model and compare it to the fit of this model.
 
+:::: {.columns}
+
+::: {.column width="55%"}
 ```{r}
+#| echo: true
+
 fit1 <- 
   linear_reg() %>%
   set_engine("lm") %>%
@@ -210,24 +259,37 @@ fit2 <-
 
 fit1 %>% glance() %>% print(width = Inf)
 fit2 %>% glance() %>% print(width = Inf)
-
-```  
+```
 
 ```{r}
 #| echo: false
-
 adj_r2_1 <- fit1 %>% glance() %>% pull(adj.r.squared)
-
 adj_r2_2 <- fit2 %>% glance() %>% pull(adj.r.squared)
 ```
+:::
 
-We see the **adjusted** $R^2$ has increased from `r round(adj_r2_1, 2)` in the assets-only model to `r round(adj_r2_2, 2)` in the model that contains community status and the interaction. Adjusted $R^2$ is preferred to the standard $R^2$ in a model with more than one predictor; $R^2$ can never decrease when more variables are added, so it can be suboptimal at identifying predictors that are not helpful; adjusted $R^2$ adds a penalty for having "too many" variables in a model.
+::: {.column width="45%"}
+::: {style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em; text-align:center; margin-bottom: 0.8em;"}
+**Adjusted $R^2$**
+
+`r round(adj_r2_1, 2)` &nbsp;➔&nbsp; `r round(adj_r2_2, 2)`
+
+*assets-only → with community status + interaction*
+:::
+
+Adjusted $R^2$ is preferred to standard $R^2$ in a model with more than one predictor:
+
+- $R^2$ can never decrease when more variables are added, so it can be suboptimal at identifying predictors that are not helpful.
+- Adjusted $R^2$ adds a penalty for having "too many" variables in a model.
+:::
+
+::::
 
 </div>
 
 ## Evaluating the interaction term
 
-We can also conduct a formal hypothesis test of whether the interaction term improves our model $y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \varepsilon_i$ by evaluating $H_0: \beta_3=0$ against the alternative $H_0: \beta_3 \neq 0$.
+We can also conduct a formal hypothesis test of whether the interaction term improves our model $\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i$ by evaluating $H_0: \beta_3=0$ against the alternative $H_0: \beta_3 \neq 0$.
 
 ```{r}
 fit2 %>% tidy(confint=TRUE)
@@ -237,7 +299,7 @@ If we look at the last line of output, corresponding to the interaction term, we
 
 ## Sex
 
-Another variable that may help explain variability in hair Hg levels is sex. Let's add it to see if that helps ($male_i=1$ if male and 0 if not). Our model now is $y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \beta_4 \text{male}_i + \varepsilon_i$. 
+Another variable that may help explain variability in hair Hg levels is sex. Let's add it to see if that helps ($male_i=1$ if male and 0 if not). Our model now is $$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_4\text{male}_i+ \varepsilon_i,$$
 
 ```{r}
 fit3 <- 
