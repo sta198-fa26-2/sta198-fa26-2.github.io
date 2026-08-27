@@ -473,6 +473,7 @@ window.Quarto = {
 <li><a href="#multiple-explanatory-variables" id="toc-multiple-explanatory-variables" class="nav-link" data-scroll-target="#multiple-explanatory-variables">Multiple explanatory variables</a></li>
   <li><a href="#multiple-explanatory-variables-1" id="toc-multiple-explanatory-variables-1" class="nav-link" data-scroll-target="#multiple-explanatory-variables-1">Multiple explanatory variables</a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#from-model-to-two-lines" id="toc-from-model-to-two-lines" class="nav-link" data-scroll-target="#from-model-to-two-lines">From model to two lines</a></li>
   <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
   <li><a href="#comparing-model-fit" id="toc-comparing-model-fit" class="nav-link" data-scroll-target="#comparing-model-fit">Comparing model fit</a></li>
   <li><a href="#evaluating-the-interaction-term" id="toc-evaluating-the-interaction-term" class="nav-link" data-scroll-target="#evaluating-the-interaction-term">Evaluating the interaction term</a></li>
@@ -545,7 +546,7 @@ window.Quarto = {
 </div>
 <section id="the-linear-model-with-multiple-predictors" class="level1"><h1>The linear model with multiple predictors</h1>
 <section id="multiple-explanatory-variables" class="level2"><h2 class="anchored" data-anchor-id="multiple-explanatory-variables">Multiple explanatory variables</h2>
-<div style="font-size:0.8em;">
+<div style="font-size:0.7em;">
 <p>We previously explored how the relationship between assets and mercury in hair depended on whether a person lives in a native community.</p>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -557,24 +558,23 @@ window.Quarto = {
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="columns">
 <div class="column" style="width:20%;">
-<div style="font-size:0.7em;">
 <div class="question">
+<div style="font-size:0.6em;">
 <p>How, if at all, does the relationship between hair mercury and household assets of individuals vary by whether or not they live in a town classified as native?</p>
 </div>
 </div>
-</div><div class="column" style="width:80%;">
+</div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w09-01-multreg-interact_files/figure-revealjs/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w09-01-multreg-interact_files/figure-revealjs/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w09-01-multreg-interact_files/figure-revealjs/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w09-01-multreg-interact_files/figure-revealjs/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="fragment">
-<div style="font-size:0.6em;">
+</div><div class="column" style="width:20%;">
+<div style="font-size:0.7em;">
 <p>This is an example of an interaction effect – the relationship between assets and mercury depends on the value of a third variable, community type.</p>
-</div>
 </div>
 </div>
 </div>
@@ -607,24 +607,36 @@ window.Quarto = {
 </div>
 <div style="font-size:0.6em;">
 <p>This figure corresponds to the model</p>
-<p><span class="math display">\[y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \varepsilon_i,\]</span></p>
-<p>where <span class="math inline">\(y_i\)</span> represents log hair mercury for subject <span class="math inline">\(i\)</span>, <span class="math inline">\(x_i\)</span> represents standardized assets, <span class="math inline">\(z_i=1\)</span> if an individual lives in a non-native community and <span class="math inline">\(z_i=0\)</span> otherwise, and <span class="math inline">\(x_iz_i\)</span> is the interaction between assets and community status.</p>
+<p><span class="math display">\[\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i,\]</span></p>
+<p>where <span class="math inline">\(\text{lnHg}_i\)</span> represents log hair mercury for subject <span class="math inline">\(i\)</span>, <span class="math inline">\(\text{sdas}_i\)</span> represents standardized assets, <span class="math inline">\(\text{nn}_i=1\)</span> if an individual lives in a non-native community and <span class="math inline">\(\text{nn}_i=0\)</span> otherwise, and <span class="math inline">\(\text{nn}_i\text{sdas}_i\)</span> is the interaction between assets and community status. (The interaction allows the slope of the line to differ across community status.)</p>
 <p>A natural question is whether the slopes of these lines are significantly different – do we have evidence of different relationships between assets and hair mercury for those living in native and non-native communities?</p>
 </div>
 </section><section id="section" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section"></h2>
-<p><span class="math display">\[y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \varepsilon_i\]</span></p>
-<ul>
-<li>
-<span class="math inline">\(y_i\)</span> log hair mercury for subject <span class="math inline">\(i\)</span>
-</li>
-<li>
-<span class="math inline">\(x_i\)</span> represents standardized assets</li>
-<li>
-<span class="math inline">\(z_i=1\)</span> for non-native community and <span class="math inline">\(z_i=0\)</span> otherwise</li>
-</ul>
-<p>Fitting this model, we get <span class="math display">\[\widehat{y}_i=\widehat{\beta}_0+\widehat{\beta}_1 x_i + \widehat{\beta}_2 z_i + \widehat{\beta}_3 x_iz_i\]</span> so the equations of the two lines in the figure are</p>
-<p>Native: <span class="math inline">\(\widehat{y}_i=\widehat{\beta}_0+\widehat{\beta}_1 x_i\)</span></p>
-<p>Non-Native: <span class="math inline">\(\widehat{y}_i=(\widehat{\beta}_0+\widehat{\beta}_2) + (\widehat{\beta}_1 + \widehat{\beta}_3) x_i\)</span></p>
+</section><section id="from-model-to-two-lines" class="level2"><h2 class="anchored" data-anchor-id="from-model-to-two-lines">From model to two lines</h2>
+<div style="font-size:0.6em;">
+<div style="background-color:#f5f5f5; border-left: 6px solid #666; padding: 0.6em 1em; margin-bottom: 0.5em;">
+<p><strong>Full interaction model</strong></p>
+<p><span class="math display">\[\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i\]</span></p>
+</div>
+<div style="background-color:#f5f5f5; border-left: 6px solid #666; padding: 0.6em 1em; margin-bottom: 0.8em;">
+<p><strong>Fitted model</strong></p>
+<p><span class="math display">\[\widehat{\text{lnHg}}_i=\widehat{\beta}_0+\widehat{\beta}_1 \text{sdas}_i + \widehat{\beta}_2 \text{nn}_i + \widehat{\beta}_3 \text{nn}_i\text{sdas}_i\]</span></p>
+</div>
+<p>This gives two separate lines, one for each group:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="background-color:#fdf1ea; border: 2px solid #E48957; border-radius: 8px; padding: 0.8em; text-align:center;">
+<p><strong>Native</strong></p>
+<p><span class="math display">\[\widehat{\text{lnHg}}_i=\widehat{\beta}_0+\widehat{\beta}_1 \text{sdas}_i\]</span></p>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em; text-align:center;">
+<p><strong>Non-Native</strong></p>
+<p><span class="math display">\[\widehat{\text{lnHg}}_i=(\widehat{\beta}_0+\widehat{\beta}_2) + (\widehat{\beta}_1 + \widehat{\beta}_3) \text{sdas}_i\]</span></p>
+</div>
+</div>
+</div>
+</div>
 </section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
 <div style="font-size:0.6em;">
 <div class="cell" data-layout-align="center">
@@ -643,21 +655,28 @@ window.Quarto = {
 4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5</code></pre>
 </div>
 </div>
-<p>Native: <span class="math inline">\(\widehat{y}_i=0.845 -0.295x_i\)</span></p>
-<p>Non-Native: <span class="math inline">\(\widehat{y}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i\)</span></p>
+<p>Native: <span class="math inline">\(\widehat{\text{lnHg}}_i=0.845 -0.295x_i\)</span></p>
+<p>Non-Native: <span class="math inline">\(\widehat{\text{lnHg}}_i=(0.845-0.807) + (-0.295+0.217) x_i=0.038-0.078x_i\)</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w09-01-multreg-interact_files/figure-revealjs/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w09-01-multreg-interact_files/figure-revealjs/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></a></p>
+<figure class="figure"><p><a href="w09-01-multreg-interact_files/figure-revealjs/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w09-01-multreg-interact_files/figure-revealjs/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>You can see that at the mean asset level (<span class="math inline">\(x_i=0\)</span>), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities, but a decrease with increasing assets in native communities.</p>
+</div><div class="column" style="width:50%;">
+<p>You can see that at the mean asset level (<span class="math inline">\(\text{sdas}_i=0\)</span>), those in non-native communities have lower hair Hg levels, and in native communities we see a stronger relationship between assets and hair Hg, with little change in hair Hg as a function of assets in non-native communities, but a decrease with increasing assets in native communities.</p>
+</div>
+</div>
 </div>
 </section><section id="comparing-model-fit" class="level2"><h2 class="anchored" data-anchor-id="comparing-model-fit">Comparing model fit</h2>
 <div style="font-size:0.55em;">
 <p>Let’s fit the assets-only model and compare it to the fit of this model.</p>
+<div class="columns">
+<div class="column" style="width:55%;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit1</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -692,10 +711,23 @@ window.Quarto = {
 1 6365. 6394.    2134.        2296  2300</code></pre>
 </div>
 </div>
-<p>We see the <strong>adjusted</strong> <span class="math inline">\(R^2\)</span> has increased from 0.11 in the assets-only model to 0.21 in the model that contains community status and the interaction. Adjusted <span class="math inline">\(R^2\)</span> is preferred to the standard <span class="math inline">\(R^2\)</span> in a model with more than one predictor; <span class="math inline">\(R^2\)</span> can never decrease when more variables are added, so it can be suboptimal at identifying predictors that are not helpful; adjusted <span class="math inline">\(R^2\)</span> adds a penalty for having “too many” variables in a model.</p>
+</div><div class="column" style="width:45%;">
+<div style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em; text-align:center; margin-bottom: 0.8em;">
+<p><strong>Adjusted <span class="math inline">\(R^2\)</span></strong></p>
+<p>0.11 &nbsp;➔&nbsp; 0.21</p>
+<p><em>assets-only → with community status + interaction</em></p>
+</div>
+<p>Adjusted <span class="math inline">\(R^2\)</span> is preferred to standard <span class="math inline">\(R^2\)</span> in a model with more than one predictor:</p>
+<ul>
+<li>
+<span class="math inline">\(R^2\)</span> can never decrease when more variables are added, so it can be suboptimal at identifying predictors that are not helpful.</li>
+<li>Adjusted <span class="math inline">\(R^2\)</span> adds a penalty for having “too many” variables in a model.</li>
+</ul>
+</div>
+</div>
 </div>
 </section><section id="evaluating-the-interaction-term" class="level2"><h2 class="anchored" data-anchor-id="evaluating-the-interaction-term">Evaluating the interaction term</h2>
-<p>We can also conduct a formal hypothesis test of whether the interaction term improves our model <span class="math inline">\(y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \varepsilon_i\)</span> by evaluating <span class="math inline">\(H_0: \beta_3=0\)</span> against the alternative <span class="math inline">\(H_0: \beta_3 \neq 0\)</span>.</p>
+<p>We can also conduct a formal hypothesis test of whether the interaction term improves our model <span class="math inline">\(\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i\)</span> by evaluating <span class="math inline">\(H_0: \beta_3=0\)</span> against the alternative <span class="math inline">\(H_0: \beta_3 \neq 0\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">tidy</span><span class="op">(</span>confint<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -710,7 +742,7 @@ window.Quarto = {
 </div>
 <p>If we look at the last line of output, corresponding to the interaction term, we see that the p-value is quite small, which leads us to reject the null hypothesis and conclude that the interaction term does add to the model fit.</p>
 </section><section id="sex" class="level2"><h2 class="anchored" data-anchor-id="sex">Sex</h2>
-<p>Another variable that may help explain variability in hair Hg levels is sex. Let’s add it to see if that helps (<span class="math inline">\(male_i=1\)</span> if male and 0 if not). Our model now is <span class="math inline">\(y_i=\beta_0+\beta_1 x_i + \beta_2 z_i + \beta_3 x_iz_i + \beta_4 \text{male}_i + \varepsilon_i\)</span>.</p>
+<p>Another variable that may help explain variability in hair Hg levels is sex. Let’s add it to see if that helps (<span class="math inline">\(male_i=1\)</span> if male and 0 if not). Our model now is <span class="math display">\[\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_4\text{male}_i+ \varepsilon_i,\]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit3</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
