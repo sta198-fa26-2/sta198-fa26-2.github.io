@@ -400,99 +400,197 @@ Amy Herring
 </div><div class="column" style="width:45%;">
 <div style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em; text-align:center; margin-bottom: 0.8em;">
 <p><strong>Adjusted <span class="math inline">\(R^2\)</span></strong></p>
-<p>0.11 &nbsp;➔&nbsp; 0.21</p>
+<p>0.106 &nbsp;➔&nbsp; 0.207</p>
 <p><em>assets-only → with community status + interaction</em></p>
 </div>
 <p>Adjusted <span class="math inline">\(R^2\)</span> is preferred to standard <span class="math inline">\(R^2\)</span> in a model with more than one predictor:</p>
 <ul>
 <li>
 <span class="math inline">\(R^2\)</span> can never decrease when more variables are added, so it can be suboptimal at identifying predictors that are not helpful.</li>
-<li>Adjusted <span class="math inline">\(R^2\)</span> adds a penalty for having “too many” variables in a model.</li>
+<li>Adjusted <span class="math inline">\(R^2\)</span> adds a penalty for having “too many” variables in a model and is preferred in multi-predictor settings.</li>
 </ul>
 </div></div>
 </div>
 </section><section id="evaluating-the-interaction-term" class="slide level2"><h2>Evaluating the interaction term</h2>
+<div style="font-size:0.7em;">
 <p>We can also conduct a formal hypothesis test of whether the interaction term improves our model <span class="math inline">\(\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i\)</span> by evaluating <span class="math inline">\(H_0: \beta_3=0\)</span> against the alternative <span class="math inline">\(H_0: \beta_3 \neq 0\)</span>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>fit2 <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">confint=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>fit2 <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 5
-  term                      estimate std.error statistic  p.value
-  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)                  0.845    0.0575     14.7  9.93e-47
-2 assets_sc                   -0.295    0.0430     -6.85 9.33e-12
-3 native_catNon-native        -0.807    0.0626    -12.9  9.10e-37
-4 assets_sc:native_catNon-…    0.217    0.0519      4.18 2.99e- 5</code></pre>
+<pre><code># A tibble: 4 × 7
+  term   estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Inte…    0.845    0.0575     14.7  9.93e-47    0.732     0.958
+2 asset…   -0.295    0.0430     -6.85 9.33e-12   -0.379    -0.210
+3 nativ…   -0.807    0.0626    -12.9  9.10e-37   -0.929    -0.684
+4 asset…    0.217    0.0519      4.18 2.99e- 5    0.115     0.319</code></pre>
 </div>
 </div>
 <p>If we look at the last line of output, corresponding to the interaction term, we see that the p-value is quite small, which leads us to reject the null hypothesis and conclude that the interaction term does add to the model fit.</p>
-</section><section id="sex" class="slide level2"><h2>Sex</h2>
-<p>Another variable that may help explain variability in hair Hg levels is sex. Let’s add it to see if that helps (<span class="math inline">\(male_i=1\)</span> if male and 0 if not). Our model now is <span class="math display">\[\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_4\text{male}_i+ \varepsilon_i,\]</span></p>
+</div>
+</section><section id="adding-sex-to-the-model" class="slide level2"><h2>Adding sex to the model</h2>
+<div style="font-size:0.6em;">
+<p>Another variable that may help explain variability in hair Hg levels is sex. Let’s add it to see if that helps (<span class="math inline">\(male_i=1\)</span> if male and 0 if not). Our model now is <span class="math display">\[\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_4\text{male}_i+ \varepsilon_i\]</span></p>
+<div class="columns">
+<div class="column" style="width:65%;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>fit3 <span class="ot">&lt;-</span> </span>
 <span id="cb11-2"><a></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb11-3"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb11-4"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> assets_sc <span class="sc">+</span> native_cat <span class="sc">+</span> assets_sc<span class="sc">*</span>native_cat <span class="sc">+</span> sex_cat,</span>
 <span id="cb11-5"><a></a>      <span class="at">data =</span> mercury) </span>
-<span id="cb11-6"><a></a>fit3 <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">confint=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-6"><a></a>fit3 <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 5
-  term                      estimate std.error statistic  p.value
-  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)                0.847      0.0602    14.1   3.61e-43
-2 assets_sc                 -0.295      0.0430    -6.85  9.66e-12
-3 native_catNon-native      -0.807      0.0627   -12.9   1.08e-36
-4 sex_catMale               -0.00460    0.0420    -0.109 9.13e- 1
-5 assets_sc:native_catNon-…  0.217      0.0519     4.18  3.04e- 5</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>fit3 <span class="sc">%&gt;%</span> <span class="fu">glance</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">width =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 12
-  r.squared adj.r.squared sigma statistic   p.value    df logLik
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-1     0.208         0.206 0.964      151. 1.95e-114     4 -3177.
-    AIC   BIC deviance df.residual  nobs
-  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
-1 6367. 6401.    2134.        2295  2300</code></pre>
-</div>
-</div>
-</section><section id="next" class="slide level2"><h2>next</h2>
-<p>work through the model with and without interaction and the hypothesis test. first check the <span class="math inline">\(R^2\)</span> from assets-only model and compare to this one using glance. then do interaction test to see if we need that.</p>
-</section><section id="multiple-explanatory-variables-2" class="slide level2"><h2>Multiple explanatory variables</h2>
-<p>Code to fit this model is given below.</p>
-</section><section id="todo" class="slide level2"><h2>todo</h2>
-<p>Amy this is from the multiple regression part of the first diagnostics lecture in 2022</p>
-<p>I fixed up the simple regression notes with more details, so now I can build from here.</p>
-<p>You need the interaction. we can evaluate that, and interpret the different lines. Then add a predictor for which we don’t need an interaction – I have a more advanced model and can point out male isn’t important, can do a test of that, can note the <span class="math inline">\(R^2\)</span> improved maybe due to age (mercury doesn’t leave right?), talk about 1-year vs 10-year increase in age and rescale age? Give interpretation conditional on other stuff in model held fixed.</p>
-</section><section id="section-2" class="slide level2" data-background-color="white"><h2></h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> native_cat<span class="sc">+</span>age<span class="sc">+</span>assets_sc<span class="sc">+</span>sex_cat<span class="sc">+</span>native_cat<span class="sc">*</span>assets_sc,</span>
-<span id="cb15-4"><a></a>      <span class="at">data =</span> mercury) </span>
-<span id="cb15-5"><a></a>fit <span class="sc">%&gt;%</span></span>
-<span id="cb15-6"><a></a>  <span class="fu">tidy</span>(<span class="at">exponentiate=</span><span class="cn">TRUE</span>,<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
+<pre><code># A tibble: 5 × 7
   term   estimate std.error statistic  p.value conf.low conf.high
   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 (Inte…    1.84    0.0673     9.08   2.25e-19    1.61      2.10 
-2 nativ…    0.450   0.0619   -12.9    8.48e-37    0.399     0.508
-3 age       1.01    0.00123    7.50   9.10e-14    1.01      1.01 
-4 asset…    0.747   0.0426    -6.86   9.14e-12    0.687     0.812
-5 sex_c…    1.00    0.0415     0.0563 9.55e- 1    0.924     1.09 
-6 nativ…    1.22    0.0513     3.91   9.42e- 5    1.11      1.35 </code></pre>
+1 (Inte…  0.847      0.0602    14.1   3.61e-43   0.729     0.965 
+2 asset… -0.295      0.0430    -6.85  9.66e-12  -0.379    -0.210 
+3 nativ… -0.807      0.0627   -12.9   1.08e-36  -0.930    -0.684 
+4 sex_c… -0.00460    0.0420    -0.109 9.13e- 1  -0.0870    0.0778
+5 asset…  0.217      0.0519     4.18  3.04e- 5   0.115     0.319 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>fit <span class="sc">%&gt;%</span> <span class="fu">glance</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">width =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:35%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>fit3 <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a></a>  <span class="fu">glance</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a></a>  <span class="fu">select</span>(adj.r.squared) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: right;">adj.r.squared</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">0.206</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div></div>
+<p>So the adjusted <span class="math inline">\(R^2\)</span> changed little from 0.207 in the model without male sex. In addition, we see that the standard error of the sex coefficient in the model is large relative to its estimate, and the p-value is 0.9. So the sex term isn’t adding to our model fit or predictive ability.</p>
+</div>
+</section><section id="adding-age-to-the-model" class="slide level2"><h2>Adding age to the model</h2>
+<div style="font-size:0.6em;">
+<p>Age in years, <span class="math inline">\(age_i\)</span> is another potentially important predictor.</p>
+<p>Dropping the sex term and adding age, our model now is <span class="math display">\[\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_5\text{age}_i+ \varepsilon_i\]</span></p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>fit4 <span class="ot">&lt;-</span> </span>
+<span id="cb14-2"><a></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> assets_sc <span class="sc">+</span> native_cat <span class="sc">+</span> assets_sc<span class="sc">*</span>native_cat <span class="sc">+</span> age,</span>
+<span id="cb14-5"><a></a>      <span class="at">data =</span> mercury) </span>
+<span id="cb14-6"><a></a>fit4 <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 12
-  r.squared adj.r.squared sigma statistic   p.value    df logLik
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-1     0.227         0.225 0.952      135. 2.54e-125     5 -3144.
-    AIC   BIC deviance df.residual  nobs
-  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
-1 6302. 6342.    2078.        2291  2297</code></pre>
+<pre><code># A tibble: 5 × 7
+  term   estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Inte…  0.612     0.0647       9.46 7.32e-21  0.485      0.739 
+2 asset… -0.292     0.0425      -6.86 9.03e-12 -0.375     -0.208 
+3 nativ… -0.799     0.0618     -12.9  6.40e-37 -0.920     -0.677 
+4 age     0.00922   0.00123      7.50 8.87e-14  0.00681    0.0116
+5 asset…  0.201     0.0513       3.91 9.40e- 5  0.100      0.301 </code></pre>
 </div>
+</div>
+</div><div class="column" style="width:35%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>fit4 <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a></a>  <span class="fu">glance</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a></a>  <span class="fu">select</span>(adj.r.squared) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: right;">adj.r.squared</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">0.226</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div></div>
+<p>Now the adjusted <span class="math inline">\(R^2\)</span> has increased from 0.207, and we see that the p-value for age is quite small. We reject <span class="math inline">\(H_0: \beta_5=0\)</span> and conclude that age is improving our model. Next we address how to interpret the coefficient in this setting.</p>
+</div>
+</section><section id="interpreting-terms-in-multiple-regression" class="slide level2"><h2>Interpreting terms in multiple regression</h2>
+<div style="font-size:0.6em;">
+<p>Our model is <span class="math display">\[\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_5\text{age}_i+ \varepsilon_i\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>fit4 <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 7
+  term   estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Inte…  0.612     0.0647       9.46 7.32e-21  0.485      0.739 
+2 asset… -0.292     0.0425      -6.86 9.03e-12 -0.375     -0.208 
+3 nativ… -0.799     0.0618     -12.9  6.40e-37 -0.920     -0.677 
+4 age     0.00922   0.00123      7.50 8.87e-14  0.00681    0.0116
+5 asset…  0.201     0.0513       3.91 9.40e- 5  0.100      0.301 </code></pre>
+</div>
+</div>
+<p>Our fitted model is</p>
+<p><span class="math display">\[\widehat{\text{lnHg}}_i=0.612 - 0.292 \text{sdas}_i - 0.799 \text{nn}_i + 0.201 \text{nn}_i \text{sdas}_i + 0.00922 \text{age}_i\]</span></p>
+<p>The interpretation of the age term in our model is a little more complicated than the interpretation we had for assets in the assets-only model, but we still have two separate lines for community types.</p>
+</div>
+</section><section id="section-2" class="slide level2" data-background-color="white"><h2></h2>
+<div style="font-size:0.5em;">
+<p>Our fitted model is</p>
+<p><span class="math display">\[\widehat{\text{lnHg}}_i=0.612 - 0.292 \text{sdas}_i - 0.799 \text{nn}_i + 0.201 \text{nn}_i \text{sdas}_i + 0.00922 \text{age}_i\]</span> The slope coefficient for age in the log transformed model is 0.00922, meaning the log mercury difference between people whose ages are one year apart is predicted to be 0.00922 (95% CI=(0.00681,0.0116)) log ppm.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\log(\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i) &amp;- \log(\text{hair Hg for age}_i, \text{sdas}_i, \text{nn}_i) = \\
+&amp; \Big[0.612 - 0.292\,\text{sdas}_i - 0.799\,\text{nn}_i + 0.201\,\text{nn}_i\text{sdas}_i + 0.00922(\text{age}_i+1)\Big] \\
+&amp; - \Big[0.612 - 0.292\,\text{sdas}_i - 0.799\,\text{nn}_i + 0.201\,\text{nn}_i\text{sdas}_i + 0.00922\,\text{age}_i\Big] \\
+&amp;= 0.00922
+\end{aligned}
+\]</span></p>
+<p>So then <span class="math display">\[
+\begin{aligned}
+\log(\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i) - \log(\text{hair Hg for age}_i, \text{sdas}_i, \text{nn}_i) &amp; = 0.00922 \\
+\log\left(\frac{\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i}{\text{hair Hg for age}_i, \text{sdas}_i, \text{nn}_i}\right) &amp;= 0.00922 \\
+e^{\log\left(\frac{\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i}{\text{hair Hg for age}_i, \text{sdas}_i, \text{nn}_i}\right)} &amp;= e^{0.00922} \\
+\frac{\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i}{\text{hair Hg for age}_i, \text{sdas}_i, \text{nn}_i} = 1.01
+\end{aligned}
+\]</span></p>
+<p>For residents who are one year older, at a fixed asset level and community status, the hair Hg is expected to be higher, on average, by a factor of 1.01.</p>
+</div>
+</section><section id="section-3" class="slide level2"><h2>1.01?</h2>
+<div style="font-size:0.65em;">
+<p>How can an an increase by a factor of 1.01 be significant? The issue here is <em>scale</em> – age is in years, but we don’t necessarily expect massive changes in mercury levels over a one-year period. Let’s consider a ten-year difference in age instead by creating an age variable that measures age in decades instead of years.</p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>mercury <span class="ot">&lt;-</span> mercury <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a></a>  <span class="fu">mutate</span>(<span class="at">age10 =</span> age <span class="sc">/</span> <span class="dv">10</span>)</span>
+<span id="cb19-3"><a></a>fit5 <span class="ot">&lt;-</span> </span>
+<span id="cb19-4"><a></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> assets_sc <span class="sc">+</span> native_cat <span class="sc">+</span> assets_sc<span class="sc">*</span>native_cat <span class="sc">+</span> age10,</span>
+<span id="cb19-7"><a></a>      <span class="at">data =</span> mercury) </span>
+<span id="cb19-8"><a></a>fit5 <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>,<span class="at">exponentiate=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 7
+  term   estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Inte…    1.84     0.0647      9.46 7.32e-21    1.62      2.09 
+2 asset…    0.747    0.0425     -6.86 9.03e-12    0.687     0.812
+3 nativ…    0.450    0.0618    -12.9  6.40e-37    0.399     0.508
+4 age10     1.10     0.0123      7.50 8.87e-14    1.07      1.12 
+5 asset…    1.22     0.0513      3.91 9.40e- 5    1.11      1.35 </code></pre>
+</div>
+</div>
+</div><div class="column" style="width:35%;">
+<div class="fragment">
+<div style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em; text-align:center; font-size:0.8em;">
+<p>For residents who are <strong>ten years older</strong>, at a fixed asset level and community status, hair Hg is expected to be higher, on average, by a factor of</p>
+<p><strong>1.10</strong></p>
+<p>(95% CI: 1.07, 1.12)</p>
+</div>
+</div>
+</div></div>
 </div>
 
 
