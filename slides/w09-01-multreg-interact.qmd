@@ -272,7 +272,7 @@ adj_r2_2 <- fit2 %>% glance() %>% pull(adj.r.squared)
 ::: {style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em; text-align:center; margin-bottom: 0.8em;"}
 **Adjusted $R^2$**
 
-`r round(adj_r2_1, 2)` &nbsp;➔&nbsp; `r round(adj_r2_2, 2)`
+`r round(adj_r2_1, 3)` &nbsp;➔&nbsp; `r round(adj_r2_2, 3)`
 
 *assets-only → with community status + interaction*
 :::
@@ -280,7 +280,7 @@ adj_r2_2 <- fit2 %>% glance() %>% pull(adj.r.squared)
 Adjusted $R^2$ is preferred to standard $R^2$ in a model with more than one predictor:
 
 - $R^2$ can never decrease when more variables are added, so it can be suboptimal at identifying predictors that are not helpful.
-- Adjusted $R^2$ adds a penalty for having "too many" variables in a model.
+- Adjusted $R^2$ adds a penalty for having "too many" variables in a model and is preferred in multi-predictor settings.
 :::
 
 ::::
@@ -289,57 +289,192 @@ Adjusted $R^2$ is preferred to standard $R^2$ in a model with more than one pred
 
 ## Evaluating the interaction term
 
+<div style="font-size:0.7em;">
+
+
 We can also conduct a formal hypothesis test of whether the interaction term improves our model $\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i$ by evaluating $H_0: \beta_3=0$ against the alternative $H_0: \beta_3 \neq 0$.
 
 ```{r}
-fit2 %>% tidy(confint=TRUE)
+fit2 %>% tidy(conf.int=TRUE)
 ```
 
 If we look at the last line of output, corresponding to the interaction term, we see that the p-value is quite small, which leads us to reject the null hypothesis and conclude that the interaction term does add to the model fit.
 
-## Sex
+</div>
 
-Another variable that may help explain variability in hair Hg levels is sex. Let's add it to see if that helps ($male_i=1$ if male and 0 if not). Our model now is $$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_4\text{male}_i+ \varepsilon_i,$$
 
+## Adding sex to the model
+
+<div style="font-size:0.6em;">
+
+Another variable that may help explain variability in hair Hg levels is sex. 
+Let's add it to see if that helps ($male_i=1$ if male and 0 if not). 
+Our model now is 
+$$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_4\text{male}_i+ \varepsilon_i$$
+
+:::: {.columns}
+
+::: {.column width="65%"}
 ```{r}
 fit3 <- 
   linear_reg() %>%
   set_engine("lm") %>%
   fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat + sex_cat,
       data = mercury) 
-fit3 %>% tidy(confint=TRUE)
-fit3 %>% glance() %>% print(width = Inf)
+fit3 %>% tidy(conf.int=TRUE)
+```
+:::
+
+::: {.column width="35%"}
+```{r}
+fit3 %>% 
+  glance() %>% 
+  select(adj.r.squared) %>%
+  knitr::kable(digits = 3)
+```
+:::
+
+::::
+
+So the adjusted $R^2$ changed little from `r round(adj_r2_2, 3)` in the model without male sex. In addition, we see that the standard error of the sex coefficient in the model is large relative to its estimate, and the p-value is 0.9.  So the sex term isn't adding to our model fit or predictive ability.
+
+</div>
+
+
+## Adding age to the model
+
+<div style="font-size:0.6em;">
+
+Age in years, $age_i$ is another potentially important predictor. 
+
+Dropping the sex term and adding age, our model now is 
+$$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_5\text{age}_i+ \varepsilon_i$$
+
+
+
+:::: {.columns}
+
+::: {.column width="65%"}
+```{r}
+fit4 <- 
+  linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat + age,
+      data = mercury) 
+fit4 %>% tidy(conf.int=TRUE)
+```
+:::
+
+::: {.column width="35%"}
+```{r}
+fit4 %>% 
+  glance() %>% 
+  select(adj.r.squared) %>%
+  knitr::kable(digits = 3)
+```
+:::
+
+::::
+
+
+
+Now the adjusted $R^2$ has increased from `r round(adj_r2_2, 3)`, and we see that the p-value for age is quite small. We reject $H_0: \beta_5=0$ and conclude that age is improving our model. Next we address how to interpret the coefficient in this setting.
+
+</div>
+
+## Interpreting terms in multiple regression
+
+<div style="font-size:0.6em;">
+
+Our model is 
+$$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_5\text{age}_i+ \varepsilon_i$$
+
+```{r}
+fit4 %>% tidy(conf.int=TRUE)
 ```
 
+Our fitted model is
 
-## next
+$$\widehat{\text{lnHg}}_i=0.612 - 0.292 \text{sdas}_i - 0.799 \text{nn}_i + 0.201 \text{nn}_i \text{sdas}_i + 0.00922 \text{age}_i$$
 
-work through the model with and without interaction and the hypothesis test. first check the $R^2$ from assets-only model and compare to this one using glance. then do interaction test to see if we need that.
-
-
-## Multiple explanatory variables
+The interpretation of the age term in our model is a little more complicated than the interpretation we had for assets in the assets-only model, but we still have two separate lines for community types.
 
 
-Code to fit this model is given below.
 
-
-## todo
-
-Amy this is from the multiple regression part of the first diagnostics lecture in 2022
-
-I fixed up the simple regression notes with more details, so now I can build from here.
-
-You need the interaction. we can evaluate that, and interpret the different lines. Then add a predictor for which we don't need an interaction -- I have a more advanced model and can point out male isn't important, can do a test of that, can note the $R^2$ improved maybe due to age (mercury doesn't leave right?), talk about 1-year vs 10-year increase in age and rescale age?  Give interpretation conditional on other stuff in model held fixed.
+</div>
 
 ## {background-color="white"}
 
+<div style="font-size:0.5em;">
 
+
+Our fitted model is
+
+$$\widehat{\text{lnHg}}_i=0.612 - 0.292 \text{sdas}_i - 0.799 \text{nn}_i + 0.201 \text{nn}_i \text{sdas}_i + 0.00922 \text{age}_i$$
+The slope coefficient for age in the log transformed model is 0.00922, meaning the log mercury difference between people whose ages are one year apart is predicted to be 0.00922 (95% CI=(0.00681,0.0116)) log ppm.
+
+$$
+\begin{aligned}
+\log(\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i) &- \log(\text{hair Hg for age}_i, \text{sdas}_i, \text{nn}_i) = \\
+& \Big[0.612 - 0.292\,\text{sdas}_i - 0.799\,\text{nn}_i + 0.201\,\text{nn}_i\text{sdas}_i + 0.00922(\text{age}_i+1)\Big] \\
+& - \Big[0.612 - 0.292\,\text{sdas}_i - 0.799\,\text{nn}_i + 0.201\,\text{nn}_i\text{sdas}_i + 0.00922\,\text{age}_i\Big] \\
+&= 0.00922
+\end{aligned}
+$$
+
+So then
+$$
+\begin{aligned}
+\log(\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i) - \log(\text{hair Hg for age}_i, \text{sdas}_i, \text{nn}_i) & = 0.00922 \\
+\log\left(\frac{\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i}{\text{hair Hg for age}_i, \text{sdas}_i, \text{nn}_i}\right) &= 0.00922 \\
+e^{\log\left(\frac{\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i}{\text{hair Hg for age}_i, \text{sdas}_i, \text{nn}_i}\right)} &= e^{0.00922} \\
+\frac{\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i}{\text{hair Hg for age}_i, \text{sdas}_i, \text{nn}_i} = 1.01
+\end{aligned}
+$$
+
+For residents who are one year older, at a fixed asset level and community status, the hair Hg is expected to be higher, on average, by a factor of 1.01.
+
+
+</div>
+
+## 1.01?
+
+<div style="font-size:0.65em;">
+
+How can an an increase by a factor of 1.01 be significant? The issue here is *scale* -- age is in years, but we don't necessarily expect massive changes in mercury levels over a one-year period. Let's consider a ten-year difference in age instead by creating an age variable that measures age in decades instead of years.
+
+
+
+:::: {.columns}
+
+::: {.column width="65%"}
 ```{r}
-fit <- linear_reg() %>%
+#| echo: true
+mercury <- mercury %>%
+  mutate(age10 = age / 10)
+fit5 <- 
+  linear_reg() %>%
   set_engine("lm") %>%
-  fit(lhairHg ~ native_cat+age+assets_sc+sex_cat+native_cat*assets_sc,
+  fit(lhairHg ~ assets_sc + native_cat + assets_sc*native_cat + age10,
       data = mercury) 
-fit %>%
-  tidy(exponentiate=TRUE,conf.int=TRUE)
-fit %>% glance() %>% print(width = Inf)
-```  
+fit5 %>% tidy(conf.int=TRUE,exponentiate=TRUE)
+```
+:::
+
+::: {.column width="35%"}
+::: {.fragment}
+::: {style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em; text-align:center; font-size:0.8em;"}
+For residents who are **ten years older**, at a fixed asset level and community status, hair Hg is expected to be higher, on average, by a factor of
+
+**1.10**
+
+(95% CI: 1.07, 1.12)
+:::
+:::
+:::
+
+::::
+
+</div>
+
+

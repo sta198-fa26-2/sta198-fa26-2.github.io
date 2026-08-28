@@ -92,7 +92,7 @@ The typical hypothesis of interest is $$H_0:  \beta=0,$$ which corresponds to no
 
 ## $t$-test from a linear model
 
-<div style="font-size:0.7em;">
+<div style="font-size:0.6em;">
 
 
 For the linear model
@@ -282,14 +282,14 @@ Using this information, and properties of logs that we just reviewed, fill in th
 
 >For each additional increase in scaled assets, hair mercury content is expected to be `___` , on average, by a factor of `___`.
 
-$$ log(\text{hair Hg for assets x+1}) - log(\text{hair Hg for assets x}) = -0.3577 $$
+$$ \log(\text{hair Hg for assets x+1}) - \log(\text{hair Hg for assets x}) = -0.3577 $$
 
 ::: {.fragment}
-$$ log\left(\frac{\text{hair Hg for assets x+1}}{\text{hair Hg for assets x}}\right) = -0.3577 $$
+$$ \log\left(\frac{\text{hair Hg for assets x+1}}{\text{hair Hg for assets x}}\right) = -0.3577 $$
 :::
 
 ::: {.fragment}
-$$ e^{log\left(\frac{\text{Hg for assets x+1}}{\text{Hg for assets x}}\right)} = e^{-0.3577} $$
+$$ e^{\log\left(\frac{\text{Hg for assets x+1}}{\text{Hg for assets x}}\right)} = e^{-0.3577} $$
 :::
 
 ::: {.fragment}
