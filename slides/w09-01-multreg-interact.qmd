@@ -23,6 +23,7 @@ editor_options:
 ```
 
 ```{r}
+#| echo: false
 library(tidyverse)
 library(tidymodels)
 library(ggtext)
@@ -109,6 +110,10 @@ This is an example of an interaction effect -- the relationship between assets a
 
 ::::
 
+## Language
+
+
+
 ## Code
 
 ```{r}
@@ -155,7 +160,7 @@ A natural question is whether the slopes of these lines are significantly differ
 
 </div>
 
-## {background-color="white"}
+
 
 ## From model to two lines
 
@@ -289,16 +294,121 @@ Adjusted $R^2$ is preferred to standard $R^2$ in a model with more than one pred
 
 ## Evaluating the interaction term
 
+<div style="font-size:0.85em;">
+
+
+::: {.column width="65%"}
+```{r}
+#| label: hg-main-int-viz
+#| echo: false
+#| out-width: "70%"
+#| fig-asp: 0.9
+library(patchwork)
+hg_main_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc + native_cat, data = mercury1)
+hg_main_fit_aug <- augment(hg_main_fit$fit)
+
+hg_int_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc * native_cat, data = mercury1)
+hg_int_fit_aug <- augment(hg_int_fit$fit)
+
+p_main <- ggplot(hg_main_fit_aug,
+                 aes(y = lhairHg, x = assets_sc, color = native_cat)) +
+  geom_point(aes(shape = native_cat), alpha = 0.1) +
+  scale_color_manual(values = c("#E48957", "#071381")) +
+  geom_line(aes(y = .fitted), linewidth = 1.5) +
+  theme(legend.position = "none") +
+  labs(y = "log Hg", title = "Main effects", x = "Assets (standardized)") +
+  guides(shape = "none", color = "none")
+
+p_int <- ggplot(hg_int_fit_aug,
+                 aes(y = lhairHg, x = assets_sc, color = native_cat)) +
+  geom_point(aes(shape = native_cat), alpha = 0.1) +
+  scale_color_manual(values = c("#E48957", "#071381")) +
+  geom_line(aes(y = .fitted), linewidth = 1.5) +
+  theme(legend.position = "none") +
+  labs(y = "log Hg", title = "Interaction effects", x = "Assets (standardized)") +
+  guides(shape = "none", color = "none")
+
+p_main / p_int
+```
+:::
+
+::: {.column width="35%"}
+
+These plots illustrate the difference in the "main effects" model without any interaction term (top), and the interaction model (bottom). We want to evaluate how strongly the data support the need for different slopes to describe the assets-hair Hg relationship across community types. How might we do this?
+
+:::
+
+</div>
+
+
+## Terminology: main effects and interactions
+
+<div style="font-size:0.7em;">
+
+Recall our model:
+$$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i$$
+
+</div>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {style="background-color:#fdf1ea; border: 2px solid #E48957; border-radius: 8px; padding: 0.8em;"}
+
+<div style="font-size:0.7em;">
+
+**Main effect**
+
+The effect of a predictor **on its own**, ignoring how it might depend on another variable.
+
+- $\beta_1$: the effect of assets *when* $\text{nn}_i=0$*, i.e. for the reference/native group*
+- $\beta_2$: the effect of community type *when* $\text{sdas}_i=0$*, i.e. at mean assets*
+
+</div>
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em;"}
+
+<div style="font-size:0.7em;">
+
+**Interaction effect**
+
+The effect of one predictor **depends on the value of another** predictor.
+
+- $\beta_3$: how much the *slope* on assets changes when moving from native to non-native communities
+
+An interaction answers: *"does the relationship between assets and hair Hg differ by community type?"*
+
+</div>
+:::
+:::
+
+::::
+
+<div style="font-size:0.6em; margin-top:0.5em;">
+
+If we need $\beta_3$ in the model, assets and community status **interact** -- the assets–mercury relationship is not the same in native vs. non-native communities, and we cannot describe the effect of assets with a single slope for everyone.
+
+</div>
+
+## Evaluating the interaction term
+
 <div style="font-size:0.7em;">
 
 
-We can also conduct a formal hypothesis test of whether the interaction term improves our model $\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i$ by evaluating $H_0: \beta_3=0$ against the alternative $H_0: \beta_3 \neq 0$.
+We can conduct a formal hypothesis test of whether the interaction term improves our model $\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i$ by evaluating $H_0: \beta_3=0$ against the alternative $H_0: \beta_3 \neq 0$.
 
 ```{r}
 fit2 %>% tidy(conf.int=TRUE)
 ```
 
-If we look at the last line of output, corresponding to the interaction term, we see that the p-value is quite small, which leads us to reject the null hypothesis and conclude that the interaction term does add to the model fit.
+If we look at the last line of output, corresponding to the interaction term, we see that the p-value is quite small, which leads us to reject the null hypothesis and conclude that the interaction term does add to the model fit. So we do need to have separate slopes for assets by community type.
 
 </div>
 
@@ -308,7 +418,7 @@ If we look at the last line of output, corresponding to the interaction term, we
 <div style="font-size:0.6em;">
 
 Another variable that may help explain variability in hair Hg levels is sex. 
-Let's add it to see if that helps ($male_i=1$ if male and 0 if not). 
+Let's add it to see if that helps (note $male_i=1$ if male and 0 if not). 
 Our model now is 
 $$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_4\text{male}_i+ \varepsilon_i$$
 
@@ -411,7 +521,7 @@ The interpretation of the age term in our model is a little more complicated tha
 Our fitted model is
 
 $$\widehat{\text{lnHg}}_i=0.612 - 0.292 \text{sdas}_i - 0.799 \text{nn}_i + 0.201 \text{nn}_i \text{sdas}_i + 0.00922 \text{age}_i$$
-The slope coefficient for age in the log transformed model is 0.00922, meaning the log mercury difference between people whose ages are one year apart is predicted to be 0.00922 (95% CI=(0.00681,0.0116)) log ppm.
+The slope coefficient for age in the log transformed model is 0.00922, meaning the log mercury difference between people whose ages are one year apart is predicted to be 0.00922 (95% CI=(0.00681,0.0116)) log ppm, **if we hold all the other predictors in the model constant**.
 
 $$
 \begin{aligned}
@@ -477,4 +587,73 @@ For residents who are **ten years older**, at a fixed asset level and community 
 
 </div>
 
+
+
+## Interpretation of All Estimates
+
+<div style="font-size:0.6em;">
+We scaled age by 10, so our model is now $$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_5\frac{\text{age}_i}{10}+ \varepsilon_i$$
+</div>
+
+```{r}
+#| echo: false
+fit5 %>% tidy(conf.int=TRUE,exponentiate=TRUE)
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {style="background-color:#fdf1ea; border: 2px solid #E48957; border-radius: 8px; padding: 0.7em; font-size:0.55em;"}
+**Assets slope — Native**
+
+Holding age constant, each additional SD of assets in a native community is associated with hair Hg lower, on average, by a factor of **0.75**.
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.7em; font-size:0.55em;"}
+**Assets slope — Non-native**
+
+Holding age constant, each additional SD of assets in a non-native community is associated with hair Hg lower, on average, by a factor of $e^{-0.292+0.201}=e^{-0.091}=$ **0.91**.
+
+<div style="font-size:0.5em;">
+
+Note: that's from the figures on the log scale; if you do the math from this (exponentiated) table it's just $(0.747)(1.22)=0.91$
+
+</div> 
+:::
+:::
+
+::::
+
+## Interpretation of All Estimates
+
+<div style="font-size:0.6em;">
+Our model is $$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \beta_5\frac{\text{age}_i}{10}+ \varepsilon_i$$
+</div>
+
+```{r}
+#| echo: false
+fit5 %>% tidy(conf.int=TRUE,exponentiate=TRUE)
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {style="background-color:#f0f0f0; border: 2px solid #666; border-radius: 8px; padding: 0.7em; font-size:0.55em;"}
+**Age slope**
+
+At a fixed asset level and community status, residents ten years older are expected to have higher hair Hg, on average, by a factor of **1.10**.
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="background-color:#eafaea; border: 2px solid #2e7d32; border-radius: 8px; padding: 0.7em; font-size:0.55em;"}
+**Main effect of native status**
+
+At the mean asset level, holding age constant, hair mercury in non-native communities is lower, on average, by a factor of **0.45** than in native communities.
+:::
+:::
+
+::::
 
