@@ -35,18 +35,24 @@ library(tidyverse)
 
 # Goal
 
----
+
 
 ## Goal of statistics
 
+<div style="font-size:0.85em;">
+
+
 One goal of **statistics** is to answer a **research question**, by making **inferences** about a **population** based on data in one or more **samples**.
+
 - Population: the entire group we would like to make conclusions about (e.g., all people aged 15 and up in China, all pregnancies worldwide)
+
 - Sample: specific group we have collected data from (e.g., a random sample of non-institutionalized people aged 15 and up in sampled households, from sampled villages from sampled counties; pregnancies receiving prenatal care at Duke Hospital)
+
 - The validity of our inferences depends on a variety of factors, including the **representativeness** of our sample
 
 Question: how representative of worldwide pregnancies would a sample from Duke Hospital be?
 
----
+</div>
 
 ## Wound treatment and care in termite-hunting ants
 
@@ -67,7 +73,7 @@ Frank's team designed a series of experiments to explore factors related to diff
 
 </div>
 
----
+
 
 ## Experimental design
 
@@ -98,7 +104,7 @@ The injured ant had either:
 
 ::::
 
----
+
 
 ## Measuring rescue behavior
 
@@ -129,7 +135,6 @@ By comparing responses to lightly and heavily injured ants, they tested whether 
 
 ::::
 
----
 
 ## Drawing Conclusions
 
@@ -140,18 +145,18 @@ In order to draw principled conclusions from our data, we rely on a formal proba
 
 
 
----
+
 
 ## Probability
 
 The **probability** of an event tells us how likely an event is to occur, and it can take values from 0 to 1, inclusive. It can be viewed as the proportion of times the event would occur if it could be observed an infinite number of times. It can also be viewed as our degree of belief an event will happen.
 
----
+
 
 
 # Formalizing Probability
 
----
+
 
 ## Events
 
@@ -161,7 +166,7 @@ An **event** is the basic element to which probability is applied, e.g. the resu
 - **B** is the event that an ant is lightly injured
 - **C** is the event that a person has blood type A+
 
----
+
 
 ## Sample Spaces
 
@@ -171,7 +176,7 @@ The [prevalence of blood types varies widely around the world](https://en.wikipe
 
 Sample spaces depend on the research question.  For exploration of ABO blood types, the sample space is {A+, A-, B+, B-, AB+, AB-, O+, O-}.
 
----
+
 
 ## Operations on Events
 
@@ -181,11 +186,11 @@ Sample spaces depend on the research question.  For exploration of ABO blood typ
 
 - The **complement** of A, denoted $A^c$ or $\overline{A}$, is the event A does not occur (not carried back to the nest). $A$ and $\overline{A}$ are **mutually exclusive**. 
 
----
+
 
 # How Do Probabilities Work?
 
----
+
 
 ## Probability Rules
 
@@ -195,7 +200,7 @@ Sample spaces depend on the research question.  For exploration of ABO blood typ
 
 - If we know the probability of $A$, often denoted $P(A)$, it is easy to calculate the probability of $\overline{A}$ as $P(\overline{A})=1-P(A)$. This is called the **complement rule**:  $P(A)+P(\overline{A})=1$.
 
----
+
 
 ## Additive rule of probability
 
@@ -229,7 +234,7 @@ so the additive rule simplifies to $P(A \cup B)=P(A)+P(B).$
 
 ::::
 
----
+
 
 ## Computing Probabilities
 
@@ -246,11 +251,11 @@ P(E)=
 $$
 
 
----
+
 
 # Practice
 
----
+
 
 ## Ant rescue behavior
 
@@ -268,7 +273,6 @@ Consider a subset of data from the ant experiment.
 You can think of "carried away" as a type of disposal.
 </div>
 
----
 
 
 ## Practicing with Probabilities
