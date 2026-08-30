@@ -277,11 +277,18 @@ You can think of "carried away" as a type of disposal.
 
 ## Practicing with Probabilities
 
+<div style="font-size:0.75em;">
+
+
 Define events A=carried back to the nest and B=lightly injured. Calculate the following probabilities for a randomly-selected injured ant from the study.
 
 - $P(A)$
 
+- $P(\overline{A})$
+
 - $P(B)$
+
+- $P(\overline{B})$
 
 - $P(A \cup B)$
 
@@ -292,6 +299,10 @@ Define events A=carried back to the nest and B=lightly injured. Calculate the fo
 - $P(A \cap \overline{B})$
 
 - $P(\overline{A} \cap \overline{B})$
+
+- What else might you want to know before you say something about the relationship between injury level and being carried back?
+
+</div>
 
 ## What makes us human?
 
