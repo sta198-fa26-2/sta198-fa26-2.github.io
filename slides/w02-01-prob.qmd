@@ -69,7 +69,7 @@ Question: how representative of worldwide pregnancies would a sample from Duke H
 
 [Erik Frank](https://blog.myrmecologicalnews.org/2018/08/23/the-paramedic-ants-of-sub-saharan-africa-megaponera-analis/) and colleagues have been studying the behavior of the termite-hunting ant species *M. analis* in the Ivory Coast. During termite raids, some ants are injured by the defensive actions of the termites, and these ants often receive medical aid from nest mates.
 
-Frank's team designed a series of experiments to explore factors related to different types of aid.
+Frank's team designed a series of experiments to explore factors related to different types of aid. *How do ants decide which injured colleagues to treat?*
 
 </div>
 
@@ -172,7 +172,7 @@ An **event** is the basic element to which probability is applied, e.g. the resu
 
 A **sample space** is the set of all possible outcomes.  So for example, the sample space could be all possible blood types, the event C is the event that your blood type is A+, and the rest of the sample space, $\overline{C}$ as we will see in a minute, contains all other blood types.  
 
-The [prevalence of blood types varies widely around the world](https://en.wikipedia.org/wiki/Blood_type_distribution_by_country). About 36% of the US population has blood type A+, and we can say $P(A+)=0.36$ in the US.
+The [prevalence of blood types varies widely around the world](https://en.wikipedia.org/wiki/Blood_type_distribution_by_country). About 36% of the US population has blood type A+ (2nd most common type in US), and we say $P(A+)=0.36$ in the US.
 
 Sample spaces depend on the research question.  For exploration of ABO blood types, the sample space is {A+, A-, B+, B-, AB+, AB-, O+, O-}.
 
@@ -182,7 +182,7 @@ Sample spaces depend on the research question.  For exploration of ABO blood typ
 
 - The **union** of A and B, denoted $A \cup B$, is the event that A, or B, or both A and B, occur. Here, $A \cup B$ is the event that an ant is carried back to the nest, lightly injured, or both.
 
-- The **intersection** of A and B, denoted $A \cap B$, is the event that both A and B occur. Here $A \cap B$ is the event that a lightly injured ant is carried back to the nest. A and B are **disjoint** or **mutually exclusive** if $A \cap B = \emptyset$ (A and B can't occur simultaneously).  
+- The **intersection** of A and B, denoted $A \cap B$, is the event that both A and B occur. Here $A \cap B$ is the event that an ant is lightly injured and carried back to the nest. A and B are **disjoint** or **mutually exclusive** if $A \cap B = \emptyset$ (A and B can't occur simultaneously).  
 
 - The **complement** of A, denoted $A^c$ or $\overline{A}$, is the event A does not occur (not carried back to the nest). $A$ and $\overline{A}$ are **mutually exclusive**. 
 
@@ -208,7 +208,7 @@ Sample spaces depend on the research question.  For exploration of ABO blood typ
 
 ::: {.column width="40%"}
 
-![](../img/addrule.jpeg){width="100%"}
+![](../img/addrule.png){width="100%"}
 
 :::
 
@@ -242,7 +242,7 @@ Intuitively, we can think of the probability of an outcome (or set of outcomes) 
 
 If all the outcomes in our random process (sample space $\mathcal{S}$) are equally likely, then for some event $E$,
 
-If all outcomes are equally likely, then
+
 
 $$
 P(E)=
@@ -293,6 +293,45 @@ Define events A=carried back to the nest and B=lightly injured. Calculate the fo
 
 - $P(\overline{A} \cap \overline{B})$
 
+## What makes us human?
+
+Humans are not the only primates that experience insulin resistance.
+
+Dwarf lemurs can experience **reversible, seasonal insulin resistance** as part of their natural response to hibernation.
+
+In humans, persistent insulin resistance can increase the risk of developing type 2 diabetes.
+
+::: {.smaller}
+Background: [Blanco et al. (2023), *Frontiers in Physiology*](https://doi.org/10.3389/fphys.2023.1251042)
+:::
+
+
+## A comparative study
+
+Suppose a hypothetical study includes **100 primates**:
+
+- 60 humans and 40 dwarf lemurs
+- 30 show insulin resistance
+- 18 are humans who show insulin resistance
+
+Let H be the event a primate is human, and I be the event a primate shows insulin resistance.
+
+
+<div style="font-size:0.65em;">
+
+(The data in this exercise are hypothetical.)
+
+</div>
+
+## Your tasks
+
+Use the information from the previous slide to:
+
+1. Construct a two-way table or Venn diagram.
+2. Calculate and interpret $P(\overline{H})$
+3. Calculate and interpret $P(H \cap I)$
+4. Calculate and interpret $P(H \cup I)$
+5. Calculate and interpret $P(\overline{H} \cap I)$
 
 
 ## More practice
