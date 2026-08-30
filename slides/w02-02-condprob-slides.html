@@ -153,7 +153,7 @@ Amy Herring
   <p class="date">2026-09-02</p>
 </section><section id="conditional-probability" class="slide level2"><h2>Conditional Probability</h2>
 <p>Often we wish to know the probabilty an event will occur given that another event has occured.</p>
-<p>For example, instead of the <strong>marginal</strong> probability of contracting COVID (regardless of vaccination status), we may wish to know the probability that someone will contract COVID given that they have been vaccinated, or the probability someone will contract COVID given that they have not been vaccinated.</p>
+<p>For example, instead of the <strong>marginal</strong> probability of contracting COVID (regardless of vaccination status), we may wish to know the probability that someone will contract COVID given that they have been recently vaccinated, or the probability someone will contract COVID given that they have not been recently vaccinated.</p>
 <p>These are examples of <strong>conditional probability</strong>. The conditional probability that an ant is carried back (A) given that they are lightly injured (B) is denoted <span class="math inline">\(P(A|B)\)</span>, which we say as “probability of A given B.”</p>
 </section><section id="simple-example" class="slide level2"><h2>Simple Example</h2>
 <p>Suppose we have a small set containing 9 ants with light injuries carried back to the nest, 1 ant with a light injury that is not carried back, and 10 heavily-injured ants that are not carried back.</p>
@@ -214,15 +214,18 @@ Amy Herring
 <p>For two <strong>disjoint</strong> or <strong>mutually exclusive</strong> events, knowing that one event has occurred tells us that the other event definitely has not occurred, e.g.&nbsp;<span class="math inline">\(P(A \cap B)=0\)</span>.</p>
 <p>Disjoint events are therefore <em>not</em> independent!</p>
 </section><section id="relative-risk" class="slide level2"><h2>Relative Risk</h2>
+<div style="font-size:0.85em;">
 <p><strong>Relative risk</strong> is a useful concept for comparing the probabilities of an outcome event across groups. Sometimes we think of these groups as exposed and unexposed, but we can think of any two groups.</p>
 <p>The <strong>relative risk</strong> or <strong>RR</strong> is the probability a member of the exposed group will experience the outcome relative to the probability a member of the unexposed group will experience the outcome.</p>
 <p><span class="math display">\[RR = \frac{P(\text{outcome}|\text{exposed})}{P(\text{outcome}|\text{unexposed})}\]</span> A relative risk of 1.0 indicates that the probabilities of the outcomes in the two groups are identical.</p>
 <p>Note that the value of the relative risk is independent of the size of the probabilities – it is important to bear in mind that a RR=6 may not be that dramatic if the probability of an event is near zero in both groups.</p>
+</div>
 </section><section id="termite-raiding-ants-relative-risk" class="slide level2"><h2>Termite-Raiding Ants: Relative Risk</h2>
 <p>Recall our termite-raiding ant data:</p>
-<div style="height: 40px;">
+<div style="height: 10px;">
 
 </div>
+<div style="font-size:0.65em;">
 <table class="caption-top">
 <thead><tr class="header">
 <th></th>
@@ -245,7 +248,6 @@ Amy Herring
 </tr>
 </tbody>
 </table>
-<div style="font-size:0.7em;">
 <p>What is the relative risk of not being carried back among those heavily injured, relative to that among those who are lightly injured?</p>
 <div class="fragment">
 <p><span class="math display">\[RR = \frac{P(\text{outcome}|\text{exposed})}{P(\text{outcome}|\text{unexposed})}\]</span></p>
@@ -254,7 +256,10 @@ Amy Herring
 <p><span class="math display">\[RR = \frac{P(\text{not carried back}|\text{heavily injured})}{P(\text{not carried back}|\text{lightly injured})}\]</span></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[RR = \frac{\frac{5+20}{5+5+20}}{\frac{5}{45+5}}=\frac{25}{3}=8\frac{1}{3}\]</span></p>
+<p><span class="math display">\[RR = \frac{\frac{5+20}{5+5+20}}{\frac{5}{45+5}}=\frac{\frac{25}{30}}{\frac{5}{50}}=\frac{25}{30}\times \frac{50}{5}=\frac{25}{3}=8\frac{1}{3}\]</span></p>
+</div>
+<div class="fragment">
+<p>What would you say about the relationship between injury level and the risk of not being carried back?</p>
 </div>
 </div>
 </section><section><section id="example-breast-cancer-screening" class="title-slide slide level1 center"><h1>Example: Breast Cancer Screening</h1>
@@ -631,6 +636,7 @@ Amy Herring
 </section><section id="you-try-it" class="slide level2"><h2>You Try It!</h2>
 <p>Most people who have a negative test result (e.g., mammogram looks good or COVID test negative) don’t worry any longer about whether they really do have disease. Are they right not to worry? Suppose our 40 year old woman with a baseline 1% breast cancer risk instead had a negative (all clear) mammogram. What is the updated probability she has breast cancer given this test result?</p>
 </section><section id="you-try-it-1" class="slide level2"><h2>You Try It!</h2>
+<div style="font-size:0.8em;">
 <p>The prevalence of cancer is strongly dependent on age. Calculate the conditional probability of cancer given a positive mammogram for women in the following age groups.</p>
 <ol type="1">
 <li>Women in their 20’s, for whom cancer prevalence is roughly <span class="math inline">\(\frac{1}{10000}\)</span>
@@ -642,7 +648,23 @@ Amy Herring
 </ol>
 <p>What is the relative risk of breast cancer comparing women in their 60’s to women in their 40’s? What about comparing women in their 40’s to women in their 20’s?</p>
 <p>What other factors might influence this conditional probability (that is, are we happy with our assumptions here)?</p>
-</section><section id="more-practice" class="slide level2"><h2>More practice</h2>
+</div>
+</section><section id="more-practice-vaccines-and-covid" class="slide level2"><h2>More practice: Vaccines and COVID</h2>
+<div style="font-size:0.8em;">
+<p>A study examined 85,725 emergency department and urgent care encounters involving immunocompetent adults with COVID-19-like symptoms.</p>
+<ul>
+<li><p>9659 had received the 2025-2026 COVID-19 vaccine</p></li>
+<li><p>3941 tested positive for SARS-CoV-2</p></li>
+<li><p>206 were both vaccinated and SARS-CoV-2 positive</p></li>
+</ul>
+<ol type="1">
+<li><p>Are having received the vaccine and SARS-CoV-2 positivity mutually exclusive? Explain why or why not and use data to support your answer.</p></li>
+<li><p>What is the relative risk of SARS-CoV-2 positivity comparing those with and without the 2025-2026 vaccine?</p></li>
+<li><p>Are vaccination status and SARS-CoV-2 positivity independent events in this sample? Use additional data to support your answer.</p></li>
+<li><p>Do you think these results are generalizable to a broader population? Why or why not?</p></li>
+</ol>
+</div>
+</section><section id="even-more-practice" class="slide level2"><h2>Even more practice</h2>
 <p>Pagano, Gauvreau, and Mattie</p>
 <p>Section 5.6, problems 3, 4, 6, 8, 13</p>
 <p>Section 6.8, problems 1, 6, 7 (a and b only)</p>
@@ -848,6 +870,41 @@ Amy Herring
           RevealZoom
         ]
       });
+    </script><script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
     </script><script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

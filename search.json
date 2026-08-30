@@ -3246,7 +3246,7 @@
     "href": "slides/w02-01-prob-slides.html#practicing-with-probabilities",
     "title": "Probability",
     "section": "Practicing with Probabilities",
-    "text": "Practicing with Probabilities\nDefine events A=carried back to the nest and B=lightly injured. Calculate the following probabilities for a randomly-selected injured ant from the study.\n\n\\(P(A)\\)\n\\(P(B)\\)\n\\(P(A \\cup B)\\)\n\\(P(A \\cap B)\\)\n\\(P(\\overline{A} \\cap B)\\)\n\\(P(A \\cap \\overline{B})\\)\n\\(P(\\overline{A} \\cap \\overline{B})\\)"
+    "text": "Practicing with Probabilities\n\nDefine events A=carried back to the nest and B=lightly injured. Calculate the following probabilities for a randomly-selected injured ant from the study.\n\n\\(P(A)\\)\n\\(P(\\overline{A})\\)\n\\(P(B)\\)\n\\(P(\\overline{B})\\)\n\\(P(A \\cup B)\\)\n\\(P(A \\cap B)\\)\n\\(P(\\overline{A} \\cap B)\\)\n\\(P(A \\cap \\overline{B})\\)\n\\(P(\\overline{A} \\cap \\overline{B})\\)\nWhat else might you want to know before you say something about the relationship between injury level and being carried back?"
   },
   {
     "objectID": "slides/w02-01-prob-slides.html#what-makes-us-human",
@@ -3379,7 +3379,7 @@
     "href": "slides/w02-01-prob.html#practicing-with-probabilities",
     "title": "Probability",
     "section": "Practicing with Probabilities",
-    "text": "Practicing with Probabilities\nDefine events A=carried back to the nest and B=lightly injured. Calculate the following probabilities for a randomly-selected injured ant from the study.\n\n\\(P(A)\\)\n\\(P(B)\\)\n\\(P(A \\cup B)\\)\n\\(P(A \\cap B)\\)\n\\(P(\\overline{A} \\cap B)\\)\n\\(P(A \\cap \\overline{B})\\)\n\\(P(\\overline{A} \\cap \\overline{B})\\)"
+    "text": "Practicing with Probabilities\n\nDefine events A=carried back to the nest and B=lightly injured. Calculate the following probabilities for a randomly-selected injured ant from the study.\n\n\\(P(A)\\)\n\\(P(\\overline{A})\\)\n\\(P(B)\\)\n\\(P(\\overline{B})\\)\n\\(P(A \\cup B)\\)\n\\(P(A \\cap B)\\)\n\\(P(\\overline{A} \\cap B)\\)\n\\(P(A \\cap \\overline{B})\\)\n\\(P(\\overline{A} \\cap \\overline{B})\\)\nWhat else might you want to know before you say something about the relationship between injury level and being carried back?"
   },
   {
     "objectID": "slides/w02-01-prob.html#what-makes-us-human",
@@ -4842,14 +4842,14 @@
     "href": "slides/w02-02-condprob.html",
     "title": "Conditional Probability",
     "section": "",
-    "text": "Often we wish to know the probabilty an event will occur given that another event has occured.\nFor example, instead of the marginal probability of contracting COVID (regardless of vaccination status), we may wish to know the probability that someone will contract COVID given that they have been vaccinated, or the probability someone will contract COVID given that they have not been vaccinated.\nThese are examples of conditional probability. The conditional probability that an ant is carried back (A) given that they are lightly injured (B) is denoted \\(P(A|B)\\), which we say as “probability of A given B.”"
+    "text": "Often we wish to know the probabilty an event will occur given that another event has occured.\nFor example, instead of the marginal probability of contracting COVID (regardless of vaccination status), we may wish to know the probability that someone will contract COVID given that they have been recently vaccinated, or the probability someone will contract COVID given that they have not been recently vaccinated.\nThese are examples of conditional probability. The conditional probability that an ant is carried back (A) given that they are lightly injured (B) is denoted \\(P(A|B)\\), which we say as “probability of A given B.”"
   },
   {
     "objectID": "slides/w02-02-condprob.html#conditional-probability",
     "href": "slides/w02-02-condprob.html#conditional-probability",
     "title": "Conditional Probability",
     "section": "",
-    "text": "Often we wish to know the probabilty an event will occur given that another event has occured.\nFor example, instead of the marginal probability of contracting COVID (regardless of vaccination status), we may wish to know the probability that someone will contract COVID given that they have been vaccinated, or the probability someone will contract COVID given that they have not been vaccinated.\nThese are examples of conditional probability. The conditional probability that an ant is carried back (A) given that they are lightly injured (B) is denoted \\(P(A|B)\\), which we say as “probability of A given B.”"
+    "text": "Often we wish to know the probabilty an event will occur given that another event has occured.\nFor example, instead of the marginal probability of contracting COVID (regardless of vaccination status), we may wish to know the probability that someone will contract COVID given that they have been recently vaccinated, or the probability someone will contract COVID given that they have not been recently vaccinated.\nThese are examples of conditional probability. The conditional probability that an ant is carried back (A) given that they are lightly injured (B) is denoted \\(P(A|B)\\), which we say as “probability of A given B.”"
   },
   {
     "objectID": "slides/w02-02-condprob.html#simple-example",
@@ -4912,14 +4912,14 @@
     "href": "slides/w02-02-condprob.html#relative-risk",
     "title": "Conditional Probability",
     "section": "Relative Risk",
-    "text": "Relative Risk\nRelative risk is a useful concept for comparing the probabilities of an outcome event across groups. Sometimes we think of these groups as exposed and unexposed, but we can think of any two groups.\nThe relative risk or RR is the probability a member of the exposed group will experience the outcome relative to the probability a member of the unexposed group will experience the outcome.\n\\[RR = \\frac{P(\\text{outcome}|\\text{exposed})}{P(\\text{outcome}|\\text{unexposed})}\\] A relative risk of 1.0 indicates that the probabilities of the outcomes in the two groups are identical.\nNote that the value of the relative risk is independent of the size of the probabilities – it is important to bear in mind that a RR=6 may not be that dramatic if the probability of an event is near zero in both groups."
+    "text": "Relative Risk\n\nRelative risk is a useful concept for comparing the probabilities of an outcome event across groups. Sometimes we think of these groups as exposed and unexposed, but we can think of any two groups.\nThe relative risk or RR is the probability a member of the exposed group will experience the outcome relative to the probability a member of the unexposed group will experience the outcome.\n\\[RR = \\frac{P(\\text{outcome}|\\text{exposed})}{P(\\text{outcome}|\\text{unexposed})}\\] A relative risk of 1.0 indicates that the probabilities of the outcomes in the two groups are identical.\nNote that the value of the relative risk is independent of the size of the probabilities – it is important to bear in mind that a RR=6 may not be that dramatic if the probability of an event is near zero in both groups."
   },
   {
     "objectID": "slides/w02-02-condprob.html#termite-raiding-ants-relative-risk",
     "href": "slides/w02-02-condprob.html#termite-raiding-ants-relative-risk",
     "title": "Conditional Probability",
     "section": "Termite-Raiding Ants: Relative Risk",
-    "text": "Termite-Raiding Ants: Relative Risk\nRecall our termite-raiding ant data:\n\n\n\n\n\n\nCarried Back\nCarried Away\nNot Carried\n\n\n\nLightly Injured\n45\n0\n5\n\n\nHeavily Injured\n5\n5\n20\n\n\n\n\nWhat is the relative risk of not being carried back among those heavily injured, relative to that among those who are lightly injured?\n\n\\[RR = \\frac{P(\\text{outcome}|\\text{exposed})}{P(\\text{outcome}|\\text{unexposed})}\\]\n\n\n\\[RR = \\frac{P(\\text{not carried back}|\\text{heavily injured})}{P(\\text{not carried back}|\\text{lightly injured})}\\]\n\n\n\\[RR = \\frac{\\frac{5+20}{5+5+20}}{\\frac{5}{45+5}}=\\frac{25}{3}=8\\frac{1}{3}\\]"
+    "text": "Termite-Raiding Ants: Relative Risk\nRecall our termite-raiding ant data:\n\n\n\n\n\n\n\nCarried Back\nCarried Away\nNot Carried\n\n\n\nLightly Injured\n45\n0\n5\n\n\nHeavily Injured\n5\n5\n20\n\n\n\nWhat is the relative risk of not being carried back among those heavily injured, relative to that among those who are lightly injured?\n\n\\[RR = \\frac{P(\\text{outcome}|\\text{exposed})}{P(\\text{outcome}|\\text{unexposed})}\\]\n\n\n\\[RR = \\frac{P(\\text{not carried back}|\\text{heavily injured})}{P(\\text{not carried back}|\\text{lightly injured})}\\]\n\n\n\\[RR = \\frac{\\frac{5+20}{5+5+20}}{\\frac{5}{45+5}}=\\frac{\\frac{25}{30}}{\\frac{5}{50}}=\\frac{25}{30}\\times \\frac{50}{5}=\\frac{25}{3}=8\\frac{1}{3}\\]\n\n\nWhat would you say about the relationship between injury level and the risk of not being carried back?"
   },
   {
     "objectID": "slides/w02-02-condprob.html#mammogram-result",
@@ -5017,21 +5017,28 @@
     "href": "slides/w02-02-condprob.html#you-try-it-1",
     "title": "Conditional Probability",
     "section": "You Try It!",
-    "text": "You Try It!\nThe prevalence of cancer is strongly dependent on age. Calculate the conditional probability of cancer given a positive mammogram for women in the following age groups.\n\nWomen in their 20’s, for whom cancer prevalence is roughly \\(\\frac{1}{10000}\\)\n\nWomen in their 50’s, for whom cancer prevalence is roughly \\(\\frac{1}{50}\\)\n\nWomen in their 60’s, for whom cancer prevalence is roughly \\(\\frac{1}{30}\\)\n\n\nWhat is the relative risk of breast cancer comparing women in their 60’s to women in their 40’s? What about comparing women in their 40’s to women in their 20’s?\nWhat other factors might influence this conditional probability (that is, are we happy with our assumptions here)?"
+    "text": "You Try It!\n\nThe prevalence of cancer is strongly dependent on age. Calculate the conditional probability of cancer given a positive mammogram for women in the following age groups.\n\nWomen in their 20’s, for whom cancer prevalence is roughly \\(\\frac{1}{10000}\\)\n\nWomen in their 50’s, for whom cancer prevalence is roughly \\(\\frac{1}{50}\\)\n\nWomen in their 60’s, for whom cancer prevalence is roughly \\(\\frac{1}{30}\\)\n\n\nWhat is the relative risk of breast cancer comparing women in their 60’s to women in their 40’s? What about comparing women in their 40’s to women in their 20’s?\nWhat other factors might influence this conditional probability (that is, are we happy with our assumptions here)?"
   },
   {
-    "objectID": "slides/w02-02-condprob.html#more-practice",
-    "href": "slides/w02-02-condprob.html#more-practice",
+    "objectID": "slides/w02-02-condprob.html#more-practice-vaccines-and-covid",
+    "href": "slides/w02-02-condprob.html#more-practice-vaccines-and-covid",
     "title": "Conditional Probability",
-    "section": "More practice",
-    "text": "More practice\nPagano, Gauvreau, and Mattie\nSection 5.6, problems 3, 4, 6, 8, 13\nSection 6.8, problems 1, 6, 7 (a and b only)"
+    "section": "More practice: Vaccines and COVID",
+    "text": "More practice: Vaccines and COVID\n\nA study examined 85,725 emergency department and urgent care encounters involving immunocompetent adults with COVID-19-like symptoms.\n\n9659 had received the 2025-2026 COVID-19 vaccine\n3941 tested positive for SARS-CoV-2\n206 were both vaccinated and SARS-CoV-2 positive\n\n\nAre having received the vaccine and SARS-CoV-2 positivity mutually exclusive? Explain why or why not and use data to support your answer.\nWhat is the relative risk of SARS-CoV-2 positivity comparing those with and without the 2025-2026 vaccine?\nAre vaccination status and SARS-CoV-2 positivity independent events in this sample? Use additional data to support your answer.\nDo you think these results are generalizable to a broader population? Why or why not?"
+  },
+  {
+    "objectID": "slides/w02-02-condprob.html#even-more-practice",
+    "href": "slides/w02-02-condprob.html#even-more-practice",
+    "title": "Conditional Probability",
+    "section": "Even more practice",
+    "text": "Even more practice\nPagano, Gauvreau, and Mattie\nSection 5.6, problems 3, 4, 6, 8, 13\nSection 6.8, problems 1, 6, 7 (a and b only)"
   },
   {
     "objectID": "slides/w02-02-condprob-slides.html#conditional-probability",
     "href": "slides/w02-02-condprob-slides.html#conditional-probability",
     "title": "Conditional Probability",
     "section": "Conditional Probability",
-    "text": "Conditional Probability\nOften we wish to know the probabilty an event will occur given that another event has occured.\nFor example, instead of the marginal probability of contracting COVID (regardless of vaccination status), we may wish to know the probability that someone will contract COVID given that they have been vaccinated, or the probability someone will contract COVID given that they have not been vaccinated.\nThese are examples of conditional probability. The conditional probability that an ant is carried back (A) given that they are lightly injured (B) is denoted \\(P(A|B)\\), which we say as “probability of A given B.”"
+    "text": "Conditional Probability\nOften we wish to know the probabilty an event will occur given that another event has occured.\nFor example, instead of the marginal probability of contracting COVID (regardless of vaccination status), we may wish to know the probability that someone will contract COVID given that they have been recently vaccinated, or the probability someone will contract COVID given that they have not been recently vaccinated.\nThese are examples of conditional probability. The conditional probability that an ant is carried back (A) given that they are lightly injured (B) is denoted \\(P(A|B)\\), which we say as “probability of A given B.”"
   },
   {
     "objectID": "slides/w02-02-condprob-slides.html#simple-example",
@@ -5094,14 +5101,14 @@
     "href": "slides/w02-02-condprob-slides.html#relative-risk",
     "title": "Conditional Probability",
     "section": "Relative Risk",
-    "text": "Relative Risk\nRelative risk is a useful concept for comparing the probabilities of an outcome event across groups. Sometimes we think of these groups as exposed and unexposed, but we can think of any two groups.\nThe relative risk or RR is the probability a member of the exposed group will experience the outcome relative to the probability a member of the unexposed group will experience the outcome.\n\\[RR = \\frac{P(\\text{outcome}|\\text{exposed})}{P(\\text{outcome}|\\text{unexposed})}\\] A relative risk of 1.0 indicates that the probabilities of the outcomes in the two groups are identical.\nNote that the value of the relative risk is independent of the size of the probabilities – it is important to bear in mind that a RR=6 may not be that dramatic if the probability of an event is near zero in both groups."
+    "text": "Relative Risk\n\nRelative risk is a useful concept for comparing the probabilities of an outcome event across groups. Sometimes we think of these groups as exposed and unexposed, but we can think of any two groups.\nThe relative risk or RR is the probability a member of the exposed group will experience the outcome relative to the probability a member of the unexposed group will experience the outcome.\n\\[RR = \\frac{P(\\text{outcome}|\\text{exposed})}{P(\\text{outcome}|\\text{unexposed})}\\] A relative risk of 1.0 indicates that the probabilities of the outcomes in the two groups are identical.\nNote that the value of the relative risk is independent of the size of the probabilities – it is important to bear in mind that a RR=6 may not be that dramatic if the probability of an event is near zero in both groups."
   },
   {
     "objectID": "slides/w02-02-condprob-slides.html#termite-raiding-ants-relative-risk",
     "href": "slides/w02-02-condprob-slides.html#termite-raiding-ants-relative-risk",
     "title": "Conditional Probability",
     "section": "Termite-Raiding Ants: Relative Risk",
-    "text": "Termite-Raiding Ants: Relative Risk\nRecall our termite-raiding ant data:\n\n\n\n\n\n\nCarried Back\nCarried Away\nNot Carried\n\n\n\nLightly Injured\n45\n0\n5\n\n\nHeavily Injured\n5\n5\n20\n\n\n\n\nWhat is the relative risk of not being carried back among those heavily injured, relative to that among those who are lightly injured?\n\n\\[RR = \\frac{P(\\text{outcome}|\\text{exposed})}{P(\\text{outcome}|\\text{unexposed})}\\]\n\n\n\\[RR = \\frac{P(\\text{not carried back}|\\text{heavily injured})}{P(\\text{not carried back}|\\text{lightly injured})}\\]\n\n\n\\[RR = \\frac{\\frac{5+20}{5+5+20}}{\\frac{5}{45+5}}=\\frac{25}{3}=8\\frac{1}{3}\\]"
+    "text": "Termite-Raiding Ants: Relative Risk\nRecall our termite-raiding ant data:\n\n\n\n\n\n\n\nCarried Back\nCarried Away\nNot Carried\n\n\n\nLightly Injured\n45\n0\n5\n\n\nHeavily Injured\n5\n5\n20\n\n\n\nWhat is the relative risk of not being carried back among those heavily injured, relative to that among those who are lightly injured?\n\n\\[RR = \\frac{P(\\text{outcome}|\\text{exposed})}{P(\\text{outcome}|\\text{unexposed})}\\]\n\n\n\\[RR = \\frac{P(\\text{not carried back}|\\text{heavily injured})}{P(\\text{not carried back}|\\text{lightly injured})}\\]\n\n\n\\[RR = \\frac{\\frac{5+20}{5+5+20}}{\\frac{5}{45+5}}=\\frac{\\frac{25}{30}}{\\frac{5}{50}}=\\frac{25}{30}\\times \\frac{50}{5}=\\frac{25}{3}=8\\frac{1}{3}\\]\n\n\nWhat would you say about the relationship between injury level and the risk of not being carried back?"
   },
   {
     "objectID": "slides/w02-02-condprob-slides.html#mammogram-result",
@@ -5199,14 +5206,21 @@
     "href": "slides/w02-02-condprob-slides.html#you-try-it-1",
     "title": "Conditional Probability",
     "section": "You Try It!",
-    "text": "You Try It!\nThe prevalence of cancer is strongly dependent on age. Calculate the conditional probability of cancer given a positive mammogram for women in the following age groups.\n\nWomen in their 20’s, for whom cancer prevalence is roughly \\(\\frac{1}{10000}\\)\n\nWomen in their 50’s, for whom cancer prevalence is roughly \\(\\frac{1}{50}\\)\n\nWomen in their 60’s, for whom cancer prevalence is roughly \\(\\frac{1}{30}\\)\n\n\nWhat is the relative risk of breast cancer comparing women in their 60’s to women in their 40’s? What about comparing women in their 40’s to women in their 20’s?\nWhat other factors might influence this conditional probability (that is, are we happy with our assumptions here)?"
+    "text": "You Try It!\n\nThe prevalence of cancer is strongly dependent on age. Calculate the conditional probability of cancer given a positive mammogram for women in the following age groups.\n\nWomen in their 20’s, for whom cancer prevalence is roughly \\(\\frac{1}{10000}\\)\n\nWomen in their 50’s, for whom cancer prevalence is roughly \\(\\frac{1}{50}\\)\n\nWomen in their 60’s, for whom cancer prevalence is roughly \\(\\frac{1}{30}\\)\n\n\nWhat is the relative risk of breast cancer comparing women in their 60’s to women in their 40’s? What about comparing women in their 40’s to women in their 20’s?\nWhat other factors might influence this conditional probability (that is, are we happy with our assumptions here)?"
   },
   {
-    "objectID": "slides/w02-02-condprob-slides.html#more-practice",
-    "href": "slides/w02-02-condprob-slides.html#more-practice",
+    "objectID": "slides/w02-02-condprob-slides.html#more-practice-vaccines-and-covid",
+    "href": "slides/w02-02-condprob-slides.html#more-practice-vaccines-and-covid",
     "title": "Conditional Probability",
-    "section": "More practice",
-    "text": "More practice\nPagano, Gauvreau, and Mattie\nSection 5.6, problems 3, 4, 6, 8, 13\nSection 6.8, problems 1, 6, 7 (a and b only)"
+    "section": "More practice: Vaccines and COVID",
+    "text": "More practice: Vaccines and COVID\n\nA study examined 85,725 emergency department and urgent care encounters involving immunocompetent adults with COVID-19-like symptoms.\n\n9659 had received the 2025-2026 COVID-19 vaccine\n3941 tested positive for SARS-CoV-2\n206 were both vaccinated and SARS-CoV-2 positive\n\n\nAre having received the vaccine and SARS-CoV-2 positivity mutually exclusive? Explain why or why not and use data to support your answer.\nWhat is the relative risk of SARS-CoV-2 positivity comparing those with and without the 2025-2026 vaccine?\nAre vaccination status and SARS-CoV-2 positivity independent events in this sample? Use additional data to support your answer.\nDo you think these results are generalizable to a broader population? Why or why not?"
+  },
+  {
+    "objectID": "slides/w02-02-condprob-slides.html#even-more-practice",
+    "href": "slides/w02-02-condprob-slides.html#even-more-practice",
+    "title": "Conditional Probability",
+    "section": "Even more practice",
+    "text": "Even more practice\nPagano, Gauvreau, and Mattie\nSection 5.6, problems 3, 4, 6, 8, 13\nSection 6.8, problems 1, 6, 7 (a and b only)"
   },
   {
     "objectID": "slides/w04-03-tidy.html",
