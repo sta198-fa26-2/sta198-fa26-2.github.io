@@ -9,7 +9,7 @@ draft: false
 
 ## Download the repo (just a reminder of the steps!)
 
--   Go to the repository for **lab-1** in the course GitHub organization: <https://github.com/Fall-2026-Global-Health-Data-Science/lab-01>.
+-   Go to the repository for **lab-1** in the course GitHub organization: <https://github.com/sta198-fa26-2/lab-1>.
 
 -   Click on the green **CODE** button, select **Use SSH** (this might already be selected by default, and if it is, you'll see the text **Clone with SSH**).
     Click on the clipboard icon to copy the repo URL.
