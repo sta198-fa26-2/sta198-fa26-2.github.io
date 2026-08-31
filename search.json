@@ -3911,7 +3911,7 @@
     "href": "slides/w02-03-probaction.html#you-try-it",
     "title": "Case Study: Humans and AI in Diagnostic Imaging",
     "section": "You Try It!",
-    "text": "You Try It!\nDownload the repo [AMY PUT IN HERE AE-01]. Change the cutpoint in the variable ai_prob in order to make the change needed to catch more of the true cardiomediastinal abnormalities and re-calculate the sensitivity and specificity."
+    "text": "You Try It!\nDownload the repo for this example. Change the cutpoint in the variable ai_prob in order to make the change needed to catch more of the true cardiomediastinal abnormalities and re-calculate the sensitivity and specificity."
   },
   {
     "objectID": "slides/w02-03-probaction-slides.html#collab-cxr",
@@ -3946,7 +3946,7 @@
     "href": "slides/w02-03-probaction-slides.html#you-try-it",
     "title": "Case Study: Humans and AI in Diagnostic Imaging",
     "section": "You Try It!",
-    "text": "You Try It!\nDownload the repo [AMY PUT IN HERE AE-01]. Change the cutpoint in the variable ai_prob in order to make the change needed to catch more of the true cardiomediastinal abnormalities and re-calculate the sensitivity and specificity."
+    "text": "You Try It!\nDownload the repo for this example. Change the cutpoint in the variable ai_prob in order to make the change needed to catch more of the true cardiomediastinal abnormalities and re-calculate the sensitivity and specificity."
   },
   {
     "objectID": "slides/w07-02-test-mean-prop.html#main-ideas",
