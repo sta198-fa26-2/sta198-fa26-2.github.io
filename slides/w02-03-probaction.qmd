@@ -109,7 +109,7 @@ We consider data from collab-CXR on chest x-ray detection of cardiomediastinal a
 
 ## You Try It!
 
-Download the repo [AMY PUT IN HERE AE-01]. Change the cutpoint in the variable `ai_prob` in order to make the change needed to catch more of the true cardiomediastinal abnormalities and re-calculate the sensitivity and specificity. 
+Download the [repo for this example](https://github.com/sta198-fa26-2/ae-01). Change the cutpoint in the variable `ai_prob` in order to make the change needed to catch more of the true cardiomediastinal abnormalities and re-calculate the sensitivity and specificity. 
 
 --- 
 
