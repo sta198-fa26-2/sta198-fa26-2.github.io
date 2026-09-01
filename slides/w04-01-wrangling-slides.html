@@ -671,25 +671,79 @@ Click to reveal output
 </div>
 </details>
 </div>
-</section><section class="slide level2"><h3 id="summarize"><code>summarize()</code></h3>
+</section><section class="slide level2"><h3 id="combining-mutate-and-ifelse">Combining <code>mutate()</code> and <code>ifelse()</code>
+</h3>
+<p>When you need to create a simple <strong>binary flag</strong> (Yes/No, True/False) based on a threshold within a pipeline, pairing <strong><code>mutate()</code></strong> with <strong><code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code></strong> is the cleanest approach.</p>
+<p>Unlike <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code>, which builds complex ranges, <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> handles a single boundary line efficiently.</p>
+</section><section id="practical-example-overweight-flag" class="slide level2"><h2>Practical Example: Overweight Flag</h2>
+<p>To create a new variable called <code>overweight</code> that marks individuals with a BMI of <strong>25 or higher</strong> as <code>"Overweight"</code> and everyone else as <code>"Not Overweight"</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a></a>  <span class="fu">mutate</span>(<span class="at">overweight =</span> <span class="fu">ifelse</span>(BMI <span class="sc">&gt;=</span> <span class="dv">25</span>, <span class="st">"Overweight"</span>, <span class="st">"Not Overweight"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a></a>  <span class="fu">select</span>(BMI, overweight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,400 × 2
+    BMI overweight    
+  &lt;dbl&gt; &lt;chr&gt;         
+1  20.2 Not Overweight
+2  19.7 Not Overweight
+3  22.4 Not Overweight
+4  22.8 Not Overweight
+5  22.5 Not Overweight
+6  23.6 Not Overweight
+# ℹ 2,394 more rows</code></pre>
+</div>
+</div>
+</section><section id="how-the-data-transforms" class="slide level2"><h2>How the Data Transforms</h2>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">BMI</th>
+<th style="text-align: center;">
+<code>BMI &gt;= 25</code> Evaluation</th>
+<th style="text-align: left;">Resulting <code>overweight</code> Label</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">22.4</td>
+<td style="text-align: center;"><strong>FALSE</strong></td>
+<td style="text-align: left;">“Not Overweight”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>25.0</strong></td>
+<td style="text-align: center;">
+<strong>TRUE</strong> (Inclusive)</td>
+<td style="text-align: left;"><strong>“Overweight”</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>28.1</strong></td>
+<td style="text-align: center;"><strong>TRUE</strong></td>
+<td style="text-align: left;"><strong>“Overweight”</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NA</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+</tbody>
+</table></section><section class="slide level2"><h3 id="summarize"><code>summarize()</code></h3>
 <div style="font-size:0.65em;">
 <p><code>summarize</code> calculates summary statistics. It collapses rows into summary statistics and removes columns irrelevant to the calculation. Be sure to name your columns!</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a></a>  <span class="fu">mutate</span>(<span class="at">bmiclass =</span> <span class="fu">cut</span>(BMI,</span>
-<span id="cb37-3"><a></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">Inf</span>),</span>
-<span id="cb37-4"><a></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb37-5"><a></a>      <span class="st">"Underweight"</span>,</span>
-<span id="cb37-6"><a></a>      <span class="st">"Normal Range"</span>,</span>
-<span id="cb37-7"><a></a>      <span class="st">"Overweight"</span>,</span>
-<span id="cb37-8"><a></a>      <span class="st">"Obese I"</span>,</span>
-<span id="cb37-9"><a></a>      <span class="st">"Obese II"</span>,</span>
-<span id="cb37-10"><a></a>      <span class="st">"Obese III"</span></span>
-<span id="cb37-11"><a></a>    ),</span>
-<span id="cb37-12"><a></a>    <span class="at">right =</span> <span class="cn">FALSE</span></span>
-<span id="cb37-13"><a></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb37-14"><a></a>  <span class="fu">mutate</span>(<span class="at">normal_range =</span> bmiclass <span class="sc">==</span> <span class="st">"Normal Range"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb37-15"><a></a>  <span class="fu">summarize</span>(<span class="at">fracnormal =</span> <span class="fu">mean</span>(normal_range))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a></a>  <span class="fu">mutate</span>(<span class="at">bmiclass =</span> <span class="fu">cut</span>(BMI,</span>
+<span id="cb39-3"><a></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">Inf</span>),</span>
+<span id="cb39-4"><a></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb39-5"><a></a>      <span class="st">"Underweight"</span>,</span>
+<span id="cb39-6"><a></a>      <span class="st">"Normal Range"</span>,</span>
+<span id="cb39-7"><a></a>      <span class="st">"Overweight"</span>,</span>
+<span id="cb39-8"><a></a>      <span class="st">"Obese I"</span>,</span>
+<span id="cb39-9"><a></a>      <span class="st">"Obese II"</span>,</span>
+<span id="cb39-10"><a></a>      <span class="st">"Obese III"</span></span>
+<span id="cb39-11"><a></a>    ),</span>
+<span id="cb39-12"><a></a>    <span class="at">right =</span> <span class="cn">FALSE</span></span>
+<span id="cb39-13"><a></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb39-14"><a></a>  <span class="fu">mutate</span>(<span class="at">normal_range =</span> bmiclass <span class="sc">==</span> <span class="st">"Normal Range"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-15"><a></a>  <span class="fu">summarize</span>(<span class="at">fracnormal =</span> <span class="fu">mean</span>(normal_range))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details><summary>
 Click to reveal output
@@ -706,22 +760,22 @@ Click to reveal output
 </section><section class="slide level2"><div style="font-size:0.65em;">
 <p><strong>Question:</strong> The code chunk returns an NA. What is going wrong?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
-<span id="cb39-2"><a></a>  <span class="fu">mutate</span>(<span class="at">bmiclass =</span> <span class="fu">cut</span>(BMI,</span>
-<span id="cb39-3"><a></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">Inf</span>),</span>
-<span id="cb39-4"><a></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb39-5"><a></a>      <span class="st">"Underweight"</span>,</span>
-<span id="cb39-6"><a></a>      <span class="st">"Normal Range"</span>,</span>
-<span id="cb39-7"><a></a>      <span class="st">"Overweight"</span>,</span>
-<span id="cb39-8"><a></a>      <span class="st">"Obese I"</span>,</span>
-<span id="cb39-9"><a></a>      <span class="st">"Obese II"</span>,</span>
-<span id="cb39-10"><a></a>      <span class="st">"Obese III"</span></span>
-<span id="cb39-11"><a></a>    ),</span>
-<span id="cb39-12"><a></a>    <span class="at">right =</span> <span class="cn">FALSE</span></span>
-<span id="cb39-13"><a></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb39-14"><a></a>  <span class="fu">group_by</span>(bmiclass) <span class="sc">%&gt;%</span></span>
-<span id="cb39-15"><a></a>  <span class="fu">count</span>(bmiclass) <span class="sc">%&gt;%</span></span>
-<span id="cb39-16"><a></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a></a>  <span class="fu">mutate</span>(<span class="at">bmiclass =</span> <span class="fu">cut</span>(BMI,</span>
+<span id="cb41-3"><a></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">Inf</span>),</span>
+<span id="cb41-4"><a></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb41-5"><a></a>      <span class="st">"Underweight"</span>,</span>
+<span id="cb41-6"><a></a>      <span class="st">"Normal Range"</span>,</span>
+<span id="cb41-7"><a></a>      <span class="st">"Overweight"</span>,</span>
+<span id="cb41-8"><a></a>      <span class="st">"Obese I"</span>,</span>
+<span id="cb41-9"><a></a>      <span class="st">"Obese II"</span>,</span>
+<span id="cb41-10"><a></a>      <span class="st">"Obese III"</span></span>
+<span id="cb41-11"><a></a>    ),</span>
+<span id="cb41-12"><a></a>    <span class="at">right =</span> <span class="cn">FALSE</span></span>
+<span id="cb41-13"><a></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb41-14"><a></a>  <span class="fu">group_by</span>(bmiclass) <span class="sc">%&gt;%</span></span>
+<span id="cb41-15"><a></a>  <span class="fu">count</span>(bmiclass) <span class="sc">%&gt;%</span></span>
+<span id="cb41-16"><a></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details><summary>
 Click to reveal output
@@ -743,8 +797,8 @@ Click to reveal output
 </div>
 </section><section class="slide level2"><div style="font-size:0.65em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
-<span id="cb41-2"><a></a>  <span class="fu">count</span>(BMI<span class="sc">==</span><span class="st">"NA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a></a>  <span class="fu">count</span>(BMI<span class="sc">==</span><span class="st">"NA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details><summary>
 Click to reveal output
@@ -762,9 +816,9 @@ Click to reveal output
 </div>
 </section><section class="slide level2"><p>Let’s print all 18 variables and see if we can tell what’s going on.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
-<span id="cb43-2"><a></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(BMI)<span class="sc">==</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb43-3"><a></a>  <span class="fu">print</span>(<span class="at">n=</span><span class="dv">18</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(BMI)<span class="sc">==</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a></a>  <span class="fu">print</span>(<span class="at">n=</span><span class="dv">18</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="investigating-missing-values" class="slide level2"><h2>Investigating Missing Values</h2>
 <div class="cell" data-layout-align="center">
@@ -796,21 +850,21 @@ Click to reveal output
 </section><section class="slide level2"><div style="font-size:0.65em;">
 <p>Finally, let’s get the proportion of values with mean BMI in the normal range.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
-<span id="cb45-2"><a></a>  <span class="fu">mutate</span>(<span class="at">bmiclass =</span> <span class="fu">cut</span>(BMI,</span>
-<span id="cb45-3"><a></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">Inf</span>),</span>
-<span id="cb45-4"><a></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb45-5"><a></a>      <span class="st">"Underweight"</span>,</span>
-<span id="cb45-6"><a></a>      <span class="st">"Normal Range"</span>,</span>
-<span id="cb45-7"><a></a>      <span class="st">"Overweight"</span>,</span>
-<span id="cb45-8"><a></a>      <span class="st">"Obese I"</span>,</span>
-<span id="cb45-9"><a></a>      <span class="st">"Obese II"</span>,</span>
-<span id="cb45-10"><a></a>      <span class="st">"Obese III"</span></span>
-<span id="cb45-11"><a></a>    ),</span>
-<span id="cb45-12"><a></a>    <span class="at">right =</span> <span class="cn">FALSE</span></span>
-<span id="cb45-13"><a></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb45-14"><a></a>  <span class="fu">mutate</span>(<span class="at">normal_range =</span> bmiclass <span class="sc">==</span> <span class="st">"Normal Range"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb45-15"><a></a>  <span class="fu">summarize</span>(<span class="at">fracnormal =</span> <span class="fu">mean</span>(normal_range,<span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a></a>  <span class="fu">mutate</span>(<span class="at">bmiclass =</span> <span class="fu">cut</span>(BMI,</span>
+<span id="cb47-3"><a></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">Inf</span>),</span>
+<span id="cb47-4"><a></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb47-5"><a></a>      <span class="st">"Underweight"</span>,</span>
+<span id="cb47-6"><a></a>      <span class="st">"Normal Range"</span>,</span>
+<span id="cb47-7"><a></a>      <span class="st">"Overweight"</span>,</span>
+<span id="cb47-8"><a></a>      <span class="st">"Obese I"</span>,</span>
+<span id="cb47-9"><a></a>      <span class="st">"Obese II"</span>,</span>
+<span id="cb47-10"><a></a>      <span class="st">"Obese III"</span></span>
+<span id="cb47-11"><a></a>    ),</span>
+<span id="cb47-12"><a></a>    <span class="at">right =</span> <span class="cn">FALSE</span></span>
+<span id="cb47-13"><a></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb47-14"><a></a>  <span class="fu">mutate</span>(<span class="at">normal_range =</span> bmiclass <span class="sc">==</span> <span class="st">"Normal Range"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-15"><a></a>  <span class="fu">summarize</span>(<span class="at">fracnormal =</span> <span class="fu">mean</span>(normal_range,<span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details><summary>
 Click to reveal output
@@ -828,17 +882,17 @@ Click to reveal output
 <div style="font-size:0.65em;">
 <p><code>group_by()</code> is powerful when paired with summarize to calculate summary statistics by group. Here we find the proportion of means that are in the normal range for each region. If you don’t <code>ungroup()</code> after you use it, there may be unforeseen consequences down the road, so this is good practice.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
-<span id="cb47-2"><a></a>  <span class="fu">mutate</span>(<span class="at">bmiclass =</span> <span class="fu">cut</span>(BMI,</span>
-<span id="cb47-3"><a></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">Inf</span>),</span>
-<span id="cb47-4"><a></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Underweight"</span>,<span class="st">"Normal Range"</span>,<span class="st">"Overweight"</span>,<span class="st">"Obese I"</span>,<span class="st">"Obese II"</span>,<span class="st">"Obese III"</span></span>
-<span id="cb47-5"><a></a>    ),</span>
-<span id="cb47-6"><a></a>    <span class="at">right =</span> <span class="cn">FALSE</span></span>
-<span id="cb47-7"><a></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb47-8"><a></a>  <span class="fu">mutate</span>(<span class="at">normal_range =</span> bmiclass <span class="sc">==</span> <span class="st">"Normal Range"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-9"><a></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
-<span id="cb47-10"><a></a>  <span class="fu">summarize</span>(<span class="at">fracnormal =</span> <span class="fu">mean</span>(normal_range,<span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb47-11"><a></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a></a>  <span class="fu">mutate</span>(<span class="at">bmiclass =</span> <span class="fu">cut</span>(BMI,</span>
+<span id="cb49-3"><a></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">Inf</span>),</span>
+<span id="cb49-4"><a></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Underweight"</span>,<span class="st">"Normal Range"</span>,<span class="st">"Overweight"</span>,<span class="st">"Obese I"</span>,<span class="st">"Obese II"</span>,<span class="st">"Obese III"</span></span>
+<span id="cb49-5"><a></a>    ),</span>
+<span id="cb49-6"><a></a>    <span class="at">right =</span> <span class="cn">FALSE</span></span>
+<span id="cb49-7"><a></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb49-8"><a></a>  <span class="fu">mutate</span>(<span class="at">normal_range =</span> bmiclass <span class="sc">==</span> <span class="st">"Normal Range"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-9"><a></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
+<span id="cb49-10"><a></a>  <span class="fu">summarize</span>(<span class="at">fracnormal =</span> <span class="fu">mean</span>(normal_range,<span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-11"><a></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details><summary>
 Click to reveal output
@@ -857,24 +911,24 @@ Click to reveal output
 </section><section class="slide level2"><div style="font-size:0.65em;">
 <p>We can calculate more than one summary statistic in <code>summarize()</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
-<span id="cb49-2"><a></a>  <span class="fu">mutate</span>(<span class="at">bmiclass =</span> <span class="fu">cut</span>(</span>
-<span id="cb49-3"><a></a>    BMI,</span>
-<span id="cb49-4"><a></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">Inf</span>),</span>
-<span id="cb49-5"><a></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb49-6"><a></a>      <span class="st">"Underweight"</span>,</span>
-<span id="cb49-7"><a></a>      <span class="st">"Normal Range"</span>,</span>
-<span id="cb49-8"><a></a>      <span class="st">"Overweight"</span>,</span>
-<span id="cb49-9"><a></a>      <span class="st">"Obese I"</span>,<span class="st">"Obese II"</span>,<span class="st">"Obese III"</span></span>
-<span id="cb49-10"><a></a>    ),</span>
-<span id="cb49-11"><a></a>    <span class="at">right =</span> <span class="cn">FALSE</span></span>
-<span id="cb49-12"><a></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb49-13"><a></a>  <span class="fu">mutate</span>(<span class="at">normal_range =</span> bmiclass <span class="sc">==</span> <span class="st">"Normal Range"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb49-14"><a></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
-<span id="cb49-15"><a></a>  <span class="fu">summarize</span>(</span>
-<span id="cb49-16"><a></a>    <span class="at">fracnormal =</span> <span class="fu">mean</span>(normal_range, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb49-17"><a></a>    <span class="at">max_BMI =</span> <span class="fu">max</span>(BMI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb49-18"><a></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a></a>  <span class="fu">mutate</span>(<span class="at">bmiclass =</span> <span class="fu">cut</span>(</span>
+<span id="cb51-3"><a></a>    BMI,</span>
+<span id="cb51-4"><a></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">Inf</span>),</span>
+<span id="cb51-5"><a></a>    <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb51-6"><a></a>      <span class="st">"Underweight"</span>,</span>
+<span id="cb51-7"><a></a>      <span class="st">"Normal Range"</span>,</span>
+<span id="cb51-8"><a></a>      <span class="st">"Overweight"</span>,</span>
+<span id="cb51-9"><a></a>      <span class="st">"Obese I"</span>,<span class="st">"Obese II"</span>,<span class="st">"Obese III"</span></span>
+<span id="cb51-10"><a></a>    ),</span>
+<span id="cb51-11"><a></a>    <span class="at">right =</span> <span class="cn">FALSE</span></span>
+<span id="cb51-12"><a></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb51-13"><a></a>  <span class="fu">mutate</span>(<span class="at">normal_range =</span> bmiclass <span class="sc">==</span> <span class="st">"Normal Range"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-14"><a></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
+<span id="cb51-15"><a></a>  <span class="fu">summarize</span>(</span>
+<span id="cb51-16"><a></a>    <span class="at">fracnormal =</span> <span class="fu">mean</span>(normal_range, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb51-17"><a></a>    <span class="at">max_BMI =</span> <span class="fu">max</span>(BMI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb51-18"><a></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details><summary>
 Click to reveal output
@@ -893,9 +947,9 @@ Click to reveal output
 </section><section class="slide level2"><div style="font-size:0.85em;">
 <p><strong>Question:</strong> What is the code chunk below doing?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
-<span id="cb51-2"><a></a>  <span class="fu">count</span>(Year) <span class="sc">%&gt;%</span></span>
-<span id="cb51-3"><a></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>BMI_long <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a></a>  <span class="fu">count</span>(Year) <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details><summary>
 Click to reveal output
@@ -914,8 +968,8 @@ Click to reveal output
 <div style="font-size:0.85em;">
 <p>One more nifty command is the <code>distinct</code> command in R, which eliminates duplicate rows.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>age <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span>
-<span id="cb53-2"><a></a>age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a>age <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb55-2"><a></a>age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 1
   value
@@ -926,7 +980,7 @@ Click to reveal output
 4     2
 5     3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a><span class="fu">distinct</span>(age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a><span class="fu">distinct</span>(age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 1
   value

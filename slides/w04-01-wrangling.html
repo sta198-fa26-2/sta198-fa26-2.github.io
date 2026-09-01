@@ -480,7 +480,14 @@ window.Quarto = {
   <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><code>filter()</code></a></li>
   <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><code>mutate()</code></a></li>
   <li><a href="#mutate-1" id="toc-mutate-1" class="nav-link" data-scroll-target="#mutate-1"><code>mutate()</code></a></li>
-  <li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize"><code>summarize()</code></a></li>
+  <li><a href="#combining-mutate-and-ifelse" id="toc-combining-mutate-and-ifelse" class="nav-link" data-scroll-target="#combining-mutate-and-ifelse">Combining <code>mutate()</code> and <code>ifelse()</code></a></li>
+  </ul>
+</li>
+  <li><a href="#practical-example-overweight-flag" id="toc-practical-example-overweight-flag" class="nav-link" data-scroll-target="#practical-example-overweight-flag">Practical Example: Overweight Flag</a></li>
+  <li>
+<a href="#how-the-data-transforms" id="toc-how-the-data-transforms" class="nav-link" data-scroll-target="#how-the-data-transforms">How the Data Transforms</a>
+  <ul class="collapse">
+<li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize"><code>summarize()</code></a></li>
   </ul>
 </li>
   <li>
@@ -1007,11 +1014,67 @@ Click to reveal output
 </div>
 </details>
 </div>
-<hr></section><section id="summarize" class="level3"><h3 class="anchored" data-anchor-id="summarize"><code>summarize()</code></h3>
+<hr></section><section id="combining-mutate-and-ifelse" class="level3"><h3 class="anchored" data-anchor-id="combining-mutate-and-ifelse">Combining <code>mutate()</code> and <code>ifelse()</code>
+</h3>
+<p>When you need to create a simple <strong>binary flag</strong> (Yes/No, True/False) based on a threshold within a pipeline, pairing <strong><code>mutate()</code></strong> with <strong><code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code></strong> is the cleanest approach.</p>
+<p>Unlike <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code>, which builds complex ranges, <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> handles a single boundary line efficiently.</p>
+</section></section><section id="practical-example-overweight-flag" class="level2"><h2 class="anchored" data-anchor-id="practical-example-overweight-flag">Practical Example: Overweight Flag</h2>
+<p>To create a new variable called <code>overweight</code> that marks individuals with a BMI of <strong>25 or higher</strong> as <code>"Overweight"</code> and everyone else as <code>"Not Overweight"</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>overweight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">BMI</span> <span class="op">&gt;=</span> <span class="fl">25</span>, <span class="st">"Overweight"</span>, <span class="st">"Not Overweight"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">BMI</span>, <span class="va">overweight</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,400 × 2
+    BMI overweight    
+  &lt;dbl&gt; &lt;chr&gt;         
+1  20.2 Not Overweight
+2  19.7 Not Overweight
+3  22.4 Not Overweight
+4  22.8 Not Overweight
+5  22.5 Not Overweight
+6  23.6 Not Overweight
+# ℹ 2,394 more rows</code></pre>
+</div>
+</div>
+</section><section id="how-the-data-transforms" class="level2"><h2 class="anchored" data-anchor-id="how-the-data-transforms">How the Data Transforms</h2>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">BMI</th>
+<th style="text-align: center;">
+<code>BMI &gt;= 25</code> Evaluation</th>
+<th style="text-align: left;">Resulting <code>overweight</code> Label</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">22.4</td>
+<td style="text-align: center;"><strong>FALSE</strong></td>
+<td style="text-align: left;">“Not Overweight”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>25.0</strong></td>
+<td style="text-align: center;">
+<strong>TRUE</strong> (Inclusive)</td>
+<td style="text-align: left;"><strong>“Overweight”</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>28.1</strong></td>
+<td style="text-align: center;"><strong>TRUE</strong></td>
+<td style="text-align: left;"><strong>“Overweight”</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NA</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<section id="summarize" class="level3"><h3 class="anchored" data-anchor-id="summarize"><code>summarize()</code></h3>
 <div style="font-size:0.65em;">
 <p><code>summarize</code> calculates summary statistics. It collapses rows into summary statistics and removes columns irrelevant to the calculation. Be sure to name your columns!</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>bmiclass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">BMI</span>,</span>
 <span>    breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="fl">25</span>, <span class="fl">30</span>, <span class="fl">35</span>, <span class="fl">40</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
 <span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -1043,7 +1106,7 @@ Click to reveal output
 <div style="font-size:0.65em;">
 <p><strong>Question:</strong> The code chunk returns an NA. What is going wrong?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>bmiclass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">BMI</span>,</span>
 <span>    breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="fl">25</span>, <span class="fl">30</span>, <span class="fl">35</span>, <span class="fl">40</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
 <span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -1081,7 +1144,7 @@ Click to reveal output
 <hr>
 <div style="font-size:0.65em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">count</span><span class="op">(</span><span class="va">BMI</span><span class="op">==</span><span class="st">"NA"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details><summary>
@@ -1101,7 +1164,7 @@ Click to reveal output
 <hr>
 <p>Let’s print all 18 variables and see if we can tell what’s going on.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">BMI</span><span class="op">)</span><span class="op">==</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">18</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1136,7 +1199,7 @@ Click to reveal output
 <div style="font-size:0.65em;">
 <p>Finally, let’s get the proportion of values with mean BMI in the normal range.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>bmiclass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">BMI</span>,</span>
 <span>    breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="fl">25</span>, <span class="fl">30</span>, <span class="fl">35</span>, <span class="fl">40</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
 <span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -1169,7 +1232,7 @@ Click to reveal output
 <div style="font-size:0.65em;">
 <p><code>group_by()</code> is powerful when paired with summarize to calculate summary statistics by group. Here we find the proportion of means that are in the normal range for each region. If you don’t <code>ungroup()</code> after you use it, there may be unforeseen consequences down the road, so this is good practice.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>bmiclass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">BMI</span>,</span>
 <span>    breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="fl">25</span>, <span class="fl">30</span>, <span class="fl">35</span>, <span class="fl">40</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
 <span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Underweight"</span>,<span class="st">"Normal Range"</span>,<span class="st">"Overweight"</span>,<span class="st">"Obese I"</span>,<span class="st">"Obese II"</span>,<span class="st">"Obese III"</span></span>
@@ -1199,7 +1262,7 @@ Click to reveal output
 <div style="font-size:0.65em;">
 <p>We can calculate more than one summary statistic in <code>summarize()</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>bmiclass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span></span>
 <span>    <span class="va">BMI</span>,</span>
 <span>    breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">18.5</span>, <span class="fl">25</span>, <span class="fl">30</span>, <span class="fl">35</span>, <span class="fl">40</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
@@ -1236,7 +1299,7 @@ Click to reveal output
 <div style="font-size:0.85em;">
 <p><strong>Question:</strong> What is the code chunk below doing?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">BMI_long</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">count</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>prop <span class="op">=</span> <span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1257,7 +1320,7 @@ Click to reveal output
 <div style="font-size:0.85em;">
 <p>One more nifty command is the <code>distinct</code> command in R, which eliminates duplicate rows.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">age</span> <span class="op">&lt;-</span> <span class="fu">as_tibble</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">age</span> <span class="op">&lt;-</span> <span class="fu">as_tibble</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">age</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 1
@@ -1269,7 +1332,7 @@ Click to reveal output
 4     2
 5     3</code></pre>
 </div>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">distinct</span><span class="op">(</span><span class="va">age</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">distinct</span><span class="op">(</span><span class="va">age</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 1
   value
