@@ -472,6 +472,40 @@ BMI_long %>%
 
 ---
 
+### Combining `mutate()` and `ifelse()`
+
+When you need to create a simple **binary flag** (Yes/No, True/False) based on a threshold within a pipeline, pairing **`mutate()`** with **`ifelse()`** is the cleanest approach.
+
+Unlike `cut()`, which builds complex ranges, `ifelse()` handles a single boundary line efficiently.
+
+
+## Practical Example: Overweight Flag
+
+To create a new variable called `overweight` that marks individuals with a BMI of **25 or higher** as `"Overweight"` and everyone else as `"Not Overweight"`:
+
+```{r}
+BMI_long %>%
+  mutate(overweight = ifelse(BMI >= 25, "Overweight", "Not Overweight")) %>%
+  select(BMI, overweight)
+```
+
+
+
+## How the Data Transforms
+
+| BMI | `BMI >= 25` Evaluation | Resulting `overweight` Label |
+| :--- | :---: | :--- |
+| 22.4 | **FALSE** | "Not Overweight" |
+| **25.0** | **TRUE** (Inclusive) | **"Overweight"** |
+| **28.1** | **TRUE** | **"Overweight"** |
+| NA | NA | NA |
+
+
+---
+
+
+
+
 ### `summarize()`
 
 <div style="font-size:0.65em;">
