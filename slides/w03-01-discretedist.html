@@ -73,9 +73,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-39d9e2076cbc315827c04e50328307d3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-73139e03c03e0d706924c1aa66c6f394.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-39d9e2076cbc315827c04e50328307d3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a2a5d2141b2957cb469ee31a6eb36e11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-9c3d5961ae8d2ded56656e21130d8ade.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a2a5d2141b2957cb469ee31a6eb36e11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
@@ -503,6 +503,7 @@ window.Quarto = {
   <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
   </ul>
 </li>
+  <li><a href="#example-lefties-in-class" id="toc-example-lefties-in-class" class="nav-link" data-scroll-target="#example-lefties-in-class">Example: Lefties in Class</a></li>
   <li>
 <a href="#example-ivf-planning" id="toc-example-ivf-planning" class="nav-link" data-scroll-target="#example-ivf-planning">Example: IVF Planning</a>
   <ul class="collapse">
@@ -1262,10 +1263,20 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <li>What is the range of estimated probabilities we might expect from studies of 10 vs studies of 1000? How might this affect design of a study?</li>
 </ol>
 </div>
-</section></section><section id="example-ivf-planning" class="level1"><h1>Example: IVF Planning</h1>
+</section></section><section id="example-lefties-in-class" class="level1"><h1>Example: Lefties in Class</h1>
+<p>Where do we fall in the distribution? Here I’ve generated a large number of samples of size 16, assuming the 10% prevalence of left-handedness.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w03-01-discretedist_files/figure-revealjs/classlefties-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w03-01-discretedist_files/figure-revealjs/classlefties-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="example-ivf-planning" class="level1"><h1>Example: IVF Planning</h1>
 <section id="in-vitro-fertilization-ivf" class="level2"><h2 class="anchored" data-anchor-id="in-vitro-fertilization-ivf">In Vitro Fertilization (IVF)</h2>
 <p>Infertility is a global health problem that is inadequately addressed worldwide. Some estimates indicate up to 2-5% of births in Western countries are through IVF.</p>
-<p>Suppose the average success (live birth) rate of this procedure per embryo implanted is 50% (precise success rates depend on parental characteristics such as age). In the US and in many other countries, IVF is expensive and unlikely to be covered by insurance. Because of the expense, parents wish to minimize the needed number of IVF treatments (i.e., maximize the success rate of a given IVF attempt).</p>
+<p>Suppose the average success (live birth) rate of this procedure per embryo implanted is 50% (precise success rates depend on parental characteristics such as age). In the US and in many other countries, IVF is expensive and unlikely to be covered by insurance. Because of the expense (e.g., $, time, physical), parents wish to minimize the needed number of IVF treatments (i.e., maximize the success rate of a given IVF attempt).</p>
 </section><section id="embryos" class="level2"><h2 class="anchored" data-anchor-id="embryos">Embryos</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1277,7 +1288,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/embryo.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../img/embryo.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="../img/embryo.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="../img/embryo.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1316,7 +1327,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <ul>
 <li><p>Quick trick: <span class="math inline">\(P(X \geq 1) = 1-P(X=0)\)</span> (you either have no live births, or one or more live births)</p></li>
 <li><p>Similarly, <span class="math inline">\(P(X&gt;2)=1-P(X=0)-P(X=1)-P(X=2)\)</span> if needed</p></li>
-<li><p>In the easy case in which <span class="math inline">\(n=1\)</span>, <span class="math inline">\(P(X \geq 1)=0.35\)</span> and <span class="math inline">\(P(X&gt;2)=0\)</span>*</p></li>
+<li><p>In the easy case in which <span class="math inline">\(n=1\)</span>, <span class="math inline">\(P(X \geq 1)=P(X=1)\)</span> and <span class="math inline">\(P(X&gt;1)=0\)</span>*</p></li>
 </ul>
 <div style="font-size:0.5em;">
 <p>*OK, not quite, as it is still possible for a single implanted embryo to divide, yielding twins, but we’ll assume that isn’t happening for now, as it’s not terribly common – most IVF twins are from multiple implantations.</p>
@@ -1468,7 +1479,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 </table>
 <p><br></p>
 <p>Probability of one live birth when one embryo is implanted (note we assume you can’t have two or more when one is implanted):</p>
-<p><span class="math inline">\(P(X=1 \mid \pi=0.5, n=1) = 1 - P(X=1 \mid \pi=0.5, n=1) = 1-0.5 = 0.5\)</span> or 1-dbinom(0,1,0.5) in the R console</p>
+<p><span class="math inline">\(P(X=1 \mid \pi=0.5, n=1) = 1 - P(X=0 \mid \pi=0.5, n=1) = 1-0.5 = 0.5\)</span> or 1-dbinom(0,1,0.5) in the R console</p>
 <p><br></p>
 <table class="caption-top table">
 <colgroup>

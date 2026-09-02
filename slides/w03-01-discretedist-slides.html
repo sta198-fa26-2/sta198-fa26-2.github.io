@@ -894,11 +894,14 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <li>What is the range of estimated probabilities we might expect from studies of 10 vs studies of 1000? How might this affect design of a study?</li>
 </ol>
 </div>
-</section></section><section><section id="example-ivf-planning" class="title-slide slide level1 center"><h1>Example: IVF Planning</h1>
+</section></section><section id="example-lefties-in-class" class="title-slide slide level1 center"><h1>Example: Lefties in Class</h1>
+<p>Where do we fall in the distribution? Here I’ve generated a large number of samples of size 16, assuming the 10% prevalence of left-handedness.</p>
+
+<img data-src="w03-01-discretedist_files/figure-revealjs/classlefties-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section><section><section id="example-ivf-planning" class="title-slide slide level1 center"><h1>Example: IVF Planning</h1>
 
 </section><section id="in-vitro-fertilization-ivf" class="slide level2"><h2>In Vitro Fertilization (IVF)</h2>
 <p>Infertility is a global health problem that is inadequately addressed worldwide. Some estimates indicate up to 2-5% of births in Western countries are through IVF.</p>
-<p>Suppose the average success (live birth) rate of this procedure per embryo implanted is 50% (precise success rates depend on parental characteristics such as age). In the US and in many other countries, IVF is expensive and unlikely to be covered by insurance. Because of the expense, parents wish to minimize the needed number of IVF treatments (i.e., maximize the success rate of a given IVF attempt).</p>
+<p>Suppose the average success (live birth) rate of this procedure per embryo implanted is 50% (precise success rates depend on parental characteristics such as age). In the US and in many other countries, IVF is expensive and unlikely to be covered by insurance. Because of the expense (e.g., $, time, physical), parents wish to minimize the needed number of IVF treatments (i.e., maximize the success rate of a given IVF attempt).</p>
 </section><section id="embryos" class="slide level2"><h2>Embryos</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -948,7 +951,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <ul>
 <li><p>Quick trick: <span class="math inline">\(P(X \geq 1) = 1-P(X=0)\)</span> (you either have no live births, or one or more live births)</p></li>
 <li><p>Similarly, <span class="math inline">\(P(X&gt;2)=1-P(X=0)-P(X=1)-P(X=2)\)</span> if needed</p></li>
-<li><p>In the easy case in which <span class="math inline">\(n=1\)</span>, <span class="math inline">\(P(X \geq 1)=0.35\)</span> and <span class="math inline">\(P(X&gt;2)=0\)</span>*</p></li>
+<li><p>In the easy case in which <span class="math inline">\(n=1\)</span>, <span class="math inline">\(P(X \geq 1)=P(X=1)\)</span> and <span class="math inline">\(P(X&gt;1)=0\)</span>*</p></li>
 </ul>
 <div style="font-size:0.5em;">
 <p>*OK, not quite, as it is still possible for a single implanted embryo to divide, yielding twins, but we’ll assume that isn’t happening for now, as it’s not terribly common – most IVF twins are from multiple implantations.</p>
@@ -1100,7 +1103,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 </table>
 <p><br></p>
 <p>Probability of one live birth when one embryo is implanted (note we assume you can’t have two or more when one is implanted):</p>
-<p><span class="math inline">\(P(X=1 \mid \pi=0.5, n=1) = 1 - P(X=1 \mid \pi=0.5, n=1) = 1-0.5 = 0.5\)</span> or 1-dbinom(0,1,0.5) in the R console</p>
+<p><span class="math inline">\(P(X=1 \mid \pi=0.5, n=1) = 1 - P(X=0 \mid \pi=0.5, n=1) = 1-0.5 = 0.5\)</span> or 1-dbinom(0,1,0.5) in the R console</p>
 <p><br></p>
 <table class="caption-top" style="width:100%;">
 <colgroup>
