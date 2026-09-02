@@ -66,11 +66,14 @@ Manipulating this formula, we get the **multiplicative rule of probability**: $P
 
 ## Law of total probability
 
+<div style="font-size:0.85em;">
+
+
 One more helpful rule is the **law of total probability**:
 
 $P(A)= P(A \cap B)+P(A \cap \overline{B})=P(A \mid B)P(B) + P(A \mid \overline{B})P(\overline{B}),$ which translates to the obvious statement that the probability that A occurs is equal to the sum of the probabilities that A occurs with B and that A occurs without B.
 
-
+</div>
 
 ## Back to ant outcomes
 
