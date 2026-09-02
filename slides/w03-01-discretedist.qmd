@@ -68,7 +68,7 @@ In these two cases, each definition of $X$ has a different probability distribut
 
 ## Example: Y Chromosomes
 
-Consider Y chromosomes in the US population.  Roughly 51.2% of births are to babies with Y chromosomes, and 48.8% of babies do not have Y chromosomes. Thus the probability of having a baby with a Y chromosome is 0.512.
+Consider Y chromosomes in the US population.  Roughly 51.2% of births are of babies with Y chromosomes, and 48.8% of babies do not have Y chromosomes. Thus the probability of having a baby with a Y chromosome is 0.512.
 
 - The probability of an event is $\geq 0$ and $\leq 1$.
 
