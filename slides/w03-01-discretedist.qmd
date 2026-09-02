@@ -706,13 +706,36 @@ binomdatasmall %>%
 
 </div>
 
+# Example: Lefties in Class
+
+Where do we fall in the distribution?  Here I've generated a large number of samples of size 16, assuming the 10% prevalence of left-handedness.
+
+```{r}
+#| label: classlefties
+#| echo: false
+#| out.width: "100%"
+#| fig-width: 7
+#| fig-height: 6
+binomdata = data.frame(X = rbinom(1000000, 16, 0.1))
+binomdata %>%
+  count(X) %>%
+  mutate(prob = n / sum(n)) %>%
+  ggplot(aes(x = X, y = prob)) +
+  geom_col() +
+  scale_x_continuous(breaks = 0:10) +
+  labs(x = "Number of Lefties", y = "Probability",
+       title = "Binomial(16,0.1) Distribution")
+```
+
+
+
 # Example: IVF Planning
 
 ## In Vitro Fertilization (IVF)
 
 Infertility is a global health problem that is inadequately addressed worldwide. Some estimates indicate up to 2-5% of births in Western countries are through IVF.
 
-Suppose the average success (live birth) rate of this procedure per embryo implanted is 50% (precise success rates depend on parental characteristics such as age). In the US and in many other countries, IVF is expensive and unlikely to be covered by insurance. Because of the expense, parents wish to minimize the needed number of IVF treatments (i.e., maximize the success rate of a given IVF attempt).
+Suppose the average success (live birth) rate of this procedure per embryo implanted is 50% (precise success rates depend on parental characteristics such as age). In the US and in many other countries, IVF is expensive and unlikely to be covered by insurance. Because of the expense (e.g., $, time, physical), parents wish to minimize the needed number of IVF treatments (i.e., maximize the success rate of a given IVF attempt).
 
 ## Embryos
 
@@ -792,7 +815,7 @@ Binomial distribution: $P(X=x)=\begin{pmatrix} n \\ x \end{pmatrix}\pi^x(1-\pi)^
 
 - Similarly, $P(X>2)=1-P(X=0)-P(X=1)-P(X=2)$ if needed
 
-- In the easy case in which $n=1$, $P(X \geq 1)=0.35$ and $P(X>2)=0$*
+- In the easy case in which $n=1$, $P(X \geq 1)=P(X=1)$ and $P(X>1)=0$*
 
 <div style="font-size:0.5em;">
   
@@ -871,7 +894,7 @@ Binomial distribution: $P(X=x)=\begin{pmatrix} n \\ x \end{pmatrix}\pi^x(1-\pi)^
 
 Probability of one live birth when one embryo is implanted (note we assume you can't have two or more when one is implanted):
 
-$P(X=1 \mid \pi=0.5, n=1) = 1 - P(X=1 \mid \pi=0.5, n=1) = 1-0.5 = 0.5$ or 1-dbinom(0,1,0.5) in the R console
+$P(X=1 \mid \pi=0.5, n=1) = 1 - P(X=0 \mid \pi=0.5, n=1) = 1-0.5 = 0.5$ or 1-dbinom(0,1,0.5) in the R console
 
 <br>
 
