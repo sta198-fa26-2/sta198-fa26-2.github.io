@@ -338,7 +338,7 @@ Amy Herring
 </div></div>
 </div>
 </section><section id="probability-two-randomly-sampled-people-are-left-handed" class="slide level2"><h2>Probability Two Randomly-Sampled People Are Left-Handed</h2>
-<p>Let <span class="math inline">\(A_1\)</span> be the event that <span class="math inline">\(Y_1=1\)</span> (person 1 is left-handed) and let <span class="math inline">\(A_2\)</span> be the event that <span class="math inline">\(Y_2=1\)</span> (person 2 is left-handed).</p>
+<p>Let <span class="math inline">\(A_1\)</span> be the event that <span class="math inline">\(Y_1=1\)</span> (person 1 is left-handed) and let <span class="math inline">\(A_2\)</span> be the event that <span class="math inline">\(Y_2=1\)</span> (person 2 is left-handed). We assume our randomly-sampled people are independent.</p>
 <p>Because the people are independent, then <span class="math display">\[\begin{aligned}
 P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 &amp; = P(A_1) P(A_2 \mid A_1) \\
@@ -778,7 +778,7 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 &amp; = 0.001.
 \end{aligned}\]</span></p>
 </section><section id="distribution-of-lefties" class="slide level2"><h2>Distribution of lefties</h2>
-<p>Let’s use R to take a look at the distribution of the number of lefties in groups of varying size. We can actually run an experiment in R. Let’s draw a single random sample of 1000 people with probability of being left handed of 0.001. Our random variable <span class="math inline">\(X\)</span> is now the number of lefties in this big sample.</p>
+<p>Let’s use R to take a look at the distribution of the number of lefties in groups of varying size. We can actually run an experiment in R. Let’s draw a single random sample of 1000 people with probability of being left handed of 0.1. Our random variable <span class="math inline">\(X\)</span> is now the number of lefties in this big sample.</p>
 <p>In this experiment, how many lefties do we expect to see?</p>
 <p>A binomial random variable has expectation (mean) <span class="math inline">\(n\pi\)</span>, so we expect to see somewhere around 1000(0.1)=100 lefties.</p>
 </section><section id="distribution-of-lefties-1" class="slide level2"><h2>Distribution of lefties</h2>
