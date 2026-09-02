@@ -198,7 +198,7 @@ Next we'll talk about how to get the *probability distribution* of $X$.
 
 ## Probability Two Randomly-Sampled People Are Left-Handed
 
-Let $A_1$ be the event that $Y_1=1$ (person 1 is left-handed) and let $A_2$ be the event that $Y_2=1$ (person 2 is left-handed).
+Let $A_1$ be the event that $Y_1=1$ (person 1 is left-handed) and let $A_2$ be the event that $Y_2=1$ (person 2 is left-handed). We assume our randomly-sampled people are independent.
 
 Because the people are independent, then
 $$\begin{aligned}
@@ -496,7 +496,7 @@ $$\begin{aligned}
 
 ## Distribution of lefties
 
-Let's use R to take a look at the distribution of the number of lefties in groups of varying size.  We can actually run an experiment in R. Let's draw a single random sample of 1000 people with probability of being left handed of 0.001. Our random variable $X$ is now the number of lefties in this big sample.
+Let's use R to take a look at the distribution of the number of lefties in groups of varying size.  We can actually run an experiment in R. Let's draw a single random sample of 1000 people with probability of being left handed of 0.1. Our random variable $X$ is now the number of lefties in this big sample.
 
 In this experiment, how many lefties do we expect to see? 
 
