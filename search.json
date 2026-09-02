@@ -4898,7 +4898,7 @@
     "href": "slides/w02-02-condprob.html#law-of-total-probability",
     "title": "Conditional Probability",
     "section": "Law of total probability",
-    "text": "Law of total probability\nOne more helpful rule is the law of total probability:\n\\(P(A)= P(A \\cap B)+P(A \\cap \\overline{B})=P(A \\mid B)P(B) + P(A \\mid \\overline{B})P(\\overline{B}),\\) which translates to the obvious statement that the probability that A occurs is equal to the sum of the probabilities that A occurs with B and that A occurs without B."
+    "text": "Law of total probability\n\nOne more helpful rule is the law of total probability:\n\\(P(A)= P(A \\cap B)+P(A \\cap \\overline{B})=P(A \\mid B)P(B) + P(A \\mid \\overline{B})P(\\overline{B}),\\) which translates to the obvious statement that the probability that A occurs is equal to the sum of the probabilities that A occurs with B and that A occurs without B."
   },
   {
     "objectID": "slides/w02-02-condprob.html#back-to-ant-outcomes",
@@ -5087,7 +5087,7 @@
     "href": "slides/w02-02-condprob-slides.html#law-of-total-probability",
     "title": "Conditional Probability",
     "section": "Law of total probability",
-    "text": "Law of total probability\nOne more helpful rule is the law of total probability:\n\\(P(A)= P(A \\cap B)+P(A \\cap \\overline{B})=P(A \\mid B)P(B) + P(A \\mid \\overline{B})P(\\overline{B}),\\) which translates to the obvious statement that the probability that A occurs is equal to the sum of the probabilities that A occurs with B and that A occurs without B."
+    "text": "Law of total probability\n\nOne more helpful rule is the law of total probability:\n\\(P(A)= P(A \\cap B)+P(A \\cap \\overline{B})=P(A \\mid B)P(B) + P(A \\mid \\overline{B})P(\\overline{B}),\\) which translates to the obvious statement that the probability that A occurs is equal to the sum of the probabilities that A occurs with B and that A occurs without B."
   },
   {
     "objectID": "slides/w02-02-condprob-slides.html#back-to-ant-outcomes",
