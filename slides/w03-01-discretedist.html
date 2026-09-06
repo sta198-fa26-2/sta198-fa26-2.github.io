@@ -73,9 +73,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a2a5d2141b2957cb469ee31a6eb36e11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-9c3d5961ae8d2ded56656e21130d8ade.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-a2a5d2141b2957cb469ee31a6eb36e11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-39d9e2076cbc315827c04e50328307d3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-73139e03c03e0d706924c1aa66c6f394.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-39d9e2076cbc315827c04e50328307d3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
@@ -570,21 +570,20 @@ window.Quarto = {
 
 
 </header><section id="probability-distributions" class="level1"><h1>Probability Distributions</h1>
-<hr>
 <section id="probability-distributions-1" class="level2"><h2 class="anchored" data-anchor-id="probability-distributions-1">Probability Distributions</h2>
 <p>When we learned how to find probabilities using basic principles, we focused on one particular outcome or event, like the probability of a randomly selected person being left-handed. We now explore the bigger picture by exploring all possible values of a discrete random variable, along with their associated probabilities. This list of possible values and probabilities is called the <em>probability distribution</em> of the random variable.</p>
-<hr></section><section id="why-do-we-care-about-probability-distributions" class="level2"><h2 class="anchored" data-anchor-id="why-do-we-care-about-probability-distributions">Why do we care about probability distributions?</h2>
+</section><section id="why-do-we-care-about-probability-distributions" class="level2"><h2 class="anchored" data-anchor-id="why-do-we-care-about-probability-distributions">Why do we care about probability distributions?</h2>
 <p>We need probability distributions to make statements about how likely an event may be.</p>
 <p>For example, suppose we are interested in comparing two groups of pancreatic cancer patients, with one group on the standard treatment and one group on an experimental new treatment.</p>
 <p>The statistical test we use to compare the two groups depends on the variable of interest <span class="math inline">\(X\)</span> and its probability distribution.</p>
-<hr></section><section id="why-do-we-care-about-probability-distributions-1" class="level2"><h2 class="anchored" data-anchor-id="why-do-we-care-about-probability-distributions-1">Why do we care about probability distributions?</h2>
+</section><section id="why-do-we-care-about-probability-distributions-1" class="level2"><h2 class="anchored" data-anchor-id="why-do-we-care-about-probability-distributions-1">Why do we care about probability distributions?</h2>
 <p>Possible outcomes for comparison:</p>
 <ul>
 <li><p>define <span class="math inline">\(X\)</span> to be a 0/1 variable indicating whether each patient survives 1 year</p></li>
 <li><p>define <span class="math inline">\(X\)</span> as the number of months a patient survives</p></li>
 </ul>
-<p>In these two cases, each definition of <span class="math inline">\(X\)</span> has a different probability distribution, and you would use a different type of test for each case.</p>
-<hr></section><section id="example-y-chromosomes" class="level2"><h2 class="anchored" data-anchor-id="example-y-chromosomes">Example: Y Chromosomes</h2>
+<p>In these two cases, under each definition, <span class="math inline">\(X\)</span> has a different probability distribution, and you would use a different type of test for each case.</p>
+</section><section id="example-y-chromosomes" class="level2"><h2 class="anchored" data-anchor-id="example-y-chromosomes">Example: Y Chromosomes</h2>
 <p>Consider Y chromosomes in the US population. Roughly 51.2% of births are of babies with Y chromosomes, and 48.8% of babies do not have Y chromosomes. Thus the probability of having a baby with a Y chromosome is 0.512.</p>
 <ul>
 <li><p>The probability of an event is <span class="math inline">\(\geq 0\)</span> and <span class="math inline">\(\leq 1\)</span>.</p></li>
@@ -594,12 +593,12 @@ window.Quarto = {
 <div style="font-size:0.5em;">
 <p>Note: sex ratios vary dramatically across species, driven by factors including environmental sex determination (nest temperature in sea turtles), mating systems (bluestreak cleaner wrasse have no primary males), and social structure (ants and bees)</p>
 </div>
-<hr></section><section id="bernoulli-distribution" class="level2"><h2 class="anchored" data-anchor-id="bernoulli-distribution">Bernoulli Distribution</h2>
+</section><section id="bernoulli-distribution" class="level2"><h2 class="anchored" data-anchor-id="bernoulli-distribution">Bernoulli Distribution</h2>
 <div style="font-size:0.85em;">
 <p>Consider a dichotomous (two-level) random variable <span class="math inline">\(Y\)</span>. By definition, <span class="math inline">\(Y\)</span> must assume one of two possible values, e.g.</p>
 <ul>
 <li>failure or success</li>
-<li>dead or alive</li>
+<li>Y chromosome present or not</li>
 <li>Duke student or not</li>
 <li>current smoker or not</li>
 <li>heads or tails (coin flip)</li>
@@ -608,27 +607,44 @@ window.Quarto = {
 <p>The distribution is named for <a href="https://en.wikipedia.org/wiki/Jacob_Bernoulli">Jacob Bernoulli</a>, who was part of a famous family of mathematicians in Switzerland.</p>
 </div>
 <hr></section><section id="bernoulli-random-variable" class="level2"><h2 class="anchored" data-anchor-id="bernoulli-random-variable">Bernoulli random variable</h2>
-<p>These variables are often coded so that <span class="math inline">\(Y=1\)</span> is called an <em>event</em> or <em>success</em>, <span class="math inline">\(Y=0\)</span> is called a <em>failure</em>, and <span class="math inline">\(\pi\)</span> is defined as the probability of a success. (This is not required, but you need to remember which level maps to <span class="math inline">\(\pi\)</span>, and the other level then has probability <span class="math inline">\(1-\pi\)</span>.)</p>
-<hr></section><section id="bernoulli-random-variable-examples" class="level2"><h2 class="anchored" data-anchor-id="bernoulli-random-variable-examples">Bernoulli random variable examples</h2>
-<ul>
-<li><p>Coin flip: let <span class="math inline">\(Y=1\)</span> if heads and <span class="math inline">\(Y=0\)</span> if tails, then <span class="math inline">\(P(Y=1)=\pi=0.5\)</span></p></li>
-<li><p>Vegetarian in US: <span class="math inline">\(Y=1\)</span> if vegetarian and <span class="math inline">\(Y=0\)</span> if not, then <span class="math inline">\(P(Y=1)=\pi=0.05\)</span> and <span class="math inline">\(P(Y=0)=1-\pi=1-0.05=0.95\)</span></p></li>
-<li><p>Vegetarian in India: <span class="math inline">\(Y=1\)</span> if vegetarian and <span class="math inline">\(Y=0\)</span> if not, then <span class="math inline">\(P(Y=1)=\pi=0.3\)</span> and <span class="math inline">\(P(Y=0)=1-\pi=1-0.3=0.7\)</span></p></li>
+<p>These variables are often coded so that <span class="math inline">\(Y=1\)</span> is called the <em>event</em> or a <em>success</em>, <span class="math inline">\(Y=0\)</span> is called a <em>failure</em>, and <span class="math inline">\(\pi\)</span> is defined as the probability of a success. (This is not required, but you need to remember which level maps to <span class="math inline">\(\pi\)</span>, and the other level then has probability <span class="math inline">\(1-\pi\)</span>.)</p>
+</section><section id="bernoulli-random-variable-examples" class="level2"><h2 class="anchored" data-anchor-id="bernoulli-random-variable-examples">Bernoulli random variable examples</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>Coin flip: let <span class="math inline">\(Y=1\)</span> if heads and <span class="math inline">\(Y=0\)</span> if tails, then <span class="math inline">\(P(Y=1)=\pi=0.5\)</span>
+</li>
+<li>Y chromosome in US: <span class="math inline">\(Y=1\)</span> if present and <span class="math inline">\(Y=0\)</span> if not present, then <span class="math inline">\(P(Y=1)=0.512\)</span>
+</li>
+<li>Vegetarian in US: <span class="math inline">\(Y=1\)</span> if vegetarian and <span class="math inline">\(Y=0\)</span> if not, then <span class="math inline">\(P(Y=1)=\pi=0.05\)</span> and <span class="math inline">\(P(Y=0)=1-\pi=1-0.05=0.95\)</span>
+</li>
+<li>Vegetarian in India: <span class="math inline">\(Y=1\)</span> if vegetarian and <span class="math inline">\(Y=0\)</span> if not, then <span class="math inline">\(P(Y=1)=\pi=0.3\)</span> and <span class="math inline">\(P(Y=0)=1-\pi=1-0.3=0.7\)</span>
+</li>
 </ul>
-<hr></section><section id="bernoulli-distribution-1" class="level2"><h2 class="anchored" data-anchor-id="bernoulli-distribution-1">Bernoulli distribution</h2>
+</div>
+</section><section id="bernoulli-distribution-1" class="level2"><h2 class="anchored" data-anchor-id="bernoulli-distribution-1">Bernoulli distribution</h2>
 <div style="font-size:0.85em;">
-<ul>
+<div class="incremental">
+<ul class="incremental">
 <li><p><span class="math inline">\(Y\)</span> takes value 1 with probability <span class="math inline">\(\pi\)</span> and value 0 with probability <span class="math inline">\(1-\pi\)</span></p></li>
 <li>
 <p><span class="math inline">\(P(Y=y)=\pi^y(1-\pi)^{1-y}\)</span></p>
-<ul>
+<ul class="incremental">
 <li><p><span class="math inline">\(P(Y=1)=\pi^1(1-\pi)^0=\pi\)</span> (remember <span class="math inline">\(x^0=1\)</span> for any <span class="math inline">\(x\)</span>)</p></li>
 <li><p><span class="math inline">\(P(Y=0)=\pi^0(1-\pi)^1=1-\pi\)</span></p></li>
+<li>
+<p>Example: Y chromosomes</p>
+<ul class="incremental">
+<li><span class="math inline">\(P(Y=y)=\pi^y(1-\pi)^{1-y}\)</span></li>
+<li><span class="math inline">\(P(Y=1)=0.512^1(1-0.512)^{1-1}=0.512^1(0.488)^0=0.512\)</span></li>
+<li><span class="math inline">\(P(Y=0)=0.512^0(1-0.512)^{1-0}=0.488\)</span></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>We don’t really need all this formality as it’s probably easier just to keep track of <span class="math inline">\(\pi\)</span> and <span class="math inline">\(1-\pi\)</span></p></li>
 <li><p>However, we want to extend this to a more complex setting – for example, in a randomly-selected group of 3 people, how surprising would it be to get 2 who are left-handed?</p></li>
 </ul>
+</div>
 </div>
 <hr></section><section id="case-study-left-handedness" class="level2"><h2 class="anchored" data-anchor-id="case-study-left-handedness">Case Study: Left-Handedness</h2>
 <p>Roughly 10% of humans are left-handed. While handedness isn’t uniquely humans, humans are an extreme outlier in the strength and directionality of lateral preference. Some lateral preferences of other species are described below.</p>
@@ -648,7 +664,7 @@ window.Quarto = {
 <li><p>Roughly 10% of the US population is left-handed. Let <span class="math inline">\(Y\)</span> be the event a person is left-handed.</p></li>
 <li><p><span class="math inline">\(P(Y=1)=P(\mathrm{Lefty})=\pi=0.1\)</span></p></li>
 <li><p><span class="math inline">\(P(Y=0)=1-P(Y=1)=P(\mathrm{Righty})=0.9\)</span></p></li>
-<li><p>Now suppose we randomly select two independent people and define a new random variable <span class="math inline">\(X\)</span> representing the number of lefties. <span class="math inline">\(X\)</span> can take the values 0, 1, or 2. Let <span class="math inline">\(Y_1\)</span> be the smoking status of the first person and <span class="math inline">\(Y_2\)</span> be the smoking status of the second person, where <span class="math inline">\(Y_j\)</span>=1 if person <span class="math inline">\(j\)</span> is a lefty and takes value 0 otherwise.</p></li>
+<li><p>Now suppose we randomly select two independent people and define a new random variable <span class="math inline">\(X\)</span> representing the number of lefties. <span class="math inline">\(X\)</span> can take the values 0, 1, or 2. Let <span class="math inline">\(Y_1\)</span> be the handedness of the first person and <span class="math inline">\(Y_2\)</span> be the handedness of the second person, where <span class="math inline">\(Y_j=1\)</span> if person <span class="math inline">\(j\)</span> is a lefty and takes value 0 otherwise.</p></li>
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -697,11 +713,12 @@ window.Quarto = {
 P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 &amp; = P(A_1) P(A_2 \mid A_1) \\
 &amp; = P(A_1) P(A_2) \\
-&amp; = \pi \times \pi = 0.1(0.1)=0.01. \end{aligned}\]</span></p>
+&amp; = \pi \times \pi = 0.1(0.1)=0.01 \end{aligned}\]</span></p>
 <hr></section><section id="left-handedness-1" class="level2"><h2 class="anchored" data-anchor-id="left-handedness-1">Left-Handedness</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Now we can fill in the bottom row of the probability distribution of <span class="math inline">\(X\)</span>.</p>
+<p>Take a moment to fill in the other rows.</p>
 </div><div class="column" style="width:50%;">
 <table class="caption-top table">
 <thead><tr class="header">
@@ -733,12 +750,13 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">2</td>
-<td style="text-align: center;"><span class="math inline">\(0.01 \times 0.01 =0.01\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.1 \times 0.1 =0.01\)</span></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+<p>Check your work: do the probabilities of the 4 possible combinations of handedness of the two people sum to 1?</p>
 </section><section id="left-handedness-2" class="level2"><h2 class="anchored" data-anchor-id="left-handedness-2">Left-Handedness</h2>
 <div class="columns">
 <div class="column" style="width:50%;">

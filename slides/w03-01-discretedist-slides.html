@@ -231,7 +231,7 @@ Amy Herring
 <li><p>define <span class="math inline">\(X\)</span> to be a 0/1 variable indicating whether each patient survives 1 year</p></li>
 <li><p>define <span class="math inline">\(X\)</span> as the number of months a patient survives</p></li>
 </ul>
-<p>In these two cases, each definition of <span class="math inline">\(X\)</span> has a different probability distribution, and you would use a different type of test for each case.</p>
+<p>In these two cases, under each definition, <span class="math inline">\(X\)</span> has a different probability distribution, and you would use a different type of test for each case.</p>
 </section><section id="example-y-chromosomes" class="slide level2"><h2>Example: Y Chromosomes</h2>
 <p>Consider Y chromosomes in the US population. Roughly 51.2% of births are of babies with Y chromosomes, and 48.8% of babies do not have Y chromosomes. Thus the probability of having a baby with a Y chromosome is 0.512.</p>
 <ul>
@@ -247,7 +247,7 @@ Amy Herring
 <p>Consider a dichotomous (two-level) random variable <span class="math inline">\(Y\)</span>. By definition, <span class="math inline">\(Y\)</span> must assume one of two possible values, e.g.</p>
 <ul>
 <li>failure or success</li>
-<li>dead or alive</li>
+<li>Y chromosome present or not</li>
 <li>Duke student or not</li>
 <li>current smoker or not</li>
 <li>heads or tails (coin flip)</li>
@@ -256,25 +256,38 @@ Amy Herring
 <p>The distribution is named for <a href="https://en.wikipedia.org/wiki/Jacob_Bernoulli">Jacob Bernoulli</a>, who was part of a famous family of mathematicians in Switzerland.</p>
 </div>
 </section><section id="bernoulli-random-variable" class="slide level2"><h2>Bernoulli random variable</h2>
-<p>These variables are often coded so that <span class="math inline">\(Y=1\)</span> is called an <em>event</em> or <em>success</em>, <span class="math inline">\(Y=0\)</span> is called a <em>failure</em>, and <span class="math inline">\(\pi\)</span> is defined as the probability of a success. (This is not required, but you need to remember which level maps to <span class="math inline">\(\pi\)</span>, and the other level then has probability <span class="math inline">\(1-\pi\)</span>.)</p>
+<p>These variables are often coded so that <span class="math inline">\(Y=1\)</span> is called the <em>event</em> or a <em>success</em>, <span class="math inline">\(Y=0\)</span> is called a <em>failure</em>, and <span class="math inline">\(\pi\)</span> is defined as the probability of a success. (This is not required, but you need to remember which level maps to <span class="math inline">\(\pi\)</span>, and the other level then has probability <span class="math inline">\(1-\pi\)</span>.)</p>
 </section><section id="bernoulli-random-variable-examples" class="slide level2"><h2>Bernoulli random variable examples</h2>
 <ul>
-<li><p>Coin flip: let <span class="math inline">\(Y=1\)</span> if heads and <span class="math inline">\(Y=0\)</span> if tails, then <span class="math inline">\(P(Y=1)=\pi=0.5\)</span></p></li>
-<li><p>Vegetarian in US: <span class="math inline">\(Y=1\)</span> if vegetarian and <span class="math inline">\(Y=0\)</span> if not, then <span class="math inline">\(P(Y=1)=\pi=0.05\)</span> and <span class="math inline">\(P(Y=0)=1-\pi=1-0.05=0.95\)</span></p></li>
-<li><p>Vegetarian in India: <span class="math inline">\(Y=1\)</span> if vegetarian and <span class="math inline">\(Y=0\)</span> if not, then <span class="math inline">\(P(Y=1)=\pi=0.3\)</span> and <span class="math inline">\(P(Y=0)=1-\pi=1-0.3=0.7\)</span></p></li>
+<li class="fragment">Coin flip: let <span class="math inline">\(Y=1\)</span> if heads and <span class="math inline">\(Y=0\)</span> if tails, then <span class="math inline">\(P(Y=1)=\pi=0.5\)</span>
+</li>
+<li class="fragment">Y chromosome in US: <span class="math inline">\(Y=1\)</span> if present and <span class="math inline">\(Y=0\)</span> if not present, then <span class="math inline">\(P(Y=1)=0.512\)</span>
+</li>
+<li class="fragment">Vegetarian in US: <span class="math inline">\(Y=1\)</span> if vegetarian and <span class="math inline">\(Y=0\)</span> if not, then <span class="math inline">\(P(Y=1)=\pi=0.05\)</span> and <span class="math inline">\(P(Y=0)=1-\pi=1-0.05=0.95\)</span>
+</li>
+<li class="fragment">Vegetarian in India: <span class="math inline">\(Y=1\)</span> if vegetarian and <span class="math inline">\(Y=0\)</span> if not, then <span class="math inline">\(P(Y=1)=\pi=0.3\)</span> and <span class="math inline">\(P(Y=0)=1-\pi=1-0.3=0.7\)</span>
+</li>
 </ul></section><section id="bernoulli-distribution-1" class="slide level2"><h2>Bernoulli distribution</h2>
 <div style="font-size:0.85em;">
 <ul>
-<li><p><span class="math inline">\(Y\)</span> takes value 1 with probability <span class="math inline">\(\pi\)</span> and value 0 with probability <span class="math inline">\(1-\pi\)</span></p></li>
-<li>
+<li class="fragment"><p><span class="math inline">\(Y\)</span> takes value 1 with probability <span class="math inline">\(\pi\)</span> and value 0 with probability <span class="math inline">\(1-\pi\)</span></p></li>
+<li class="fragment">
 <p><span class="math inline">\(P(Y=y)=\pi^y(1-\pi)^{1-y}\)</span></p>
 <ul>
-<li><p><span class="math inline">\(P(Y=1)=\pi^1(1-\pi)^0=\pi\)</span> (remember <span class="math inline">\(x^0=1\)</span> for any <span class="math inline">\(x\)</span>)</p></li>
-<li><p><span class="math inline">\(P(Y=0)=\pi^0(1-\pi)^1=1-\pi\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(P(Y=1)=\pi^1(1-\pi)^0=\pi\)</span> (remember <span class="math inline">\(x^0=1\)</span> for any <span class="math inline">\(x\)</span>)</p></li>
+<li class="fragment"><p><span class="math inline">\(P(Y=0)=\pi^0(1-\pi)^1=1-\pi\)</span></p></li>
+<li class="fragment">
+<p>Example: Y chromosomes</p>
+<ul>
+<li class="fragment"><span class="math inline">\(P(Y=y)=\pi^y(1-\pi)^{1-y}\)</span></li>
+<li class="fragment"><span class="math inline">\(P(Y=1)=0.512^1(1-0.512)^{1-1}=0.512^1(0.488)^0=0.512\)</span></li>
+<li class="fragment"><span class="math inline">\(P(Y=0)=0.512^0(1-0.512)^{1-0}=0.488\)</span></li>
 </ul>
 </li>
-<li><p>We don’t really need all this formality as it’s probably easier just to keep track of <span class="math inline">\(\pi\)</span> and <span class="math inline">\(1-\pi\)</span></p></li>
-<li><p>However, we want to extend this to a more complex setting – for example, in a randomly-selected group of 3 people, how surprising would it be to get 2 who are left-handed?</p></li>
+</ul>
+</li>
+<li class="fragment"><p>We don’t really need all this formality as it’s probably easier just to keep track of <span class="math inline">\(\pi\)</span> and <span class="math inline">\(1-\pi\)</span></p></li>
+<li class="fragment"><p>However, we want to extend this to a more complex setting – for example, in a randomly-selected group of 3 people, how surprising would it be to get 2 who are left-handed?</p></li>
 </ul>
 </div>
 </section><section id="case-study-left-handedness" class="slide level2"><h2>Case Study: Left-Handedness</h2>
@@ -295,7 +308,7 @@ Amy Herring
 <li><p>Roughly 10% of the US population is left-handed. Let <span class="math inline">\(Y\)</span> be the event a person is left-handed.</p></li>
 <li><p><span class="math inline">\(P(Y=1)=P(\mathrm{Lefty})=\pi=0.1\)</span></p></li>
 <li><p><span class="math inline">\(P(Y=0)=1-P(Y=1)=P(\mathrm{Righty})=0.9\)</span></p></li>
-<li><p>Now suppose we randomly select two independent people and define a new random variable <span class="math inline">\(X\)</span> representing the number of lefties. <span class="math inline">\(X\)</span> can take the values 0, 1, or 2. Let <span class="math inline">\(Y_1\)</span> be the smoking status of the first person and <span class="math inline">\(Y_2\)</span> be the smoking status of the second person, where <span class="math inline">\(Y_j\)</span>=1 if person <span class="math inline">\(j\)</span> is a lefty and takes value 0 otherwise.</p></li>
+<li><p>Now suppose we randomly select two independent people and define a new random variable <span class="math inline">\(X\)</span> representing the number of lefties. <span class="math inline">\(X\)</span> can take the values 0, 1, or 2. Let <span class="math inline">\(Y_1\)</span> be the handedness of the first person and <span class="math inline">\(Y_2\)</span> be the handedness of the second person, where <span class="math inline">\(Y_j=1\)</span> if person <span class="math inline">\(j\)</span> is a lefty and takes value 0 otherwise.</p></li>
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -343,11 +356,12 @@ Amy Herring
 P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 &amp; = P(A_1) P(A_2 \mid A_1) \\
 &amp; = P(A_1) P(A_2) \\
-&amp; = \pi \times \pi = 0.1(0.1)=0.01. \end{aligned}\]</span></p>
+&amp; = \pi \times \pi = 0.1(0.1)=0.01 \end{aligned}\]</span></p>
 </section><section id="left-handedness-1" class="slide level2"><h2>Left-Handedness</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Now we can fill in the bottom row of the probability distribution of <span class="math inline">\(X\)</span>.</p>
+<p>Take a moment to fill in the other rows.</p>
 </div><div class="column" style="width:50%;">
 <table class="caption-top">
 <thead><tr class="header">
@@ -379,11 +393,12 @@ P(Y_1=Y_2=1) &amp; = P(A_1 \cap A_2) \\
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">2</td>
-<td style="text-align: center;"><span class="math inline">\(0.01 \times 0.01 =0.01\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.1 \times 0.1 =0.01\)</span></td>
 </tr>
 </tbody>
 </table>
 </div></div>
+<p>Check your work: do the probabilities of the 4 possible combinations of handedness of the two people sum to 1?</p>
 </section><section id="left-handedness-2" class="slide level2"><h2>Left-Handedness</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
