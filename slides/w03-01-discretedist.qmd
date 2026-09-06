@@ -35,13 +35,13 @@ library(tidyverse)
 
 # Probability Distributions
 
----
+
 
 ## Probability Distributions
 
 When we learned how to find probabilities using basic principles, we focused on one particular outcome or event, like the probability of a randomly selected person being left-handed. We now explore the bigger picture by exploring all possible values of a discrete random variable, along with their associated probabilities. This list of possible values and probabilities is called the *probability distribution* of the random variable.
 
----
+
 
 ## Why do we care about probability distributions?
 
@@ -52,7 +52,7 @@ new treatment.
 
 The statistical test we use to compare the two groups depends on the variable of interest $X$ and its probability distribution. 
 
----
+
 
 ## Why do we care about probability distributions?
 
@@ -62,9 +62,9 @@ Possible outcomes for comparison:
 
 - define $X$ as the number of months a patient survives
 
-In these two cases, each definition of $X$ has a different probability distribution, and you would use a different type of test for each case.
+In these two cases, under each definition, $X$ has a different probability distribution, and you would use a different type of test for each case.
 
----
+
 
 ## Example: Y Chromosomes
 
@@ -82,7 +82,7 @@ Note: sex ratios vary dramatically across species, driven by factors including e
 
 </div>
 
----
+
 
 ## Bernoulli Distribution
 
@@ -92,7 +92,7 @@ Note: sex ratios vary dramatically across species, driven by factors including e
 Consider a dichotomous (two-level) random variable $Y$. By definition, $Y$ must assume one of two possible values, e.g.
 
 - failure or success
-- dead or alive
+- Y chromosome present or not
 - Duke student or not
 - current smoker or not
 - heads or tails (coin flip)
@@ -107,25 +107,26 @@ The distribution is named for [Jacob Bernoulli](https://en.wikipedia.org/wiki/Ja
 
 ## Bernoulli random variable
 
-These variables are often coded so that $Y=1$ is called an *event* or *success*, $Y=0$ is called a *failure*, and $\pi$ is defined as the probability of a success. (This is not required, but you need to remember which level maps to $\pi$, and the other level then has probability $1-\pi$.)
+These variables are often coded so that $Y=1$ is called the *event* or a *success*, $Y=0$ is called a *failure*, and $\pi$ is defined as the probability of a success. (This is not required, but you need to remember which level maps to $\pi$, and the other level then has probability $1-\pi$.)
 
----
+
 
 ## Bernoulli random variable examples
 
+::: {.incremental}
 - Coin flip: let $Y=1$ if heads and $Y=0$ if tails, then $P(Y=1)=\pi=0.5$
-
+- Y chromosome in US: $Y=1$ if present and $Y=0$ if not present, then $P(Y=1)=0.512$
 - Vegetarian in US: $Y=1$ if vegetarian and $Y=0$ if not, then $P(Y=1)=\pi=0.05$ and $P(Y=0)=1-\pi=1-0.05=0.95$
-
 - Vegetarian in India: $Y=1$ if vegetarian and $Y=0$ if not, then $P(Y=1)=\pi=0.3$ and $P(Y=0)=1-\pi=1-0.3=0.7$
+:::
 
----
+
 
 ## Bernoulli distribution
 
 <div style="font-size:0.85em;">
 
-
+::: {.incremental}
 - $Y$ takes value 1 with probability $\pi$ and value 0 with probability $1-\pi$
 
 - $P(Y=y)=\pi^y(1-\pi)^{1-y}$
@@ -134,11 +135,21 @@ These variables are often coded so that $Y=1$ is called an *event* or *success*,
   
   - $P(Y=0)=\pi^0(1-\pi)^1=1-\pi$
   
+  - Example: Y chromosomes
+  
+    - $P(Y=y)=\pi^y(1-\pi)^{1-y}$
+    - $P(Y=1)=0.512^1(1-0.512)^{1-1}=0.512^1(0.488)^0=0.512$
+    - $P(Y=0)=0.512^0(1-0.512)^{1-0}=0.488$
+  
 - We don't really need all this formality as it's probably easier just to keep track of $\pi$ and $1-\pi$
 
 - However, we want to extend this to a more complex setting -- for example, in a randomly-selected group of 3 people, how surprising would it be to get 2 who are left-handed?
 
+:::
+
 </div>
+
+
 
 ---
 
@@ -175,7 +186,7 @@ Roughly 10% of humans are left-handed. While handedness isn't uniquely humans, h
 
 - $P(Y=0)=1-P(Y=1)=P(\mathrm{Righty})=0.9$
 
-- Now suppose we randomly select two independent people and define a new random variable $X$ representing the number of lefties. $X$ can take the values 0, 1, or 2. Let $Y_1$ be the smoking status of the first person and $Y_2$ be the smoking status of the second person, where $Y_j$=1 if person $j$ is a lefty and takes value 0 otherwise.
+- Now suppose we randomly select two independent people and define a new random variable $X$ representing the number of lefties. $X$ can take the values 0, 1, or 2. Let $Y_1$ be the handedness of the first person and $Y_2$ be the handedness of the second person, where $Y_j=1$ if person $j$ is a lefty and takes value 0 otherwise.
 
 ::: {.columns}
 
@@ -205,7 +216,7 @@ $$\begin{aligned}
 P(Y_1=Y_2=1) & = P(A_1 \cap A_2) \\
  & = P(A_1) P(A_2 \mid A_1) \\
  & = P(A_1) P(A_2) \\
- & = \pi \times \pi = 0.1(0.1)=0.01. \end{aligned}$$
+ & = \pi \times \pi = 0.1(0.1)=0.01 \end{aligned}$$
 
 ---
 
@@ -215,6 +226,9 @@ P(Y_1=Y_2=1) & = P(A_1 \cap A_2) \\
 
 ::: {.column width="50%"}
 Now we can fill in the bottom row of the probability distribution of $X$.
+
+Take a moment to fill in the other rows.
+
 :::
 
 ::: {.column width="50%"}
@@ -223,10 +237,12 @@ Now we can fill in the bottom row of the probability distribution of $X$.
 | 0 | 0 | 0 | |
 | 1 | 0 | 1 | |
 | 0 | 1 | 1 | |
-| 1 | 1 | 2 |  $0.01 \times 0.01 =0.01$ |
+| 1 | 1 | 2 |  $0.1 \times 0.1 =0.01$ |
 :::
 
 :::
+
+Check your work: do the probabilities of the 4 possible combinations of handedness of the two people sum to 1?
 
 ## Left-Handedness
 
