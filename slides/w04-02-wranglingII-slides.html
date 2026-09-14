@@ -357,7 +357,7 @@ Amy Herring
 10 Jennifer Doudna    Biochemist        1964         NA one of t…</code></pre>
 </div>
 </div>
-</section><section class="slide level2"></section><section><section id="joining-data-frames" class="title-slide slide level1 center"><h1>Joining data frames</h1>
+</section><section><section id="joining-data-frames" class="title-slide slide level1 center"><h1>Joining data frames</h1>
 
 </section><section id="joining-data-frames-1" class="slide level2"><h2>Joining data frames</h2>
 <div class="cell" data-layout-align="center">
@@ -377,10 +377,10 @@ Amy Herring
 <code>inner_join()</code>: all rows from x where there are matching values in y, return all combination of multiple matches in the case of multiple matches</li>
 <li>
 <code>anti_join()</code>: return all rows from x where there are not matching values in y, never duplicate rows of x</li>
-<li>…</li>
 </ul>
 </div>
-</section><section class="slide level2"><p>For the next few slides…</p>
+</section><section id="section" class="slide level2" data-background-color="white"><h2></h2>
+<p>For the next few slides…</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -695,7 +695,8 @@ Amy Herring
 <span id="cb39-18"><a></a>    )</span>
 <span id="cb39-19"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section class="slide level2"><div class="cell" data-layout-align="center">
+</section><section id="section-1" class="slide level2" data-background-color="white"><h2></h2>
+<div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 5
    name               profession  birth_year death_year known_for
@@ -712,10 +713,10 @@ Amy Herring
 10 Jennifer Doudna    Biochemist        1964         NA one of t…</code></pre>
 </div>
 </div>
-</section><section class="slide level2"></section></section><section><section id="case-study-medical-records" class="title-slide slide level1 center"><h1>Case study: Medical records</h1>
+</section></section><section><section id="case-study-medical-records" class="title-slide slide level1 center"><h1>Case study: Medical records</h1>
 
 </section><section id="medical-records" class="slide level2"><h2>Medical Records</h2>
-<div style="font-size:0.8em;">
+<div style="font-size:0.85em;">
 <ul>
 <li>Have:
 <ul>
@@ -725,7 +726,6 @@ Amy Herring
 </li>
 <li>Want: Survey info for all officially enrolled in Duke MyChart</li>
 </ul>
-<hr>
 <div class="columns">
 <div class="column" style="width:35%;">
 <div class="cell" data-layout-align="center">
@@ -763,6 +763,7 @@ Amy Herring
 </ul>
 <div class="tab-content">
 <div id="tabset-2-1">
+<p>For those enrolled in MyChart, for which clinic did they complete a survey in the past year?</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a>enrollment <span class="sc">%&gt;%</span> </span>
 <span id="cb45-2"><a></a>  <span class="fu">left_join</span>(survey, <span class="at">by =</span> <span class="st">"name"</span>) <span class="sc">%&gt;%</span> </span>
@@ -778,6 +779,7 @@ Amy Herring
 </div>
 </div>
 <div id="tabset-2-2">
+<p>For those enrolled in MyChart, who did not complete a survey?</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>enrollment <span class="sc">%&gt;%</span> </span>
 <span id="cb47-2"><a></a>  <span class="fu">anti_join</span>(survey, <span class="at">by =</span> <span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -790,6 +792,7 @@ Amy Herring
 </div>
 </div>
 <div id="tabset-2-3">
+<p>For those who completed a survey, who is not in MyChart?</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>survey <span class="sc">%&gt;%</span> </span>
 <span id="cb49-2"><a></a>  <span class="fu">anti_join</span>(enrollment, <span class="at">by =</span> <span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

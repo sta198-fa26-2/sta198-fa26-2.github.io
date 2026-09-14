@@ -448,6 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <a href="#joining-data-frames" id="toc-joining-data-frames" class="nav-link" data-scroll-target="#joining-data-frames">Joining data frames</a>
   <ul class="collapse">
 <li><a href="#joining-data-frames-1" id="toc-joining-data-frames-1" class="nav-link" data-scroll-target="#joining-data-frames-1">Joining data frames</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#left_join" id="toc-left_join" class="nav-link" data-scroll-target="#left_join"><code>left_join()</code></a></li>
   <li><a href="#left_join-1" id="toc-left_join-1" class="nav-link" data-scroll-target="#left_join-1"><code>left_join()</code></a></li>
   <li><a href="#right_join" id="toc-right_join" class="nav-link" data-scroll-target="#right_join"><code>right_join()</code></a></li>
@@ -462,6 +463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#anti_join-1" id="toc-anti_join-1" class="nav-link" data-scroll-target="#anti_join-1"><code>anti_join()</code></a></li>
   <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together">Putting it all together</a></li>
   <li><a href="#dealing-with-the-missing-values" id="toc-dealing-with-the-missing-values" class="nav-link" data-scroll-target="#dealing-with-the-missing-values">Dealing with the missing values</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
   </ul>
 </li>
   <li>
@@ -649,7 +651,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 10 Jennifer Doudna    Biochemist        1964         NA one of t…</code></pre>
 </div>
 </div>
-<hr></section><section id="joining-data-frames" class="level1"><h1>Joining data frames</h1>
+</section><section id="joining-data-frames" class="level1"><h1>Joining data frames</h1>
 <section id="joining-data-frames-1" class="level2"><h2 class="anchored" data-anchor-id="joining-data-frames-1">Joining data frames</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">something_join</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -668,10 +670,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <code>inner_join()</code>: all rows from x where there are matching values in y, return all combination of multiple matches in the case of multiple matches</li>
 <li>
 <code>anti_join()</code>: return all rows from x where there are not matching values in y, never duplicate rows of x</li>
-<li>…</li>
 </ul>
 </div>
-<hr>
+</section><section id="section" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section"></h2>
 <p>For the next few slides…</p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -745,7 +746,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 10 Jennifer Doudna    Biochemist                  1964         NA</code></pre>
 </div>
 </div>
-<hr></section><section id="right_join" class="level2"><h2 class="anchored" data-anchor-id="right_join"><code>right_join()</code></h2>
+</section><section id="right_join" class="level2"><h2 class="anchored" data-anchor-id="right_join"><code>right_join()</code></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -994,7 +995,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<hr>
+</section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 5
@@ -1012,10 +1013,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 10 Jennifer Doudna    Biochemist        1964         NA one of t…</code></pre>
 </div>
 </div>
-<hr></section></section><section id="case-study-medical-records" class="level1"><h1>Case study: Medical records</h1>
-<hr>
+</section></section><section id="case-study-medical-records" class="level1"><h1>Case study: Medical records</h1>
 <section id="medical-records" class="level2"><h2 class="anchored" data-anchor-id="medical-records">Medical Records</h2>
-<div style="font-size:0.8em;">
+<div style="font-size:0.85em;">
 <ul>
 <li>Have:
 <ul>
@@ -1025,7 +1025,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 <li>Want: Survey info for all officially enrolled in Duke MyChart</li>
 </ul>
-<hr>
 <div class="columns">
 <div class="column" style="width:35%;">
 <div class="cell" data-layout-align="center">
@@ -1064,6 +1063,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>For those enrolled in MyChart, for which clinic did they complete a survey in the past year?</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">enrollment</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">left_join</span><span class="op">(</span><span class="va">survey</span>, by <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
@@ -1079,6 +1079,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>For those enrolled in MyChart, who did not complete a survey?</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">enrollment</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">anti_join</span><span class="op">(</span><span class="va">survey</span>, by <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1091,6 +1092,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>For those who completed a survey, who is not in MyChart?</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">survey</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">anti_join</span><span class="op">(</span><span class="va">enrollment</span>, by <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
