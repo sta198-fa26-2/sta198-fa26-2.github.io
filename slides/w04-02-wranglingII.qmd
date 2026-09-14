@@ -111,7 +111,7 @@ professions %>%
   left_join(works)
 ```
 
----
+
 
 # Joining data frames
 
@@ -131,11 +131,12 @@ something_join(x, y)
 - `semi_join()`: all rows from x where there are matching values in y, keeping just columns from x
 - `inner_join()`: all rows from x where there are matching values in y, return all combination of multiple matches in the case of multiple matches
 - `anti_join()`: return all rows from x where there are not matching values in y, never duplicate rows of x
-- ...
+
 
 </div>
 
----
+## {background-color="white"}
+
 
 For the next few slides...
 
@@ -200,7 +201,7 @@ professions %>%
   left_join(dates) #<<
 ```
 
----
+
 
 ## `right_join()`
 
@@ -382,7 +383,8 @@ professions %>%
   )
 ```
 
----
+## {background-color="white"}
+
 
 ```{r msng-output}
 #| echo: false
@@ -407,16 +409,16 @@ professions %>%
   )
 ```
 
----
+
 
 # Case study: Medical records
 
----
+
 
 ## Medical Records
   
-
-<div style="font-size:0.8em;">
+<div style="font-size:0.85em;">
+  
 
 - Have:
   - Enrolled: officially enrolled in Duke MyChart
@@ -424,7 +426,9 @@ professions %>%
 - Want: Survey info for all officially enrolled in Duke MyChart
 
 
----
+
+
+
 
 ```{r load-data}
 #| include: false
@@ -458,6 +462,8 @@ survey
 
 ## In MyChart
 
+For those enrolled in MyChart, for which clinic did they complete a survey in the past year?
+
 ```{r in-mychart}
 enrollment %>% 
   left_join(survey, by = "name") %>% 
@@ -466,12 +472,16 @@ enrollment %>%
 
 ## Survey missing
 
+For those enrolled in MyChart, who did not complete a survey?
+
 ```{r survey-missing}
 enrollment %>% 
   anti_join(survey, by = "name")
 ```
 
 ## MyChart not activated
+
+For those who completed a survey, who is not in MyChart?
 
 ```{r mychart-not-activated}
 survey %>% 
