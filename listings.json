@@ -1,6 +1,6 @@
 [
   {
-    "listing": "/exam-review.html",
+    "listing": "/hw.html",
     "items": []
   },
   {
@@ -8,11 +8,12 @@
     "items": [
       "/lab/lab-0.html",
       "/lab/lab-1.html",
-      "/lab/lab-2.html"
+      "/lab/lab-2.html",
+      "/lab/lab-3.html"
     ]
   },
   {
-    "listing": "/hw.html",
+    "listing": "/exam-review.html",
     "items": []
   }
 ]
