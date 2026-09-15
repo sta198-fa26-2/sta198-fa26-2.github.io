@@ -1,0 +1,23 @@
+---
+title: Lab 3
+subtitle: Healthcare Supply Planning Project
+description: "Due: End of lab on Fri, September 15"
+categories: Lab
+draft: false
+---
+
+
+## Download the repo (just a reminder of the steps!)
+
+-   Go to the repository for **lab-3** in the course GitHub organization, which will be specific to your team!
+
+-   Click on the green **CODE** button, select **Use SSH** (this might already be selected by default, and if it is, you'll see the text **Clone with SSH**).
+    Click on the clipboard icon to copy the repo URL.
+
+-   In RStudio, go to *File* ➛ *New Project* ➛*Version Control* ➛ *Git*.
+
+-   Copy and paste the URL of your assignment repo into the dialog box *Repository URL*. Again, please make sure to have *SSH* highlighted under *Clone* when you copy the address.
+
+-   Click *Create Project*.
+
+- Complete the lab assignment, following the team-member-specific instructions carefully, and turn in using Canvas. Each team member needs to upload the lab assignment separately for credit, though the submissions should be identical for each team member.
