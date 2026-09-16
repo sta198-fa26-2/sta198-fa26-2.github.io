@@ -70,7 +70,7 @@ degrees <- read_csv("../data/statsci_clean.csv")
 
 degrees_long <- degrees %>%
   pivot_longer(
-    cols = -degree_type,
+    cols = -degree_type, 
     names_to = "year",
     values_to = "count"
   ) %>%
@@ -353,7 +353,7 @@ print(degrees |>
 ```{r}
 degrees |> 
   pivot_longer(
-    cols = -degree_type,
+    cols = -degree_type, # or cols = 2:16 works
     values_to = "count",
     names_to = "year"
   )

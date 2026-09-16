@@ -421,7 +421,7 @@ professions %>%
   
 
 - Have:
-  - Enrolled: officially enrolled in Duke MyChart
+  - Enrollment: officially enrolled in Duke MyChart
   - Survey: completed by those seen in hospital clinics over past year
 - Want: Survey info for all officially enrolled in Duke MyChart
 
