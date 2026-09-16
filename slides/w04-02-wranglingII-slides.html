@@ -720,7 +720,7 @@ Amy Herring
 <ul>
 <li>Have:
 <ul>
-<li>Enrolled: officially enrolled in Duke MyChart</li>
+<li>Enrollment: officially enrolled in Duke MyChart</li>
 <li>Survey: completed by those seen in hospital clinics over past year</li>
 </ul>
 </li>
@@ -743,13 +743,14 @@ Amy Herring
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>survey</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 3
+<pre><code># A tibble: 5 × 3
      id name             clinic                      
   &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;                       
 1     2 Lamine Yamal     Nutrition                   
 2     3 Aitana Bonmati   Orthopedics                 
 3     4 Gianni Infantino Cognitive Behavioral Therapy
-4     5 Lionel Messi     Endocrinology               </code></pre>
+4     5 Lionel Messi     Endocrinology               
+5     3 Aitana Bonmati   Radiology                   </code></pre>
 </div>
 </div>
 </div></div>
@@ -769,12 +770,13 @@ Amy Herring
 <span id="cb45-2"><a></a>  <span class="fu">left_join</span>(survey, <span class="at">by =</span> <span class="st">"name"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb45-3"><a></a>  <span class="fu">select</span>(name, clinic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
+<pre><code># A tibble: 4 × 2
   name           clinic     
   &lt;chr&gt;          &lt;chr&gt;      
 1 Erling Haaland &lt;NA&gt;       
 2 Lamine Yamal   Nutrition  
-3 Aitana Bonmati Orthopedics</code></pre>
+3 Aitana Bonmati Orthopedics
+4 Aitana Bonmati Radiology  </code></pre>
 </div>
 </div>
 </div>

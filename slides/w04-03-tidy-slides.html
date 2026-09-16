@@ -455,7 +455,7 @@ Amy Herring
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>degrees <span class="sc">|&gt;</span> </span>
 <span id="cb19-2"><a></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb19-3"><a></a>    <span class="at">cols =</span> <span class="sc">-</span>degree_type,</span>
+<span id="cb19-3"><a></a>    <span class="at">cols =</span> <span class="sc">-</span>degree_type, <span class="co"># or cols = 2:16 works</span></span>
 <span id="cb19-4"><a></a>    <span class="at">values_to =</span> <span class="st">"count"</span>,</span>
 <span id="cb19-5"><a></a>    <span class="at">names_to =</span> <span class="st">"year"</span></span>
 <span id="cb19-6"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
