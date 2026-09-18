@@ -485,8 +485,8 @@ window.Quarto = {
   <li><a href="#wait-that-variable-was-binomial" id="toc-wait-that-variable-was-binomial" class="nav-link" data-scroll-target="#wait-that-variable-was-binomial">Wait, that variable was binomial!</a></li>
   <li><a href="#distribution-of-the-sample-mean" id="toc-distribution-of-the-sample-mean" class="nav-link" data-scroll-target="#distribution-of-the-sample-mean">Distribution of the sample mean</a></li>
   <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution">Normal Distribution</a></li>
-  <li><a href="#lead-in-flint-mi" id="toc-lead-in-flint-mi" class="nav-link" data-scroll-target="#lead-in-flint-mi">Lead in Flint, MI</a></li>
   <li><a href="#forms-of-statistical-inference" id="toc-forms-of-statistical-inference" class="nav-link" data-scroll-target="#forms-of-statistical-inference">Forms of Statistical Inference</a></li>
+  <li><a href="#lead-in-flint-mi" id="toc-lead-in-flint-mi" class="nav-link" data-scroll-target="#lead-in-flint-mi">Lead in Flint, MI</a></li>
   <li><a href="#flint" id="toc-flint" class="nav-link" data-scroll-target="#flint">Flint</a></li>
   <li><a href="#what-is-a-confidence-interval" id="toc-what-is-a-confidence-interval" class="nav-link" data-scroll-target="#what-is-a-confidence-interval">What is a Confidence Interval?</a></li>
   <li><a href="#moving-towards-confidence-intervals" id="toc-moving-towards-confidence-intervals" class="nav-link" data-scroll-target="#moving-towards-confidence-intervals">Moving towards confidence intervals</a></li>
@@ -505,9 +505,8 @@ window.Quarto = {
   <li><a href="#no-seriously" id="toc-no-seriously" class="nav-link" data-scroll-target="#no-seriously">No, seriously!</a></li>
   <li><a href="#students-t-distribution" id="toc-students-t-distribution" class="nav-link" data-scroll-target="#students-t-distribution">Student’s t distribution</a></li>
   <li><a href="#students-t-distribution-1" id="toc-students-t-distribution-1" class="nav-link" data-scroll-target="#students-t-distribution-1">Student’s t distribution</a></li>
-  <li><a href="#calculating-a-confidence-interval-for-flint-lead" id="toc-calculating-a-confidence-interval-for-flint-lead" class="nav-link" data-scroll-target="#calculating-a-confidence-interval-for-flint-lead">Calculating a Confidence Interval for Flint Lead</a></li>
   <li><a href="#confidence-interval-with-sigma-unknown" id="toc-confidence-interval-with-sigma-unknown" class="nav-link" data-scroll-target="#confidence-interval-with-sigma-unknown">Confidence Interval with <span class="math inline">\(\sigma\)</span> Unknown</a></li>
-  <li><a href="#calculating-a-confidence-interval-for-flint-lead-1" id="toc-calculating-a-confidence-interval-for-flint-lead-1" class="nav-link" data-scroll-target="#calculating-a-confidence-interval-for-flint-lead-1">Calculating a Confidence Interval for Flint Lead</a></li>
+  <li><a href="#calculating-a-confidence-interval-for-flint-lead" id="toc-calculating-a-confidence-interval-for-flint-lead" class="nav-link" data-scroll-target="#calculating-a-confidence-interval-for-flint-lead">Calculating a Confidence Interval for Flint Lead</a></li>
   <li><a href="#seriously" id="toc-seriously" class="nav-link" data-scroll-target="#seriously">Seriously?</a></li>
   <li><a href="#bootstrapping" id="toc-bootstrapping" class="nav-link" data-scroll-target="#bootstrapping">Bootstrapping</a></li>
   <li><a href="#bootstrapped-confidence-interval" id="toc-bootstrapped-confidence-interval" class="nav-link" data-scroll-target="#bootstrapped-confidence-interval">Bootstrapped Confidence Interval</a></li>
@@ -663,7 +662,7 @@ window.Quarto = {
 </section><section id="sampling-distribution-of-the-mean" class="level2"><h2 class="anchored" data-anchor-id="sampling-distribution-of-the-mean">Sampling Distribution of the Mean</h2>
 <p>Suppose we have an infinitely large population and do the following.</p>
 <ol type="1">
-<li>Take a sample of size <span class="math inline">\(n\)</span> of variable <span class="math inline">\(x\)</span> and calculate its mean <span class="math inline">\(\overline{x}_1=\sum_{i=1}^n x_i\)</span>
+<li>Take a sample of size <span class="math inline">\(n\)</span> of variable <span class="math inline">\(x\)</span> and calculate its mean <span class="math inline">\(\overline{x}_1=\frac{1}{n}\sum_{i=1}^n x_i\)</span>
 </li>
 <li>Take a second sample of the same size and calculate its mean <span class="math inline">\(\overline{x}_2\)</span>
 </li>
@@ -749,9 +748,16 @@ window.Quarto = {
 <p>How does the variability of the sampling distribution depend on the size of our random samples over which the mean is calculated (the binomial “n”)?</p>
 </div>
 </section><section id="central-limit-theorem-1" class="level2"><h2 class="anchored" data-anchor-id="central-limit-theorem-1">Central Limit Theorem</h2>
-<p>The <em>Central Limit Theorem</em> says that for a population with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>, the important three properties of the distribution of sample averages <span class="math inline">\(\bar{x}\)</span> hold: - The mean of the sampling distribution is identical to the population mean <span class="math inline">\(\mu\)</span>. - The standard deviation of the distribution of the sample averages is <span class="math inline">\(\frac{\sigma}{\sqrt{n}}\)</span>, called the <em>standard error</em> of the mean. - For <span class="math inline">\(n\)</span> large enough (in the limit as <span class="math inline">\(n \rightarrow \infty\)</span>), the shape of the sampling distribution is approximately normal (Gaussian)</p>
+<div style="font-size:0.75em;">
+<p>The <em>Central Limit Theorem</em> says that for a population with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>, the important three properties of the distribution of sample averages <span class="math inline">\(\bar{x}\)</span> hold:</p>
+<ul>
+<li><p>The mean of the sampling distribution is identical to the population mean <span class="math inline">\(\mu\)</span>.</p></li>
+<li><p>The standard deviation of the distribution of the sample averages is <span class="math inline">\(\frac{\sigma}{\sqrt{n}}\)</span>, called the <em>standard error</em> of the mean.</p></li>
+<li><p>For <span class="math inline">\(n\)</span> large enough (in the limit as <span class="math inline">\(n \rightarrow \infty\)</span>), the shape of the sampling distribution is approximately normal (Gaussian)</p></li>
+</ul>
 <p><a href="http://demonstrations.wolfram.com/SamplingDistributionOfTheSampleMean/">See the CLT in Action!</a></p>
 <p>Note for our Bernoulli example, <span class="math inline">\(\mu=\pi\)</span> and <span class="math inline">\(\sigma=\sqrt{\pi(1-\pi)}\)</span></p>
+</div>
 </section><section id="how-large-is-large-enough-for-n" class="level2"><h2 class="anchored" data-anchor-id="how-large-is-large-enough-for-n">How Large is Large Enough for <span class="math inline">\(n\)</span>?</h2>
 <p>For binomial data, one rule of thumb is that you want the sample size <span class="math inline">\(n\)</span> to be large enough that <span class="math inline">\(n \pi&gt;10\)</span> and <span class="math inline">\(n(1- \pi)&gt;10\)</span>.</p>
 <p>So if <span class="math inline">\(\pi\)</span> is around a half, you need fewer samples than if <span class="math inline">\(\pi\)</span> is close to the boundaries of 0 or 1.</p>
@@ -765,18 +771,8 @@ window.Quarto = {
 <li><p>estimate a population parameter as point estimate <span class="math inline">\(\pm\)</span> margin of error, where the margin of error is comprised of a measure of how confident we want to be and the sample statistic’s variability.</p></li>
 <li><p>test for a population parameter by evaluating how likely it is to obtain the observed sample statistic when assuming that the null hypothesis is true, as this probability will depend on the sampling distribution’s variability.</p></li>
 </ul></section><section id="normal-distribution" class="level2"><h2 class="anchored" data-anchor-id="normal-distribution">Normal Distribution</h2>
-<p>When necessary conditions are met, we can also use inference methods based on the CLT. Then the CLT tells us that <span class="math inline">\(\bar{X}\)</span> approximately has the distribution <span class="math inline">\(N\left(\mu, \left(\sigma/\sqrt{n}\right)^2\right)\)</span>, where <span class="math inline">\(\sigma\)</span> is the standard deviation of the variable of interest. So for a Bernoulli distribution, <span class="math inline">\(\sigma=\sqrt{\pi(1-\pi)}\)</span>. Then</p>
+<p>When necessary conditions are met, we can use inference methods based on the CLT. Then the CLT tells us that <span class="math inline">\(\bar{X}\)</span> approximately has the distribution <span class="math inline">\(N\left(\mu, \left(\sigma/\sqrt{n}\right)^2\right)\)</span>, where <span class="math inline">\(\sigma\)</span> is the standard deviation of the variable of interest. So for a Bernoulli distribution, <span class="math inline">\(\mu=\pi\)</span> and <span class="math inline">\(\sigma=\sqrt{\pi(1-\pi)}\)</span>. Then</p>
 <p><span class="math display">\[Z = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}} \sim N(0, 1)\]</span></p>
-</section><section id="lead-in-flint-mi" class="level2"><h2 class="anchored" data-anchor-id="lead-in-flint-mi">Lead in Flint, MI</h2>
-<p>From April 25, 2014 to October 15, 2015, the water supply source for Flint, MI was switched to the Flint River from the Detroit water system. Without corrosion inhibitors, the Flint River water, which is high in chloride, caused lead from aging pipes to leach into the water supply. We have data from Flint collected as part of a citizen-science project involving Virginia Tech researchers.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/flintdetroit.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../img/flintdetroit.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
-</figure>
-</div>
-</div>
-</div>
 </section><section id="forms-of-statistical-inference" class="level2"><h2 class="anchored" data-anchor-id="forms-of-statistical-inference">Forms of Statistical Inference</h2>
 <div style="font-size:0.75em;">
 <ul>
@@ -795,10 +791,20 @@ window.Quarto = {
 <li>
 <em>Hypothesis testing</em>: checking whether sample data provide evidence against some claim made about the population
 <ul>
-<li>We evaluated the hypothesis that family wealth was unrelated to accessing dental health services in the prior 6 months in children <span class="math inline">\(&lt;12\)</span> years old. In our sample the proportion of wealthy children receiving preventive dental services in this interval was roughly twice that of poor children, and testing whether these proportions differed by wealth provided evidence against the hypothesis.</li>
+<li>We evaluated the hypothesis that family wealth was unrelated to accessing dental health services in the prior 6 months in children <span class="math inline">\(&lt;12\)</span> years old. In our sample the proportion of wealthy children receiving preventive dental services in this interval was roughly twice that of poor children, and testing whether these proportions differed by wealth provided evidence against the hypothesis that wealth and access are unrelated.</li>
 </ul>
 </li>
 </ul>
+</div>
+</section><section id="lead-in-flint-mi" class="level2"><h2 class="anchored" data-anchor-id="lead-in-flint-mi">Lead in Flint, MI</h2>
+<p>From April 25, 2014 to October 15, 2015, the water supply source for Flint, MI was switched to the Flint River from the Detroit water system. Without corrosion inhibitors, the Flint River water, which is high in chloride, caused lead from aging pipes to leach into the water supply. We have data from Flint collected as part of a citizen-science project involving Virginia Tech researchers.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/flintdetroit.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../img/flintdetroit.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
 </div>
 </section><section id="flint" class="level2"><h2 class="anchored" data-anchor-id="flint">Flint</h2>
 <p>The EPA action level for lead in public water supplies is 15 ppb. Suppose that the truth is that 20% of Flint homes have lead levels higher than this. If we collected water from a random sample of homes, we might not be surprised to find that 19% or 21% of our samples had lead levels over 15 ppb. What if we found 22%? 25%? 30%? We would like to have some understanding of the <em>margin of error</em> to get a good idea of the plausible range of values.</p>
@@ -823,9 +829,11 @@ window.Quarto = {
 <p>Let’s substitute for <span class="math inline">\(Z\)</span> and rearrange the equation.</p>
 </div>
 </section><section id="section-2" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-2"></h2>
+<div style="font-size:0.75em;">
 <p><span class="math display">\[P\left(-1.96 &lt; \frac{\bar{X} - \pi}{\frac{\sigma}{\sqrt{n}}}&lt;1.96\right)=0.95\]</span> <span class="math display">\[P\left(-1.96\frac{\sigma}{\sqrt{n}}&lt;\bar{X} - \pi&lt;1.96\frac{\sigma}{\sqrt{n}}\right)=0.95\]</span></p>
 <p><span class="math display">\[P\left(-1.96\frac{\sigma}{\sqrt{n}}-\bar{X}&lt; - \pi&lt;1.96\frac{\sigma}{\sqrt{n}}-\bar{X}\right)=0.95\]</span> <span class="math display">\[P\left(1.96\frac{\sigma}{\sqrt{n}}+\bar{X} \geq  \pi \geq -1.96\frac{\sigma}{\sqrt{n}}+\bar{X}\right)=0.95\]</span></p>
 <p><span class="math display">\[P\left(\bar{X}-1.96\frac{\sigma}{\sqrt{n}} \leq  \pi \leq \bar{X} + 1.96\frac{\sigma}{\sqrt{n}}\right)=0.95\]</span></p>
+</div>
 </section><section id="section-3" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-3"></h2>
 <p>This gives us a <em>95% confidence interval</em> for <span class="math inline">\(\pi\)</span> of <span class="math inline">\(\left(\bar{X}-1.96\frac{\sigma}{\sqrt{n}}, \bar{X}+1.96\frac{\sigma}{\sqrt{n}} \right)\)</span>.</p>
 <div style="font-size:0.8em;">
@@ -855,12 +863,14 @@ window.Quarto = {
 <p>For a 99% interval, you need the z-score that cuts off the upper 0.005 of the distribution, which is 2.58.</p>
 </div>
 </section><section id="confidence-intervals-1" class="level2"><h2 class="anchored" data-anchor-id="confidence-intervals-1">Confidence Intervals</h2>
+<div style="font-size:0.9em;">
 <p>We can use the interval for <span class="math inline">\(\mu\)</span> given by <span class="math inline">\(\left(\bar{X}-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}, \bar{X}+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} \right)\)</span> under the following conditions when <span class="math inline">\(\sigma\)</span> does not need to be estimated separately from <span class="math inline">\(\mu\)</span>; this is the case for the Bernoulli distribution, where <span class="math inline">\(\mu=\pi\)</span> and <span class="math inline">\(\sigma=\sqrt{\pi(1-\pi)}\)</span>.</p>
 <ul>
 <li>when our random variable <span class="math inline">\(X\)</span> is known to be normally distributed</li>
 <li>when <span class="math inline">\(X\)</span> may not be normally distributed, but when our sample size is large</li>
 </ul>
 <p>We do not want to use this type of interval when our sample size is small and <span class="math inline">\(X\)</span> is not normal.</p>
+</div>
 </section><section id="try-it-out-flint-data" class="level2"><h2 class="anchored" data-anchor-id="try-it-out-flint-data">Try it out: Flint Data</h2>
 <div style="font-size:0.8em;">
 <p>Let’s calculate the estimated proportion of homes in Flint with lead levels over 15 ppb along with a 95% confidence interval for the proportion.</p>
@@ -893,9 +903,11 @@ window.Quarto = {
 <p>Sometimes, but not often, we want only an upper limit or a lower limit for the population mean. These are call one-sided intervals. A standard confidence interval is two-sided.</p>
 <p>One example of this would be in a non-inferiority clinical trial for a generic version of a popular pharmaceutical product (we don’t expect the generic drug to work better, but we do expect it to be just as good or at least very close). One-sided intervals are constructed only on one side and use <span class="math inline">\(z_\alpha\)</span> instead of <span class="math inline">\(z_{\frac{\alpha}{2}}\)</span>, which makes them more narrow on the side of interest. They should be used with great caution and only in situations in which they are clearly warranted (i.e., seek guidance of a statistician first!).</p>
 </section><section id="sigma-unknown" class="level2"><h2 class="anchored" data-anchor-id="sigma-unknown">Sigma Unknown</h2>
+<div style="font-size:0.85em;">
 <p>The interval <span class="math display">\[\left(\bar{X}-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}, \bar{X}+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} \right)\]</span> requires an estimate of <span class="math inline">\(\sigma\)</span>. In the Bernoulli case, we only estimate one parameter <span class="math inline">\(\pi\)</span>, which then gives us both the mean <span class="math inline">\(\mu=\pi\)</span> and <span class="math inline">\(\sigma=\sqrt{\pi(1-\pi)}\)</span>. In the normal case, we need to use the data to get a separate estimate of <span class="math inline">\(\sigma\)</span>.</p>
 <p>If you have taken statistics before, you may remember using <span class="math inline">\(s=\frac{1}{n-1}\sum_{i=1}^n(x_i-\overline{x})^2\)</span>, the sample standard deviation, to estimate <span class="math inline">\(\sigma\)</span>. This is generally a good estimate!</p>
 <p>HOWEVER…</p>
+</div>
 </section><section id="sigma-unknown-1" class="level2"><h2 class="anchored" data-anchor-id="sigma-unknown-1">Sigma Unknown</h2>
 <p>If we estimate <span class="math inline">\(\sigma\)</span> using <span class="math inline">\(s\)</span>, then</p>
 <ul>
@@ -961,33 +973,18 @@ window.Quarto = {
 </div>
 </div>
 </section><section id="students-t-distribution-1" class="level2"><h2 class="anchored" data-anchor-id="students-t-distribution-1">Student’s t distribution</h2>
-<div style="font-size:0.9em;">
+<div style="font-size:0.85em;">
 <p>The t distribution has a property called <em>degrees of freedom</em>, abbreviated <em>df</em>. The degrees of freedom measure the amount of information available in the data to estimate <span class="math inline">\(\sigma\)</span> and thus give us information about how reliable our estimate <span class="math inline">\(s\)</span> is. The random variable <span class="math display">\[t=\frac{\bar{X}-\mu}{\frac{s}{\sqrt{n}}}\]</span> has a Student’s t distribution with n-1 degrees of freedom, represented using the notation <span class="math inline">\(t_{n-1}\)</span>. The df are <span class="math inline">\(n-1\)</span> instead of the sample size <span class="math inline">\(n\)</span> because we lose 1 df by estimating the sample mean with <span class="math inline">\(\bar{x}\)</span>.</p>
 <p>For each possible df, there is a different t distribution, with the t distribution looking more like the normal as <span class="math inline">\(n\)</span> gets large and <span class="math inline">\(s\)</span> gets to be a better and better estimate of <span class="math inline">\(\sigma\)</span>.</p>
 </div>
-</section><section id="calculating-a-confidence-interval-for-flint-lead" class="level2"><h2 class="anchored" data-anchor-id="calculating-a-confidence-interval-for-flint-lead">Calculating a Confidence Interval for Flint Lead</h2>
-<p>Now we calculate a 95% confidence interval for the mean lead levels in Flint water. Because we need to estimate the standard deviation, we’ll use a t-based confidence interval.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res.glue.2</span> <span class="op">&lt;-</span> <span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>meanPb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Pb_initial</span><span class="op">)</span>,</span>
-<span>            var.lead <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">Pb_initial</span><span class="op">)</span>,</span>
-<span>            n.lead <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    se.lead <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">var.lead</span><span class="op">/</span><span class="va">n.lead</span><span class="op">)</span>,</span>
-<span>    lower.ci.lead <span class="op">=</span> <span class="va">meanPb</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="fl">0.05</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>,<span class="va">n.lead</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="va">se.lead</span>,</span>
-<span>    upper.ci.lead <span class="op">=</span> <span class="va">meanPb</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="fl">0.05</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>,<span class="va">n.lead</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="va">se.lead</span></span>
-<span>  <span class="op">)</span> </span>
-<span><span class="va">ci.glue.2</span><span class="op">=</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"({round(res.glue.2$lower.ci.lead,2)}, {round(res.glue.2$upper.ci.lead,2)})"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>In our sample, the estimated mean lead level in initial water samples was 10.65 ppb, with a 95% confidence interval for the mean of (8.07, 13.22).</p>
 </section><section id="confidence-interval-with-sigma-unknown" class="level2"><h2 class="anchored" data-anchor-id="confidence-interval-with-sigma-unknown">Confidence Interval with <span class="math inline">\(\sigma\)</span> Unknown</h2>
 <p>When <span class="math inline">\(\sigma\)</span> is unknown, we use the interval</p>
 <p><span class="math display">\[\left(\bar{X}-t_{n-1,\frac{\alpha}{2}}\frac{s}{\sqrt{n}}, \bar{X}+t_{n-1,\frac{\alpha}{2}}\frac{s}{\sqrt{n}} \right)\]</span></p>
-</section><section id="calculating-a-confidence-interval-for-flint-lead-1" class="level2"><h2 class="anchored" data-anchor-id="calculating-a-confidence-interval-for-flint-lead-1">Calculating a Confidence Interval for Flint Lead</h2>
+</section><section id="calculating-a-confidence-interval-for-flint-lead" class="level2"><h2 class="anchored" data-anchor-id="calculating-a-confidence-interval-for-flint-lead">Calculating a Confidence Interval for Flint Lead</h2>
 <div style="font-size:0.8em;">
 <p>Now we calculate a 95% confidence interval for the mean lead levels in Flint water. Because we need to estimate the standard deviation, we’ll use a t-based confidence interval.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res.glue.2</span> <span class="op">&lt;-</span> <span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res.glue.2</span> <span class="op">&lt;-</span> <span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>meanPb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Pb_initial</span><span class="op">)</span>,</span>
 <span>            var.lead <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">Pb_initial</span><span class="op">)</span>,</span>
 <span>            n.lead <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1003,7 +1000,7 @@ window.Quarto = {
 </section><section id="seriously" class="level2"><h2 class="anchored" data-anchor-id="seriously">Seriously?</h2>
 <p>Ok, that was a lot of work. There’s a quick way to get it too.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">flint</span><span class="op">$</span><span class="va">Pb_initial</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">flint</span><span class="op">$</span><span class="va">Pb_initial</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -1039,14 +1036,14 @@ mean of x
 </div>
 </section><section id="generate-bootstrap-means" class="level2"><h2 class="anchored" data-anchor-id="generate-bootstrap-means">Generate bootstrap means</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># specify the variable of interest</span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="generate-bootstrap-means-1" class="level2"><h2 class="anchored" data-anchor-id="generate-bootstrap-means-1">Generate bootstrap means</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># specify the variable of interest</span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span></span>
 <span>  <span class="co"># generate 15000 bootstrap samples</span></span>
@@ -1054,7 +1051,7 @@ mean of x
 </div>
 </section><section id="generate-bootstrap-means-2" class="level2"><h2 class="anchored" data-anchor-id="generate-bootstrap-means-2">Generate bootstrap means</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># specify the variable of interest</span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span></span>
 <span>  <span class="co"># generate 15000 bootstrap samples</span></span>
@@ -1064,7 +1061,7 @@ mean of x
 </div>
 </section><section id="generate-bootstrap-means-3" class="level2"><h2 class="anchored" data-anchor-id="generate-bootstrap-means-3">Generate bootstrap means</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># save resulting bootstrap distribution</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># save resulting bootstrap distribution</span></span>
 <span><span class="va">boot_flintmean</span> <span class="op">&lt;-</span> <span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># specify the variable of interest</span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1078,7 +1075,7 @@ mean of x
 <p>How many observations are there in <code>boot_flintmean</code>? What does each observation represent?</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmean</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmean</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response: Pb_initial (numeric)
 # A tibble: 15,000 × 2
@@ -1095,7 +1092,7 @@ mean of x
 </div>
 </section><section id="visualize-the-bootstrap-distribution" class="level2"><h2 class="anchored" data-anchor-id="visualize-the-bootstrap-distribution">Visualize the bootstrap distribution</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmean</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmean</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bootstrap distribution of means"</span>,</span>
 <span>       x <span class="op">=</span> <span class="st">"Means of Each Bootstrap Sample"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1109,7 +1106,7 @@ mean of x
 </section><section id="calculate-the-confidence-interval" class="level2"><h2 class="anchored" data-anchor-id="calculate-the-confidence-interval">Calculate the confidence interval</h2>
 <p>A 95% confidence interval is bounded by the middle 95% of the bootstrap distribution.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmean</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmean</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.025</span><span class="op">)</span>,</span>
 <span>            upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1179,7 +1176,7 @@ mean of x
 <p>How would you modify the following code to calculate a 90% confidence interval? How would you modify it for a 99% confidence interval?</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span></span>
 <span>  <span class="fu">generate</span><span class="op">(</span>reps <span class="op">=</span> <span class="fl">15000</span>, type <span class="op">=</span> <span class="st">"bootstrap"</span><span class="op">)</span></span>
 <span>  <span class="co"># calculate the mean of each bootstrap sample</span></span>
@@ -1190,7 +1187,7 @@ mean of x
 </section><section id="now-lets-get-ci-for-the-median" class="level2"><h2 class="anchored" data-anchor-id="now-lets-get-ci-for-the-median">Now Let’s Get CI for the Median</h2>
 <p>Recall the median is the middle value in a dataset.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmedian</span> <span class="op">&lt;-</span> <span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmedian</span> <span class="op">&lt;-</span> <span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># specify the variable of interest</span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># generate 15000 bootstrap samples</span></span>
@@ -1200,7 +1197,7 @@ mean of x
 </div>
 </section><section id="section-6" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-6"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmedian</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmedian</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bootstrap distribution of medians"</span>,</span>
 <span>       x <span class="op">=</span> <span class="st">"Medians of Each Bootstrap Sample"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1213,7 +1210,7 @@ mean of x
 </div>
 </section><section id="section-7" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-7"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmedian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmedian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.025</span><span class="op">)</span>,</span>
 <span>            upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1225,14 +1222,14 @@ mean of x
 </div>
 </section><section id="section-8" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-8"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lower_bound</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lower_bound</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">boot_flintmedian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>lower_bound <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.025</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">upper_bound</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">boot_flintmedian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>upper_bound <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="section-9" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-9"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmedian</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmedian</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">lower_bound</span>, <span class="va">upper_bound</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"#A7D5E8"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bootstrap distribution of medians"</span>,</span>
@@ -1248,7 +1245,7 @@ mean of x
 </section><section id="mean-median" class="level2"><h2 class="anchored" data-anchor-id="mean-median">Mean <span class="math inline">\(&gt;&gt;\)</span> Median</h2>
 <p>Wow, those medians are so much smaller than the means! Perhaps we should have started with a little visualization of the raw data.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Initial Pb Levels"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

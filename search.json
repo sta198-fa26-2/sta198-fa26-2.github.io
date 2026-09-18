@@ -550,7 +550,7 @@
     "href": "slides/w05-01-gaussian-slides.html#z-scores",
     "title": "Normal (Gaussian) Distribution",
     "section": "Z-scores",
-    "text": "Z-scores\nHow many standard deviations below the mean is a 2500g term baby?\n- Recall \\(\\mu=3250g\\) and \\(\\sigma=600g\\) - 2500g is 750g below the mean - 750g is \\(\\frac{750}{600}=1.25\\) standard deviations - \\(\\frac{2500-3250}{600}=-1.25\\) is known as a z-score\nZ-scores are used in many health settings, including - Evaluating health effects related to body mass index (BMI) - Measuring child growth (height-for-age, weight-for-age, weight-for-height, BMI-for-age) and identifying malnourished children - Testing safety of food, water, and environmental samples - Reporting bone density scan results"
+    "text": "Z-scores\n\nHow many standard deviations below the mean is a 2500g term baby?\n\nRecall \\(\\mu=3250g\\) and \\(\\sigma=600g\\)\n2500g is 750g below the mean\n750g is \\(\\frac{750}{600}=1.25\\) standard deviations\n\\(\\frac{2500-3250}{600}=-1.25\\) is known as a z-score\n\nZ-scores are used in many health settings, including\n\nEvaluating health effects related to body mass index (BMI)\nMeasuring child growth (height-for-age, weight-for-age, weight-for-height, BMI-for-age) and identifying malnourished children\nTesting safety of food, water, and environmental samples\nReporting bone density scan results"
   },
   {
     "objectID": "slides/w05-01-gaussian-slides.html#section-4",
@@ -585,7 +585,7 @@
     "href": "slides/w05-01-gaussian-slides.html#section-12",
     "title": "Normal (Gaussian) Distribution",
     "section": "",
-    "text": "This table shows the probability under the curve less than the indicated value.\n\nWhat is the probability of a baby less than 2500g (z-score -1.25)?"
+    "text": "This table shows the probability under the curve less than the indicated value.\n\nWhat is the probability of a term baby less than 2500g (z-score \\(\\frac{2500-3250}{600}=-1.25\\))?"
   },
   {
     "objectID": "slides/w05-01-gaussian-slides.html#section-13",
@@ -732,7 +732,7 @@
     "href": "slides/w05-01-gaussian.html#z-scores",
     "title": "Normal (Gaussian) Distribution",
     "section": "Z-scores",
-    "text": "Z-scores\nHow many standard deviations below the mean is a 2500g term baby?\n- Recall \\(\\mu=3250g\\) and \\(\\sigma=600g\\) - 2500g is 750g below the mean - 750g is \\(\\frac{750}{600}=1.25\\) standard deviations - \\(\\frac{2500-3250}{600}=-1.25\\) is known as a z-score\nZ-scores are used in many health settings, including - Evaluating health effects related to body mass index (BMI) - Measuring child growth (height-for-age, weight-for-age, weight-for-height, BMI-for-age) and identifying malnourished children - Testing safety of food, water, and environmental samples - Reporting bone density scan results"
+    "text": "Z-scores\n\nHow many standard deviations below the mean is a 2500g term baby?\n\nRecall \\(\\mu=3250g\\) and \\(\\sigma=600g\\)\n2500g is 750g below the mean\n750g is \\(\\frac{750}{600}=1.25\\) standard deviations\n\\(\\frac{2500-3250}{600}=-1.25\\) is known as a z-score\n\nZ-scores are used in many health settings, including\n\nEvaluating health effects related to body mass index (BMI)\nMeasuring child growth (height-for-age, weight-for-age, weight-for-height, BMI-for-age) and identifying malnourished children\nTesting safety of food, water, and environmental samples\nReporting bone density scan results"
   },
   {
     "objectID": "slides/w05-01-gaussian.html#section-4",
@@ -767,7 +767,7 @@
     "href": "slides/w05-01-gaussian.html#section-12",
     "title": "Normal (Gaussian) Distribution",
     "section": "",
-    "text": "This table shows the probability under the curve less than the indicated value.\n\n\n\n\n\n\n\n\nWhat is the probability of a baby less than 2500g (z-score -1.25)?"
+    "text": "This table shows the probability under the curve less than the indicated value.\n\n\n\n\n\n\n\n\nWhat is the probability of a term baby less than 2500g (z-score \\(\\frac{2500-3250}{600}=-1.25\\))?"
   },
   {
     "objectID": "slides/w05-01-gaussian.html#section-13",
@@ -1348,7 +1348,7 @@
     "href": "slides/w06-02-clt-slides.html#sampling-distribution-of-the-mean",
     "title": "Distribution of the Sample Mean",
     "section": "Sampling Distribution of the Mean",
-    "text": "Sampling Distribution of the Mean\nSuppose we have an infinitely large population and do the following.\n\nTake a sample of size \\(n\\) of variable \\(x\\) and calculate its mean \\(\\overline{x}_1=\\sum_{i=1}^n x_i\\)\n\nTake a second sample of the same size and calculate its mean \\(\\overline{x}_2\\)\n\nRepeat this many times to get a dataset of sample means \\(\\overline{x}_1, \\overline{x}_2, \\ldots\\)\n\n\nWhat is the distribution of the statistics \\(\\overline{x}_1, \\overline{x}_2, \\overline{x}_3, \\ldots\\)?"
+    "text": "Sampling Distribution of the Mean\nSuppose we have an infinitely large population and do the following.\n\nTake a sample of size \\(n\\) of variable \\(x\\) and calculate its mean \\(\\overline{x}_1=\\frac{1}{n}\\sum_{i=1}^n x_i\\)\n\nTake a second sample of the same size and calculate its mean \\(\\overline{x}_2\\)\n\nRepeat this many times to get a dataset of sample means \\(\\overline{x}_1, \\overline{x}_2, \\ldots\\)\n\n\nWhat is the distribution of the statistics \\(\\overline{x}_1, \\overline{x}_2, \\overline{x}_3, \\ldots\\)?"
   },
   {
     "objectID": "slides/w06-02-clt-slides.html#test-case-binomial-data",
@@ -1376,7 +1376,7 @@
     "href": "slides/w06-02-clt-slides.html#central-limit-theorem-1",
     "title": "Distribution of the Sample Mean",
     "section": "Central Limit Theorem",
-    "text": "Central Limit Theorem\nThe Central Limit Theorem says that for a population with mean \\(\\mu\\) and standard deviation \\(\\sigma\\), the important three properties of the distribution of sample averages \\(\\bar{x}\\) hold: - The mean of the sampling distribution is identical to the population mean \\(\\mu\\). - The standard deviation of the distribution of the sample averages is \\(\\frac{\\sigma}{\\sqrt{n}}\\), called the standard error of the mean. - For \\(n\\) large enough (in the limit as \\(n \\rightarrow \\infty\\)), the shape of the sampling distribution is approximately normal (Gaussian)\nSee the CLT in Action!\nNote for our Bernoulli example, \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\)"
+    "text": "Central Limit Theorem\n\nThe Central Limit Theorem says that for a population with mean \\(\\mu\\) and standard deviation \\(\\sigma\\), the important three properties of the distribution of sample averages \\(\\bar{x}\\) hold:\n\nThe mean of the sampling distribution is identical to the population mean \\(\\mu\\).\nThe standard deviation of the distribution of the sample averages is \\(\\frac{\\sigma}{\\sqrt{n}}\\), called the standard error of the mean.\nFor \\(n\\) large enough (in the limit as \\(n \\rightarrow \\infty\\)), the shape of the sampling distribution is approximately normal (Gaussian)\n\nSee the CLT in Action!\nNote for our Bernoulli example, \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\)"
   },
   {
     "objectID": "slides/w06-02-clt-slides.html#how-large-is-large-enough-for-n",
@@ -1404,7 +1404,14 @@
     "href": "slides/w06-02-clt-slides.html#normal-distribution",
     "title": "Distribution of the Sample Mean",
     "section": "Normal Distribution",
-    "text": "Normal Distribution\nWhen necessary conditions are met, we can also use inference methods based on the CLT. Then the CLT tells us that \\(\\bar{X}\\) approximately has the distribution \\(N\\left(\\mu, \\left(\\sigma/\\sqrt{n}\\right)^2\\right)\\), where \\(\\sigma\\) is the standard deviation of the variable of interest. So for a Bernoulli distribution, \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\). Then\n\\[Z = \\frac{\\bar{X} - \\mu}{\\sigma/\\sqrt{n}} \\sim N(0, 1)\\]"
+    "text": "Normal Distribution\nWhen necessary conditions are met, we can use inference methods based on the CLT. Then the CLT tells us that \\(\\bar{X}\\) approximately has the distribution \\(N\\left(\\mu, \\left(\\sigma/\\sqrt{n}\\right)^2\\right)\\), where \\(\\sigma\\) is the standard deviation of the variable of interest. So for a Bernoulli distribution, \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\). Then\n\\[Z = \\frac{\\bar{X} - \\mu}{\\sigma/\\sqrt{n}} \\sim N(0, 1)\\]"
+  },
+  {
+    "objectID": "slides/w06-02-clt-slides.html#forms-of-statistical-inference",
+    "href": "slides/w06-02-clt-slides.html#forms-of-statistical-inference",
+    "title": "Distribution of the Sample Mean",
+    "section": "Forms of Statistical Inference",
+    "text": "Forms of Statistical Inference\n\n\n\nPoint estimation: estimating an unknown parameter using a single number calculated from the sample data\n\nBased on the ENDES sample survey of Peruvian children \\(&lt;12\\) years of age, 30% had accessed oral health services in the prior six months\n\n\n\nInterval estimation: estimating an unknown parameter using an interval or range of values that is likely to cover the true population value\n\nWe estimate 28-32% of children \\(&lt;12\\) years of age in Peru accessed oral health services in the prior six months\n\n\n\nHypothesis testing: checking whether sample data provide evidence against some claim made about the population\n\nWe evaluated the hypothesis that family wealth was unrelated to accessing dental health services in the prior 6 months in children \\(&lt;12\\) years old. In our sample the proportion of wealthy children receiving preventive dental services in this interval was roughly twice that of poor children, and testing whether these proportions differed by wealth provided evidence against the hypothesis that wealth and access are unrelated."
   },
   {
     "objectID": "slides/w06-02-clt-slides.html#lead-in-flint-mi",
@@ -1412,13 +1419,6 @@
     "title": "Distribution of the Sample Mean",
     "section": "Lead in Flint, MI",
     "text": "Lead in Flint, MI\nFrom April 25, 2014 to October 15, 2015, the water supply source for Flint, MI was switched to the Flint River from the Detroit water system. Without corrosion inhibitors, the Flint River water, which is high in chloride, caused lead from aging pipes to leach into the water supply. We have data from Flint collected as part of a citizen-science project involving Virginia Tech researchers."
-  },
-  {
-    "objectID": "slides/w06-02-clt-slides.html#forms-of-statistical-inference",
-    "href": "slides/w06-02-clt-slides.html#forms-of-statistical-inference",
-    "title": "Distribution of the Sample Mean",
-    "section": "Forms of Statistical Inference",
-    "text": "Forms of Statistical Inference\n\n\n\nPoint estimation: estimating an unknown parameter using a single number calculated from the sample data\n\nBased on the ENDES sample survey of Peruvian children \\(&lt;12\\) years of age, 30% had accessed oral health services in the prior six months\n\n\n\nInterval estimation: estimating an unknown parameter using an interval or range of values that is likely to cover the true population value\n\nWe estimate 28-32% of children \\(&lt;12\\) years of age in Peru accessed oral health services in the prior six months\n\n\n\nHypothesis testing: checking whether sample data provide evidence against some claim made about the population\n\nWe evaluated the hypothesis that family wealth was unrelated to accessing dental health services in the prior 6 months in children \\(&lt;12\\) years old. In our sample the proportion of wealthy children receiving preventive dental services in this interval was roughly twice that of poor children, and testing whether these proportions differed by wealth provided evidence against the hypothesis."
   },
   {
     "objectID": "slides/w06-02-clt-slides.html#flint",
@@ -1474,7 +1474,7 @@
     "href": "slides/w06-02-clt-slides.html#confidence-intervals-1",
     "title": "Distribution of the Sample Mean",
     "section": "Confidence Intervals",
-    "text": "Confidence Intervals\nWe can use the interval for \\(\\mu\\) given by \\(\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\) under the following conditions when \\(\\sigma\\) does not need to be estimated separately from \\(\\mu\\); this is the case for the Bernoulli distribution, where \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\).\n\nwhen our random variable \\(X\\) is known to be normally distributed\nwhen \\(X\\) may not be normally distributed, but when our sample size is large\n\nWe do not want to use this type of interval when our sample size is small and \\(X\\) is not normal."
+    "text": "Confidence Intervals\n\nWe can use the interval for \\(\\mu\\) given by \\(\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\) under the following conditions when \\(\\sigma\\) does not need to be estimated separately from \\(\\mu\\); this is the case for the Bernoulli distribution, where \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\).\n\nwhen our random variable \\(X\\) is known to be normally distributed\nwhen \\(X\\) may not be normally distributed, but when our sample size is large\n\nWe do not want to use this type of interval when our sample size is small and \\(X\\) is not normal."
   },
   {
     "objectID": "slides/w06-02-clt-slides.html#try-it-out-flint-data",
@@ -1509,7 +1509,7 @@
     "href": "slides/w06-02-clt-slides.html#sigma-unknown",
     "title": "Distribution of the Sample Mean",
     "section": "Sigma Unknown",
-    "text": "Sigma Unknown\nThe interval \\[\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\] requires an estimate of \\(\\sigma\\). In the Bernoulli case, we only estimate one parameter \\(\\pi\\), which then gives us both the mean \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\). In the normal case, we need to use the data to get a separate estimate of \\(\\sigma\\).\nIf you have taken statistics before, you may remember using \\(s=\\frac{1}{n-1}\\sum_{i=1}^n(x_i-\\overline{x})^2\\), the sample standard deviation, to estimate \\(\\sigma\\). This is generally a good estimate!\nHOWEVER…"
+    "text": "Sigma Unknown\n\nThe interval \\[\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\] requires an estimate of \\(\\sigma\\). In the Bernoulli case, we only estimate one parameter \\(\\pi\\), which then gives us both the mean \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\). In the normal case, we need to use the data to get a separate estimate of \\(\\sigma\\).\nIf you have taken statistics before, you may remember using \\(s=\\frac{1}{n-1}\\sum_{i=1}^n(x_i-\\overline{x})^2\\), the sample standard deviation, to estimate \\(\\sigma\\). This is generally a good estimate!\nHOWEVER…"
   },
   {
     "objectID": "slides/w06-02-clt-slides.html#sigma-unknown-1",
@@ -1547,13 +1547,6 @@
     "text": "Student’s t distribution\n\nThe t distribution has a property called degrees of freedom, abbreviated df. The degrees of freedom measure the amount of information available in the data to estimate \\(\\sigma\\) and thus give us information about how reliable our estimate \\(s\\) is. The random variable \\[t=\\frac{\\bar{X}-\\mu}{\\frac{s}{\\sqrt{n}}}\\] has a Student’s t distribution with n-1 degrees of freedom, represented using the notation \\(t_{n-1}\\). The df are \\(n-1\\) instead of the sample size \\(n\\) because we lose 1 df by estimating the sample mean with \\(\\bar{x}\\).\nFor each possible df, there is a different t distribution, with the t distribution looking more like the normal as \\(n\\) gets large and \\(s\\) gets to be a better and better estimate of \\(\\sigma\\)."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#calculating-a-confidence-interval-for-flint-lead",
-    "href": "slides/w06-02-clt-slides.html#calculating-a-confidence-interval-for-flint-lead",
-    "title": "Distribution of the Sample Mean",
-    "section": "Calculating a Confidence Interval for Flint Lead",
-    "text": "Calculating a Confidence Interval for Flint Lead\nNow we calculate a 95% confidence interval for the mean lead levels in Flint water. Because we need to estimate the standard deviation, we’ll use a t-based confidence interval.\n\nres.glue.2 &lt;- flint %&gt;%\n  summarize(meanPb = mean(Pb_initial),\n            var.lead = var(Pb_initial),\n            n.lead = n()) %&gt;%\n  mutate(\n    se.lead = sqrt(var.lead/n.lead),\n    lower.ci.lead = meanPb - qt(1 - (0.05 / 2),n.lead-1) * se.lead,\n    upper.ci.lead = meanPb + qt(1 - (0.05 / 2),n.lead-1) * se.lead\n  ) \nci.glue.2=glue(\"({round(res.glue.2$lower.ci.lead,2)}, {round(res.glue.2$upper.ci.lead,2)})\") \n\nIn our sample, the estimated mean lead level in initial water samples was 10.65 ppb, with a 95% confidence interval for the mean of (8.07, 13.22)."
-  },
-  {
     "objectID": "slides/w06-02-clt-slides.html#confidence-interval-with-sigma-unknown",
     "href": "slides/w06-02-clt-slides.html#confidence-interval-with-sigma-unknown",
     "title": "Distribution of the Sample Mean",
@@ -1561,8 +1554,8 @@
     "text": "Confidence Interval with \\(\\sigma\\) Unknown\nWhen \\(\\sigma\\) is unknown, we use the interval\n\\[\\left(\\bar{X}-t_{n-1,\\frac{\\alpha}{2}}\\frac{s}{\\sqrt{n}}, \\bar{X}+t_{n-1,\\frac{\\alpha}{2}}\\frac{s}{\\sqrt{n}} \\right)\\]"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#calculating-a-confidence-interval-for-flint-lead-1",
-    "href": "slides/w06-02-clt-slides.html#calculating-a-confidence-interval-for-flint-lead-1",
+    "objectID": "slides/w06-02-clt-slides.html#calculating-a-confidence-interval-for-flint-lead",
+    "href": "slides/w06-02-clt-slides.html#calculating-a-confidence-interval-for-flint-lead",
     "title": "Distribution of the Sample Mean",
     "section": "Calculating a Confidence Interval for Flint Lead",
     "text": "Calculating a Confidence Interval for Flint Lead\n\nNow we calculate a 95% confidence interval for the mean lead levels in Flint water. Because we need to estimate the standard deviation, we’ll use a t-based confidence interval.\n\nres.glue.2 &lt;- flint %&gt;%\n  summarize(meanPb = mean(Pb_initial),\n            var.lead = var(Pb_initial),\n            n.lead = n()) %&gt;%\n  mutate(\n    se.lead = sqrt(var.lead/n.lead),\n    lower.ci.lead = meanPb - qt(1 - (0.05 / 2),n.lead-1) * se.lead,\n    upper.ci.lead = meanPb + qt(1 - (0.05 / 2),n.lead-1) * se.lead\n  ) \nci.glue.2=glue(\"({round(res.glue.2$lower.ci.lead,2)}, {round(res.glue.2$upper.ci.lead,2)})\") \n\nIn our sample, the estimated mean lead level in initial water samples was 10.65 ppb, with a 95% confidence interval for the mean of (8.07, 13.22)."
@@ -1803,7 +1796,7 @@
     "href": "slides/w05-02-clt.html#sampling-distribution-of-the-mean",
     "title": "Distribution of the Sample Mean",
     "section": "Sampling Distribution of the Mean",
-    "text": "Sampling Distribution of the Mean\nSuppose we have an infinitely large population and do the following.\n\nTake a sample of size \\(n\\) of variable \\(x\\) and calculate its mean \\(\\overline{x}_1=\\sum_{i=1}^n x_i\\)\n\nTake a second sample of the same size and calculate its mean \\(\\overline{x}_2\\)\n\nRepeat this many times to get a dataset of sample means \\(\\overline{x}_1, \\overline{x}_2, \\ldots\\)\n\n\nWhat is the distribution of the statistics \\(\\overline{x}_1, \\overline{x}_2, \\overline{x}_3, \\ldots\\)?"
+    "text": "Sampling Distribution of the Mean\nSuppose we have an infinitely large population and do the following.\n\nTake a sample of size \\(n\\) of variable \\(x\\) and calculate its mean \\(\\overline{x}_1=\\frac{1}{n}\\sum_{i=1}^n x_i\\)\n\nTake a second sample of the same size and calculate its mean \\(\\overline{x}_2\\)\n\nRepeat this many times to get a dataset of sample means \\(\\overline{x}_1, \\overline{x}_2, \\ldots\\)\n\n\nWhat is the distribution of the statistics \\(\\overline{x}_1, \\overline{x}_2, \\overline{x}_3, \\ldots\\)?"
   },
   {
     "objectID": "slides/w05-02-clt.html#test-case-binomial-data",
@@ -1831,7 +1824,7 @@
     "href": "slides/w05-02-clt.html#central-limit-theorem-1",
     "title": "Distribution of the Sample Mean",
     "section": "Central Limit Theorem",
-    "text": "Central Limit Theorem\nThe Central Limit Theorem says that for a population with mean \\(\\mu\\) and standard deviation \\(\\sigma\\), the important three properties of the distribution of sample averages \\(\\bar{x}\\) hold: - The mean of the sampling distribution is identical to the population mean \\(\\mu\\). - The standard deviation of the distribution of the sample averages is \\(\\frac{\\sigma}{\\sqrt{n}}\\), called the standard error of the mean. - For \\(n\\) large enough (in the limit as \\(n \\rightarrow \\infty\\)), the shape of the sampling distribution is approximately normal (Gaussian)\nSee the CLT in Action!\nNote for our Bernoulli example, \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\)"
+    "text": "Central Limit Theorem\n\nThe Central Limit Theorem says that for a population with mean \\(\\mu\\) and standard deviation \\(\\sigma\\), the important three properties of the distribution of sample averages \\(\\bar{x}\\) hold:\n\nThe mean of the sampling distribution is identical to the population mean \\(\\mu\\).\nThe standard deviation of the distribution of the sample averages is \\(\\frac{\\sigma}{\\sqrt{n}}\\), called the standard error of the mean.\nFor \\(n\\) large enough (in the limit as \\(n \\rightarrow \\infty\\)), the shape of the sampling distribution is approximately normal (Gaussian)\n\nSee the CLT in Action!\nNote for our Bernoulli example, \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\)"
   },
   {
     "objectID": "slides/w05-02-clt.html#how-large-is-large-enough-for-n",
@@ -1859,7 +1852,14 @@
     "href": "slides/w05-02-clt.html#normal-distribution",
     "title": "Distribution of the Sample Mean",
     "section": "Normal Distribution",
-    "text": "Normal Distribution\nWhen necessary conditions are met, we can also use inference methods based on the CLT. Then the CLT tells us that \\(\\bar{X}\\) approximately has the distribution \\(N\\left(\\mu, \\left(\\sigma/\\sqrt{n}\\right)^2\\right)\\), where \\(\\sigma\\) is the standard deviation of the variable of interest. So for a Bernoulli distribution, \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\). Then\n\\[Z = \\frac{\\bar{X} - \\mu}{\\sigma/\\sqrt{n}} \\sim N(0, 1)\\]"
+    "text": "Normal Distribution\nWhen necessary conditions are met, we can use inference methods based on the CLT. Then the CLT tells us that \\(\\bar{X}\\) approximately has the distribution \\(N\\left(\\mu, \\left(\\sigma/\\sqrt{n}\\right)^2\\right)\\), where \\(\\sigma\\) is the standard deviation of the variable of interest. So for a Bernoulli distribution, \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\). Then\n\\[Z = \\frac{\\bar{X} - \\mu}{\\sigma/\\sqrt{n}} \\sim N(0, 1)\\]"
+  },
+  {
+    "objectID": "slides/w05-02-clt.html#forms-of-statistical-inference",
+    "href": "slides/w05-02-clt.html#forms-of-statistical-inference",
+    "title": "Distribution of the Sample Mean",
+    "section": "Forms of Statistical Inference",
+    "text": "Forms of Statistical Inference\n\n\n\nPoint estimation: estimating an unknown parameter using a single number calculated from the sample data\n\nBased on the ENDES sample survey of Peruvian children \\(&lt;12\\) years of age, 30% had accessed oral health services in the prior six months\n\n\n\nInterval estimation: estimating an unknown parameter using an interval or range of values that is likely to cover the true population value\n\nWe estimate 28-32% of children \\(&lt;12\\) years of age in Peru accessed oral health services in the prior six months\n\n\n\nHypothesis testing: checking whether sample data provide evidence against some claim made about the population\n\nWe evaluated the hypothesis that family wealth was unrelated to accessing dental health services in the prior 6 months in children \\(&lt;12\\) years old. In our sample the proportion of wealthy children receiving preventive dental services in this interval was roughly twice that of poor children, and testing whether these proportions differed by wealth provided evidence against the hypothesis that wealth and access are unrelated."
   },
   {
     "objectID": "slides/w05-02-clt.html#lead-in-flint-mi",
@@ -1867,13 +1867,6 @@
     "title": "Distribution of the Sample Mean",
     "section": "Lead in Flint, MI",
     "text": "Lead in Flint, MI\nFrom April 25, 2014 to October 15, 2015, the water supply source for Flint, MI was switched to the Flint River from the Detroit water system. Without corrosion inhibitors, the Flint River water, which is high in chloride, caused lead from aging pipes to leach into the water supply. We have data from Flint collected as part of a citizen-science project involving Virginia Tech researchers."
-  },
-  {
-    "objectID": "slides/w05-02-clt.html#forms-of-statistical-inference",
-    "href": "slides/w05-02-clt.html#forms-of-statistical-inference",
-    "title": "Distribution of the Sample Mean",
-    "section": "Forms of Statistical Inference",
-    "text": "Forms of Statistical Inference\n\n\n\nPoint estimation: estimating an unknown parameter using a single number calculated from the sample data\n\nBased on the ENDES sample survey of Peruvian children \\(&lt;12\\) years of age, 30% had accessed oral health services in the prior six months\n\n\n\nInterval estimation: estimating an unknown parameter using an interval or range of values that is likely to cover the true population value\n\nWe estimate 28-32% of children \\(&lt;12\\) years of age in Peru accessed oral health services in the prior six months\n\n\n\nHypothesis testing: checking whether sample data provide evidence against some claim made about the population\n\nWe evaluated the hypothesis that family wealth was unrelated to accessing dental health services in the prior 6 months in children \\(&lt;12\\) years old. In our sample the proportion of wealthy children receiving preventive dental services in this interval was roughly twice that of poor children, and testing whether these proportions differed by wealth provided evidence against the hypothesis."
   },
   {
     "objectID": "slides/w05-02-clt.html#flint",
@@ -1929,7 +1922,7 @@
     "href": "slides/w05-02-clt.html#confidence-intervals-1",
     "title": "Distribution of the Sample Mean",
     "section": "Confidence Intervals",
-    "text": "Confidence Intervals\nWe can use the interval for \\(\\mu\\) given by \\(\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\) under the following conditions when \\(\\sigma\\) does not need to be estimated separately from \\(\\mu\\); this is the case for the Bernoulli distribution, where \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\).\n\nwhen our random variable \\(X\\) is known to be normally distributed\nwhen \\(X\\) may not be normally distributed, but when our sample size is large\n\nWe do not want to use this type of interval when our sample size is small and \\(X\\) is not normal."
+    "text": "Confidence Intervals\n\nWe can use the interval for \\(\\mu\\) given by \\(\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\) under the following conditions when \\(\\sigma\\) does not need to be estimated separately from \\(\\mu\\); this is the case for the Bernoulli distribution, where \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\).\n\nwhen our random variable \\(X\\) is known to be normally distributed\nwhen \\(X\\) may not be normally distributed, but when our sample size is large\n\nWe do not want to use this type of interval when our sample size is small and \\(X\\) is not normal."
   },
   {
     "objectID": "slides/w05-02-clt.html#try-it-out-flint-data",
@@ -1964,7 +1957,7 @@
     "href": "slides/w05-02-clt.html#sigma-unknown",
     "title": "Distribution of the Sample Mean",
     "section": "Sigma Unknown",
-    "text": "Sigma Unknown\nThe interval \\[\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\] requires an estimate of \\(\\sigma\\). In the Bernoulli case, we only estimate one parameter \\(\\pi\\), which then gives us both the mean \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\). In the normal case, we need to use the data to get a separate estimate of \\(\\sigma\\).\nIf you have taken statistics before, you may remember using \\(s=\\frac{1}{n-1}\\sum_{i=1}^n(x_i-\\overline{x})^2\\), the sample standard deviation, to estimate \\(\\sigma\\). This is generally a good estimate!\nHOWEVER…"
+    "text": "Sigma Unknown\n\nThe interval \\[\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\] requires an estimate of \\(\\sigma\\). In the Bernoulli case, we only estimate one parameter \\(\\pi\\), which then gives us both the mean \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\). In the normal case, we need to use the data to get a separate estimate of \\(\\sigma\\).\nIf you have taken statistics before, you may remember using \\(s=\\frac{1}{n-1}\\sum_{i=1}^n(x_i-\\overline{x})^2\\), the sample standard deviation, to estimate \\(\\sigma\\). This is generally a good estimate!\nHOWEVER…"
   },
   {
     "objectID": "slides/w05-02-clt.html#sigma-unknown-1",
@@ -2002,13 +1995,6 @@
     "text": "Student’s t distribution\n\nThe t distribution has a property called degrees of freedom, abbreviated df. The degrees of freedom measure the amount of information available in the data to estimate \\(\\sigma\\) and thus give us information about how reliable our estimate \\(s\\) is. The random variable \\[t=\\frac{\\bar{X}-\\mu}{\\frac{s}{\\sqrt{n}}}\\] has a Student’s t distribution with n-1 degrees of freedom, represented using the notation \\(t_{n-1}\\). The df are \\(n-1\\) instead of the sample size \\(n\\) because we lose 1 df by estimating the sample mean with \\(\\bar{x}\\).\nFor each possible df, there is a different t distribution, with the t distribution looking more like the normal as \\(n\\) gets large and \\(s\\) gets to be a better and better estimate of \\(\\sigma\\)."
   },
   {
-    "objectID": "slides/w05-02-clt.html#calculating-a-confidence-interval-for-flint-lead",
-    "href": "slides/w05-02-clt.html#calculating-a-confidence-interval-for-flint-lead",
-    "title": "Distribution of the Sample Mean",
-    "section": "Calculating a Confidence Interval for Flint Lead",
-    "text": "Calculating a Confidence Interval for Flint Lead\nNow we calculate a 95% confidence interval for the mean lead levels in Flint water. Because we need to estimate the standard deviation, we’ll use a t-based confidence interval.\n\nres.glue.2 &lt;- flint %&gt;%\n  summarize(meanPb = mean(Pb_initial),\n            var.lead = var(Pb_initial),\n            n.lead = n()) %&gt;%\n  mutate(\n    se.lead = sqrt(var.lead/n.lead),\n    lower.ci.lead = meanPb - qt(1 - (0.05 / 2),n.lead-1) * se.lead,\n    upper.ci.lead = meanPb + qt(1 - (0.05 / 2),n.lead-1) * se.lead\n  ) \nci.glue.2=glue(\"({round(res.glue.2$lower.ci.lead,2)}, {round(res.glue.2$upper.ci.lead,2)})\") \n\nIn our sample, the estimated mean lead level in initial water samples was 10.65 ppb, with a 95% confidence interval for the mean of (8.07, 13.22)."
-  },
-  {
     "objectID": "slides/w05-02-clt.html#confidence-interval-with-sigma-unknown",
     "href": "slides/w05-02-clt.html#confidence-interval-with-sigma-unknown",
     "title": "Distribution of the Sample Mean",
@@ -2016,8 +2002,8 @@
     "text": "Confidence Interval with \\(\\sigma\\) Unknown\nWhen \\(\\sigma\\) is unknown, we use the interval\n\\[\\left(\\bar{X}-t_{n-1,\\frac{\\alpha}{2}}\\frac{s}{\\sqrt{n}}, \\bar{X}+t_{n-1,\\frac{\\alpha}{2}}\\frac{s}{\\sqrt{n}} \\right)\\]"
   },
   {
-    "objectID": "slides/w05-02-clt.html#calculating-a-confidence-interval-for-flint-lead-1",
-    "href": "slides/w05-02-clt.html#calculating-a-confidence-interval-for-flint-lead-1",
+    "objectID": "slides/w05-02-clt.html#calculating-a-confidence-interval-for-flint-lead",
+    "href": "slides/w05-02-clt.html#calculating-a-confidence-interval-for-flint-lead",
     "title": "Distribution of the Sample Mean",
     "section": "Calculating a Confidence Interval for Flint Lead",
     "text": "Calculating a Confidence Interval for Flint Lead\n\nNow we calculate a 95% confidence interval for the mean lead levels in Flint water. Because we need to estimate the standard deviation, we’ll use a t-based confidence interval.\n\nres.glue.2 &lt;- flint %&gt;%\n  summarize(meanPb = mean(Pb_initial),\n            var.lead = var(Pb_initial),\n            n.lead = n()) %&gt;%\n  mutate(\n    se.lead = sqrt(var.lead/n.lead),\n    lower.ci.lead = meanPb - qt(1 - (0.05 / 2),n.lead-1) * se.lead,\n    upper.ci.lead = meanPb + qt(1 - (0.05 / 2),n.lead-1) * se.lead\n  ) \nci.glue.2=glue(\"({round(res.glue.2$lower.ci.lead,2)}, {round(res.glue.2$upper.ci.lead,2)})\") \n\nIn our sample, the estimated mean lead level in initial water samples was 10.65 ppb, with a 95% confidence interval for the mean of (8.07, 13.22)."
