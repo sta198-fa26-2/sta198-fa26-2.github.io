@@ -123,7 +123,7 @@ A less (more?) depressing example is my portraiture.
 
 Suppose we have an infinitely large population and do the following.
 
-1. Take a sample of size $n$ of variable $x$ and calculate its mean $\overline{x}_1=\sum_{i=1}^n x_i$
+1. Take a sample of size $n$ of variable $x$ and calculate its mean $\overline{x}_1=\frac{1}{n}\sum_{i=1}^n x_i$
 2. Take a second sample of the same size and calculate its mean $\overline{x}_2$
 3. Repeat this many times to get a dataset of sample means $\overline{x}_1, \overline{x}_2, \ldots$
 
@@ -220,14 +220,21 @@ How does the variability of the sampling distribution depend on the size of our 
 
 ## Central Limit Theorem
 
+<div style="font-size:0.75em;">
+
 The *Central Limit Theorem* says that for a population with mean $\mu$ and standard deviation $\sigma$, the important three properties of the distribution of sample averages $\bar{x}$ hold:
+
 - The mean of the sampling distribution is identical to the population mean $\mu$.
+
 - The standard deviation of the distribution of the sample averages is $\frac{\sigma}{\sqrt{n}}$, called the *standard error* of the mean.
+
 - For $n$ large enough (in the limit as $n \rightarrow \infty$), the shape of the sampling distribution is approximately normal (Gaussian)
 
 [See the CLT in Action!](http://demonstrations.wolfram.com/SamplingDistributionOfTheSampleMean/)
 
 Note for our Bernoulli example, $\mu=\pi$ and $\sigma=\sqrt{\pi(1-\pi)}$
+
+</div>
 
 ## How Large is Large Enough for $n$?
 
@@ -259,20 +266,12 @@ Knowing the distribution of the sample statistic $\bar{X}$ can help us
   
 ## Normal Distribution
 
-When necessary conditions are met, we can also use inference methods based on the 
+When necessary conditions are met, we can use inference methods based on the 
 CLT. Then the CLT tells us that $\bar{X}$ approximately has the distribution 
-$N\left(\mu, \left(\sigma/\sqrt{n}\right)^2\right)$, where $\sigma$ is the standard deviation of the variable of interest. So for a Bernoulli distribution, $\sigma=\sqrt{\pi(1-\pi)}$. Then
+$N\left(\mu, \left(\sigma/\sqrt{n}\right)^2\right)$, where $\sigma$ is the standard deviation of the variable of interest. So for a Bernoulli distribution, $\mu=\pi$ and $\sigma=\sqrt{\pi(1-\pi)}$. Then
 
 $$Z = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}} \sim N(0, 1)$$
 
-## Lead in Flint, MI
-
-From April 25, 2014 to October 15, 2015, the water supply source for Flint, MI was switched to the Flint River from the Detroit water system. Without corrosion inhibitors, the Flint River water, which is high in chloride, caused lead from aging pipes to leach into the water supply. We have data from Flint collected as part of a citizen-science project involving Virginia Tech researchers.
-
-```{r}
-#| echo: false
-knitr::include_graphics("../img/flintdetroit.jpg")
-```
 
 ## Forms of Statistical Inference
 
@@ -284,9 +283,19 @@ knitr::include_graphics("../img/flintdetroit.jpg")
   - We estimate 28-32% of children $<12$ years of age in Peru accessed oral health services in the prior six months
 - *Hypothesis testing*: checking whether sample data provide evidence against some claim made about the population
   - We evaluated the hypothesis that family wealth
-was unrelated to accessing dental health services in the prior 6 months in children $<12$ years old. In our sample the proportion of wealthy children receiving preventive dental services in this interval was roughly twice that of poor children, and testing whether these proportions differed by wealth provided evidence against the hypothesis.
+was unrelated to accessing dental health services in the prior 6 months in children $<12$ years old. In our sample the proportion of wealthy children receiving preventive dental services in this interval was roughly twice that of poor children, and testing whether these proportions differed by wealth provided evidence against the hypothesis that wealth and access are unrelated.
 
 </div>
+
+## Lead in Flint, MI
+
+From April 25, 2014 to October 15, 2015, the water supply source for Flint, MI was switched to the Flint River from the Detroit water system. Without corrosion inhibitors, the Flint River water, which is high in chloride, caused lead from aging pipes to leach into the water supply. We have data from Flint collected as part of a citizen-science project involving Virginia Tech researchers.
+
+```{r}
+#| echo: false
+knitr::include_graphics("../img/flintdetroit.jpg")
+```
+
 
 ## Flint 
 
@@ -324,6 +333,8 @@ Let's substitute for $Z$ and rearrange the equation.
 
 ## {background-color="white"}
 
+<div style="font-size:0.75em;">
+
 $$P\left(-1.96 < \frac{\bar{X} - \pi}{\frac{\sigma}{\sqrt{n}}}<1.96\right)=0.95$$
 $$P\left(-1.96\frac{\sigma}{\sqrt{n}}<\bar{X} - \pi<1.96\frac{\sigma}{\sqrt{n}}\right)=0.95$$
 
@@ -331,6 +342,8 @@ $$P\left(-1.96\frac{\sigma}{\sqrt{n}}-\bar{X}< - \pi<1.96\frac{\sigma}{\sqrt{n}}
  $$P\left(1.96\frac{\sigma}{\sqrt{n}}+\bar{X} \geq  \pi \geq -1.96\frac{\sigma}{\sqrt{n}}+\bar{X}\right)=0.95$$
 
 $$P\left(\bar{X}-1.96\frac{\sigma}{\sqrt{n}} \leq  \pi \leq \bar{X} + 1.96\frac{\sigma}{\sqrt{n}}\right)=0.95$$
+
+</div> 
 
 ## {background-color="white"}
 
@@ -383,6 +396,8 @@ For a 99% interval, you need the z-score that cuts off the upper 0.005 of the di
 
 ## Confidence Intervals
 
+<div style="font-size:0.9em;">
+
 We can use the interval for $\mu$ given by 
 $\left(\bar{X}-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}, \bar{X}+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} \right)$ under the following conditions when $\sigma$ does not need to be estimated separately from $\mu$; this is the case for the Bernoulli distribution, where $\mu=\pi$ and $\sigma=\sqrt{\pi(1-\pi)}$.
 
@@ -390,6 +405,8 @@ $\left(\bar{X}-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}, \bar{X}+z_{\frac{\al
 - when $X$ may not be normally distributed, but when our sample size is large
 
 We do not want to use this type of interval when our sample size is small and $X$ is not normal.
+
+</div>
 
 ## Try it out: Flint Data
 
@@ -447,11 +464,15 @@ One example of this would be in a non-inferiority clinical trial for a generic v
 
 ## Sigma Unknown
 
+<div style="font-size:0.85em;">
+
 The interval $$\left(\bar{X}-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}, \bar{X}+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} \right)$$ requires an estimate of $\sigma$. In the Bernoulli case, we only estimate one parameter $\pi$, which then gives us both the mean $\mu=\pi$ and $\sigma=\sqrt{\pi(1-\pi)}$. In the normal case, we need to use the data to get a separate estimate of $\sigma$.
 
 If you have taken statistics before, you may remember using $s=\frac{1}{n-1}\sum_{i=1}^n(x_i-\overline{x})^2$, the sample standard deviation, to estimate $\sigma$. This is generally a good estimate!  
 
 HOWEVER...
+
+</div>
 
 ## Sigma Unknown
 
@@ -573,7 +594,7 @@ knitr::include_graphics("../img/normalt.png")
 
 ## Student's t distribution
 
-<div style="font-size:0.9em;">
+<div style="font-size:0.85em;">
 
 The t distribution has a property called *degrees of freedom*,
 abbreviated *df*. The degrees of freedom measure the amount of
@@ -586,34 +607,12 @@ For each possible df, there is a different t distribution, with the t distributi
 
 </div>
 
-## Calculating a Confidence Interval for Flint Lead
-
-Now we calculate a 95% confidence interval for the mean lead levels in Flint water. Because we need to estimate the standard deviation, we'll use a t-based confidence interval.
-
-```{r flintmeanci}
-res.glue.2 <- flint %>%
-  summarize(meanPb = mean(Pb_initial),
-            var.lead = var(Pb_initial),
-            n.lead = n()) %>%
-  mutate(
-    se.lead = sqrt(var.lead/n.lead),
-    lower.ci.lead = meanPb - qt(1 - (0.05 / 2),n.lead-1) * se.lead,
-    upper.ci.lead = meanPb + qt(1 - (0.05 / 2),n.lead-1) * se.lead
-  ) 
-ci.glue.2=glue("({round(res.glue.2$lower.ci.lead,2)}, {round(res.glue.2$upper.ci.lead,2)})") 
-```
-
-In our sample, the estimated mean lead level in initial water samples was `r round(res.glue.2$meanPb,2)` ppb, with a 95% confidence interval for the mean of  `r ci.glue.2`.
-
-
 ## Confidence Interval with $\sigma$ Unknown
 
 When $\sigma$ is unknown, we use the interval
 
 
 $$\left(\bar{X}-t_{n-1,\frac{\alpha}{2}}\frac{s}{\sqrt{n}}, \bar{X}+t_{n-1,\frac{\alpha}{2}}\frac{s}{\sqrt{n}} \right)$$ 
-
-
 
 
 ## Calculating a Confidence Interval for Flint Lead

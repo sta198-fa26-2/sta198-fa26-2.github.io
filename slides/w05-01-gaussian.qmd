@@ -296,21 +296,33 @@ What is the probability that a randomly chosen term baby will have a birth weigh
 
 ## Z-scores
 
-How many standard deviations below the mean is a 2500g term baby?  
+<div style="font-size:0.6em;">
+
+How many standard deviations below the mean is a 2500g term baby? 
+
 - Recall $\mu=3250g$ and $\sigma=600g$
+
 - 2500g is 750g below the mean
+
 - 750g is $\frac{750}{600}=1.25$ standard deviations
+
 - $\frac{2500-3250}{600}=-1.25$ is known as a *z-score*
 
 Z-scores are used in many health settings, including
+
 - Evaluating health effects related to body mass index (BMI)
+
 - Measuring child growth (height-for-age, weight-for-age, weight-for-height, BMI-for-age) and identifying malnourished children
+
 - Testing safety of food, water, and environmental samples
+
 - Reporting bone density scan results
+
+</div>
 
 ## {background-color="white"}
 
-The *z-score* is a standardized normal variable that tells us now many standard deviations above (positive z-scores) or below (negative z-scores) the mean our original value (2500g) is.  That is, $$z=\frac{x-\mu}{\sigma}=\frac{\text{value - mean}}{\text{standard deviation}}.$$
+The *z-score* is a **standardized normal** variable that tells us now many standard deviations above (positive z-scores) or below (negative z-scores) the mean our original value (2500g) is.  That is, $$z=\frac{x-\mu}{\sigma}=\frac{\text{value - mean}}{\text{standard deviation}}.$$
 
 
 ## {background-color="white"}
@@ -439,7 +451,7 @@ This table shows the probability under the curve less than the indicated value.
 #| echo: false
 knitr::include_graphics("../img/normaltable.png")
 ```
-What is the probability of a baby less than 2500g (z-score -1.25)?
+What is the probability of a term baby less than 2500g (z-score $\frac{2500-3250}{600}=-1.25$)?
 
 ## {background-color="white"}
 
