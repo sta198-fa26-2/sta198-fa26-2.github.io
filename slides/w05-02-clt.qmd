@@ -598,7 +598,7 @@ knitr::include_graphics("../img/normalt.png")
 
 The t distribution has a property called *degrees of freedom*,
 abbreviated *df*. The degrees of freedom measure the amount of
-information available in the data to estimate $\sigma$ and thus give us information about how reliable our estimate $s$ is. The random
+information available in the data to estimate $\sigma$ and thus give us information about how reliable our estimate $s$ is.  The random
 variable $$t=\frac{\bar{X}-\mu}{\frac{s}{\sqrt{n}}}$$
 has a Student's t distribution with n-1 degrees of freedom,
 represented using the notation $t_{n-1}$. The df are $n-1$ instead of the sample size $n$ because we lose 1 df by estimating the sample mean with $\bar{x}$. 
