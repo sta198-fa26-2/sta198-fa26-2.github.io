@@ -33,7 +33,7 @@ editor_options:
   
 <div style="font-size:0.5em;">
 
-Note: bootstrapping notes are based on Data Science in a Box!
+Note: bootstrapping notes based on Data Science in a Box!
 
 </div>
 
