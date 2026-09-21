@@ -1302,456 +1302,456 @@
     "text": "Homework (Practice)\nIMS Chapter 2\n\nProblem 2\nProblem 3\nProblem 7\nProblem 8\nProblem 11\nProblem 12"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#main-ideas",
-    "href": "slides/w06-02-clt-slides.html#main-ideas",
+    "objectID": "slides/w05-02-clt-slides.html#main-ideas",
+    "href": "slides/w05-02-clt-slides.html#main-ideas",
     "title": "Distribution of the Sample Mean",
     "section": "Main Ideas",
     "text": "Main Ideas\n\nUnderstand the Central Limit Theorem (CLT) and how to use the result\nCreate confidence intervals for the population mean using a CLT-based approach\nCreate confidence intervals for the population proportion using a CLT-based approach\n\n\nNote: bootstrapping notes based on Data Science in a Box!"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#packages",
-    "href": "slides/w06-02-clt-slides.html#packages",
+    "objectID": "slides/w05-02-clt-slides.html#packages",
+    "href": "slides/w05-02-clt-slides.html#packages",
     "title": "Distribution of the Sample Mean",
     "section": "Packages",
     "text": "Packages\n\nlibrary(tidyverse)\nlibrary(infer)"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#central-limit-theorem",
-    "href": "slides/w06-02-clt-slides.html#central-limit-theorem",
+    "objectID": "slides/w05-02-clt-slides.html#central-limit-theorem",
+    "href": "slides/w05-02-clt-slides.html#central-limit-theorem",
     "title": "Distribution of the Sample Mean",
     "section": "Central Limit Theorem",
     "text": "Central Limit Theorem\nThe central limit theorem says that for any distribution with a well-defined mean and variance, the distribution of means for a sample of size \\(n\\) is approximately normal. This result has strong implications in many areas of statistics, including in construction of confidence intervals and in hypothesis testing."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#population-and-samples",
-    "href": "slides/w06-02-clt-slides.html#population-and-samples",
+    "objectID": "slides/w05-02-clt-slides.html#population-and-samples",
+    "href": "slides/w05-02-clt-slides.html#population-and-samples",
     "title": "Distribution of the Sample Mean",
     "section": "Population and Samples",
     "text": "Population and Samples\n\n\n\nStatistical inference is the act of generalizing from a sample to a population with an estimated degree of uncertainty\nWe want to know about parameters in a population\nWe calculate statistics in our sample to learn about parameters"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#parameters-and-statistics",
-    "href": "slides/w06-02-clt-slides.html#parameters-and-statistics",
+    "objectID": "slides/w05-02-clt-slides.html#parameters-and-statistics",
+    "href": "slides/w05-02-clt-slides.html#parameters-and-statistics",
     "title": "Distribution of the Sample Mean",
     "section": "Parameters and Statistics",
     "text": "Parameters and Statistics\nIt is imperative to understand the difference between statistics and parameters.\n\n\n\n\n\n\n\n\nParameters\nStatistics\n\n\n\nSource\nPopulation\nSample\n\n\nCalculated?\nNo\nYes\n\n\nExample notation\n\\(\\mu, \\sigma, \\pi\\)\n\\(\\overline{x}, s, p, \\hat{\\mu}, \\hat{\\sigma}, \\hat{\\pi}\\)"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#parameters-and-statistics-1",
-    "href": "slides/w06-02-clt-slides.html#parameters-and-statistics-1",
+    "objectID": "slides/w05-02-clt-slides.html#parameters-and-statistics-1",
+    "href": "slides/w05-02-clt-slides.html#parameters-and-statistics-1",
     "title": "Distribution of the Sample Mean",
     "section": "Parameters and Statistics",
     "text": "Parameters and Statistics\n\n\n\n\n\n\n\n\n\n\n\nStill confused about parameters and statistics? Let’s talk Plato instead. Plato presented his famous Allegory of the Cave in The Republic. It may be helpful think of parameters as Platonic forms and the statistics we calculate as the shadows on the wall of the cave. Here is a short video clip describing this allegory: Allegory of the Cave Claymation\n\n\nA less (more?) depressing example is my portraiture."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#sampling-distribution-of-the-mean",
-    "href": "slides/w06-02-clt-slides.html#sampling-distribution-of-the-mean",
+    "objectID": "slides/w05-02-clt-slides.html#sampling-distribution-of-the-mean",
+    "href": "slides/w05-02-clt-slides.html#sampling-distribution-of-the-mean",
     "title": "Distribution of the Sample Mean",
     "section": "Sampling Distribution of the Mean",
     "text": "Sampling Distribution of the Mean\nSuppose we have an infinitely large population and do the following.\n\nTake a sample of size \\(n\\) of variable \\(x\\) and calculate its mean \\(\\overline{x}_1=\\frac{1}{n}\\sum_{i=1}^n x_i\\)\n\nTake a second sample of the same size and calculate its mean \\(\\overline{x}_2\\)\n\nRepeat this many times to get a dataset of sample means \\(\\overline{x}_1, \\overline{x}_2, \\ldots\\)\n\n\nWhat is the distribution of the statistics \\(\\overline{x}_1, \\overline{x}_2, \\overline{x}_3, \\ldots\\)?"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#test-case-binomial-data",
-    "href": "slides/w06-02-clt-slides.html#test-case-binomial-data",
+    "objectID": "slides/w05-02-clt-slides.html#test-case-binomial-data",
+    "href": "slides/w05-02-clt-slides.html#test-case-binomial-data",
     "title": "Distribution of the Sample Mean",
     "section": "Test case: Binomial data",
     "text": "Test case: Binomial data\nDuring the Summer 2026 COVID wave, the CDC reported that 1.8% of the US population was actively infectious. Define the variable \\(X\\) to take value 1 if a randomly sampled person in the US is infectious, and let it be 0 otherwise.\n\nThe random variable \\(X\\) is Bernoulli. A Bernoulli random variable has mean \\(\\pi\\) and variance \\(\\pi(1-\\pi)\\). Here \\(\\pi=0.018\\).\nIf we take a random sample, the average \\(\\overline{x}=\\hat{\\pi}\\) is an estimate of this probability (it’s just the fraction of 1’s)\nIf we take repeated samples and compute the proportion infectious in each, what values will we see? Will we get 0.018 each time?"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#section",
-    "href": "slides/w06-02-clt-slides.html#section",
+    "objectID": "slides/w05-02-clt-slides.html#section",
+    "href": "slides/w05-02-clt-slides.html#section",
     "title": "Distribution of the Sample Mean",
     "section": "",
     "text": "head(binomdata)\n\n# A tibble: 6 × 3\n      X     N pihat\n  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;\n1     0    10   0  \n2     0    10   0  \n3     0    10   0  \n4     0    10   0  \n5     1    10   0.1\n6     0    10   0  \n\n\n\n\ntail(binomdata)\n\n# A tibble: 6 × 3\n      X     N  pihat\n  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1   187 10000 0.0187\n2   162 10000 0.0162\n3   182 10000 0.0182\n4   198 10000 0.0198\n5   175 10000 0.0175\n6   183 10000 0.0183\n\n\n\nWhat do you notice about the quality of the estimates \\(\\hat{\\pi}\\) and sample size \\(N\\)?"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#section-1",
-    "href": "slides/w06-02-clt-slides.html#section-1",
+    "objectID": "slides/w05-02-clt-slides.html#section-1",
+    "href": "slides/w05-02-clt-slides.html#section-1",
     "title": "Distribution of the Sample Mean",
     "section": "",
     "text": "binomdata %&gt;%\nggplot(aes(x = pihat, fill = as.factor(N))) + \n  geom_density() +\n  labs(x = \"Mean Fraction Infectious\",\n      title = expression(paste(\"1000 Samples of Size N with \", pi, \"=0.018\")),\n       fill = \"Sample Size (N)\")\n\n\n\nHow does the variability of the sampling distribution depend on the size of our random samples over which the mean is calculated (the binomial “n”)?"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#central-limit-theorem-1",
-    "href": "slides/w06-02-clt-slides.html#central-limit-theorem-1",
+    "objectID": "slides/w05-02-clt-slides.html#central-limit-theorem-1",
+    "href": "slides/w05-02-clt-slides.html#central-limit-theorem-1",
     "title": "Distribution of the Sample Mean",
     "section": "Central Limit Theorem",
     "text": "Central Limit Theorem\n\nThe Central Limit Theorem says that for a population with mean \\(\\mu\\) and standard deviation \\(\\sigma\\), the important three properties of the distribution of sample averages \\(\\bar{x}\\) hold:\n\nThe mean of the sampling distribution is identical to the population mean \\(\\mu\\).\nThe standard deviation of the distribution of the sample averages is \\(\\frac{\\sigma}{\\sqrt{n}}\\), called the standard error of the mean.\nFor \\(n\\) large enough (in the limit as \\(n \\rightarrow \\infty\\)), the shape of the sampling distribution is approximately normal (Gaussian)\n\nSee the CLT in Action!\nNote for our Bernoulli example, \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\)"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#how-large-is-large-enough-for-n",
-    "href": "slides/w06-02-clt-slides.html#how-large-is-large-enough-for-n",
+    "objectID": "slides/w05-02-clt-slides.html#how-large-is-large-enough-for-n",
+    "href": "slides/w05-02-clt-slides.html#how-large-is-large-enough-for-n",
     "title": "Distribution of the Sample Mean",
     "section": "How Large is Large Enough for \\(n\\)?",
     "text": "How Large is Large Enough for \\(n\\)?\nFor binomial data, one rule of thumb is that you want the sample size \\(n\\) to be large enough that \\(n \\pi&gt;10\\) and \\(n(1- \\pi)&gt;10\\).\nSo if \\(\\pi\\) is around a half, you need fewer samples than if \\(\\pi\\) is close to the boundaries of 0 or 1.\nWhat sample size would we want for our study of infected people?"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#wait-that-variable-was-binomial",
-    "href": "slides/w06-02-clt-slides.html#wait-that-variable-was-binomial",
+    "objectID": "slides/w05-02-clt-slides.html#wait-that-variable-was-binomial",
+    "href": "slides/w05-02-clt-slides.html#wait-that-variable-was-binomial",
     "title": "Distribution of the Sample Mean",
     "section": "Wait, that variable was binomial!",
     "text": "Wait, that variable was binomial!\nThe Central Limit Theorem tells us that the sample averages are normally distributed if we have enough data. This result holds even if our original variables (here, we started with 0/1 indicators of infectiousness) are not normally distributed.\nIn statistics, there’s generally more than one way to do things! While the Central Limit Theorem gives us a great approximation, we’ll also learn how to use an exact method to draw inferences for binary data later."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#distribution-of-the-sample-mean",
-    "href": "slides/w06-02-clt-slides.html#distribution-of-the-sample-mean",
+    "objectID": "slides/w05-02-clt-slides.html#distribution-of-the-sample-mean",
+    "href": "slides/w05-02-clt-slides.html#distribution-of-the-sample-mean",
     "title": "Distribution of the Sample Mean",
     "section": "Distribution of the sample mean",
     "text": "Distribution of the sample mean\nKnowing the distribution of the sample statistic \\(\\bar{X}\\) can help us\n\nestimate a population parameter as point estimate \\(\\pm\\) margin of error, where the margin of error is comprised of a measure of how confident we want to be and the sample statistic’s variability.\ntest for a population parameter by evaluating how likely it is to obtain the observed sample statistic when assuming that the null hypothesis is true, as this probability will depend on the sampling distribution’s variability."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#normal-distribution",
-    "href": "slides/w06-02-clt-slides.html#normal-distribution",
+    "objectID": "slides/w05-02-clt-slides.html#normal-distribution",
+    "href": "slides/w05-02-clt-slides.html#normal-distribution",
     "title": "Distribution of the Sample Mean",
     "section": "Normal Distribution",
     "text": "Normal Distribution\nWhen necessary conditions are met, we can use inference methods based on the CLT. Then the CLT tells us that \\(\\bar{X}\\) approximately has the distribution \\(N\\left(\\mu, \\left(\\sigma/\\sqrt{n}\\right)^2\\right)\\), where \\(\\sigma\\) is the standard deviation of the variable of interest. So for a Bernoulli distribution, \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\). Then\n\\[Z = \\frac{\\bar{X} - \\mu}{\\sigma/\\sqrt{n}} \\sim N(0, 1)\\]"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#forms-of-statistical-inference",
-    "href": "slides/w06-02-clt-slides.html#forms-of-statistical-inference",
+    "objectID": "slides/w05-02-clt-slides.html#forms-of-statistical-inference",
+    "href": "slides/w05-02-clt-slides.html#forms-of-statistical-inference",
     "title": "Distribution of the Sample Mean",
     "section": "Forms of Statistical Inference",
     "text": "Forms of Statistical Inference\n\n\n\nPoint estimation: estimating an unknown parameter using a single number calculated from the sample data\n\nBased on the ENDES sample survey of Peruvian children \\(&lt;12\\) years of age, 30% had accessed oral health services in the prior six months\n\n\n\nInterval estimation: estimating an unknown parameter using an interval or range of values that is likely to cover the true population value\n\nWe estimate 28-32% of children \\(&lt;12\\) years of age in Peru accessed oral health services in the prior six months\n\n\n\nHypothesis testing: checking whether sample data provide evidence against some claim made about the population\n\nWe evaluated the hypothesis that family wealth was unrelated to accessing dental health services in the prior 6 months in children \\(&lt;12\\) years old. In our sample the proportion of wealthy children receiving preventive dental services in this interval was roughly twice that of poor children, and testing whether these proportions differed by wealth provided evidence against the hypothesis that wealth and access are unrelated."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#lead-in-flint-mi",
-    "href": "slides/w06-02-clt-slides.html#lead-in-flint-mi",
+    "objectID": "slides/w05-02-clt-slides.html#lead-in-flint-mi",
+    "href": "slides/w05-02-clt-slides.html#lead-in-flint-mi",
     "title": "Distribution of the Sample Mean",
     "section": "Lead in Flint, MI",
     "text": "Lead in Flint, MI\nFrom April 25, 2014 to October 15, 2015, the water supply source for Flint, MI was switched to the Flint River from the Detroit water system. Without corrosion inhibitors, the Flint River water, which is high in chloride, caused lead from aging pipes to leach into the water supply. We have data from Flint collected as part of a citizen-science project involving Virginia Tech researchers."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#flint",
-    "href": "slides/w06-02-clt-slides.html#flint",
+    "objectID": "slides/w05-02-clt-slides.html#flint",
+    "href": "slides/w05-02-clt-slides.html#flint",
     "title": "Distribution of the Sample Mean",
     "section": "Flint",
     "text": "Flint\nThe EPA action level for lead in public water supplies is 15 ppb. Suppose that the truth is that 20% of Flint homes have lead levels higher than this. If we collected water from a random sample of homes, we might not be surprised to find that 19% or 21% of our samples had lead levels over 15 ppb. What if we found 22%? 25%? 30%? We would like to have some understanding of the margin of error to get a good idea of the plausible range of values.\nThe idea behind interval estimation is to provide a plausible range of values, which can also be useful in the interpretation of a single point estimate."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#what-is-a-confidence-interval",
-    "href": "slides/w06-02-clt-slides.html#what-is-a-confidence-interval",
+    "objectID": "slides/w05-02-clt-slides.html#what-is-a-confidence-interval",
+    "href": "slides/w05-02-clt-slides.html#what-is-a-confidence-interval",
     "title": "Distribution of the Sample Mean",
     "section": "What is a Confidence Interval?",
     "text": "What is a Confidence Interval?\nA confidence interval provides a range of reasonable values that are intended to contain the parameter of interest with a certain degree of confidence. It often takes the form\npoint estimate \\(\\pm\\) margin of error\nand is written\n(point estimate - margin of error, point estimate + margin of error)."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#moving-towards-confidence-intervals",
-    "href": "slides/w06-02-clt-slides.html#moving-towards-confidence-intervals",
+    "objectID": "slides/w05-02-clt-slides.html#moving-towards-confidence-intervals",
+    "href": "slides/w05-02-clt-slides.html#moving-towards-confidence-intervals",
     "title": "Distribution of the Sample Mean",
     "section": "Moving towards confidence intervals",
     "text": "Moving towards confidence intervals\n\nFrom the Central Limit Theorem, \\[Z = \\frac{\\bar{X} - \\mu}{\\sigma/\\sqrt{n}} \\sim N(0, 1)\\] or for the Bernoulli case, \\[Z = \\frac{\\bar{X} - \\pi}{\\frac{\\sqrt{\\pi(1-\\pi)}}{\\sqrt{n}}} \\sim N(0, 1)\\]\nBased on properties of the standard normal distribution, \\[P(-1.96 &lt; Z &lt; 1.96)=0.95.\\]\nLet’s substitute for \\(Z\\) and rearrange the equation."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#section-2",
-    "href": "slides/w06-02-clt-slides.html#section-2",
+    "objectID": "slides/w05-02-clt-slides.html#section-2",
+    "href": "slides/w05-02-clt-slides.html#section-2",
     "title": "Distribution of the Sample Mean",
     "section": "",
     "text": "\\[P\\left(-1.96 &lt; \\frac{\\bar{X} - \\pi}{\\frac{\\sigma}{\\sqrt{n}}}&lt;1.96\\right)=0.95\\] \\[P\\left(-1.96\\frac{\\sigma}{\\sqrt{n}}&lt;\\bar{X} - \\pi&lt;1.96\\frac{\\sigma}{\\sqrt{n}}\\right)=0.95\\]\n\\[P\\left(-1.96\\frac{\\sigma}{\\sqrt{n}}-\\bar{X}&lt; - \\pi&lt;1.96\\frac{\\sigma}{\\sqrt{n}}-\\bar{X}\\right)=0.95\\] \\[P\\left(1.96\\frac{\\sigma}{\\sqrt{n}}+\\bar{X} \\geq  \\pi \\geq -1.96\\frac{\\sigma}{\\sqrt{n}}+\\bar{X}\\right)=0.95\\]\n\\[P\\left(\\bar{X}-1.96\\frac{\\sigma}{\\sqrt{n}} \\leq  \\pi \\leq \\bar{X} + 1.96\\frac{\\sigma}{\\sqrt{n}}\\right)=0.95\\]"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#section-3",
-    "href": "slides/w06-02-clt-slides.html#section-3",
+    "objectID": "slides/w05-02-clt-slides.html#section-3",
+    "href": "slides/w05-02-clt-slides.html#section-3",
     "title": "Distribution of the Sample Mean",
     "section": "",
     "text": "This gives us a 95% confidence interval for \\(\\pi\\) of \\(\\left(\\bar{X}-1.96\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+1.96\\frac{\\sigma}{\\sqrt{n}} \\right)\\).\n\nBe careful when interpreting this interval.\n\nIf we select a number m of random samples from the population and use them calculate m different confidence intervals for \\(\\pi\\), then approximately 95% of the intervals would cover the true population proportion \\(\\pi\\), and 5% would not.\nSometimes people interpret the interval by saying that they are 95% confident that the interval covers the true proportion.\nWe don’t know whether any one interval is in the 95% that would cover the mean, or the 5% that would not. (Sorry. I know that’s what everyone wants. This is one reason Bayesian inference is nice!)\nWRONG: There is a 95% chance that \\(\\pi\\) lies in the confidence interval. \\(\\pi\\) is either in the interval, or it is not, and we don’t know which. Again, sorry.\nSeeing Theory has a great interactive applet regarding confidence intervals."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#confidence-intervals",
-    "href": "slides/w06-02-clt-slides.html#confidence-intervals",
+    "objectID": "slides/w05-02-clt-slides.html#confidence-intervals",
+    "href": "slides/w05-02-clt-slides.html#confidence-intervals",
     "title": "Distribution of the Sample Mean",
     "section": "Confidence Intervals",
     "text": "Confidence Intervals"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#confidence-level",
-    "href": "slides/w06-02-clt-slides.html#confidence-level",
+    "objectID": "slides/w05-02-clt-slides.html#confidence-level",
+    "href": "slides/w05-02-clt-slides.html#confidence-level",
     "title": "Distribution of the Sample Mean",
     "section": "Confidence Level",
     "text": "Confidence Level\n\nWhile 95% confidence intervals are the most common, it is simple to generate other intervals, for example 99% intervals. The only change is that you replace the z-score 1.96 (cuts off 2.5% in each tail) with the z-score that cuts off the appropriate amount (0.5% in each tail for a 99% interval). So the general formula is\n\\(\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\)\nfor a \\(100(1-\\alpha)\\)% confidence interval. Here the notation \\(z_{\\frac{\\alpha}{2}}\\) indicates the z-score that cuts off the upper 100 \\(\\times \\frac{\\alpha}{2}\\)% of the distribution. So if \\(\\alpha = 0.05\\), you have a 95% interval using \\(z_{\\frac{\\alpha}{2}} = 1.96\\).\nFor a 99% interval, you need the z-score that cuts off the upper 0.005 of the distribution, which is 2.58."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#confidence-intervals-1",
-    "href": "slides/w06-02-clt-slides.html#confidence-intervals-1",
+    "objectID": "slides/w05-02-clt-slides.html#confidence-intervals-1",
+    "href": "slides/w05-02-clt-slides.html#confidence-intervals-1",
     "title": "Distribution of the Sample Mean",
     "section": "Confidence Intervals",
     "text": "Confidence Intervals\n\nWe can use the interval for \\(\\mu\\) given by \\(\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\) under the following conditions when \\(\\sigma\\) does not need to be estimated separately from \\(\\mu\\); this is the case for the Bernoulli distribution, where \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\).\n\nwhen our random variable \\(X\\) is known to be normally distributed\nwhen \\(X\\) may not be normally distributed, but when our sample size is large\n\nWe do not want to use this type of interval when our sample size is small and \\(X\\) is not normal."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#try-it-out-flint-data",
-    "href": "slides/w06-02-clt-slides.html#try-it-out-flint-data",
+    "objectID": "slides/w05-02-clt-slides.html#try-it-out-flint-data",
+    "href": "slides/w05-02-clt-slides.html#try-it-out-flint-data",
     "title": "Distribution of the Sample Mean",
     "section": "Try it out: Flint Data",
     "text": "Try it out: Flint Data\n\nLet’s calculate the estimated proportion of homes in Flint with lead levels over 15 ppb along with a 95% confidence interval for the proportion.\n\nlibrary(readxl)\nlibrary(glue)\nflint=read_excel(\"../data/Flint-Samples.xlsx\",sheet=1)\nflint=rename(flint, \"Pb_initial\"=\"Pb Bottle 1 (ppb) - First Draw\")\nres.glue &lt;- flint %&gt;%\n  mutate(Pbover15 = Pb_initial &gt; 15) %&gt;%\n  summarize(propover15 = mean(Pbover15),\n            n.lead = n()) %&gt;%\n  mutate(\n    se.lead = sqrt(propover15 * (1 - propover15)) / sqrt(n.lead),\n    lower.ci.lead = propover15 - qnorm(1 - (0.05 / 2)) * se.lead,\n    upper.ci.lead = propover15 + qnorm(1 - (0.05 / 2)) * se.lead\n  ) \nci.glue=glue(\"({round(res.glue$lower.ci.lead,2)}, {round(res.glue$upper.ci.lead,2)})\") \n\nIn our sample, 17% of homes had lead levels over 15 ppb, with a 95% confidence interval for the proportion of homes with high lead of (0.12, 0.21)."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#confidence-interval-width",
-    "href": "slides/w06-02-clt-slides.html#confidence-interval-width",
+    "objectID": "slides/w05-02-clt-slides.html#confidence-interval-width",
+    "href": "slides/w05-02-clt-slides.html#confidence-interval-width",
     "title": "Distribution of the Sample Mean",
     "section": "Confidence Interval Width",
     "text": "Confidence Interval Width\n\\[\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\]\nFor a given \\(z_{\\frac{\\alpha}{2}}\\), confidence intervals that are more narrow indicate greater certainty in estimated values. As you can see from the formula, the way to get more narrow intervals is to increase \\(n\\), the sample size.\nThis is logical – we would expect to have greater certainty with more data of a given quality."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#practice",
-    "href": "slides/w06-02-clt-slides.html#practice",
+    "objectID": "slides/w05-02-clt-slides.html#practice",
+    "href": "slides/w05-02-clt-slides.html#practice",
     "title": "Distribution of the Sample Mean",
     "section": "Practice",
     "text": "Practice\nIn a recent study of 50 randomly selected statistics students, they were asked the number of hours per week they spend on their statistics classes. The results were used to estimate the mean time for all statistics students with 90%, 95% and 99% confidence intervals. These were (not necessarily in the same order): \\[(7.5, 8.5) ~~~ (7.6, 8.4) ~~~(7.7, 8.3).\\]\nWhich interval is which?"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#one-sided-versus-two-sided-intervals",
-    "href": "slides/w06-02-clt-slides.html#one-sided-versus-two-sided-intervals",
+    "objectID": "slides/w05-02-clt-slides.html#one-sided-versus-two-sided-intervals",
+    "href": "slides/w05-02-clt-slides.html#one-sided-versus-two-sided-intervals",
     "title": "Distribution of the Sample Mean",
     "section": "One-sided versus two-sided intervals",
     "text": "One-sided versus two-sided intervals\nSometimes, but not often, we want only an upper limit or a lower limit for the population mean. These are call one-sided intervals. A standard confidence interval is two-sided.\nOne example of this would be in a non-inferiority clinical trial for a generic version of a popular pharmaceutical product (we don’t expect the generic drug to work better, but we do expect it to be just as good or at least very close). One-sided intervals are constructed only on one side and use \\(z_\\alpha\\) instead of \\(z_{\\frac{\\alpha}{2}}\\), which makes them more narrow on the side of interest. They should be used with great caution and only in situations in which they are clearly warranted (i.e., seek guidance of a statistician first!)."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#sigma-unknown",
-    "href": "slides/w06-02-clt-slides.html#sigma-unknown",
+    "objectID": "slides/w05-02-clt-slides.html#sigma-unknown",
+    "href": "slides/w05-02-clt-slides.html#sigma-unknown",
     "title": "Distribution of the Sample Mean",
     "section": "Sigma Unknown",
     "text": "Sigma Unknown\n\nThe interval \\[\\left(\\bar{X}-z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}}, \\bar{X}+z_{\\frac{\\alpha}{2}}\\frac{\\sigma}{\\sqrt{n}} \\right)\\] requires an estimate of \\(\\sigma\\). In the Bernoulli case, we only estimate one parameter \\(\\pi\\), which then gives us both the mean \\(\\mu=\\pi\\) and \\(\\sigma=\\sqrt{\\pi(1-\\pi)}\\). In the normal case, we need to use the data to get a separate estimate of \\(\\sigma\\).\nIf you have taken statistics before, you may remember using \\(s=\\frac{1}{n-1}\\sum_{i=1}^n(x_i-\\overline{x})^2\\), the sample standard deviation, to estimate \\(\\sigma\\). This is generally a good estimate!\nHOWEVER…"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#sigma-unknown-1",
-    "href": "slides/w06-02-clt-slides.html#sigma-unknown-1",
+    "objectID": "slides/w05-02-clt-slides.html#sigma-unknown-1",
+    "href": "slides/w05-02-clt-slides.html#sigma-unknown-1",
     "title": "Distribution of the Sample Mean",
     "section": "Sigma Unknown",
     "text": "Sigma Unknown\nIf we estimate \\(\\sigma\\) using \\(s\\), then\n\nwe can’t use the central limit theorem the same way\nand if \\(X\\) is not exactly normal, we can’t use \\(z\\)-scores\n\nMost of the time, we don’t know \\(\\sigma\\) and need to estimate it!"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#what-do-you-do-when-sigma-is-unknown-anyway",
-    "href": "slides/w06-02-clt-slides.html#what-do-you-do-when-sigma-is-unknown-anyway",
+    "objectID": "slides/w05-02-clt-slides.html#what-do-you-do-when-sigma-is-unknown-anyway",
+    "href": "slides/w05-02-clt-slides.html#what-do-you-do-when-sigma-is-unknown-anyway",
     "title": "Distribution of the Sample Mean",
     "section": "What do you do when \\(\\sigma\\) is unknown, anyway?",
     "text": "What do you do when \\(\\sigma\\) is unknown, anyway?"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#no-seriously",
-    "href": "slides/w06-02-clt-slides.html#no-seriously",
+    "objectID": "slides/w05-02-clt-slides.html#no-seriously",
+    "href": "slides/w05-02-clt-slides.html#no-seriously",
     "title": "Distribution of the Sample Mean",
     "section": "No, seriously!",
     "text": "No, seriously!\n\n\n\nWhile working for Guinness Brewery in Dublin, William Sealy Gosset published a paper on the t distribution, which became known as Student’s t distribution (he published under “Student” because the brewery didn’t allow him to use his own name).\n\nHe used the new distribution to determine how large a sample of persons to use in taste-testing beer! Guinness worried competitors would steal their secret if he published under his own name.\nThe t distribution is appropriate for constructing a confidence interval for the mean when we need to account for the additional variability due to estimating \\(\\sigma\\) in addition to \\(\\mu\\)\nStudent. (1908). The probable error of a mean. Biometrika, 6(1), 1–25. https://doi.org/10.1093/biomet/6.1.1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFor those who like coincidences, this paper was published in March. Interestingly, in Ireland, March 17th, St. Patrick’s Day, was a strictly enforced, dry religious holiday for which all pubs were legally mandated to be closed until the 1960s and 1970s."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#students-t-distribution",
-    "href": "slides/w06-02-clt-slides.html#students-t-distribution",
+    "objectID": "slides/w05-02-clt-slides.html#students-t-distribution",
+    "href": "slides/w05-02-clt-slides.html#students-t-distribution",
     "title": "Distribution of the Sample Mean",
     "section": "Student’s t distribution",
     "text": "Student’s t distribution\n\n\n\nThe t distribution looks a lot like the normal except that it has fatter tails\n\nThe fatter tails lead to wider confidence intervals, which acknowledge our extra uncertainty because we had to estimate \\(\\sigma\\) instead of using its true value\nAs the sample size gets bigger, the t distribution looks more and more like the normal distribution, and t-scores and z-scores become quite similar"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#students-t-distribution-1",
-    "href": "slides/w06-02-clt-slides.html#students-t-distribution-1",
+    "objectID": "slides/w05-02-clt-slides.html#students-t-distribution-1",
+    "href": "slides/w05-02-clt-slides.html#students-t-distribution-1",
     "title": "Distribution of the Sample Mean",
     "section": "Student’s t distribution",
     "text": "Student’s t distribution\n\nThe t distribution has a property called degrees of freedom, abbreviated df. The degrees of freedom measure the amount of information available in the data to estimate \\(\\sigma\\) and thus give us information about how reliable our estimate \\(s\\) is. The random variable \\[t=\\frac{\\bar{X}-\\mu}{\\frac{s}{\\sqrt{n}}}\\] has a Student’s t distribution with n-1 degrees of freedom, represented using the notation \\(t_{n-1}\\). The df are \\(n-1\\) instead of the sample size \\(n\\) because we lose 1 df by estimating the sample mean with \\(\\bar{x}\\).\nFor each possible df, there is a different t distribution, with the t distribution looking more like the normal as \\(n\\) gets large and \\(s\\) gets to be a better and better estimate of \\(\\sigma\\)."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#confidence-interval-with-sigma-unknown",
-    "href": "slides/w06-02-clt-slides.html#confidence-interval-with-sigma-unknown",
+    "objectID": "slides/w05-02-clt-slides.html#confidence-interval-with-sigma-unknown",
+    "href": "slides/w05-02-clt-slides.html#confidence-interval-with-sigma-unknown",
     "title": "Distribution of the Sample Mean",
     "section": "Confidence Interval with \\(\\sigma\\) Unknown",
     "text": "Confidence Interval with \\(\\sigma\\) Unknown\nWhen \\(\\sigma\\) is unknown, we use the interval\n\\[\\left(\\bar{X}-t_{n-1,\\frac{\\alpha}{2}}\\frac{s}{\\sqrt{n}}, \\bar{X}+t_{n-1,\\frac{\\alpha}{2}}\\frac{s}{\\sqrt{n}} \\right)\\]"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#calculating-a-confidence-interval-for-flint-lead",
-    "href": "slides/w06-02-clt-slides.html#calculating-a-confidence-interval-for-flint-lead",
+    "objectID": "slides/w05-02-clt-slides.html#calculating-a-confidence-interval-for-flint-lead",
+    "href": "slides/w05-02-clt-slides.html#calculating-a-confidence-interval-for-flint-lead",
     "title": "Distribution of the Sample Mean",
     "section": "Calculating a Confidence Interval for Flint Lead",
     "text": "Calculating a Confidence Interval for Flint Lead\n\nNow we calculate a 95% confidence interval for the mean lead levels in Flint water. Because we need to estimate the standard deviation, we’ll use a t-based confidence interval.\n\nres.glue.2 &lt;- flint %&gt;%\n  summarize(meanPb = mean(Pb_initial),\n            var.lead = var(Pb_initial),\n            n.lead = n()) %&gt;%\n  mutate(\n    se.lead = sqrt(var.lead/n.lead),\n    lower.ci.lead = meanPb - qt(1 - (0.05 / 2),n.lead-1) * se.lead,\n    upper.ci.lead = meanPb + qt(1 - (0.05 / 2),n.lead-1) * se.lead\n  ) \nci.glue.2=glue(\"({round(res.glue.2$lower.ci.lead,2)}, {round(res.glue.2$upper.ci.lead,2)})\") \n\nIn our sample, the estimated mean lead level in initial water samples was 10.65 ppb, with a 95% confidence interval for the mean of (8.07, 13.22)."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#seriously",
-    "href": "slides/w06-02-clt-slides.html#seriously",
+    "objectID": "slides/w05-02-clt-slides.html#seriously",
+    "href": "slides/w05-02-clt-slides.html#seriously",
     "title": "Distribution of the Sample Mean",
     "section": "Seriously?",
     "text": "Seriously?\nOk, that was a lot of work. There’s a quick way to get it too.\n\nt.test(flint$Pb_initial)\n\n\n    One Sample t-test\n\ndata:  flint$Pb_initial\nt = 8.1284, df = 270, p-value = 1.58e-14\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n  8.067422 13.224563\nsample estimates:\nmean of x \n 10.64599 \n\n\nWe’ll learn more about the t test soon."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#bootstrapping",
-    "href": "slides/w06-02-clt-slides.html#bootstrapping",
+    "objectID": "slides/w05-02-clt-slides.html#bootstrapping",
+    "href": "slides/w05-02-clt-slides.html#bootstrapping",
     "title": "Distribution of the Sample Mean",
     "section": "Bootstrapping",
     "text": "Bootstrapping\nBootstrapping is a simple, intuitive statistical procedure that can be used to obtain estimates of standard errors or confidence intervals. For example, consider a 95% confidence interval for the median. The distribution of the sample median is complex and does not allow simple calculation of the 95% CI. The idea behind the bootstrap is to take repeated samples, with replacement, from our sample, and use those to approximate the distribution of quantities of interest in the sample."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#bootstrapped-confidence-interval",
-    "href": "slides/w06-02-clt-slides.html#bootstrapped-confidence-interval",
+    "objectID": "slides/w05-02-clt-slides.html#bootstrapped-confidence-interval",
+    "href": "slides/w05-02-clt-slides.html#bootstrapped-confidence-interval",
     "title": "Distribution of the Sample Mean",
     "section": "Bootstrapped Confidence Interval",
     "text": "Bootstrapped Confidence Interval\n\nCalculating a bootstrapped confidence interval is quick and easy using R. The basic scheme is as follows.\n\nTake a bootstrap sample - a random sample taken with replacement from the original sample, of the same size as the original sample\nCalculate the bootstrap statistic - a statistic such as mean, median, proportion, slope, etc. computed on the bootstrap samples\nRepeat steps (1) and (2) many times to create a bootstrap distribution - a distribution of bootstrap statistics\nCalculate the bounds of the XX% confidence interval as the middle XX% of the bootstrap distribution\n\n\n\nNote about sampling:\nSuppose I have a hat that contains 20 marbles, 19 of which are blue, and one of which is silver. If you draw the silver marble, you win a $100 gift certificate to Student Stores. If you draw a blue marble, you win a Duke sticker.\nSampling with replacement: everyone draws from a hat containing all 20 marbles, and I need to be sure I can cover the cost of everyone drawing a silver marble, in the unlikely event this occurs.\nSampling without replacement: once a marble is drawn, it is not returned to the hat. If the first person draws the silver marble, the rest of you are out of luck. I just need $100 for the demonstration."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#bootstrapping-our-class",
-    "href": "slides/w06-02-clt-slides.html#bootstrapping-our-class",
+    "objectID": "slides/w05-02-clt-slides.html#bootstrapping-our-class",
+    "href": "slides/w05-02-clt-slides.html#bootstrapping-our-class",
     "title": "Distribution of the Sample Mean",
     "section": "Bootstrapping our class",
     "text": "Bootstrapping our class"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#bootstrap-sampling",
-    "href": "slides/w06-02-clt-slides.html#bootstrap-sampling",
+    "objectID": "slides/w05-02-clt-slides.html#bootstrap-sampling",
+    "href": "slides/w05-02-clt-slides.html#bootstrap-sampling",
     "title": "Distribution of the Sample Mean",
     "section": "Bootstrap Sampling",
     "text": "Bootstrap Sampling\n\n\n\nclass &lt;- c(\n  \"Yavuz\", \"Sophia\", \"Willa\", \"Allie\",\n  \"Peter\", \"Harper\", \"Jeremin\", \"Jason\",\n  \"Vennela\", \"Jack\", \"Kelsey\", \"Henry\",\n  \"Annie\", \"Stephen\", \"Florence\", \"Olivia\"\n)\n\nset.seed(123)\n\nbootstrap_results &lt;- data.frame(\n  `Original class` = class,\n  `Bootstrap 1` = sample(class, length(class), replace = TRUE),\n  `Bootstrap 2` = sample(class, length(class), replace = TRUE),\n  `Bootstrap 3` = sample(class, length(class), replace = TRUE),\n  check.names = FALSE\n)\n\nNotice: Each bootstrap sample contains 16 names, but some students may appear more than once while others may not appear at all.\n\n\n\n\n\n\nOriginal class\nBootstrap 1\nBootstrap 2\nBootstrap 3\n\n\n\nYavuz\nFlorence\nOlivia\nWilla\n\n\nSophia\nFlorence\nPeter\nAllie\n\n\nWilla\nWilla\nWilla\nStephen\n\n\nAllie\nStephen\nKelsey\nYavuz\n\n\nPeter\nWilla\nVennela\nKelsey\n\n\nHarper\nJack\nHenry\nJeremin\n\n\nJeremin\nSophia\nVennela\nPeter\n\n\nJason\nHarper\nVennela\nHenry\n\n\nVennela\nKelsey\nAnnie\nFlorence\n\n\nJack\nPeter\nWilla\nOlivia\n\n\nKelsey\nAllie\nJason\nJack\n\n\nHenry\nStephen\nJack\nAnnie\n\n\nAnnie\nHarper\nJeremin\nJeremin\n\n\nStephen\nVennela\nJack\nVennela\n\n\nFlorence\nJack\nVennela\nVennela\n\n\nOlivia\nKelsey\nStephen\nJack"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#back-to-flint-generate-bootstrap-means",
-    "href": "slides/w06-02-clt-slides.html#back-to-flint-generate-bootstrap-means",
+    "objectID": "slides/w05-02-clt-slides.html#back-to-flint-generate-bootstrap-means",
+    "href": "slides/w05-02-clt-slides.html#back-to-flint-generate-bootstrap-means",
     "title": "Distribution of the Sample Mean",
     "section": "Back to Flint: generate bootstrap means",
     "text": "Back to Flint: generate bootstrap means\n\nlibrary(tidymodels)\nflint %&gt;%\n  # specify the variable of interest\n  specify(response = Pb_initial)"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#generate-bootstrap-means",
-    "href": "slides/w06-02-clt-slides.html#generate-bootstrap-means",
+    "objectID": "slides/w05-02-clt-slides.html#generate-bootstrap-means",
+    "href": "slides/w05-02-clt-slides.html#generate-bootstrap-means",
     "title": "Distribution of the Sample Mean",
     "section": "Generate bootstrap means",
     "text": "Generate bootstrap means\n\nflint %&gt;%\n  # specify the variable of interest\n  specify(response = Pb_initial)\n  # generate 15000 bootstrap samples\n  generate(reps = 15000, type = \"bootstrap\")"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#generate-bootstrap-means-1",
-    "href": "slides/w06-02-clt-slides.html#generate-bootstrap-means-1",
+    "objectID": "slides/w05-02-clt-slides.html#generate-bootstrap-means-1",
+    "href": "slides/w05-02-clt-slides.html#generate-bootstrap-means-1",
     "title": "Distribution of the Sample Mean",
     "section": "Generate bootstrap means",
     "text": "Generate bootstrap means\n\nflint %&gt;%\n  # specify the variable of interest\n  specify(response = Pb_initial)\n  # generate 15000 bootstrap samples\n  generate(reps = 15000, type = \"bootstrap\")\n  # calculate the mean of each bootstrap sample\n  calculate(stat = \"mean\")"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#generate-bootstrap-means-2",
-    "href": "slides/w06-02-clt-slides.html#generate-bootstrap-means-2",
+    "objectID": "slides/w05-02-clt-slides.html#generate-bootstrap-means-2",
+    "href": "slides/w05-02-clt-slides.html#generate-bootstrap-means-2",
     "title": "Distribution of the Sample Mean",
     "section": "Generate bootstrap means",
     "text": "Generate bootstrap means\n\n# save resulting bootstrap distribution\nboot_flintmean &lt;- flint %&gt;%\n  # specify the variable of interest\n  specify(response = Pb_initial) %&gt;%\n  # generate 15000 bootstrap samples\n  generate(reps = 15000, type = \"bootstrap\") %&gt;%\n  # calculate the mean of each bootstrap sample\n  calculate(stat = \"mean\")"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#the-bootstrap-sample",
-    "href": "slides/w06-02-clt-slides.html#the-bootstrap-sample",
+    "objectID": "slides/w05-02-clt-slides.html#the-bootstrap-sample",
+    "href": "slides/w05-02-clt-slides.html#the-bootstrap-sample",
     "title": "Distribution of the Sample Mean",
     "section": "The bootstrap sample",
     "text": "The bootstrap sample\n\nHow many observations are there in boot_flintmean? What does each observation represent?\n\n\nboot_flintmean\n\nResponse: Pb_initial (numeric)\n# A tibble: 15,000 × 2\n  replicate  stat\n      &lt;int&gt; &lt;dbl&gt;\n1         1  9.46\n2         2 10.4 \n3         3 10.5 \n4         4  9.31\n5         5 13.4 \n6         6 10.6 \n# ℹ 14,994 more rows"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#visualize-the-bootstrap-distribution",
-    "href": "slides/w06-02-clt-slides.html#visualize-the-bootstrap-distribution",
+    "objectID": "slides/w05-02-clt-slides.html#visualize-the-bootstrap-distribution",
+    "href": "slides/w05-02-clt-slides.html#visualize-the-bootstrap-distribution",
     "title": "Distribution of the Sample Mean",
     "section": "Visualize the bootstrap distribution",
     "text": "Visualize the bootstrap distribution\n\nggplot(data = boot_flintmean, mapping = aes(x = stat)) +\n  geom_histogram() +\n  labs(title = \"Bootstrap distribution of means\",\n       x = \"Means of Each Bootstrap Sample\")"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#calculate-the-confidence-interval",
-    "href": "slides/w06-02-clt-slides.html#calculate-the-confidence-interval",
+    "objectID": "slides/w05-02-clt-slides.html#calculate-the-confidence-interval",
+    "href": "slides/w05-02-clt-slides.html#calculate-the-confidence-interval",
     "title": "Distribution of the Sample Mean",
     "section": "Calculate the confidence interval",
     "text": "Calculate the confidence interval\nA 95% confidence interval is bounded by the middle 95% of the bootstrap distribution.\n\nboot_flintmean %&gt;%\n  summarize(lower = quantile(stat, 0.025),\n            upper = quantile(stat, 0.975))\n\n# A tibble: 1 × 2\n  lower upper\n  &lt;dbl&gt; &lt;dbl&gt;\n1  8.30  13.4"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#visualize-the-confidence-interval",
-    "href": "slides/w06-02-clt-slides.html#visualize-the-confidence-interval",
+    "objectID": "slides/w05-02-clt-slides.html#visualize-the-confidence-interval",
+    "href": "slides/w05-02-clt-slides.html#visualize-the-confidence-interval",
     "title": "Distribution of the Sample Mean",
     "section": "Visualize the confidence interval",
     "text": "Visualize the confidence interval"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#interpret-the-confidence-interval",
-    "href": "slides/w06-02-clt-slides.html#interpret-the-confidence-interval",
+    "objectID": "slides/w05-02-clt-slides.html#interpret-the-confidence-interval",
+    "href": "slides/w05-02-clt-slides.html#interpret-the-confidence-interval",
     "title": "Distribution of the Sample Mean",
     "section": "Interpret the confidence interval",
     "text": "Interpret the confidence interval\n\nThe 95% confidence interval for the mean lead levels of initial water samples from Flint is (8.3, 13.4). Which of the following is the correct interpretation of this interval?\n(a) 95% of the time the mean lead level in this sample is between 8.3 and 13.4 ppb.\n(b) 95% of all water samples in Flint have lead levels between 8.3 and 13.4 ppb.\n(c) We are 95% confident that the mean lead level in Flint is between 8.3 and 13.4 ppb.\n(d) We are 95% confident that the mean lead level in this sample is between 8.3 and 13.4 ppb."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#confidence-level-1",
-    "href": "slides/w06-02-clt-slides.html#confidence-level-1",
+    "objectID": "slides/w05-02-clt-slides.html#confidence-level-1",
+    "href": "slides/w05-02-clt-slides.html#confidence-level-1",
     "title": "Distribution of the Sample Mean",
     "section": "Confidence level",
     "text": "Confidence level\nWe are 95% confident that …\n\nSuppose we took many samples from the original population and built a 95% confidence interval based on each sample.\nThen about 95% of those intervals would contain the true population parameter."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#commonly-used-confidence-levels",
-    "href": "slides/w06-02-clt-slides.html#commonly-used-confidence-levels",
+    "objectID": "slides/w05-02-clt-slides.html#commonly-used-confidence-levels",
+    "href": "slides/w05-02-clt-slides.html#commonly-used-confidence-levels",
     "title": "Distribution of the Sample Mean",
     "section": "Commonly used confidence levels",
     "text": "Commonly used confidence levels\n\nWhich lines represent which confidence levels? Options: 90%, 95%, 99%."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#precision-vs.-accuracy",
-    "href": "slides/w06-02-clt-slides.html#precision-vs.-accuracy",
+    "objectID": "slides/w05-02-clt-slides.html#precision-vs.-accuracy",
+    "href": "slides/w05-02-clt-slides.html#precision-vs.-accuracy",
     "title": "Distribution of the Sample Mean",
     "section": "Precision vs. accuracy",
     "text": "Precision vs. accuracy\n\nIf we want to be very certain that we capture the population parameter, should we use a wider or a narrower interval? What drawbacks are associated with using a wider interval?"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#section-4",
-    "href": "slides/w06-02-clt-slides.html#section-4",
+    "objectID": "slides/w05-02-clt-slides.html#section-4",
+    "href": "slides/w05-02-clt-slides.html#section-4",
     "title": "Distribution of the Sample Mean",
     "section": "",
     "text": "Garfield, Paws, Inc."
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#section-5",
-    "href": "slides/w06-02-clt-slides.html#section-5",
+    "objectID": "slides/w05-02-clt-slides.html#section-5",
+    "href": "slides/w05-02-clt-slides.html#section-5",
     "title": "Distribution of the Sample Mean",
     "section": "",
     "text": "How can we get best of both worlds – high precision and high accuracy?"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#changing-confidence-level",
-    "href": "slides/w06-02-clt-slides.html#changing-confidence-level",
+    "objectID": "slides/w05-02-clt-slides.html#changing-confidence-level",
+    "href": "slides/w05-02-clt-slides.html#changing-confidence-level",
     "title": "Distribution of the Sample Mean",
     "section": "Changing confidence level",
     "text": "Changing confidence level\n\nHow would you modify the following code to calculate a 90% confidence interval? How would you modify it for a 99% confidence interval?\n\n\nflint %&gt;%\n  specify(response = Pb_initial)\n  generate(reps = 15000, type = \"bootstrap\")\n  # calculate the mean of each bootstrap sample\n  calculate(stat = \"mean\") %&gt;%\n  summarize(lower = quantile(stat, 0.025),\n            upper = quantile(stat, 0.975))"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#now-lets-get-ci-for-the-median",
-    "href": "slides/w06-02-clt-slides.html#now-lets-get-ci-for-the-median",
+    "objectID": "slides/w05-02-clt-slides.html#now-lets-get-ci-for-the-median",
+    "href": "slides/w05-02-clt-slides.html#now-lets-get-ci-for-the-median",
     "title": "Distribution of the Sample Mean",
     "section": "Now Let’s Get CI for the Median",
     "text": "Now Let’s Get CI for the Median\nRecall the median is the middle value in a dataset.\n\nboot_flintmedian &lt;- flint %&gt;%\n  # specify the variable of interest\n  specify(response = Pb_initial) %&gt;%\n  # generate 15000 bootstrap samples\n  generate(reps = 15000, type = \"bootstrap\") %&gt;%\n  # calculate the mean of each bootstrap sample\n  calculate(stat = \"median\")"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#section-6",
-    "href": "slides/w06-02-clt-slides.html#section-6",
+    "objectID": "slides/w05-02-clt-slides.html#section-6",
+    "href": "slides/w05-02-clt-slides.html#section-6",
     "title": "Distribution of the Sample Mean",
     "section": "",
     "text": "ggplot(data = boot_flintmedian, mapping = aes(x = stat)) +\n  geom_histogram() +\n  labs(title = \"Bootstrap distribution of medians\",\n       x = \"Medians of Each Bootstrap Sample\")"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#section-7",
-    "href": "slides/w06-02-clt-slides.html#section-7",
+    "objectID": "slides/w05-02-clt-slides.html#section-7",
+    "href": "slides/w05-02-clt-slides.html#section-7",
     "title": "Distribution of the Sample Mean",
     "section": "",
     "text": "boot_flintmedian %&gt;%\n  summarize(lower = quantile(stat, 0.025),\n            upper = quantile(stat, 0.975))\n\n# A tibble: 1 × 2\n  lower upper\n  &lt;dbl&gt; &lt;dbl&gt;\n1  2.91  4.45"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#section-8",
-    "href": "slides/w06-02-clt-slides.html#section-8",
+    "objectID": "slides/w05-02-clt-slides.html#section-8",
+    "href": "slides/w05-02-clt-slides.html#section-8",
     "title": "Distribution of the Sample Mean",
     "section": "",
     "text": "lower_bound &lt;-\n  boot_flintmedian %&gt;% summarize(lower_bound = quantile(stat, 0.025)) %&gt;% pull() %&gt;% round()\nupper_bound &lt;-\n  boot_flintmedian %&gt;% summarize(upper_bound = quantile(stat, 0.975)) %&gt;% pull() %&gt;% round()"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#section-9",
-    "href": "slides/w06-02-clt-slides.html#section-9",
+    "objectID": "slides/w05-02-clt-slides.html#section-9",
+    "href": "slides/w05-02-clt-slides.html#section-9",
     "title": "Distribution of the Sample Mean",
     "section": "",
     "text": "ggplot(data = boot_flintmedian, mapping = aes(x = stat)) +\n  geom_histogram() +\n  geom_vline(xintercept = c(lower_bound, upper_bound), color = \"#A7D5E8\", size = 2) +\n  labs(title = \"Bootstrap distribution of medians\",\n       subtitle = \"and 95% confidence interval\",\n       x = \"Medians of Each Bootstrap Sample\")"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#mean-median",
-    "href": "slides/w06-02-clt-slides.html#mean-median",
+    "objectID": "slides/w05-02-clt-slides.html#mean-median",
+    "href": "slides/w05-02-clt-slides.html#mean-median",
     "title": "Distribution of the Sample Mean",
     "section": "Mean \\(>>\\) Median",
     "text": "Mean \\(&gt;&gt;\\) Median\nWow, those medians are so much smaller than the means! Perhaps we should have started with a little visualization of the raw data.\n\nflint %&gt;%\n  ggplot(aes(x = Pb_initial)) +\n  geom_histogram() +\n  labs(title = \"Initial Pb Levels\")\n\n\nAhh, this distribution is highly skewed. Which value is a better measure of the center of the distribution?"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#recap",
-    "href": "slides/w06-02-clt-slides.html#recap",
+    "objectID": "slides/w05-02-clt-slides.html#recap",
+    "href": "slides/w05-02-clt-slides.html#recap",
     "title": "Distribution of the Sample Mean",
     "section": "Recap",
     "text": "Recap\n\nSample statistic \\(\\ne\\) population parameter, but if the sample is good, it can be a good estimate\nWe report the estimate with a confidence interval, and the width of this interval depends on the variability of sample statistics from different samples from the population\nSince we can’t continue sampling from the population, we bootstrap from the one sample we have to estimate sampling variability\n\nWe can do this for any sample statistic:\n\nFor a mean: calculate(stat = \"mean\")\n\nFor a median: calculate(stat = \"median\")"
   },
   {
-    "objectID": "slides/w06-02-clt-slides.html#homework-practice",
-    "href": "slides/w06-02-clt-slides.html#homework-practice",
+    "objectID": "slides/w05-02-clt-slides.html#homework-practice",
+    "href": "slides/w05-02-clt-slides.html#homework-practice",
     "title": "Distribution of the Sample Mean",
     "section": "Homework (Practice)",
     "text": "Homework (Practice)\nIMS Chapter 13\n\nProblem 1\nProblem 14\nProblem 15\n\nIMS Chapter 19\n\nProblem 1\nProblem 3\nProblem 13"
@@ -4188,7 +4188,7 @@
     "href": "index.html",
     "title": "STA 198: Introduction to Global Health Data Science",
     "section": "",
-    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester. Note also that not all of the “prepare” materials are required – many are extra help resources that will be discussed more in class (don’t be taken aback!).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nPREPARE\nMATERIALS\nDUE\n\n\n\n1\nMon, Aug 24\nWelcome to STA 198!\n📝 Syllabus  📗 r4ds - intro  📗 r4ds - chp 1  📘 ims - chp 1  📘 ims - chp 2  🎥 Meet the toolkit :: R and RStudio  🎥 Meet the toolkit :: Quarto  🎥 Code along :: First data viz with UN Votes  🎥 Visualizing data  🎥 Building a plot step-by-step with ggplot2  🎥 Grammar of graphics \n\n🖥️ slides 01  🖥️ slides 02  🗒️ notes 01  🗒️ notes 02 \n\n\n\n\n\nWed, Aug 26\nData Visualization\n📘 ims - chp 4  📘 ims - chp 5  📗 r4ds - chp 2  🎥 Visualizing and summarizing categorical data  🎥 Visualizing and summarizing numerical data  🎥 Visualizing and summarizing relationships \n\n🖥️ slides 03  🖥️ slides 04  🗒️ notes 03  🗒️ notes 04\n\n\n\n\n\nFri, Aug 28\nLab 0: Getting Started!\n\n💻lab 00\n\nLab 0 due at the end of lab session (not graded)\n\n\n2\nMon, Aug 31\nProbability\n📙Seeing Theory - Chapter 1: Basic Probability\n\n🖥️ slides 05  🗒️ notes 05 \n\n\n\n\n\nWed, Sep 2\nConditional Probability\n📙Seeing Theory - Chapter 2: Compound Probability\n\n🖥️ slides 06  🗒️ notes 06 \n\n\n\n\n\nFri, Sep 4\nLab 1: Data Visualization\n\n💻lab 01\n\nLab 1 due at the end of the lab session\n\n\n3\nMon, Sep 7\nNo lecture - Labor Day\n\n\n\n\n\n\nWed, Sep 9\nDiscrete Distributions\n📙Pagano, Gauvreau, and Mattie : Chapter 7.1-7.2\n🖥️ slides 07  🗒️ notes 07 \n\n\n\n\n\nFri, Sep 11\nLab 2: Discrete data and probabilities\n\n💻lab 02\n\nLab 2 due at the end of the lab session\n\n\n4\nMon, Sep 14\nData Wrangling\n📘 ims - chp 6  📗 r4ds - chp 19.1-19.3 🎥 Code along :: Diving deeper with Palmer Penguins  🎥 Joining data  🎥 Code along :: Continent populations\n\n🖥️ slides 08  🗒️ notes 08  🖥️ slides 09  🗒️ notes 09\n\n\n\n\n\nWed, Sep 16\nTidying Data\n📗 r4ds - chp 5  🎥 Tidy data  🎥 Tidying data  🎥 Code along :: Country populations over time \n\n🖥️ slides 10  🗒️ notes 10\n\nIn class activity\n\n\n\nFri, Sep 18\nLab 3: Data wrangling and tidying\n📗 r4ds - chp 3.1-3.5  🎥 Grammar of data transformation  🎥 Code along :: Flights and pipes\n\n💻lab 03\n\n\n\n\n5\nMon, Sep 21\nGaussian Distribution\n📙Pagano, Gauvreau, and Mattie : Chapter 7.4\n🖥️ slides 11  🗒️ notes 11\n\nIn class activity\n\n\n\nWed, Sep 23\nCentral Limit Theorem; Confidence Intervals\n📙Seeing Theory - Chapter 4: Frequentist Inference-Confidence Intervals  📘 ims - chp 13  📘 ims - chp 19\n\n🖥️ slides 12  🗒️ notes 12\n\n\n\n\n\nFri, Sep 25\nLab 4\n\n\nLab 3 due at the end of lab session\n\n\n6\nMon, Sep 28\nExam Review and Practice\n\n📝2021 exam on Canvas  📝Practice Questions on Canvas\n\n\n\n\n\nWed, Sep 30\nExam 1\n\n\n\n\n\n\nFri, Oct 2\nExam 1 Feedback\nTo be posted\n\n\n\n\n7\nMon, Oct 5\nTesting\nTo be posted\n🖥️ slides 13  🗒️ notes 13 \n\n\n\n\n\nWed, Oct 7\nTesting\nTo be posted\n🖥️ slides 14  🗒️ notes 14 \n\n\n\n\n\nFri, Oct 9\nLab 4: Testing\nTo be posted\n\nLab 4 due at the end of lab session\n\n\n\nFri, Oct 9\n\n\n\nMidterm course evaluation due at 11:59 pm (optional)\n\n\n8\nMon, Oct 12\nNo Lecture - Fall Break\nTo be posted\n\n\n\n\n\nWed, Oct 14\nIntroduction to Modelling\nTo be posted\n🖥️ slides 15  🗒️ notes 15 \n\n\n\n\n\nFri, Oct 16\nLab 5: Testing\nTo be posted\n\nLab 5 due at the end of lab session\n\n\n9\nMon, Oct 19\nLinear regression with a single predictor\nTo be posted\n🖥️ slides 16  🗒️ notes 16\n\n\n\n\n\nWed, Oct 21\nANOVA\nTo be posted\n🖥️ slides 17  🗒️ notes 17 \n\n\n\n\n\nFri, Oct 23\nLab 6: Regression\nTo be posted\n\nLab 6 due at the end of lab session\n\n\n10\nMon, Oct 26\nLinear regression with multiple predictors\nTo be posted\n\n\n\n\n\nWed, Oct 28\nLinear regression with multiple predictors\nTo be posted\n\n\n\n\n\nFri, Oct 30\nLab 7: Multiple Regression\nTo be posted\n\nLab 7 due at the end of lab session\n\n\n11\nMon, Nov 2\nExam Review\nTo be posted\n\n\n\n\n\nWed, Nov 4\nExam 2\nTo be posted\n\n\n\n\n\nFri, Nov 6\nExam 2 Feedback\nTo be posted\n\n\n\n\n12\nMon, Nov 9\nContingency tables\nTo be posted\n\n\n\n\n\nWed, Nov 11\nLogistic regression; causality\nTo be posted\n\n\n\n\n\nFri, Nov 13\nLab 8: Logistic Regression\nTo be posted\n\nLab 8 due at the end of lab session\n\n\n13\nMon, Nov 16\nLogistic regression; causality\nTo be posted\n\n\n\n\n\nWed, Nov 18\nCase Study\nTo be posted\n\n\n\n\n\nFri, Nov 20\nLab 9\nTo be posted\n\nLab 9 due at the end of lab session\n\n\n14\nMon, Nov 23\nSurvival Analysis\nTo be posted\n\n\n\n\n\nWed, Nov 25\nNo lecture - Thanksgiving\nTo be posted\n\n\n\n\n\nFri, Nov 27\nNo lab - Thanksgiving\nTo be posted\n\n\n\n\n15\nMon, Nov 30\nExam Review\nTo be posted\n\n\n\n\n\nWed, Dec 2\nExam 3\nTo be posted\n\n\n\n\n\nFri, Dec 4\nExam 3 Feedback\nTo be posted\n\n\n\n\n\nNA\nFinal review (time TBD, location TBD)\n\n\n\n\n\n16\nFri, Dec 11\nFinal (2 pm - 5 pm)\nTo be posted",
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester. Note also that not all of the “prepare” materials are required – many are extra help resources that will be discussed more in class (don’t be taken aback!).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nPREPARE\nMATERIALS\nDUE\n\n\n\n1\nMon, Aug 24\nWelcome to STA 198!\n📝 Syllabus  📗 r4ds - intro  📗 r4ds - chp 1  📘 ims - chp 1  📘 ims - chp 2  🎥 Meet the toolkit :: R and RStudio  🎥 Meet the toolkit :: Quarto  🎥 Code along :: First data viz with UN Votes  🎥 Visualizing data  🎥 Building a plot step-by-step with ggplot2  🎥 Grammar of graphics \n\n🖥️ slides 01  🖥️ slides 02  🗒️ notes 01  🗒️ notes 02 \n\n\n\n\n\nWed, Aug 26\nData Visualization\n📘 ims - chp 4  📘 ims - chp 5  📗 r4ds - chp 2  🎥 Visualizing and summarizing categorical data  🎥 Visualizing and summarizing numerical data  🎥 Visualizing and summarizing relationships \n\n🖥️ slides 03  🖥️ slides 04  🗒️ notes 03  🗒️ notes 04\n\n\n\n\n\nFri, Aug 28\nLab 0: Getting Started!\n\n💻lab 00\n\nLab 0 due at the end of lab session (not graded)\n\n\n2\nMon, Aug 31\nProbability\n📙Seeing Theory - Chapter 1: Basic Probability\n\n🖥️ slides 05  🗒️ notes 05 \n\n\n\n\n\nWed, Sep 2\nConditional Probability\n📙Seeing Theory - Chapter 2: Compound Probability\n\n🖥️ slides 06  🗒️ notes 06 \n\n\n\n\n\nFri, Sep 4\nLab 1: Data Visualization\n\n💻lab 01\n\nLab 1 due at the end of the lab session\n\n\n3\nMon, Sep 7\nNo lecture - Labor Day\n\n\n\n\n\n\nWed, Sep 9\nDiscrete Distributions\n📙Pagano, Gauvreau, and Mattie : Chapter 7.1-7.2\n🖥️ slides 07  🗒️ notes 07 \n\n\n\n\n\nFri, Sep 11\nLab 2: Discrete data and probabilities\n\n💻lab 02\n\nLab 2 due at the end of the lab session\n\n\n4\nMon, Sep 14\nData Wrangling\n📘 ims - chp 6  📗 r4ds - chp 19.1-19.3 🎥 Code along :: Diving deeper with Palmer Penguins  🎥 Joining data  🎥 Code along :: Continent populations\n\n🖥️ slides 08  🗒️ notes 08  🖥️ slides 09  🗒️ notes 09\n\n\n\n\n\nWed, Sep 16\nTidying Data\n📗 r4ds - chp 5  🎥 Tidy data  🎥 Tidying data  🎥 Code along :: Country populations over time \n\n🖥️ slides 10  🗒️ notes 10\n\nIn class activity\n\n\n\nFri, Sep 18\nLab 3: Data wrangling and tidying\n📗 r4ds - chp 3.1-3.5  🎥 Grammar of data transformation  🎥 Code along :: Flights and pipes\n\n💻lab 03\n\n\n\n\n5\nMon, Sep 21\nGaussian Distribution\n📙Pagano, Gauvreau, and Mattie : Chapter 7.4\n🖥️ slides 11  🗒️ notes 11\n\nIn class activity\n\n\n\nWed, Sep 23\nCentral Limit Theorem; Confidence Intervals\n📙Seeing Theory - Chapter 4: Frequentist Inference-Confidence Intervals  📘 ims - chp 13  📘 ims - chp 19\n\n🖥️ slides 12  🗒️ notes 12\n\n\n\n\n\nFri, Sep 25\nLab 4\n\n\nLab 3 due at the end of lab session\n\n\n6\nMon, Sep 28\nExam Review and Practice\n\n📝2021 exam on Canvas  📝Practice Questions on Canvas\n\n\n\n\n\nWed, Sep 30\nExam 1\n\n\n\n\n\n\nFri, Oct 2\nExam 1 Feedback\nTo be posted\n\n\n\n\n7\nMon, Oct 5\nTesting\nTo be posted\n🖥️ slides 13  🗒️ notes 13 \n\n\n\n\n\nWed, Oct 7\nTesting\nTo be posted\n🖥️ slides 14  🗒️ notes 14 \n\n\n\n\n\nFri, Oct 9\nLab 4: Testing\nTo be posted\n\nLab 4 due at the end of lab session\n\n\n\nFri, Oct 9\n\n\n\nMidterm course evaluation due at 11:59 pm (optional)\n\n\n8\nMon, Oct 12\nNo Lecture - Fall Break\nTo be posted\n\n\n\n\n\nWed, Oct 14\nIntroduction to Modelling\nTo be posted\n🖥️ slides 15  🗒️ notes 15 \n\n\n\n\n\nFri, Oct 16\nLab 5: Testing\nTo be posted\n\nLab 5 due at the end of lab session\n\n\n9\nMon, Oct 19\nLinear regression with a single predictor\nTo be posted\n🖥️ slides 16  🗒️ notes 16\n\n\n\n\n\nWed, Oct 21\nANOVA\nTo be posted\n🖥️ slides 17  🗒️ notes 17 \n\n\n\n\n\nFri, Oct 23\nLab 6: Regression\nTo be posted\n\nLab 6 due at the end of lab session\n\n\n10\nMon, Oct 26\nLinear regression with multiple predictors\nTo be posted\n\n\n\n\n\nWed, Oct 28\nLinear regression with multiple predictors\nTo be posted\n\n\n\n\n\nFri, Oct 30\nLab 7: Multiple Regression\nTo be posted\n\nLab 7 due at the end of lab session\n\n\n11\nMon, Nov 2\nExam Review\nTo be posted\n\n\n\n\n\nWed, Nov 4\nExam 2\nTo be posted\n\n\n\n\n\nFri, Nov 6\nExam 2 Feedback\nTo be posted\n\n\n\n\n12\nMon, Nov 9\nContingency tables\nTo be posted\n\n\n\n\n\nWed, Nov 11\nLogistic regression; causality\nTo be posted\n\n\n\n\n\nFri, Nov 13\nLab 8: Logistic Regression\nTo be posted\n\nLab 8 due at the end of lab session\n\n\n13\nMon, Nov 16\nLogistic regression; causality\nTo be posted\n\n\n\n\n\nWed, Nov 18\nCase Study\nTo be posted\n\n\n\n\n\nFri, Nov 20\nLab 9\nTo be posted\n\nLab 9 due at the end of lab session\n\n\n14\nMon, Nov 23\nSurvival Analysis\nTo be posted\n\n\n\n\n\nWed, Nov 25\nNo lecture - Thanksgiving\nTo be posted\n\n\n\n\n\nFri, Nov 27\nNo lab - Thanksgiving\nTo be posted\n\n\n\n\n15\nMon, Nov 30\nExam Review\nTo be posted\n\n\n\n\n\nWed, Dec 2\nExam 3\nTo be posted\n\n\n\n\n\nFri, Dec 4\nExam 3 Feedback\nTo be posted\n\n\n\n\n\nNA\nFinal review (time TBD, location TBD)\n\n\n\n\n\n16\nFri, Dec 11\nFinal (2 pm - 5 pm)\nTo be posted",
     "crumbs": [
       "Course information",
       "Schedule"
