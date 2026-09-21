@@ -1306,7 +1306,7 @@
     "href": "slides/w06-02-clt-slides.html#main-ideas",
     "title": "Distribution of the Sample Mean",
     "section": "Main Ideas",
-    "text": "Main Ideas\n\nUnderstand the Central Limit Theorem (CLT) and how to use the result\nCreate confidence intervals for the population mean using a CLT-based approach\nCreate confidence intervals for the population proportion using a CLT-based approach\n\n\nNote: bootstrapping notes are based on Data Science in a Box!"
+    "text": "Main Ideas\n\nUnderstand the Central Limit Theorem (CLT) and how to use the result\nCreate confidence intervals for the population mean using a CLT-based approach\nCreate confidence intervals for the population proportion using a CLT-based approach\n\n\nNote: bootstrapping notes based on Data Science in a Box!"
   },
   {
     "objectID": "slides/w06-02-clt-slides.html#packages",
@@ -1761,14 +1761,14 @@
     "href": "slides/w05-02-clt.html",
     "title": "Distribution of the Sample Mean",
     "section": "",
-    "text": "Understand the Central Limit Theorem (CLT) and how to use the result\nCreate confidence intervals for the population mean using a CLT-based approach\nCreate confidence intervals for the population proportion using a CLT-based approach\n\n\nNote: bootstrapping notes are based on Data Science in a Box!"
+    "text": "Understand the Central Limit Theorem (CLT) and how to use the result\nCreate confidence intervals for the population mean using a CLT-based approach\nCreate confidence intervals for the population proportion using a CLT-based approach\n\n\nNote: bootstrapping notes based on Data Science in a Box!"
   },
   {
     "objectID": "slides/w05-02-clt.html#main-ideas",
     "href": "slides/w05-02-clt.html#main-ideas",
     "title": "Distribution of the Sample Mean",
     "section": "",
-    "text": "Understand the Central Limit Theorem (CLT) and how to use the result\nCreate confidence intervals for the population mean using a CLT-based approach\nCreate confidence intervals for the population proportion using a CLT-based approach\n\n\nNote: bootstrapping notes are based on Data Science in a Box!"
+    "text": "Understand the Central Limit Theorem (CLT) and how to use the result\nCreate confidence intervals for the population mean using a CLT-based approach\nCreate confidence intervals for the population proportion using a CLT-based approach\n\n\nNote: bootstrapping notes based on Data Science in a Box!"
   },
   {
     "objectID": "slides/w05-02-clt.html#packages",
