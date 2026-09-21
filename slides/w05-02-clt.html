@@ -510,10 +510,12 @@ window.Quarto = {
   <li><a href="#seriously" id="toc-seriously" class="nav-link" data-scroll-target="#seriously">Seriously?</a></li>
   <li><a href="#bootstrapping" id="toc-bootstrapping" class="nav-link" data-scroll-target="#bootstrapping">Bootstrapping</a></li>
   <li><a href="#bootstrapped-confidence-interval" id="toc-bootstrapped-confidence-interval" class="nav-link" data-scroll-target="#bootstrapped-confidence-interval">Bootstrapped Confidence Interval</a></li>
+  <li><a href="#bootstrapping-our-class" id="toc-bootstrapping-our-class" class="nav-link" data-scroll-target="#bootstrapping-our-class">Bootstrapping our class</a></li>
+  <li><a href="#bootstrap-sampling" id="toc-bootstrap-sampling" class="nav-link" data-scroll-target="#bootstrap-sampling">Bootstrap Sampling</a></li>
+  <li><a href="#back-to-flint-generate-bootstrap-means" id="toc-back-to-flint-generate-bootstrap-means" class="nav-link" data-scroll-target="#back-to-flint-generate-bootstrap-means">Back to Flint: generate bootstrap means</a></li>
   <li><a href="#generate-bootstrap-means" id="toc-generate-bootstrap-means" class="nav-link" data-scroll-target="#generate-bootstrap-means">Generate bootstrap means</a></li>
   <li><a href="#generate-bootstrap-means-1" id="toc-generate-bootstrap-means-1" class="nav-link" data-scroll-target="#generate-bootstrap-means-1">Generate bootstrap means</a></li>
   <li><a href="#generate-bootstrap-means-2" id="toc-generate-bootstrap-means-2" class="nav-link" data-scroll-target="#generate-bootstrap-means-2">Generate bootstrap means</a></li>
-  <li><a href="#generate-bootstrap-means-3" id="toc-generate-bootstrap-means-3" class="nav-link" data-scroll-target="#generate-bootstrap-means-3">Generate bootstrap means</a></li>
   <li><a href="#the-bootstrap-sample" id="toc-the-bootstrap-sample" class="nav-link" data-scroll-target="#the-bootstrap-sample">The bootstrap sample</a></li>
   <li><a href="#visualize-the-bootstrap-distribution" id="toc-visualize-the-bootstrap-distribution" class="nav-link" data-scroll-target="#visualize-the-bootstrap-distribution">Visualize the bootstrap distribution</a></li>
   <li><a href="#calculate-the-confidence-interval" id="toc-calculate-the-confidence-interval" class="nav-link" data-scroll-target="#calculate-the-confidence-interval">Calculate the confidence interval</a></li>
@@ -1034,24 +1036,166 @@ mean of x
 <p>Sampling with replacement: everyone draws from a hat containing all 20 marbles, and I need to be sure I can cover the cost of everyone drawing a silver marble, in the unlikely event this occurs.</p>
 <p>Sampling without replacement: once a marble is drawn, it is not returned to the hat. If the first person draws the silver marble, the rest of you are out of luck. I just need $100 for the demonstration.</p>
 </div>
-</section><section id="generate-bootstrap-means" class="level2"><h2 class="anchored" data-anchor-id="generate-bootstrap-means">Generate bootstrap means</h2>
+</section><section id="bootstrapping-our-class" class="level2 smaller"><h2 class="smaller anchored" data-anchor-id="bootstrapping-our-class">Bootstrapping our class</h2>
+<style>
+.small-table table {
+  font-size: 0.55em;
+}
+</style></section><section id="bootstrap-sampling" class="level2 smaller"><h2 class="smaller anchored" data-anchor-id="bootstrap-sampling">Bootstrap Sampling</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">class</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Yavuz"</span>, <span class="st">"Sophia"</span>, <span class="st">"Willa"</span>, <span class="st">"Allie"</span>,</span>
+<span>  <span class="st">"Peter"</span>, <span class="st">"Harper"</span>, <span class="st">"Jeremin"</span>, <span class="st">"Jason"</span>,</span>
+<span>  <span class="st">"Vennela"</span>, <span class="st">"Jack"</span>, <span class="st">"Kelsey"</span>, <span class="st">"Henry"</span>,</span>
+<span>  <span class="st">"Annie"</span>, <span class="st">"Stephen"</span>, <span class="st">"Florence"</span>, <span class="st">"Olivia"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">bootstrap_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  `Original class` <span class="op">=</span> <span class="va">class</span>,</span>
+<span>  `Bootstrap 1` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">class</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  `Bootstrap 2` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">class</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  `Bootstrap 3` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">class</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  check.names <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Notice:</strong> Each bootstrap sample contains 16 names, but some students may appear more than once while others may not appear at all.</p>
+</div><div class="column" style="width:30%;">
+<div class="small-table">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: center;">Original class</th>
+<th style="text-align: center;">Bootstrap 1</th>
+<th style="text-align: center;">Bootstrap 2</th>
+<th style="text-align: center;">Bootstrap 3</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Yavuz</td>
+<td style="text-align: center;">Florence</td>
+<td style="text-align: center;">Olivia</td>
+<td style="text-align: center;">Willa</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Sophia</td>
+<td style="text-align: center;">Florence</td>
+<td style="text-align: center;">Peter</td>
+<td style="text-align: center;">Allie</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Willa</td>
+<td style="text-align: center;">Willa</td>
+<td style="text-align: center;">Willa</td>
+<td style="text-align: center;">Stephen</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Allie</td>
+<td style="text-align: center;">Stephen</td>
+<td style="text-align: center;">Kelsey</td>
+<td style="text-align: center;">Yavuz</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Peter</td>
+<td style="text-align: center;">Willa</td>
+<td style="text-align: center;">Vennela</td>
+<td style="text-align: center;">Kelsey</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Harper</td>
+<td style="text-align: center;">Jack</td>
+<td style="text-align: center;">Henry</td>
+<td style="text-align: center;">Jeremin</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Jeremin</td>
+<td style="text-align: center;">Sophia</td>
+<td style="text-align: center;">Vennela</td>
+<td style="text-align: center;">Peter</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Jason</td>
+<td style="text-align: center;">Harper</td>
+<td style="text-align: center;">Vennela</td>
+<td style="text-align: center;">Henry</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Vennela</td>
+<td style="text-align: center;">Kelsey</td>
+<td style="text-align: center;">Annie</td>
+<td style="text-align: center;">Florence</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Jack</td>
+<td style="text-align: center;">Peter</td>
+<td style="text-align: center;">Willa</td>
+<td style="text-align: center;">Olivia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Kelsey</td>
+<td style="text-align: center;">Allie</td>
+<td style="text-align: center;">Jason</td>
+<td style="text-align: center;">Jack</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Henry</td>
+<td style="text-align: center;">Stephen</td>
+<td style="text-align: center;">Jack</td>
+<td style="text-align: center;">Annie</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Annie</td>
+<td style="text-align: center;">Harper</td>
+<td style="text-align: center;">Jeremin</td>
+<td style="text-align: center;">Jeremin</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Stephen</td>
+<td style="text-align: center;">Vennela</td>
+<td style="text-align: center;">Jack</td>
+<td style="text-align: center;">Vennela</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Florence</td>
+<td style="text-align: center;">Jack</td>
+<td style="text-align: center;">Vennela</td>
+<td style="text-align: center;">Vennela</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Olivia</td>
+<td style="text-align: center;">Kelsey</td>
+<td style="text-align: center;">Stephen</td>
+<td style="text-align: center;">Jack</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="back-to-flint-generate-bootstrap-means" class="level2"><h2 class="anchored" data-anchor-id="back-to-flint-generate-bootstrap-means">Back to Flint: generate bootstrap means</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># specify the variable of interest</span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="generate-bootstrap-means-1" class="level2"><h2 class="anchored" data-anchor-id="generate-bootstrap-means-1">Generate bootstrap means</h2>
+</section><section id="generate-bootstrap-means" class="level2"><h2 class="anchored" data-anchor-id="generate-bootstrap-means">Generate bootstrap means</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># specify the variable of interest</span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span></span>
 <span>  <span class="co"># generate 15000 bootstrap samples</span></span>
 <span>  <span class="fu">generate</span><span class="op">(</span>reps <span class="op">=</span> <span class="fl">15000</span>, type <span class="op">=</span> <span class="st">"bootstrap"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="generate-bootstrap-means-2" class="level2"><h2 class="anchored" data-anchor-id="generate-bootstrap-means-2">Generate bootstrap means</h2>
+</section><section id="generate-bootstrap-means-1" class="level2"><h2 class="anchored" data-anchor-id="generate-bootstrap-means-1">Generate bootstrap means</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># specify the variable of interest</span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span></span>
 <span>  <span class="co"># generate 15000 bootstrap samples</span></span>
@@ -1059,9 +1203,9 @@ mean of x
 <span>  <span class="co"># calculate the mean of each bootstrap sample</span></span>
 <span>  <span class="fu">calculate</span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="generate-bootstrap-means-3" class="level2"><h2 class="anchored" data-anchor-id="generate-bootstrap-means-3">Generate bootstrap means</h2>
+</section><section id="generate-bootstrap-means-2" class="level2"><h2 class="anchored" data-anchor-id="generate-bootstrap-means-2">Generate bootstrap means</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># save resulting bootstrap distribution</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># save resulting bootstrap distribution</span></span>
 <span><span class="va">boot_flintmean</span> <span class="op">&lt;-</span> <span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># specify the variable of interest</span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1075,7 +1219,7 @@ mean of x
 <p>How many observations are there in <code>boot_flintmean</code>? What does each observation represent?</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmean</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmean</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response: Pb_initial (numeric)
 # A tibble: 15,000 × 2
@@ -1092,13 +1236,13 @@ mean of x
 </div>
 </section><section id="visualize-the-bootstrap-distribution" class="level2"><h2 class="anchored" data-anchor-id="visualize-the-bootstrap-distribution">Visualize the bootstrap distribution</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmean</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmean</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bootstrap distribution of means"</span>,</span>
 <span>       x <span class="op">=</span> <span class="st">"Means of Each Bootstrap Sample"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w05-02-clt_files/figure-revealjs/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w05-02-clt_files/figure-revealjs/unnamed-chunk-17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w05-02-clt_files/figure-revealjs/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w05-02-clt_files/figure-revealjs/unnamed-chunk-19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1106,7 +1250,7 @@ mean of x
 </section><section id="calculate-the-confidence-interval" class="level2"><h2 class="anchored" data-anchor-id="calculate-the-confidence-interval">Calculate the confidence interval</h2>
 <p>A 95% confidence interval is bounded by the middle 95% of the bootstrap distribution.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmean</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmean</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.025</span><span class="op">)</span>,</span>
 <span>            upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1120,7 +1264,7 @@ mean of x
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w05-02-clt_files/figure-revealjs/unnamed-chunk-20-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w05-02-clt_files/figure-revealjs/unnamed-chunk-20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w05-02-clt_files/figure-revealjs/unnamed-chunk-22-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w05-02-clt_files/figure-revealjs/unnamed-chunk-22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1146,7 +1290,7 @@ mean of x
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w05-02-clt_files/figure-revealjs/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="w05-02-clt_files/figure-revealjs/unnamed-chunk-21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w05-02-clt_files/figure-revealjs/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="w05-02-clt_files/figure-revealjs/unnamed-chunk-23-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1176,7 +1320,7 @@ mean of x
 <p>How would you modify the following code to calculate a 90% confidence interval? How would you modify it for a 99% confidence interval?</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span></span>
 <span>  <span class="fu">generate</span><span class="op">(</span>reps <span class="op">=</span> <span class="fl">15000</span>, type <span class="op">=</span> <span class="st">"bootstrap"</span><span class="op">)</span></span>
 <span>  <span class="co"># calculate the mean of each bootstrap sample</span></span>
@@ -1187,7 +1331,7 @@ mean of x
 </section><section id="now-lets-get-ci-for-the-median" class="level2"><h2 class="anchored" data-anchor-id="now-lets-get-ci-for-the-median">Now Let’s Get CI for the Median</h2>
 <p>Recall the median is the middle value in a dataset.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmedian</span> <span class="op">&lt;-</span> <span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmedian</span> <span class="op">&lt;-</span> <span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># specify the variable of interest</span></span>
 <span>  <span class="fu">specify</span><span class="op">(</span>response <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># generate 15000 bootstrap samples</span></span>
@@ -1197,7 +1341,7 @@ mean of x
 </div>
 </section><section id="section-6" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-6"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmedian</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmedian</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bootstrap distribution of medians"</span>,</span>
 <span>       x <span class="op">=</span> <span class="st">"Medians of Each Bootstrap Sample"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1210,7 +1354,7 @@ mean of x
 </div>
 </section><section id="section-7" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-7"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmedian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_flintmedian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.025</span><span class="op">)</span>,</span>
 <span>            upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1222,14 +1366,14 @@ mean of x
 </div>
 </section><section id="section-8" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-8"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lower_bound</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lower_bound</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">boot_flintmedian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>lower_bound <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.025</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">upper_bound</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">boot_flintmedian</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>upper_bound <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">stat</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="section-9" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-9"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmedian</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boot_flintmedian</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">lower_bound</span>, <span class="va">upper_bound</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"#A7D5E8"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bootstrap distribution of medians"</span>,</span>
@@ -1245,7 +1389,7 @@ mean of x
 </section><section id="mean-median" class="level2"><h2 class="anchored" data-anchor-id="mean-median">Mean <span class="math inline">\(&gt;&gt;\)</span> Median</h2>
 <p>Wow, those medians are so much smaller than the means! Perhaps we should have started with a little visualization of the raw data.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flint</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Pb_initial</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Initial Pb Levels"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
