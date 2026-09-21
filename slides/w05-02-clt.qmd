@@ -687,7 +687,61 @@ Sampling without replacement: once a marble is drawn, it is not returned to the 
 </div>
 
 
-## Generate bootstrap means
+
+## Bootstrapping our class {.smaller}
+
+<style>
+.small-table table {
+  font-size: 0.55em;
+}
+</style>
+
+## Bootstrap Sampling {.smaller}
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+```{r}
+class <- c(
+  "Yavuz", "Sophia", "Willa", "Allie",
+  "Peter", "Harper", "Jeremin", "Jason",
+  "Vennela", "Jack", "Kelsey", "Henry",
+  "Annie", "Stephen", "Florence", "Olivia"
+)
+
+set.seed(123)
+
+bootstrap_results <- data.frame(
+  `Original class` = class,
+  `Bootstrap 1` = sample(class, length(class), replace = TRUE),
+  `Bootstrap 2` = sample(class, length(class), replace = TRUE),
+  `Bootstrap 3` = sample(class, length(class), replace = TRUE),
+  check.names = FALSE
+)
+```
+
+**Notice:** Each bootstrap sample contains 16 names, but some students may
+appear more than once while others may not appear at all.
+
+:::
+
+::: {.column width="30%"}
+
+::: {.small-table}
+
+```{r}
+#| echo: false
+knitr::kable(bootstrap_results, align = "cccc")
+```
+
+:::
+
+:::
+
+::::
+
+## Back to Flint: generate bootstrap means
 
 ```{r eval=FALSE}
 library(tidymodels)
