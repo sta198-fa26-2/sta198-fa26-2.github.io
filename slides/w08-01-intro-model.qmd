@@ -168,7 +168,7 @@ Are wealthier individuals less likely to have high mercury exposures?
 
 Today we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country). 
 
-Because the scale of this variable  is not easily interpreted, we will convert it to standard deviation units by subtracting the means and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase.
+Because the scale of this variable  is not easily interpreted, we will convert it to standard deviation units by subtracting the mean and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase.
 
 ## Data Manipulation
 
@@ -179,7 +179,8 @@ Because the scale of this variable  is not easily interpreted, we will convert i
 mercury <- readr::read_csv("../data/mercury_reg.csv")
 mercury <-
   mercury %>%
-  # scale() subtracts the mean and divides by the SD to make the units "standard deviations" like a z-score
+  # scale() subtracts the mean and divides by the SD to make 
+  #the units "standard deviations" like a z-score
   mutate(assets_sc=scale(SESassets)) %>%
   #another variable we may use later
   mutate(form_min_sc=scale(FM_buffer)) %>%
@@ -233,6 +234,7 @@ ggplot(data = mercury, aes(x = assets_sc)) +
 
 - We can represent relationships between variables using **functions**
 - A function is a mathematical concept: the relationship between an output and one or more inputs
+  - Each input has only one output
   - Plug in the inputs and receive back the output
   - Example: The formula $y = 3x + 7$ is a function with input $x$ and output $y$. If $x$ is $5$, $y$ is $22$, $y = 3 \times 5 + 7 = 22$
 
@@ -342,6 +344,8 @@ ggplot(data = mercury, aes(x = assets_sc, y = lhairHg)) +
 
 ## Vocabulary
 
+<div style="font-size:0.8em;">
+
 - **Response variable:** Variable whose behavior or variation you are trying to understand, on the y-axis, denoted $y$
 
 
@@ -358,6 +362,8 @@ ggplot(data = mercury, aes(x = assets_sc, y = lhairHg)) +
   - Residual = Observed value - Predicted value
   
   - Tells how far above/below the expected value each case is
+  
+</div>
   
 ## Residuals $y-\hat{y}$
 
@@ -405,7 +411,8 @@ ggplot(data = hg_asset_fit_aug) +
 
 :::
 
-<div style="font-size:0.7em;">
+
+<div style="font-size:0.6em;">
 
 
 If $y-\hat{y}$ is positive, the observed value $y$ is higher than what the model predicted, and if $y-\hat{y}$ is negative, the observed data was lower than what was predicted.
@@ -516,11 +523,12 @@ Extrapolation beyond the range of data observed is quite risky and is generally 
 
 ## Code
 
+<div style="font-size:0.5em;">
+
 ```{r}
 #| label: extrapolation
 #| fig-show: hide
 #| warning: false
-#| code-line-numbers: "4"
 ggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +
   geom_point(alpha = 0.1) +
   geom_smooth(method = "lm",
@@ -535,6 +543,8 @@ ggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +
   )  +
   scale_color_manual(values = c("#E48957", "#071381"))
 ```
+
+</div>
 
 :::
 

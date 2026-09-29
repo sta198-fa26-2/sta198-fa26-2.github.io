@@ -1,7 +1,7 @@
 ---
 title: "Hypothesis Testing"
 subtitle: "Introduction to Global Health Data Science"
-date: "2026-09-28"
+date: "2026-10-05"
 format:
   revealjs:
     output-file: w07-01-testing-slides.html
@@ -77,11 +77,15 @@ Steps in hypothesis testing:
 
 ## Example: Ultra Low Dose Contraceptives
 
-A certain ultra-low dose oral contraceptive pill is supposed to contain 0.02 mg of estrogen. If the dose is higher, the user may risk side effects better avoided, and if the dose is lower, the user may get pregnant.  The manufacturer wishes to check whether the mean concentration in a large shipment is the needed 0.02 mg or not.  A random sample of $n=50$ pills is tested, and the sample mean concentration is 0.017 mg with a sample standard deviation of 0.008 mg.
+A certain ultra low dose oral contraceptive pill is supposed to contain 0.02 mg of estrogen. If the dose is higher, the user may risk side effects better avoided, and if the dose is lower, the user may get pregnant.  The manufacturer wishes to check whether the mean concentration in a large shipment is the needed 0.02 mg or not.  A random sample of $n=50$ pills is tested, and the sample mean concentration is 0.017 mg with a sample standard deviation of 0.008 mg.
 
 Let's go through the hypothesis testing paradigm.
 
 ## {background-color="white"}
+
+
+<div style="font-size:0.9em;">
+
 
 ::: {.step-box style="background-color: #D3B4C1; border-left: 5px solid #A6617B;"}
 
@@ -95,6 +99,8 @@ Let's go through the hypothesis testing paradigm.
 
 ::: {.step-box style="background-color: #8FADA2; border-left: 5px solid #1E5B45;"}
 
+
+
 **2. Choose sampling strategy, design analysis plan, collect, and analyze data**
 
 - Plan is to sample 50 pills at random and use a one-sample t-test to evaluate whether they are consistent with a population with mean 0.02 mg estrogen
@@ -102,6 +108,8 @@ Let's go through the hypothesis testing paradigm.
 - 50 pills were sampled with a sample mean $\bar{x}=0.017$ and sample standard deviation $s=0.008$
 
 :::
+
+</div>
 
 ## {background-color="white"}
 
@@ -152,7 +160,7 @@ The concept is the same as that in the US judicial system -- we might find someo
 
 1. State Claim 1 and Claim 2.  Claim 1 states "nothing unusual is happening" and Claim 2 challenges it.
 
-2. Finalize data collection and analysis plans, collect relevant data, and summarize it.
+2. Finalize data collection and analysis plans, collect relevant data, and summarize.
 
 3. Assess how surprising it would be to see data like that, or even more extreme data, *if Claim 1 is really true*.
 
@@ -182,7 +190,7 @@ What are $H_0$ and $H_A$ in each case?
 
 2. Researchers would like to know if lead levels in the water from Flint exceed the EPA action level of 15 ppb.
 
-3. The WHO would like to know if the number of Bundibugyo cases in northeastern DRC and Kampala, Uganda, this week is the same as that from last week.
+3. The WHO would like to know if the number of Bundibugyo cases in northeastern DRC this week is the same as that from last week.
 
 ## Details: Step 2
 
@@ -243,6 +251,8 @@ In addition, when you interpret a p-value, be sure you are aware of other import
 
 ## Correspondence between Hypothesis Tests and Confidence Intervals
 
+<div style="font-size:0.9em;">
+
 We can examine a confidence interval to decide whether a proposed value for the population mean is reasonable.
 
 Suppose we are testing $H_0:  \mu=0.02$ versus $H_A:  \mu \neq 0.02$ using a significance level of $\alpha=0.05$.   An alternative way to do this is to construct a 95% confidence interval for $\mu$ and use the following decision rule.
@@ -252,6 +262,8 @@ Suppose we are testing $H_0:  \mu=0.02$ versus $H_A:  \mu \neq 0.02$ using a sig
 - If $0.02$ falls inside the confidence interval, do not reject $H_0$
 
 We may not want to make a binary decision but instead present a confidence interval and provide discussion. 
+
+</div>
 
 ## "Sidedness" of tests
 
@@ -275,20 +287,21 @@ For a two-sided test, the p-value is doubled, but $\alpha$ is unchanged.
 
 ## Details: Step 4
 
+<div style="font-size:0.85em;">
+
 Step 4 is drawing conclusions based on our test results.  Generally, we reject Claim 1 when the likelihood of seeing our data (or more extreme data) when Claim 1 is true would be relatively small.  Often, we consider a cutpoint (also called a significance level or $\alpha$ level) of $\alpha=0.05$ as defining the p-value as "small."  Using 0.05 as a cutpoint means that when the null hypothesis is true, we would expect to make the wrong decision only 5% of the time.   When the p-value $<\alpha$ you often see results described as "statistically significant."
 
 
 
 When the p-value is $> \alpha$ then we say we have insufficient evidence to reject Claim 1.  Sometimes people interpret p-values in the rough range of $(\alpha, 2\alpha)$ as marginally significant (so for $\alpha=0.05$ that range would be $0.05-0.10$), but this is not recommended.
 
+</div>
 
 ## {background-color="white"}
 
 Common sense should also be used in drawing conclusions.  For example, if there is a very strong body of evidence in favor of the alternative hypothesis and you see $p=0.06$, you wouldn't necessarily use your results to refute all the prior work in an area.  This is one reason confidence intervals are often used in place of hypothesis tests.
 
-## Example: Workplace Equity
 
-An employer subscribes to an "equal opportunity" policy, stating it hires employees with children and employees without children equally often in managerial positions.  Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified.  The data you have are the last three hires, all of which were applicants without children.  How do you carry out a hypothesis test?
 
 ## Trial by Jury Analogy
 
@@ -335,7 +348,7 @@ During the trial, we assume the cat is innocent unless it is proven guilty.  The
 
 ```{r}
 #| echo: false
-knitr::include_graphics("../img/odin.png")
+knitr::include_graphics("../img/notme.jpeg")
 ```
 
 :::
@@ -345,7 +358,7 @@ knitr::include_graphics("../img/odin.png")
 
 ## {background-color="white"}
 
-<div style="font-size:0.8em;">
+<div style="font-size:0.7em;">
 
 Let's translate into a hypothesis testing framework.  Suppose we wish to test that the population mean equals some value, say $\mu_0$.
 
@@ -394,9 +407,25 @@ No test is perfect! Here are some potential errors we could make using this para
 
 Circle, circle, dot, dot...we'll conduct our own study of one of the US's most widely-administered childhood  vaccinations.
 
-## Back to Example: Workplace Equity
+## Example: Workplace Equity
 
 An employer subscribes to an "equal opportunity" policy, stating it hires employees with children and employees without children equally often in managerial positions.  Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified.  The data you have are the last three hires, all of which were applicants without children.  How do you carry out a hypothesis test?
 
+
+
 If the null hypothesis is true, what was the probability of seeing these data, or data even more extreme?
+
+
+## Homework (Practice)
+
+[**IMS Chapter 13**](https://openintrostat.github.io/ims/foundations-mathematical.html#sec-chp13-exercises)
+
+- Problem 1
+- Problem 11
+
+[**IMS Chapter 14**](https://openintrostat.github.io/ims/foundations-errors.html#sec-chp14-exercises)
+
+- Problem 1
+- Problem 2
+
 

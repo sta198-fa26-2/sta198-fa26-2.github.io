@@ -1,7 +1,7 @@
 ---
 title: "Hypothesis Testing for Means and Proportions"
 subtitle: "Introduction to Global Health Data Science"
-date: "2026-09-30"
+date: "2026-10-07"
 format:
   revealjs:
     output-file: w07-02-test-mean-prop-slides.html
@@ -125,11 +125,13 @@ First, think about our test statistic $$t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}
 
 - $\bar{X}-\mu_0$ makes sense, because we want to look at how far our sample mean is from the hypothesized population mean
 
-- Whether $\bar{X}-\mu_0$ is big depends on the standard deviation.  For example, a difference of $\bar{X}-\mu_0=1$ is a small difference if we are looking at weight in g but huge for height in m.  This is why we standardize the difference by dividing by the *estimated* SD of the mean, so $t$ is a measure of how many SDs apart $\mu_0$ and $\bar{X}$ are from each other
+- Whether $\bar{X}-\mu_0$ is big depends on the standard deviation.  For example, a difference of $\bar{X}-\mu_0=1$ is a small difference if we are looking at a person's weight in g but huge for a person's height in m.  This is why we standardize the difference by dividing by the *estimated* SD of the mean, so $t$ is a measure of how many SDs apart $\mu_0$ and $\bar{X}$ are from each other
 
 </div>
 
 ## Behind the Scenes
+
+<div style="font-size:0.85em;">
 
 Think about our test statistic $$t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.$$
 
@@ -138,13 +140,15 @@ Think about our test statistic $$t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.$$
   
 - When our test statistic $t$  is small (and our data are approximately normal or $n$ is large), then our data do not refute the null hypothesis.
 
+</div>
+
 ## Getting the p-value: 2-sided test
 
 :::: columns
 
-::: {.column width="30%"}
+::: {.column width="35%"}
 
-<div style="font-size:0.65em;">
+<div style="font-size:0.6em;">
 
 |  | $H_0$  | $H_A$|
 |:------|:------:|:---------:|
@@ -160,7 +164,9 @@ Think about our test statistic $$t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.$$
 
 :::
 
-::: {.column width="65%"}
+::: {.column width="55%"}
+
+<div style="font-size:0.85em;">
 
 For a *two-sided* test, the p-value is the probability of seeing a t statistic with absolute value as big as, or larger than, what we saw in our data. Recall $$t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.$$
 
@@ -169,6 +175,8 @@ For a *two-sided* test, the p-value is the probability of seeing a t statistic w
 #| out.width: "50%"
 knitr::include_graphics("../img/tdisttwotail.png")
 ```
+
+</div>
 
 :::
 
@@ -181,7 +189,7 @@ knitr::include_graphics("../img/tdisttwotail.png")
 
 :::: columns
 
-::: {.column width="30%"}
+::: {.column width="35%"}
 
 <div style="font-size:0.65em;">
 
@@ -199,7 +207,7 @@ knitr::include_graphics("../img/tdisttwotail.png")
 
 :::
 
-::: {.column width="65%"}
+::: {.column width="55%"}
 
 <div style="font-size:0.8em;">
 
@@ -224,7 +232,7 @@ knitr::include_graphics("../img/tdistlefttail.png")
 
 :::: columns
 
-::: {.column width="30%"}
+::: {.column width="35%"}
 
 <div style="font-size:0.65em;">
 
@@ -242,7 +250,7 @@ knitr::include_graphics("../img/tdistlefttail.png")
 
 :::
 
-::: {.column width="65%"}
+::: {.column width="55%"}
 
 <div style="font-size:0.8em;">
 
@@ -742,3 +750,62 @@ Does a small p-value tell us whether the observed difference in sample means is 
 What happens to the human body when we move to high altitude? Design a study to investigate how a physiological measure, such as blood oxygen saturation or hemoglobin concentration, changes when people move from low to high altitude. Describe who you would study, what you would measure, and when you would take the measurements. Then propose an appropriate statistical analysis for determining whether the physiological measure changes, on average, with altitude.
 
 
+## Homework (Practice)
+
+[**IMS Chapter 19**](https://openintrostat.github.io/ims/inference-one-mean.html#sec-chp19-exercises)
+
+- Problem 3
+- Problem 8
+- Problem 12
+- Problem 13
+- Problem 14
+- Problem 17
+
+## Homework (Practice)
+
+**Questionnaire response rate**
+
+<div style="font-size:0.8em;">
+
+A clinic sends a follow-up questionnaire to 12 randomly selected patients. Ten return it. The clinic’s benchmark response rate is 50%. Let $p$ be the proportion of patients who would return the questionnaire.
+
+1. State the null and alternative hypotheses for testing whether the response rate **differs from** the benchmark.
+2. Under the null hypothesis, what distribution does the number of returned questionnaires follow?
+3. Calculate the exact two-sided p-value and state your conclusion at the 5% significance level.
+4. What assumptions are needed for this binomial test?
+
+</div>
+
+## Homework (Practice)
+
+**Complication rate**
+
+A hospital uses 10% as a benchmark complication rate for a procedure. Among 30 independently selected patients who received the procedure, none experienced the complication.
+
+1. State hypotheses for testing whether the complication rate **differs from** 10%.
+2. Use an exact two-sided binomial test to find the p-value.
+3. State your conclusion at the 5% significance level.
+4. Does observing zero complications establish that the true complication rate is zero? Explain.
+
+## Homework (Practice)
+
+**Video appointments**
+
+A health center has historically found that 25% of its patients choose a video appointment when offered a choice. In a random sample of 20 patients this month, 9 choose video.
+
+1. State hypotheses for testing whether the proportion choosing video has changed.
+2. Write the R `binom.test()` command for a two-sided test and report its p-value.
+3. Interpret the result in the context of the health center.
+
+## Homework (Practice)
+
+[**IMS Chapter 20**](https://openintrostat.github.io/ims/inference-two-means.html#sec-chp20-exercises)
+
+- Problem 9
+- Problem 11
+- Problem 19
+
+[**IMS Chapter 21**](https://openintrostat.github.io/ims/inference-paired-means.html#sec-chp21-exercises)
+
+- Problem 3
+- Problem 15
