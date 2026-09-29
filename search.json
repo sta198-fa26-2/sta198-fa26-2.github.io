@@ -3092,21 +3092,49 @@
     "href": "slides/w08-02-fitting-interpretation-slides.html#goal-predict-mercury-from-assets",
     "title": "Model Fitting and Interpretation",
     "section": "Goal: Predict mercury from assets",
-    "text": "Goal: Predict mercury from assets\n\\[\\widehat{y}_{i} = \\widehat{\\beta}_0 + \\widehat{\\beta}_1 \\times x_{i}\\] Here \\(y_i\\) represents log hair mercury for subject \\(i\\), and \\(x_i\\) represents standardized household income."
+    "text": "Goal: Predict mercury from assets\n\\[\\widehat{y}_{i} = \\widehat{\\beta}_0 + \\widehat{\\beta}_1 \\times x_{i}\\] Here \\(y_i\\) represents log hair mercury for subject \\(i\\), and \\(x_i\\) represents standardized household assets."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#how-did-we-know-to-transform-using-the-log",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#how-did-we-know-to-transform-using-the-log",
+    "title": "Model Fitting and Interpretation",
+    "section": "How did we know to transform using the log?",
+    "text": "How did we know to transform using the log?\n\nIn the previous notes, we saw that the distribution of Hg in hair had a strong right skew.\n\n# lhairHg is the natural log of mercury in hair\n# this code puts it back on the ppm scale\nggplot(data = mercury, aes(x = exp(lhairHg))) +\n  geom_histogram() +\n  labs(x = \"Mercury (ppm)\", y = NULL)"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#assumptions-of-the-regression-model",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#assumptions-of-the-regression-model",
+    "title": "Model Fitting and Interpretation",
+    "section": "Assumptions of the Regression Model",
+    "text": "Assumptions of the Regression Model\nThe linear model actually does not require hair mercury itself to be approximately normal. Instead, it needs for the distribution of \\(y\\mid x\\), the conditional distribution of hair mercury given all the predictor variables, to be aproximately normal. This is the same as saying that the errors in the model are approximately normally distributed.\nIt’s pretty easy to use a histogram to check the distribution of \\(y\\), but how about the distribution of \\(y \\mid x\\)? That’s not terribly complicated once you know how to fit a regression model, and we will work through an example of how to check it in the modeling process."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#are-household-assets-related-to-hair-mercury",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#are-household-assets-related-to-hair-mercury",
+    "title": "Model Fitting and Interpretation",
+    "section": "Are household assets related to hair mercury?",
+    "text": "Are household assets related to hair mercury?\n\n\nResponse: hair mercury concentration, in ppm (\\(y_i\\)), contained in the variable hairHg\n\n\nExplanatory variable: a household assets score (\\(x_i\\)), contained in the variable assets_sc\n\nA value of 0 on assets_sc means average assets in the dataset.\nA value of 1 means one standard deviation above that average.\n\n\n\nWhat pattern do you expect to see?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#look-at-the-data-first",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#look-at-the-data-first",
+    "title": "Model Fitting and Interpretation",
+    "section": "Look at the data first",
+    "text": "Look at the data first\n\n\n\n\nggplot(mercury, aes(x = assets_sc, y = hairHg)) +\n  geom_point(alpha = 0.15, color = \"#285B78\") +\n  geom_smooth(method = \"lm\", se = FALSE, \n              color = \"#8E2C90\") +\n  labs(\n    title = \"Hair mercury and household assets\",\n    x = \"Household assets (standardized)\",\n    y = \"Hair mercury (ppm)\"\n  ) \n\n\n\n\n\n\n\n\n\n\n\n\n\nDoes the line slope upward or downward? What does that tell us about the association?"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation-slides.html#goal-predict-mercury-from-assets-1",
     "href": "slides/w08-02-fitting-interpretation-slides.html#goal-predict-mercury-from-assets-1",
     "title": "Model Fitting and Interpretation",
     "section": "Goal: Predict mercury from assets",
-    "text": "Goal: Predict mercury from assets\nThe model itself is given by \\[y_i=\\beta_0+\\beta_1x_i+\\varepsilon_i,\\] where \\(\\varepsilon_i\\) represents a Gaussian error term, which implies that \\(y_i\\) itself follows a Gaussian distribution conditional on the predictor \\(x_i\\).\nThe typical hypothesis of interest is \\[H_0:  \\beta=0,\\] which corresponds to no (linear) relationship between the predictor \\(x\\) and response \\(y\\), against the alternative \\[H_0: \\beta \\neq 0.\\]"
+    "text": "Goal: Predict mercury from assets\nThe model itself is given by \\[y_i=\\beta_0+\\beta_1x_i+\\varepsilon_i,\\] where \\(\\varepsilon_i\\) represents a Gaussian error term, which implies that \\(y_i\\) itself (hair Hg) follows a Gaussian distribution conditional on the predictor \\(x_i\\) (assets).\nThe typical hypothesis of interest is \\[H_0:  \\beta=0,\\] which corresponds to no (linear) relationship between the predictor \\(x\\) and response \\(y\\), against the alternative \\[H_0: \\beta \\neq 0.\\]"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation-slides.html#t-test-from-a-linear-model",
     "href": "slides/w08-02-fitting-interpretation-slides.html#t-test-from-a-linear-model",
     "title": "Model Fitting and Interpretation",
     "section": "\n\\(t\\)-test from a linear model",
-    "text": "\\(t\\)-test from a linear model\n\nFor the linear model\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\varepsilon_i,\n\\]\na \\(t\\)-test evaluates whether \\(X\\) is associated with \\(Y\\):\n\\[\nH_0: \\beta_1 = 0\n\\qquad \\text{versus} \\qquad\nH_A: \\beta_1 \\ne 0.\n\\]\nThe test statistic compares the estimated coefficient with its uncertainty:\n\\[\nt = \\frac{\\widehat{\\beta}_1}{\\operatorname{SE}(\\widehat{\\beta}_1)}.\n\\]\nUnder \\(H_0\\),\n\\[\nT \\sim t_{n-p},\n\\] where \\(p\\) is the number of parameters in the mean specification of the model (here, \\(p=2\\) as we have \\(\\beta_0\\) and \\(\\beta_1\\) in the mean).\nA large \\(|t|\\)—and correspondingly small \\(p\\)-value—provides evidence that \\(X\\) is associated with \\(Y\\)."
+    "text": "\\(t\\)-test from a linear model\n\nFor the linear model\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\varepsilon_i,\n\\]\na \\(t\\)-test evaluates whether \\(X\\) is associated with \\(Y\\):\n\\[\nH_0: \\beta_1 = 0\n\\qquad \\text{versus} \\qquad\nH_A: \\beta_1 \\ne 0.\n\\]\nThe test statistic compares the estimated coefficient with its uncertainty:\n\\[\nt = \\frac{\\widehat{\\beta}_1-0}{\\operatorname{SE}(\\widehat{\\beta}_1)}.\n\\]\nUnder \\(H_0\\),\n\\[\nT \\sim t_{n-p},\n\\] where \\(p\\) is the number of parameters in the mean specification of the model (here, \\(p=2\\) as we have \\(\\beta_0\\) and \\(\\beta_1\\) in the mean; \\(n\\) is the number of observations used to fit the model).\nA large \\(|t|\\)—and correspondingly small \\(p\\)-value—provides evidence that \\(X\\) is associated with \\(Y\\)."
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation-slides.html#step-1-specify-model",
@@ -3127,28 +3155,126 @@
     "href": "slides/w08-02-fitting-interpretation-slides.html#step-3-fit-model-estimate-parameters",
     "title": "Model Fitting and Interpretation",
     "section": "Step 3: Fit model & estimate parameters",
-    "text": "Step 3: Fit model & estimate parameters\n… using formula syntax\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      0.2795      -0.3577"
+    "text": "Step 3: Fit model & estimate parameters\n… using formula syntax\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury)\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = hairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      2.3001      -0.8905"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation-slides.html#a-closer-look-at-model-output",
     "href": "slides/w08-02-fitting-interpretation-slides.html#a-closer-look-at-model-output",
     "title": "Model Fitting and Interpretation",
     "section": "A closer look at model output",
-    "text": "A closer look at model output\n\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      0.2795      -0.3577\n\n\n\n\\[\\widehat{y}_{i} = 0.2795 - 0.3577 \\times x_{i}\\]"
+    "text": "A closer look at model output\n\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = hairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      2.3001      -0.8905\n\n\n\n\\[\\widehat{y}_{i} = 2.30 - 0.89 \\times x_{i}\\]\n\\[\n\\widehat{\\text{hairHg}}_i\n  = 2.30 - 0.89\\,\\text{assets\\_sc}_i\n\\]"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation-slides.html#a-tidy-look-at-model-output",
     "href": "slides/w08-02-fitting-interpretation-slides.html#a-tidy-look-at-model-output",
     "title": "Model Fitting and Interpretation",
     "section": "A tidy look at model output",
-    "text": "A tidy look at model output\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury) %&gt;%\n  tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term   estimate std.error statistic  p.value conf.low conf.high\n#&gt;   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321\n#&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315\n\n\n\nThe key quantity here is the slope for assets, which represents the relationship between household assets and hair mercury. The estimate and standard error provided in the output are used to evaluate the hypothesis \\(H_0: \\beta_1=0\\), which states that there is no (linear) relationship between assets and mercury. The p-value for this hypothesis test is given by the p.value column for the asset row; the statistic column is calculated by dividing the estimate column entries by their standard errors. We have to do more digging to get the right degrees of freedom for the test, though.\nWe can also look at the 95% confidence interval for \\(\\beta_1\\), which is given here by \\((-0.40,-0.32)\\) – because it does not contain the null value 0, we can say there is evidence of a relationship between assets and hair mercury."
+    "text": "A tidy look at model output\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury) %&gt;%\n  tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\n\n\nThe key quantity here is the slope for assets, which represents the relationship between household assets and hair mercury. The estimate and standard error provided in the output are used to evaluate the hypothesis \\(H_0: \\beta_1=0\\), which states that there is no (linear) relationship between assets and mercury. The p-value for this hypothesis test is given by the p.value column for the asset row; the statistic column is calculated by dividing the estimate column entries by their standard errors. We have to do more digging to get the right degrees of freedom for the test, though."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#a-tidy-look-at-model-output-1",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#a-tidy-look-at-model-output-1",
+    "title": "Model Fitting and Interpretation",
+    "section": "A tidy look at model output",
+    "text": "A tidy look at model output\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury) %&gt;%\n  tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\n\n\nWe can also look at the 95% confidence interval for \\(\\beta_1\\), which is given here by \\((-1.01,-0.78)\\) – because it does not contain the null value 0, we can say there is evidence of a relationship between assets and hair mercury."
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation-slides.html#a-closer-look-at-model-output-1",
     "href": "slides/w08-02-fitting-interpretation-slides.html#a-closer-look-at-model-output-1",
     "title": "Model Fitting and Interpretation",
     "section": "A closer look at model output",
-    "text": "A closer look at model output\n\nThe tidy output sweeps a few quantities under the rug, but we can tease them out using the glance function from broom instead.\n\nfit &lt;- linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\nfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term   estimate std.error statistic  p.value conf.low conf.high\n#&gt;   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321\n#&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315\n\nfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1     0.106         0.106  1.02      274. 3.90e-58     1 -3316.\n#&gt;     AIC   BIC deviance df.residual  nobs\n#&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 6638. 6655.    2407.        2298  2300\n\n\nHere we see the \\(df=n-p\\) for the t-test in the df.residual column. nobs contains the number of observations used in model fitting.\nNote a different statistic is presented here – it is the square of the statistic from tidy (there was some rounding). If you take a regression course, you will learn this statistic, the square of the t-statistic, follows an \\(F\\) distribution, which is widely used in linear models."
+    "text": "A closer look at model output\n\nThe tidy output sweeps a few quantities under the rug, but we can tease them out using the glance function from broom instead.\n\nHgfit &lt;- linear_reg() %&gt;% #naming my model! remember for later!\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury)\nHgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\nHgfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1    0.0916        0.0912  2.77      232. 6.68e-50     1 -5605.\n#&gt;      AIC    BIC deviance df.residual  nobs\n#&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 11217. 11234.   17623.        2298  2300\n\n\nHere we see the \\(df=n-p\\) for the t-test in the df.residual column. nobs contains the number of observations used in model fitting. So \\(n-p=2300-2=2298\\)."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#a-closer-look-at-model-output-2",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#a-closer-look-at-model-output-2",
+    "title": "Model Fitting and Interpretation",
+    "section": "A closer look at model output",
+    "text": "A closer look at model output\n\n\nHgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\nHgfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1    0.0916        0.0912  2.77      232. 6.68e-50     1 -5605.\n#&gt;      AIC    BIC deviance df.residual  nobs\n#&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 11217. 11234.   17623.        2298  2300\n\n\nNote a different statistic is presented here – it is the square of the statistic from tidy (there was some rounding). If you take a regression course, you will learn this statistic, the square of the t-statistic, follows an \\(F\\) distribution, which is widely used in linear models."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#what-does-the-slope-mean",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#what-does-the-slope-mean",
+    "title": "Model Fitting and Interpretation",
+    "section": "What does the slope mean?",
+    "text": "What does the slope mean?\n\\[\n\\widehat{\\text{hairHg}}_i\n  = 2.30 - 0.89\\,\\text{assets\\_sc}_i\n\\]\nHere hairHg is in ppm, so predicted values and differences in predicted values are also in ppm.\n\nConsider two asset scores that differ by one standard deviation.\nThe person with the higher asset score has a predicted hair mercury concentration 0.89 ppm lower, on average.\nThis is an association. The fitted line alone cannot tell us whether assets cause the difference."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#what-does-the-intercept-mean",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#what-does-the-intercept-mean",
+    "title": "Model Fitting and Interpretation",
+    "section": "What does the intercept mean?",
+    "text": "What does the intercept mean?\n\\[\n\\widehat{\\text{hairHg}}_i\n  = 2.30 - 0.89\\,\\text{assets\\_sc}_i\n\\]\n\n\nassets_sc = 0 means average household assets.\nAt that asset score, the predicted hair mercury concentration is 2.30 ppm.\nAt assets_sc = 1, the predicted concentration is \\(2.30 - 0.89 = 1.41\\) ppm.\n\n\nWhat would the line predict at assets_sc = -1?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#what-does-the-model-output-add",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#what-does-the-model-output-add",
+    "title": "Model Fitting and Interpretation",
+    "section": "What does the model output add?",
+    "text": "What does the model output add?\n\n\nHgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\n\nFor the asset slope, look for:\n\n\nestimate: the fitted change in ppm for a one-standard-deviation increase in assets;\n\nconf.low / conf.high: endpoints of a 95% confidence interval for that slope;\n\np.value: a test of \\(H_0:\\beta_1 = 0\\) against \\(H_A:\\beta_1 \\ne 0\\).\n\nBefore relying on the usual confidence interval and test, check the model’s assumptions."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#can-we-trust-the-model-check-the-residuals",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#can-we-trust-the-model-check-the-residuals",
+    "title": "Model Fitting and Interpretation",
+    "section": "Can we trust the model? Check the residuals!",
+    "text": "Can we trust the model? Check the residuals!\n\nWe saved the model as the object Hgfit on a prior slide. Tidymodels is going to make it very easy for me to join information from the fitted models, including the predicted mercury levels (.fitted) and the residuals (.resid), to my original data, using the append() function. Then, to look at how well the model does, I create a plot with the predicted mercury levels on the x-axis and the residuals on the y-axis, and I hope to see a lot of random scatter centered around the value 0.\n\naugment(Hgfit$fit) %&gt;%\n  ggplot(aes(x = .fitted, y = .resid)) +\n  geom_point(alpha = 0.18, color = \"#285B78\") +\n  geom_hline(yintercept = 0, linetype = \"dashed\", color = \"gray40\") +\n  labs(\n    x = \"Predicted hair mercury (ppm)\",\n    y = \"Residual (ppm)\",\n    title = \"Residuals from the model in ppm\"\n  )"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#section-1",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#section-1",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "Is the vertical spread of the residuals about the same across fitted values?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#are-the-residuals-approximately-normal",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#are-the-residuals-approximately-normal",
+    "title": "Model Fitting and Interpretation",
+    "section": "Are the residuals approximately normal?",
+    "text": "Are the residuals approximately normal?\n\nWe can also check a Q-Q (quantile-quantile) plot, which compares the model’s residuals with values expected from a normal distribution, by plotting the quantiles of the residuals in our sample against the quantiles of a normal distribution. Points roughly following the line suggest approximate normality; clear curves or departures at the ends suggest the residuals are not normally distributed. What do you think here?\n\n\n\n\n\naugment(Hgfit$fit) %&gt;%\n  # sample denotes the \"sample quantiles\"\n  ggplot(aes(sample = .resid)) +\n  stat_qq(color = \"#285B78\",\n          alpha = 0.4) +\n  stat_qq_line(color = \"#8E2C90\") +\n  labs(\n    x = \"Theoretical normal quantiles\",\n    y = \"Residuals (ppm)\"\n  )"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#tradeoffs-easy-interpretation-bad-model",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#tradeoffs-easy-interpretation-bad-model",
+    "title": "Model Fitting and Interpretation",
+    "section": "Tradeoffs: easy interpretation, bad model",
+    "text": "Tradeoffs: easy interpretation, bad model\n\nOn the ppm scale, the slope and intercept are easy to explain\nMercury has a strong right tail, and the spread of residuals changes across fitted values\nThat makes the usual confidence interval and \\(t\\) test for this raw-scale model not trustworthy\nA different scale for the response may give a more suitable model"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#a-look-ahead-a-transformed-response",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#a-look-ahead-a-transformed-response",
+    "title": "Model Fitting and Interpretation",
+    "section": "A look ahead: a transformed response",
+    "text": "A look ahead: a transformed response\nLet’s compare the residuals from a model with a log (ln) transformation. The log transformation is often useful when we have right-skewed data.\n\nlHgfit &lt;- linear_reg() %&gt;% \n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\naugment(lHgfit$fit) %&gt;%\n  ggplot(aes(x = .fitted, y = .resid)) +\n  geom_point(alpha = 0.18, color = \"#8E2C90\") +\n  geom_hline(yintercept = 0, linetype = \"dashed\", color = \"gray40\") +\n  labs(\n    x = \"Predicted log(hair mercury)\",\n    y = \"Residual on the log scale\",\n    title = \"Residuals after fitting log(hair mercury)\"\n  )"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#section-2",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#section-2",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "How does the spread compare with the previous residual plot?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#checking-the-new-q-q-plot",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#checking-the-new-q-q-plot",
+    "title": "Model Fitting and Interpretation",
+    "section": "Checking the new Q-Q plot",
+    "text": "Checking the new Q-Q plot\nDoes the Q-Q plot look better after the log transformation?\n\n\n\n\naugment(lHgfit$fit) %&gt;%\n  # sample denotes the \"sample quantiles\"\n  ggplot(aes(sample = .resid)) +\n  stat_qq(color = \"#285B78\",\n          alpha = 0.4) +\n  stat_qq_line(color = \"#8E2C90\") +\n  labs(\n    x = \"Theoretical normal quantiles\",\n    y = \"Residuals (ppm)\"\n  )"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#takeaways",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#takeaways",
+    "title": "Model Fitting and Interpretation",
+    "section": "Takeaways",
+    "text": "Takeaways\n\nA slope describes the change in a predicted response for a one-unit increase in the explanatory variable.\nAn intercept is the prediction when the explanatory variable equals zero; here, zero means average assets.\nModel checking tells us whether the simple line is adequate for inference.\n\nNext: how a log transformation changes interpretation"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#working-with-the-log-transformed-response",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#working-with-the-log-transformed-response",
+    "title": "Model Fitting and Interpretation",
+    "section": "Working with the log transformed response",
+    "text": "Working with the log transformed response\n\nlHgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term   estimate std.error statistic  p.value conf.low conf.high\n#&gt;   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321\n#&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315\n\nlHgfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1     0.106         0.106  1.02      274. 3.90e-58     1 -3316.\n#&gt;     AIC   BIC deviance df.residual  nobs\n#&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 6638. 6655.    2407.        2298  2300"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation-slides.html#slope-and-intercept",
@@ -3179,8 +3305,8 @@
     "text": "Interpreting the slope\nThe slope coefficient for the log transformed model is -0.3577, meaning the log mercury difference between people whose household incomes are one SD apart is predicted to be -0.3577 (95% CI=(-0.400,-0.315)) log ppm.\n\n\nUsing this information, and properties of logs that we just reviewed, fill in the blanks in the following alternate interpretation of the slope:\n\nFor each additional SD the household assets are greater, the hair mercury concentration is expected to be ___ , on average, by a factor of ___."
   },
   {
-    "objectID": "slides/w08-02-fitting-interpretation-slides.html#section-1",
-    "href": "slides/w08-02-fitting-interpretation-slides.html#section-1",
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#section-3",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#section-3",
     "title": "Model Fitting and Interpretation",
     "section": "",
     "text": "For each additional increase in scaled assets, hair mercury content is expected to be ___ , on average, by a factor of ___.\n\n\\[ \\log(\\text{hair Hg for assets x+1}) - \\log(\\text{hair Hg for assets x}) = -0.3577 \\]\n\n\\[ \\log\\left(\\frac{\\text{hair Hg for assets x+1}}{\\text{hair Hg for assets x}}\\right) = -0.3577 \\]\n\n\n\\[ e^{\\log\\left(\\frac{\\text{Hg for assets x+1}}{\\text{Hg for assets x}}\\right)} = e^{-0.3577} \\]\n\n\n\\[ \\frac{\\text{Hg for assets x+1}}{\\text{Hg for assets x}} \\approx 0.70 \\]\n\n\nFor each SD increase in assets, the hair Hg is expected to be lower, on average, by a factor of 0.70."
@@ -3242,8 +3368,8 @@
     "text": "How well does the model fit? \\(R^2\\)\n\n\nThe coefficient of determination, \\(R^2\\), measures the proportion of variation in the response \\(y\\) that is explained by the regression model.\n\\[\nR^2\n=\n1 -\n\\frac{\\sum_{i=1}^n (y_i-\\widehat{y}_i)^2}\n     {\\sum_{i=1}^n (y_i-\\bar{y})^2}\n\\]\n\n\n\\(\\sum (y_i-\\widehat{y}_i)^2\\): variation not explained by the model\n\n\\(\\sum (y_i-\\bar{y})^2\\): total variation in \\(y\\)\n\n\n\n\\(R^2\\) ranges from 0 to 1.\n\n\n\\(R^2 = 0\\): the model explains none of the variation in \\(y\\)\n\n\n\\(R^2 = 1\\): the model explains all of the variation in \\(y\\)\n\n\n\n\nFor simple linear regression with one predictor:\n\\[\nR^2 = r^2\n\\]"
   },
   {
-    "objectID": "slides/w08-02-fitting-interpretation-slides.html#section-2",
-    "href": "slides/w08-02-fitting-interpretation-slides.html#section-2",
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#section-4",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#section-4",
     "title": "Model Fitting and Interpretation",
     "section": "",
     "text": "We can get \\(R^2\\) from the glance function.\n\nfit &lt;- linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\nfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1     0.106         0.106  1.02      274. 3.90e-58     1 -3316.\n#&gt;     AIC   BIC deviance df.residual  nobs\n#&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 6638. 6655.    2407.        2298  2300\n\n\nWhile \\(R^2=0.106\\) may seem quite low (the corresponding estimated correlation between \\(x\\) and \\(y\\) is \\(\\sqrt{0.106}=0.33\\)), it’s actually not too alarming given that we have observational data from humans with highly variable activities and exposures."
@@ -3312,8 +3438,8 @@
     "text": "Not looking for…\n\nAny patterns!"
   },
   {
-    "objectID": "slides/w08-02-fitting-interpretation-slides.html#section-3",
-    "href": "slides/w08-02-fitting-interpretation-slides.html#section-3",
+    "objectID": "slides/w08-02-fitting-interpretation-slides.html#section-5",
+    "href": "slides/w08-02-fitting-interpretation-slides.html#section-5",
     "title": "Model Fitting and Interpretation",
     "section": "",
     "text": "What patterns does the residual plot reveal that should make us question whether a linear model is a good fit for modeling the relationship between mercury (ppm) and assets?"
@@ -3386,7 +3512,7 @@
     "href": "slides/w08-02-fitting-interpretation.html",
     "title": "Model Fitting and Interpretation",
     "section": "",
-    "text": "Are mercury concentrations in hair related to household socioeconomic position, as measured by assets?\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(readr)\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\")) %&gt;%\n  mutate(hairHg=exp(lhairHg))\n\n\n\\[\\widehat{y}_{i} = \\widehat{\\beta}_0 + \\widehat{\\beta}_1 \\times x_{i}\\] Here \\(y_i\\) represents log hair mercury for subject \\(i\\), and \\(x_i\\) represents standardized household income.\n\n\n\n\n\n\n\n\n\nThe model itself is given by \\[y_i=\\beta_0+\\beta_1x_i+\\varepsilon_i,\\] where \\(\\varepsilon_i\\) represents a Gaussian error term, which implies that \\(y_i\\) itself follows a Gaussian distribution conditional on the predictor \\(x_i\\).\nThe typical hypothesis of interest is \\[H_0:  \\beta=0,\\] which corresponds to no (linear) relationship between the predictor \\(x\\) and response \\(y\\), against the alternative \\[H_0: \\beta \\neq 0.\\]\n\n\nFor the linear model\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\varepsilon_i,\n\\]\na \\(t\\)-test evaluates whether \\(X\\) is associated with \\(Y\\):\n\\[\nH_0: \\beta_1 = 0\n\\qquad \\text{versus} \\qquad\nH_A: \\beta_1 \\ne 0.\n\\]\nThe test statistic compares the estimated coefficient with its uncertainty:\n\\[\nt = \\frac{\\widehat{\\beta}_1}{\\operatorname{SE}(\\widehat{\\beta}_1)}.\n\\]\nUnder \\(H_0\\),\n\\[\nT \\sim t_{n-p},\n\\] where \\(p\\) is the number of parameters in the mean specification of the model (here, \\(p=2\\) as we have \\(\\beta_0\\) and \\(\\beta_1\\) in the mean).\nA large \\(|t|\\)—and correspondingly small \\(p\\)-value—provides evidence that \\(X\\) is associated with \\(Y\\).\n\n\n\n\n\n\n\n\n\n\n\n\nlinear_reg()\n\n#&gt; Linear Regression Model Specification (regression)\n#&gt; \n#&gt; Computational engine: lm\n\n\n\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") # lm: linear model\n\n#&gt; Linear Regression Model Specification (regression)\n#&gt; \n#&gt; Computational engine: lm\n\n\n\n… using formula syntax\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      0.2795      -0.3577\n\n\n\n\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      0.2795      -0.3577\n\n\n\n\\[\\widehat{y}_{i} = 0.2795 - 0.3577 \\times x_{i}\\]\n\n\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury) %&gt;%\n  tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term   estimate std.error statistic  p.value conf.low conf.high\n#&gt;   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321\n#&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315\n\n\n\nThe key quantity here is the slope for assets, which represents the relationship between household assets and hair mercury. The estimate and standard error provided in the output are used to evaluate the hypothesis \\(H_0: \\beta_1=0\\), which states that there is no (linear) relationship between assets and mercury. The p-value for this hypothesis test is given by the p.value column for the asset row; the statistic column is calculated by dividing the estimate column entries by their standard errors. We have to do more digging to get the right degrees of freedom for the test, though.\nWe can also look at the 95% confidence interval for \\(\\beta_1\\), which is given here by \\((-0.40,-0.32)\\) – because it does not contain the null value 0, we can say there is evidence of a relationship between assets and hair mercury.\n\n\n\nThe tidy output sweeps a few quantities under the rug, but we can tease them out using the glance function from broom instead.\n\nfit &lt;- linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\nfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term   estimate std.error statistic  p.value conf.low conf.high\n#&gt;   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321\n#&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315\n\nfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1     0.106         0.106  1.02      274. 3.90e-58     1 -3316.\n#&gt;     AIC   BIC deviance df.residual  nobs\n#&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 6638. 6655.    2407.        2298  2300\n\n\nHere we see the \\(df=n-p\\) for the t-test in the df.residual column. nobs contains the number of observations used in model fitting.\nNote a different statistic is presented here – it is the square of the statistic from tidy (there was some rounding). If you take a regression course, you will learn this statistic, the square of the t-statistic, follows an \\(F\\) distribution, which is widely used in linear models.\n\n\n\n\\[\\widehat{y}_{i} = 0.280 - 0.358 \\times x_{i}\\]\n\n\n\n\n\nSlope: For each standard deviation increase in assets, the log hair mercury level is expected to be lower, on average, by 0.358 log ppm.\n\nperhaps not a very useful statement given the scale\n\n\n\nIntercept: Individuals with household assets at the mean level (assets_sc=0) are expected to have hair mercury concentrations of 0.280 log ppm, on average\n\nRemember assets_sc was standardized, so assets_sc=0 does not mean “no assets” but instead means “average assets” as it corresponds to an assets z-score of 0.\n\n\n\n\n\n\nInterpretation is a little easier without a log transformation. Suppose our outcome \\(y\\) is exam score, and the predictor \\(x\\) is hours studied, and we fit a linear model and get the following estimated line.\n\n\\[\\widehat{y}_{i} = 60 + 5 \\times x_{i}\\]\n\n\n\n\nSlope: For each additional hour of study, the exam score is expected to be higher, on average, by 5 points.\nIntercept: Individuals who do not study are expected to have exam scores of 60 points, on average\nNote: now you can see the danger of extrapolating beyond the range of the data. We don’t expect someone who studies 20 hours to have an exam score of 160 on a 100-point scale – at some point, mastery (hopefully not futility!) is reached."
+    "text": "Are mercury concentrations in hair related to household socioeconomic position, as measured by assets?\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(readr)\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\")) %&gt;%\n  mutate(hairHg=exp(lhairHg))\n\n\n\\[\\widehat{y}_{i} = \\widehat{\\beta}_0 + \\widehat{\\beta}_1 \\times x_{i}\\] Here \\(y_i\\) represents log hair mercury for subject \\(i\\), and \\(x_i\\) represents standardized household assets.\n\n\n\n\n\n\n\n\n\n\nIn the previous notes, we saw that the distribution of Hg in hair had a strong right skew.\n\n# lhairHg is the natural log of mercury in hair\n# this code puts it back on the ppm scale\nggplot(data = mercury, aes(x = exp(lhairHg))) +\n  geom_histogram() +\n  labs(x = \"Mercury (ppm)\", y = NULL)\n\n\n\n\n\n\n\n\n\nThe linear model actually does not require hair mercury itself to be approximately normal. Instead, it needs for the distribution of \\(y\\mid x\\), the conditional distribution of hair mercury given all the predictor variables, to be aproximately normal. This is the same as saying that the errors in the model are approximately normally distributed.\nIt’s pretty easy to use a histogram to check the distribution of \\(y\\), but how about the distribution of \\(y \\mid x\\)? That’s not terribly complicated once you know how to fit a regression model, and we will work through an example of how to check it in the modeling process.\n\n\n\nResponse: hair mercury concentration, in ppm (\\(y_i\\)), contained in the variable hairHg\n\n\nExplanatory variable: a household assets score (\\(x_i\\)), contained in the variable assets_sc\n\nA value of 0 on assets_sc means average assets in the dataset.\nA value of 1 means one standard deviation above that average.\n\n\n\nWhat pattern do you expect to see?\n\n\n\n\n\nggplot(mercury, aes(x = assets_sc, y = hairHg)) +\n  geom_point(alpha = 0.15, color = \"#285B78\") +\n  geom_smooth(method = \"lm\", se = FALSE, \n              color = \"#8E2C90\") +\n  labs(\n    title = \"Hair mercury and household assets\",\n    x = \"Household assets (standardized)\",\n    y = \"Hair mercury (ppm)\"\n  ) \n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDoes the line slope upward or downward? What does that tell us about the association?\n\n\nThe model itself is given by \\[y_i=\\beta_0+\\beta_1x_i+\\varepsilon_i,\\] where \\(\\varepsilon_i\\) represents a Gaussian error term, which implies that \\(y_i\\) itself (hair Hg) follows a Gaussian distribution conditional on the predictor \\(x_i\\) (assets).\nThe typical hypothesis of interest is \\[H_0:  \\beta=0,\\] which corresponds to no (linear) relationship between the predictor \\(x\\) and response \\(y\\), against the alternative \\[H_0: \\beta \\neq 0.\\]\n\n\nFor the linear model\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\varepsilon_i,\n\\]\na \\(t\\)-test evaluates whether \\(X\\) is associated with \\(Y\\):\n\\[\nH_0: \\beta_1 = 0\n\\qquad \\text{versus} \\qquad\nH_A: \\beta_1 \\ne 0.\n\\]\nThe test statistic compares the estimated coefficient with its uncertainty:\n\\[\nt = \\frac{\\widehat{\\beta}_1-0}{\\operatorname{SE}(\\widehat{\\beta}_1)}.\n\\]\nUnder \\(H_0\\),\n\\[\nT \\sim t_{n-p},\n\\] where \\(p\\) is the number of parameters in the mean specification of the model (here, \\(p=2\\) as we have \\(\\beta_0\\) and \\(\\beta_1\\) in the mean; \\(n\\) is the number of observations used to fit the model).\nA large \\(|t|\\)—and correspondingly small \\(p\\)-value—provides evidence that \\(X\\) is associated with \\(Y\\).\n\n\n\n\n\n\n\n\n\n\n\n\nlinear_reg()\n\n#&gt; Linear Regression Model Specification (regression)\n#&gt; \n#&gt; Computational engine: lm\n\n\n\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") # lm: linear model\n\n#&gt; Linear Regression Model Specification (regression)\n#&gt; \n#&gt; Computational engine: lm\n\n\n\n… using formula syntax\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury)\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = hairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      2.3001      -0.8905\n\n\n\n\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = hairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      2.3001      -0.8905\n\n\n\n\\[\\widehat{y}_{i} = 2.30 - 0.89 \\times x_{i}\\]\n\\[\n\\widehat{\\text{hairHg}}_i\n  = 2.30 - 0.89\\,\\text{assets\\_sc}_i\n\\]\n\n\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury) %&gt;%\n  tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\n\n\nThe key quantity here is the slope for assets, which represents the relationship between household assets and hair mercury. The estimate and standard error provided in the output are used to evaluate the hypothesis \\(H_0: \\beta_1=0\\), which states that there is no (linear) relationship between assets and mercury. The p-value for this hypothesis test is given by the p.value column for the asset row; the statistic column is calculated by dividing the estimate column entries by their standard errors. We have to do more digging to get the right degrees of freedom for the test, though.\n\n\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury) %&gt;%\n  tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\n\n\nWe can also look at the 95% confidence interval for \\(\\beta_1\\), which is given here by \\((-1.01,-0.78)\\) – because it does not contain the null value 0, we can say there is evidence of a relationship between assets and hair mercury.\n\n\n\nThe tidy output sweeps a few quantities under the rug, but we can tease them out using the glance function from broom instead.\n\nHgfit &lt;- linear_reg() %&gt;% #naming my model! remember for later!\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury)\nHgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\nHgfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1    0.0916        0.0912  2.77      232. 6.68e-50     1 -5605.\n#&gt;      AIC    BIC deviance df.residual  nobs\n#&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 11217. 11234.   17623.        2298  2300\n\n\nHere we see the \\(df=n-p\\) for the t-test in the df.residual column. nobs contains the number of observations used in model fitting. So \\(n-p=2300-2=2298\\).\n\n\n\n\nHgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\nHgfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1    0.0916        0.0912  2.77      232. 6.68e-50     1 -5605.\n#&gt;      AIC    BIC deviance df.residual  nobs\n#&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 11217. 11234.   17623.        2298  2300\n\n\nNote a different statistic is presented here – it is the square of the statistic from tidy (there was some rounding). If you take a regression course, you will learn this statistic, the square of the t-statistic, follows an \\(F\\) distribution, which is widely used in linear models.\n\n\n\\[\n\\widehat{\\text{hairHg}}_i\n  = 2.30 - 0.89\\,\\text{assets\\_sc}_i\n\\]\nHere hairHg is in ppm, so predicted values and differences in predicted values are also in ppm.\n\n\nConsider two asset scores that differ by one standard deviation.\nThe person with the higher asset score has a predicted hair mercury concentration 0.89 ppm lower, on average.\nThis is an association. The fitted line alone cannot tell us whether assets cause the difference.\n\n\n\n\\[\n\\widehat{\\text{hairHg}}_i\n  = 2.30 - 0.89\\,\\text{assets\\_sc}_i\n\\]\n\n\n\nassets_sc = 0 means average household assets.\nAt that asset score, the predicted hair mercury concentration is 2.30 ppm.\nAt assets_sc = 1, the predicted concentration is \\(2.30 - 0.89 = 1.41\\) ppm.\n\n\n\nWhat would the line predict at assets_sc = -1?\n\n\n\n\nHgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\n\nFor the asset slope, look for:\n\n\nestimate: the fitted change in ppm for a one-standard-deviation increase in assets;\n\nconf.low / conf.high: endpoints of a 95% confidence interval for that slope;\n\np.value: a test of \\(H_0:\\beta_1 = 0\\) against \\(H_A:\\beta_1 \\ne 0\\).\n\nBefore relying on the usual confidence interval and test, check the model’s assumptions.\n\n\n\nWe saved the model as the object Hgfit on a prior slide. Tidymodels is going to make it very easy for me to join information from the fitted models, including the predicted mercury levels (.fitted) and the residuals (.resid), to my original data, using the append() function. Then, to look at how well the model does, I create a plot with the predicted mercury levels on the x-axis and the residuals on the y-axis, and I hope to see a lot of random scatter centered around the value 0.\n\naugment(Hgfit$fit) %&gt;%\n  ggplot(aes(x = .fitted, y = .resid)) +\n  geom_point(alpha = 0.18, color = \"#285B78\") +\n  geom_hline(yintercept = 0, linetype = \"dashed\", color = \"gray40\") +\n  labs(\n    x = \"Predicted hair mercury (ppm)\",\n    y = \"Residual (ppm)\",\n    title = \"Residuals from the model in ppm\"\n  ) \n\n\n\n\n\n\n\n\n\n\n\n\nIs the vertical spread of the residuals about the same across fitted values?\n\n\n\nWe can also check a Q-Q (quantile-quantile) plot, which compares the model’s residuals with values expected from a normal distribution, by plotting the quantiles of the residuals in our sample against the quantiles of a normal distribution. Points roughly following the line suggest approximate normality; clear curves or departures at the ends suggest the residuals are not normally distributed. What do you think here?\n\n\n\n\n\naugment(Hgfit$fit) %&gt;%\n  # sample denotes the \"sample quantiles\"\n  ggplot(aes(sample = .resid)) +\n  stat_qq(color = \"#285B78\",\n          alpha = 0.4) +\n  stat_qq_line(color = \"#8E2C90\") +\n  labs(\n    x = \"Theoretical normal quantiles\",\n    y = \"Residuals (ppm)\"\n  )\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOn the ppm scale, the slope and intercept are easy to explain\nMercury has a strong right tail, and the spread of residuals changes across fitted values\nThat makes the usual confidence interval and \\(t\\) test for this raw-scale model not trustworthy\nA different scale for the response may give a more suitable model\n\nLet’s compare the residuals from a model with a log (ln) transformation. The log transformation is often useful when we have right-skewed data.\n\nlHgfit &lt;- linear_reg() %&gt;% \n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\naugment(lHgfit$fit) %&gt;%\n  ggplot(aes(x = .fitted, y = .resid)) +\n  geom_point(alpha = 0.18, color = \"#8E2C90\") +\n  geom_hline(yintercept = 0, linetype = \"dashed\", color = \"gray40\") +\n  labs(\n    x = \"Predicted log(hair mercury)\",\n    y = \"Residual on the log scale\",\n    title = \"Residuals after fitting log(hair mercury)\"\n  ) \n\n\n\n\n\n\n\n\n\n\n\nHow does the spread compare with the previous residual plot?\n\n\nDoes the Q-Q plot look better after the log transformation?\n\n\n\n\naugment(lHgfit$fit) %&gt;%\n  # sample denotes the \"sample quantiles\"\n  ggplot(aes(sample = .resid)) +\n  stat_qq(color = \"#285B78\",\n          alpha = 0.4) +\n  stat_qq_line(color = \"#8E2C90\") +\n  labs(\n    x = \"Theoretical normal quantiles\",\n    y = \"Residuals (ppm)\"\n  )\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA slope describes the change in a predicted response for a one-unit increase in the explanatory variable.\nAn intercept is the prediction when the explanatory variable equals zero; here, zero means average assets.\nModel checking tells us whether the simple line is adequate for inference.\n\nNext: how a log transformation changes interpretation\n\n\nlHgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term   estimate std.error statistic  p.value conf.low conf.high\n#&gt;   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321\n#&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315\n\nlHgfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1     0.106         0.106  1.02      274. 3.90e-58     1 -3316.\n#&gt;     AIC   BIC deviance df.residual  nobs\n#&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 6638. 6655.    2407.        2298  2300\n\n\n\n\n\\[\\widehat{y}_{i} = 0.280 - 0.358 \\times x_{i}\\]\n\n\n\n\n\nSlope: For each standard deviation increase in assets, the log hair mercury level is expected to be lower, on average, by 0.358 log ppm.\n\nperhaps not a very useful statement given the scale\n\n\n\nIntercept: Individuals with household assets at the mean level (assets_sc=0) are expected to have hair mercury concentrations of 0.280 log ppm, on average\n\nRemember assets_sc was standardized, so assets_sc=0 does not mean “no assets” but instead means “average assets” as it corresponds to an assets z-score of 0.\n\n\n\n\n\n\nInterpretation is a little easier without a log transformation. Suppose our outcome \\(y\\) is exam score, and the predictor \\(x\\) is hours studied, and we fit a linear model and get the following estimated line.\n\n\\[\\widehat{y}_{i} = 60 + 5 \\times x_{i}\\]\n\n\n\n\nSlope: For each additional hour of study, the exam score is expected to be higher, on average, by 5 points.\nIntercept: Individuals who do not study are expected to have exam scores of 60 points, on average\nNote: now you can see the danger of extrapolating beyond the range of the data. We don’t expect someone who studies 20 hours to have an exam score of 160 on a 100-point scale – at some point, mastery (hopefully not futility!) is reached."
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation.html#mercury-and-assets",
@@ -3400,21 +3526,49 @@
     "href": "slides/w08-02-fitting-interpretation.html#goal-predict-mercury-from-assets",
     "title": "Model Fitting and Interpretation",
     "section": "",
-    "text": "\\[\\widehat{y}_{i} = \\widehat{\\beta}_0 + \\widehat{\\beta}_1 \\times x_{i}\\] Here \\(y_i\\) represents log hair mercury for subject \\(i\\), and \\(x_i\\) represents standardized household income."
+    "text": "\\[\\widehat{y}_{i} = \\widehat{\\beta}_0 + \\widehat{\\beta}_1 \\times x_{i}\\] Here \\(y_i\\) represents log hair mercury for subject \\(i\\), and \\(x_i\\) represents standardized household assets."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#how-did-we-know-to-transform-using-the-log",
+    "href": "slides/w08-02-fitting-interpretation.html#how-did-we-know-to-transform-using-the-log",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "In the previous notes, we saw that the distribution of Hg in hair had a strong right skew.\n\n# lhairHg is the natural log of mercury in hair\n# this code puts it back on the ppm scale\nggplot(data = mercury, aes(x = exp(lhairHg))) +\n  geom_histogram() +\n  labs(x = \"Mercury (ppm)\", y = NULL)"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#assumptions-of-the-regression-model",
+    "href": "slides/w08-02-fitting-interpretation.html#assumptions-of-the-regression-model",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "The linear model actually does not require hair mercury itself to be approximately normal. Instead, it needs for the distribution of \\(y\\mid x\\), the conditional distribution of hair mercury given all the predictor variables, to be aproximately normal. This is the same as saying that the errors in the model are approximately normally distributed.\nIt’s pretty easy to use a histogram to check the distribution of \\(y\\), but how about the distribution of \\(y \\mid x\\)? That’s not terribly complicated once you know how to fit a regression model, and we will work through an example of how to check it in the modeling process."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#are-household-assets-related-to-hair-mercury",
+    "href": "slides/w08-02-fitting-interpretation.html#are-household-assets-related-to-hair-mercury",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "Response: hair mercury concentration, in ppm (\\(y_i\\)), contained in the variable hairHg\n\n\nExplanatory variable: a household assets score (\\(x_i\\)), contained in the variable assets_sc\n\nA value of 0 on assets_sc means average assets in the dataset.\nA value of 1 means one standard deviation above that average.\n\n\n\nWhat pattern do you expect to see?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#look-at-the-data-first",
+    "href": "slides/w08-02-fitting-interpretation.html#look-at-the-data-first",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "ggplot(mercury, aes(x = assets_sc, y = hairHg)) +\n  geom_point(alpha = 0.15, color = \"#285B78\") +\n  geom_smooth(method = \"lm\", se = FALSE, \n              color = \"#8E2C90\") +\n  labs(\n    title = \"Hair mercury and household assets\",\n    x = \"Household assets (standardized)\",\n    y = \"Hair mercury (ppm)\"\n  ) \n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDoes the line slope upward or downward? What does that tell us about the association?"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation.html#goal-predict-mercury-from-assets-1",
     "href": "slides/w08-02-fitting-interpretation.html#goal-predict-mercury-from-assets-1",
     "title": "Model Fitting and Interpretation",
     "section": "",
-    "text": "The model itself is given by \\[y_i=\\beta_0+\\beta_1x_i+\\varepsilon_i,\\] where \\(\\varepsilon_i\\) represents a Gaussian error term, which implies that \\(y_i\\) itself follows a Gaussian distribution conditional on the predictor \\(x_i\\).\nThe typical hypothesis of interest is \\[H_0:  \\beta=0,\\] which corresponds to no (linear) relationship between the predictor \\(x\\) and response \\(y\\), against the alternative \\[H_0: \\beta \\neq 0.\\]"
+    "text": "The model itself is given by \\[y_i=\\beta_0+\\beta_1x_i+\\varepsilon_i,\\] where \\(\\varepsilon_i\\) represents a Gaussian error term, which implies that \\(y_i\\) itself (hair Hg) follows a Gaussian distribution conditional on the predictor \\(x_i\\) (assets).\nThe typical hypothesis of interest is \\[H_0:  \\beta=0,\\] which corresponds to no (linear) relationship between the predictor \\(x\\) and response \\(y\\), against the alternative \\[H_0: \\beta \\neq 0.\\]"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation.html#t-test-from-a-linear-model",
     "href": "slides/w08-02-fitting-interpretation.html#t-test-from-a-linear-model",
     "title": "Model Fitting and Interpretation",
     "section": "",
-    "text": "For the linear model\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\varepsilon_i,\n\\]\na \\(t\\)-test evaluates whether \\(X\\) is associated with \\(Y\\):\n\\[\nH_0: \\beta_1 = 0\n\\qquad \\text{versus} \\qquad\nH_A: \\beta_1 \\ne 0.\n\\]\nThe test statistic compares the estimated coefficient with its uncertainty:\n\\[\nt = \\frac{\\widehat{\\beta}_1}{\\operatorname{SE}(\\widehat{\\beta}_1)}.\n\\]\nUnder \\(H_0\\),\n\\[\nT \\sim t_{n-p},\n\\] where \\(p\\) is the number of parameters in the mean specification of the model (here, \\(p=2\\) as we have \\(\\beta_0\\) and \\(\\beta_1\\) in the mean).\nA large \\(|t|\\)—and correspondingly small \\(p\\)-value—provides evidence that \\(X\\) is associated with \\(Y\\)."
+    "text": "For the linear model\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\varepsilon_i,\n\\]\na \\(t\\)-test evaluates whether \\(X\\) is associated with \\(Y\\):\n\\[\nH_0: \\beta_1 = 0\n\\qquad \\text{versus} \\qquad\nH_A: \\beta_1 \\ne 0.\n\\]\nThe test statistic compares the estimated coefficient with its uncertainty:\n\\[\nt = \\frac{\\widehat{\\beta}_1-0}{\\operatorname{SE}(\\widehat{\\beta}_1)}.\n\\]\nUnder \\(H_0\\),\n\\[\nT \\sim t_{n-p},\n\\] where \\(p\\) is the number of parameters in the mean specification of the model (here, \\(p=2\\) as we have \\(\\beta_0\\) and \\(\\beta_1\\) in the mean; \\(n\\) is the number of observations used to fit the model).\nA large \\(|t|\\)—and correspondingly small \\(p\\)-value—provides evidence that \\(X\\) is associated with \\(Y\\)."
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation.html#step-1-specify-model",
@@ -3435,28 +3589,126 @@
     "href": "slides/w08-02-fitting-interpretation.html#step-3-fit-model-estimate-parameters",
     "title": "Model Fitting and Interpretation",
     "section": "",
-    "text": "… using formula syntax\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      0.2795      -0.3577"
+    "text": "… using formula syntax\n\nlinear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury)\n\n#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = hairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      2.3001      -0.8905"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation.html#a-closer-look-at-model-output",
     "href": "slides/w08-02-fitting-interpretation.html#a-closer-look-at-model-output",
     "title": "Model Fitting and Interpretation",
     "section": "",
-    "text": "#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      0.2795      -0.3577\n\n\n\n\\[\\widehat{y}_{i} = 0.2795 - 0.3577 \\times x_{i}\\]"
+    "text": "#&gt; parsnip model object\n#&gt; \n#&gt; \n#&gt; Call:\n#&gt; stats::lm(formula = hairHg ~ assets_sc, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)    assets_sc  \n#&gt;      2.3001      -0.8905\n\n\n\n\\[\\widehat{y}_{i} = 2.30 - 0.89 \\times x_{i}\\]\n\\[\n\\widehat{\\text{hairHg}}_i\n  = 2.30 - 0.89\\,\\text{assets\\_sc}_i\n\\]"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation.html#a-tidy-look-at-model-output",
     "href": "slides/w08-02-fitting-interpretation.html#a-tidy-look-at-model-output",
     "title": "Model Fitting and Interpretation",
     "section": "",
-    "text": "linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury) %&gt;%\n  tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term   estimate std.error statistic  p.value conf.low conf.high\n#&gt;   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321\n#&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315\n\n\n\nThe key quantity here is the slope for assets, which represents the relationship between household assets and hair mercury. The estimate and standard error provided in the output are used to evaluate the hypothesis \\(H_0: \\beta_1=0\\), which states that there is no (linear) relationship between assets and mercury. The p-value for this hypothesis test is given by the p.value column for the asset row; the statistic column is calculated by dividing the estimate column entries by their standard errors. We have to do more digging to get the right degrees of freedom for the test, though.\nWe can also look at the 95% confidence interval for \\(\\beta_1\\), which is given here by \\((-0.40,-0.32)\\) – because it does not contain the null value 0, we can say there is evidence of a relationship between assets and hair mercury."
+    "text": "linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury) %&gt;%\n  tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\n\n\nThe key quantity here is the slope for assets, which represents the relationship between household assets and hair mercury. The estimate and standard error provided in the output are used to evaluate the hypothesis \\(H_0: \\beta_1=0\\), which states that there is no (linear) relationship between assets and mercury. The p-value for this hypothesis test is given by the p.value column for the asset row; the statistic column is calculated by dividing the estimate column entries by their standard errors. We have to do more digging to get the right degrees of freedom for the test, though."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#a-tidy-look-at-model-output-1",
+    "href": "slides/w08-02-fitting-interpretation.html#a-tidy-look-at-model-output-1",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury) %&gt;%\n  tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\n\n\nWe can also look at the 95% confidence interval for \\(\\beta_1\\), which is given here by \\((-1.01,-0.78)\\) – because it does not contain the null value 0, we can say there is evidence of a relationship between assets and hair mercury."
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation.html#a-closer-look-at-model-output-1",
     "href": "slides/w08-02-fitting-interpretation.html#a-closer-look-at-model-output-1",
     "title": "Model Fitting and Interpretation",
     "section": "",
-    "text": "The tidy output sweeps a few quantities under the rug, but we can tease them out using the glance function from broom instead.\n\nfit &lt;- linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\nfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term   estimate std.error statistic  p.value conf.low conf.high\n#&gt;   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321\n#&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315\n\nfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1     0.106         0.106  1.02      274. 3.90e-58     1 -3316.\n#&gt;     AIC   BIC deviance df.residual  nobs\n#&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 6638. 6655.    2407.        2298  2300\n\n\nHere we see the \\(df=n-p\\) for the t-test in the df.residual column. nobs contains the number of observations used in model fitting.\nNote a different statistic is presented here – it is the square of the statistic from tidy (there was some rounding). If you take a regression course, you will learn this statistic, the square of the t-statistic, follows an \\(F\\) distribution, which is widely used in linear models."
+    "text": "The tidy output sweeps a few quantities under the rug, but we can tease them out using the glance function from broom instead.\n\nHgfit &lt;- linear_reg() %&gt;% #naming my model! remember for later!\n  set_engine(\"lm\") %&gt;%\n  fit(hairHg ~ assets_sc, data = mercury)\nHgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\nHgfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1    0.0916        0.0912  2.77      232. 6.68e-50     1 -5605.\n#&gt;      AIC    BIC deviance df.residual  nobs\n#&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 11217. 11234.   17623.        2298  2300\n\n\nHere we see the \\(df=n-p\\) for the t-test in the df.residual column. nobs contains the number of observations used in model fitting. So \\(n-p=2300-2=2298\\)."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#a-closer-look-at-model-output-2",
+    "href": "slides/w08-02-fitting-interpretation.html#a-closer-look-at-model-output-2",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "Hgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\nHgfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1    0.0916        0.0912  2.77      232. 6.68e-50     1 -5605.\n#&gt;      AIC    BIC deviance df.residual  nobs\n#&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 11217. 11234.   17623.        2298  2300\n\n\nNote a different statistic is presented here – it is the square of the statistic from tidy (there was some rounding). If you take a regression course, you will learn this statistic, the square of the t-statistic, follows an \\(F\\) distribution, which is widely used in linear models."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#what-does-the-slope-mean",
+    "href": "slides/w08-02-fitting-interpretation.html#what-does-the-slope-mean",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "\\[\n\\widehat{\\text{hairHg}}_i\n  = 2.30 - 0.89\\,\\text{assets\\_sc}_i\n\\]\nHere hairHg is in ppm, so predicted values and differences in predicted values are also in ppm.\n\n\nConsider two asset scores that differ by one standard deviation.\nThe person with the higher asset score has a predicted hair mercury concentration 0.89 ppm lower, on average.\nThis is an association. The fitted line alone cannot tell us whether assets cause the difference."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#what-does-the-intercept-mean",
+    "href": "slides/w08-02-fitting-interpretation.html#what-does-the-intercept-mean",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "\\[\n\\widehat{\\text{hairHg}}_i\n  = 2.30 - 0.89\\,\\text{assets\\_sc}_i\n\\]\n\n\n\nassets_sc = 0 means average household assets.\nAt that asset score, the predicted hair mercury concentration is 2.30 ppm.\nAt assets_sc = 1, the predicted concentration is \\(2.30 - 0.89 = 1.41\\) ppm.\n\n\n\nWhat would the line predict at assets_sc = -1?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#what-does-the-model-output-add",
+    "href": "slides/w08-02-fitting-interpretation.html#what-does-the-model-output-add",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "Hgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term  estimate std.error statistic   p.value conf.low conf.high\n#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 \n#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776\n\n\nFor the asset slope, look for:\n\n\nestimate: the fitted change in ppm for a one-standard-deviation increase in assets;\n\nconf.low / conf.high: endpoints of a 95% confidence interval for that slope;\n\np.value: a test of \\(H_0:\\beta_1 = 0\\) against \\(H_A:\\beta_1 \\ne 0\\).\n\nBefore relying on the usual confidence interval and test, check the model’s assumptions."
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#can-we-trust-the-model-check-the-residuals",
+    "href": "slides/w08-02-fitting-interpretation.html#can-we-trust-the-model-check-the-residuals",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "We saved the model as the object Hgfit on a prior slide. Tidymodels is going to make it very easy for me to join information from the fitted models, including the predicted mercury levels (.fitted) and the residuals (.resid), to my original data, using the append() function. Then, to look at how well the model does, I create a plot with the predicted mercury levels on the x-axis and the residuals on the y-axis, and I hope to see a lot of random scatter centered around the value 0.\n\naugment(Hgfit$fit) %&gt;%\n  ggplot(aes(x = .fitted, y = .resid)) +\n  geom_point(alpha = 0.18, color = \"#285B78\") +\n  geom_hline(yintercept = 0, linetype = \"dashed\", color = \"gray40\") +\n  labs(\n    x = \"Predicted hair mercury (ppm)\",\n    y = \"Residual (ppm)\",\n    title = \"Residuals from the model in ppm\"\n  )"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#section-1",
+    "href": "slides/w08-02-fitting-interpretation.html#section-1",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "Is the vertical spread of the residuals about the same across fitted values?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#are-the-residuals-approximately-normal",
+    "href": "slides/w08-02-fitting-interpretation.html#are-the-residuals-approximately-normal",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "We can also check a Q-Q (quantile-quantile) plot, which compares the model’s residuals with values expected from a normal distribution, by plotting the quantiles of the residuals in our sample against the quantiles of a normal distribution. Points roughly following the line suggest approximate normality; clear curves or departures at the ends suggest the residuals are not normally distributed. What do you think here?\n\n\n\n\n\naugment(Hgfit$fit) %&gt;%\n  # sample denotes the \"sample quantiles\"\n  ggplot(aes(sample = .resid)) +\n  stat_qq(color = \"#285B78\",\n          alpha = 0.4) +\n  stat_qq_line(color = \"#8E2C90\") +\n  labs(\n    x = \"Theoretical normal quantiles\",\n    y = \"Residuals (ppm)\"\n  )"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#tradeoffs-easy-interpretation-bad-model",
+    "href": "slides/w08-02-fitting-interpretation.html#tradeoffs-easy-interpretation-bad-model",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "On the ppm scale, the slope and intercept are easy to explain\nMercury has a strong right tail, and the spread of residuals changes across fitted values\nThat makes the usual confidence interval and \\(t\\) test for this raw-scale model not trustworthy\nA different scale for the response may give a more suitable model"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#a-look-ahead-a-transformed-response",
+    "href": "slides/w08-02-fitting-interpretation.html#a-look-ahead-a-transformed-response",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "Let’s compare the residuals from a model with a log (ln) transformation. The log transformation is often useful when we have right-skewed data.\n\nlHgfit &lt;- linear_reg() %&gt;% \n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\naugment(lHgfit$fit) %&gt;%\n  ggplot(aes(x = .fitted, y = .resid)) +\n  geom_point(alpha = 0.18, color = \"#8E2C90\") +\n  geom_hline(yintercept = 0, linetype = \"dashed\", color = \"gray40\") +\n  labs(\n    x = \"Predicted log(hair mercury)\",\n    y = \"Residual on the log scale\",\n    title = \"Residuals after fitting log(hair mercury)\"\n  )"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#section-2",
+    "href": "slides/w08-02-fitting-interpretation.html#section-2",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "How does the spread compare with the previous residual plot?"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#checking-the-new-q-q-plot",
+    "href": "slides/w08-02-fitting-interpretation.html#checking-the-new-q-q-plot",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "Does the Q-Q plot look better after the log transformation?\n\n\n\n\naugment(lHgfit$fit) %&gt;%\n  # sample denotes the \"sample quantiles\"\n  ggplot(aes(sample = .resid)) +\n  stat_qq(color = \"#285B78\",\n          alpha = 0.4) +\n  stat_qq_line(color = \"#8E2C90\") +\n  labs(\n    x = \"Theoretical normal quantiles\",\n    y = \"Residuals (ppm)\"\n  )"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#takeaways",
+    "href": "slides/w08-02-fitting-interpretation.html#takeaways",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "A slope describes the change in a predicted response for a one-unit increase in the explanatory variable.\nAn intercept is the prediction when the explanatory variable equals zero; here, zero means average assets.\nModel checking tells us whether the simple line is adequate for inference.\n\nNext: how a log transformation changes interpretation"
+  },
+  {
+    "objectID": "slides/w08-02-fitting-interpretation.html#working-with-the-log-transformed-response",
+    "href": "slides/w08-02-fitting-interpretation.html#working-with-the-log-transformed-response",
+    "title": "Model Fitting and Interpretation",
+    "section": "",
+    "text": "lHgfit %&gt;% tidy(conf.int=TRUE)\n\n#&gt; # A tibble: 2 × 7\n#&gt;   term   estimate std.error statistic  p.value conf.low conf.high\n#&gt;   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n#&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321\n#&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315\n\nlHgfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1     0.106         0.106  1.02      274. 3.90e-58     1 -3316.\n#&gt;     AIC   BIC deviance df.residual  nobs\n#&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 6638. 6655.    2407.        2298  2300"
   },
   {
     "objectID": "slides/w08-02-fitting-interpretation.html#slope-and-intercept",
@@ -3487,8 +3739,8 @@
     "text": "Interpreting the slope\nThe slope coefficient for the log transformed model is -0.3577, meaning the log mercury difference between people whose household incomes are one SD apart is predicted to be -0.3577 (95% CI=(-0.400,-0.315)) log ppm.\n\n\nUsing this information, and properties of logs that we just reviewed, fill in the blanks in the following alternate interpretation of the slope:\n\nFor each additional SD the household assets are greater, the hair mercury concentration is expected to be ___ , on average, by a factor of ___."
   },
   {
-    "objectID": "slides/w08-02-fitting-interpretation.html#section-1",
-    "href": "slides/w08-02-fitting-interpretation.html#section-1",
+    "objectID": "slides/w08-02-fitting-interpretation.html#section-3",
+    "href": "slides/w08-02-fitting-interpretation.html#section-3",
     "title": "Model Fitting and Interpretation",
     "section": "",
     "text": "For each additional increase in scaled assets, hair mercury content is expected to be ___ , on average, by a factor of ___.\n\n\\[ \\log(\\text{hair Hg for assets x+1}) - \\log(\\text{hair Hg for assets x}) = -0.3577 \\]\n\n\\[ \\log\\left(\\frac{\\text{hair Hg for assets x+1}}{\\text{hair Hg for assets x}}\\right) = -0.3577 \\]\n\n\n\\[ e^{\\log\\left(\\frac{\\text{Hg for assets x+1}}{\\text{Hg for assets x}}\\right)} = e^{-0.3577} \\]\n\n\n\\[ \\frac{\\text{Hg for assets x+1}}{\\text{Hg for assets x}} \\approx 0.70 \\]\n\n\nFor each SD increase in assets, the hair Hg is expected to be lower, on average, by a factor of 0.70."
@@ -3550,8 +3802,8 @@
     "text": "How well does the model fit? \\(R^2\\)\n\n\nThe coefficient of determination, \\(R^2\\), measures the proportion of variation in the response \\(y\\) that is explained by the regression model.\n\\[\nR^2\n=\n1 -\n\\frac{\\sum_{i=1}^n (y_i-\\widehat{y}_i)^2}\n     {\\sum_{i=1}^n (y_i-\\bar{y})^2}\n\\]\n\n\n\\(\\sum (y_i-\\widehat{y}_i)^2\\): variation not explained by the model\n\n\\(\\sum (y_i-\\bar{y})^2\\): total variation in \\(y\\)\n\n\n\n\\(R^2\\) ranges from 0 to 1.\n\n\n\\(R^2 = 0\\): the model explains none of the variation in \\(y\\)\n\n\n\\(R^2 = 1\\): the model explains all of the variation in \\(y\\)\n\n\n\n\nFor simple linear regression with one predictor:\n\\[\nR^2 = r^2\n\\]"
   },
   {
-    "objectID": "slides/w08-02-fitting-interpretation.html#section-2",
-    "href": "slides/w08-02-fitting-interpretation.html#section-2",
+    "objectID": "slides/w08-02-fitting-interpretation.html#section-4",
+    "href": "slides/w08-02-fitting-interpretation.html#section-4",
     "title": "Model Fitting and Interpretation",
     "section": "",
     "text": "We can get \\(R^2\\) from the glance function.\n\nfit &lt;- linear_reg() %&gt;%\n  set_engine(\"lm\") %&gt;%\n  fit(lhairHg ~ assets_sc, data = mercury)\nfit %&gt;% glance() %&gt;% print(width = Inf)\n\n#&gt; # A tibble: 1 × 12\n#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik\n#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n#&gt; 1     0.106         0.106  1.02      274. 3.90e-58     1 -3316.\n#&gt;     AIC   BIC deviance df.residual  nobs\n#&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;\n#&gt; 1 6638. 6655.    2407.        2298  2300\n\n\nWhile \\(R^2=0.106\\) may seem quite low (the corresponding estimated correlation between \\(x\\) and \\(y\\) is \\(\\sqrt{0.106}=0.33\\)), it’s actually not too alarming given that we have observational data from humans with highly variable activities and exposures."
@@ -3620,8 +3872,8 @@
     "text": "Not looking for…\n\nAny patterns!"
   },
   {
-    "objectID": "slides/w08-02-fitting-interpretation.html#section-3",
-    "href": "slides/w08-02-fitting-interpretation.html#section-3",
+    "objectID": "slides/w08-02-fitting-interpretation.html#section-5",
+    "href": "slides/w08-02-fitting-interpretation.html#section-5",
     "title": "Model Fitting and Interpretation",
     "section": "",
     "text": "What patterns does the residual plot reveal that should make us question whether a linear model is a good fit for modeling the relationship between mercury (ppm) and assets?"
@@ -4009,14 +4261,14 @@
     "href": "slides/w08-01-intro-model-slides.html#mercury-and-assets",
     "title": "Introduction to Modelling",
     "section": "Mercury and Assets",
-    "text": "Mercury and Assets\nAre wealthier individuals less likely to have high mercury exposures?\nToday we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country).\nBecause the scale of this variable is not easily interpreted, we will convert it to standard deviation units by subtracting the means and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase."
+    "text": "Mercury and Assets\nAre wealthier individuals less likely to have high mercury exposures?\nToday we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country).\nBecause the scale of this variable is not easily interpreted, we will convert it to standard deviation units by subtracting the mean and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase."
   },
   {
     "objectID": "slides/w08-01-intro-model-slides.html#data-manipulation",
     "href": "slides/w08-01-intro-model-slides.html#data-manipulation",
     "title": "Introduction to Modelling",
     "section": "Data Manipulation",
-    "text": "Data Manipulation\n\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\"))"
+    "text": "Data Manipulation\n\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make \n  #the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\"))"
   },
   {
     "objectID": "slides/w08-01-intro-model-slides.html#section-1",
@@ -4044,7 +4296,7 @@
     "href": "slides/w08-01-intro-model-slides.html#models-as-functions",
     "title": "Introduction to Modelling",
     "section": "Models as functions",
-    "text": "Models as functions\n\nWe can represent relationships between variables using functions\n\nA function is a mathematical concept: the relationship between an output and one or more inputs\n\nPlug in the inputs and receive back the output\nExample: The formula \\(y = 3x + 7\\) is a function with input \\(x\\) and output \\(y\\). If \\(x\\) is \\(5\\), \\(y\\) is \\(22\\), \\(y = 3 \\times 5 + 7 = 22\\)"
+    "text": "Models as functions\n\nWe can represent relationships between variables using functions\n\nA function is a mathematical concept: the relationship between an output and one or more inputs\n\nEach input has only one output\nPlug in the inputs and receive back the output\nExample: The formula \\(y = 3x + 7\\) is a function with input \\(x\\) and output \\(y\\). If \\(x\\) is \\(5\\), \\(y\\) is \\(22\\), \\(y = 3 \\times 5 + 7 = 22\\)"
   },
   {
     "objectID": "slides/w08-01-intro-model-slides.html#hair-mercury-as-a-function-of-assets",
@@ -4072,7 +4324,7 @@
     "href": "slides/w08-01-intro-model-slides.html#vocabulary",
     "title": "Introduction to Modelling",
     "section": "Vocabulary",
-    "text": "Vocabulary\n\nResponse variable: Variable whose behavior or variation you are trying to understand, on the y-axis, denoted \\(y\\)\nExplanatory variables: Other variables that you want to use to explain the variation in the response, on the x-axis, denoted \\(x\\)\n\nPredicted value: Output of the model function\n\nThe model function gives the typical (expected) value of the response variable conditioning on the explanatory variables, denoted \\(\\hat{y}\\)\n\n\n\n\nResiduals: A measure of how far each case is from its predicted value (based on a particular model), \\(y-\\hat{y}\\)\n\nResidual = Observed value - Predicted value\nTells how far above/below the expected value each case is"
+    "text": "Vocabulary\n\n\nResponse variable: Variable whose behavior or variation you are trying to understand, on the y-axis, denoted \\(y\\)\nExplanatory variables: Other variables that you want to use to explain the variation in the response, on the x-axis, denoted \\(x\\)\n\nPredicted value: Output of the model function\n\nThe model function gives the typical (expected) value of the response variable conditioning on the explanatory variables, denoted \\(\\hat{y}\\)\n\n\n\n\nResiduals: A measure of how far each case is from its predicted value (based on a particular model), \\(y-\\hat{y}\\)\n\nResidual = Observed value - Predicted value\nTells how far above/below the expected value each case is"
   },
   {
     "objectID": "slides/w08-01-intro-model-slides.html#residuals-y-haty",
@@ -4100,7 +4352,7 @@
     "href": "slides/w08-01-intro-model-slides.html#extending-regression-lines",
     "title": "Introduction to Modelling",
     "section": "Extending regression lines",
-    "text": "Extending regression lines\n\nExtrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals (say $&gt;$3 SD above the mean asset level), do we believe the lines actually cross, and those in native villages have lower exposures?\n\n\n\nPlot\nCode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth(method = \"lm\",\n              se = FALSE,\n              fullrange = TRUE) +\n  labs(\n    title = \"Hair mercury as a function of assets, by village type\",\n    subtitle = \"Line Artifically Extended Beyond Data Range (Native)\",\n    x = \"Household assets (standardized)\",\n    y = \"Hair mercury (log ppm)\",\n    color = NULL\n  )  +\n  scale_color_manual(values = c(\"#E48957\", \"#071381\"))"
+    "text": "Extending regression lines\n\nExtrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals (say $&gt;$3 SD above the mean asset level), do we believe the lines actually cross, and those in native villages have lower exposures?\n\n\n\nPlot\nCode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth(method = \"lm\",\n              se = FALSE,\n              fullrange = TRUE) +\n  labs(\n    title = \"Hair mercury as a function of assets, by village type\",\n    subtitle = \"Line Artifically Extended Beyond Data Range (Native)\",\n    x = \"Household assets (standardized)\",\n    y = \"Hair mercury (log ppm)\",\n    color = NULL\n  )  +\n  scale_color_manual(values = c(\"#E48957\", \"#071381\"))"
   },
   {
     "objectID": "slides/w08-01-intro-model-slides.html#models---upsides-and-downsides",
@@ -4177,14 +4429,14 @@
     "href": "slides/w08-01-intro-model.html#mercury-and-assets",
     "title": "Introduction to Modelling",
     "section": "Mercury and Assets",
-    "text": "Mercury and Assets\nAre wealthier individuals less likely to have high mercury exposures?\nToday we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country).\nBecause the scale of this variable is not easily interpreted, we will convert it to standard deviation units by subtracting the means and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase."
+    "text": "Mercury and Assets\nAre wealthier individuals less likely to have high mercury exposures?\nToday we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country).\nBecause the scale of this variable is not easily interpreted, we will convert it to standard deviation units by subtracting the mean and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase."
   },
   {
     "objectID": "slides/w08-01-intro-model.html#data-manipulation",
     "href": "slides/w08-01-intro-model.html#data-manipulation",
     "title": "Introduction to Modelling",
     "section": "Data Manipulation",
-    "text": "Data Manipulation\n\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\"))"
+    "text": "Data Manipulation\n\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make \n  #the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\"))"
   },
   {
     "objectID": "slides/w08-01-intro-model.html#section-1",
@@ -4212,7 +4464,7 @@
     "href": "slides/w08-01-intro-model.html#models-as-functions",
     "title": "Introduction to Modelling",
     "section": "Models as functions",
-    "text": "Models as functions\n\nWe can represent relationships between variables using functions\n\nA function is a mathematical concept: the relationship between an output and one or more inputs\n\nPlug in the inputs and receive back the output\nExample: The formula \\(y = 3x + 7\\) is a function with input \\(x\\) and output \\(y\\). If \\(x\\) is \\(5\\), \\(y\\) is \\(22\\), \\(y = 3 \\times 5 + 7 = 22\\)"
+    "text": "Models as functions\n\nWe can represent relationships between variables using functions\n\nA function is a mathematical concept: the relationship between an output and one or more inputs\n\nEach input has only one output\nPlug in the inputs and receive back the output\nExample: The formula \\(y = 3x + 7\\) is a function with input \\(x\\) and output \\(y\\). If \\(x\\) is \\(5\\), \\(y\\) is \\(22\\), \\(y = 3 \\times 5 + 7 = 22\\)"
   },
   {
     "objectID": "slides/w08-01-intro-model.html#hair-mercury-as-a-function-of-assets",
@@ -4240,7 +4492,7 @@
     "href": "slides/w08-01-intro-model.html#vocabulary",
     "title": "Introduction to Modelling",
     "section": "Vocabulary",
-    "text": "Vocabulary\n\nResponse variable: Variable whose behavior or variation you are trying to understand, on the y-axis, denoted \\(y\\)\nExplanatory variables: Other variables that you want to use to explain the variation in the response, on the x-axis, denoted \\(x\\)\n\nPredicted value: Output of the model function\n\nThe model function gives the typical (expected) value of the response variable conditioning on the explanatory variables, denoted \\(\\hat{y}\\)\n\n\n\n\nResiduals: A measure of how far each case is from its predicted value (based on a particular model), \\(y-\\hat{y}\\)\n\nResidual = Observed value - Predicted value\nTells how far above/below the expected value each case is"
+    "text": "Vocabulary\n\n\nResponse variable: Variable whose behavior or variation you are trying to understand, on the y-axis, denoted \\(y\\)\nExplanatory variables: Other variables that you want to use to explain the variation in the response, on the x-axis, denoted \\(x\\)\n\nPredicted value: Output of the model function\n\nThe model function gives the typical (expected) value of the response variable conditioning on the explanatory variables, denoted \\(\\hat{y}\\)\n\n\n\n\nResiduals: A measure of how far each case is from its predicted value (based on a particular model), \\(y-\\hat{y}\\)\n\nResidual = Observed value - Predicted value\nTells how far above/below the expected value each case is"
   },
   {
     "objectID": "slides/w08-01-intro-model.html#residuals-y-haty",
@@ -4268,7 +4520,7 @@
     "href": "slides/w08-01-intro-model.html#extending-regression-lines",
     "title": "Introduction to Modelling",
     "section": "Extending regression lines",
-    "text": "Extending regression lines\n\nExtrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals (say $&gt;$3 SD above the mean asset level), do we believe the lines actually cross, and those in native villages have lower exposures?\n\n\n\nPlot\nCode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth(method = \"lm\",\n              se = FALSE,\n              fullrange = TRUE) +\n  labs(\n    title = \"Hair mercury as a function of assets, by village type\",\n    subtitle = \"Line Artifically Extended Beyond Data Range (Native)\",\n    x = \"Household assets (standardized)\",\n    y = \"Hair mercury (log ppm)\",\n    color = NULL\n  )  +\n  scale_color_manual(values = c(\"#E48957\", \"#071381\"))"
+    "text": "Extending regression lines\n\nExtrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals (say $&gt;$3 SD above the mean asset level), do we believe the lines actually cross, and those in native villages have lower exposures?\n\n\n\nPlot\nCode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth(method = \"lm\",\n              se = FALSE,\n              fullrange = TRUE) +\n  labs(\n    title = \"Hair mercury as a function of assets, by village type\",\n    subtitle = \"Line Artifically Extended Beyond Data Range (Native)\",\n    x = \"Household assets (standardized)\",\n    y = \"Hair mercury (log ppm)\",\n    color = NULL\n  )  +\n  scale_color_manual(values = c(\"#E48957\", \"#071381\"))"
   },
   {
     "objectID": "slides/w08-01-intro-model.html#models---upsides-and-downsides",
@@ -4835,21 +5087,21 @@
     "href": "slides/w07-02-test-mean-prop.html#behind-the-scenes",
     "title": "Hypothesis Testing for Means and Proportions",
     "section": "Behind the Scenes",
-    "text": "Behind the Scenes\n\nYou will almost always use software to calculate the test statistic and p-value, but it is important to understand the big concepts behind the scenes.\nFirst, think about our test statistic \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]\n\n\\(\\bar{X}-\\mu_0\\) makes sense, because we want to look at how far our sample mean is from the hypothesized population mean\nWhether \\(\\bar{X}-\\mu_0\\) is big depends on the standard deviation. For example, a difference of \\(\\bar{X}-\\mu_0=1\\) is a small difference if we are looking at weight in g but huge for height in m. This is why we standardize the difference by dividing by the estimated SD of the mean, so \\(t\\) is a measure of how many SDs apart \\(\\mu_0\\) and \\(\\bar{X}\\) are from each other"
+    "text": "Behind the Scenes\n\nYou will almost always use software to calculate the test statistic and p-value, but it is important to understand the big concepts behind the scenes.\nFirst, think about our test statistic \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]\n\n\\(\\bar{X}-\\mu_0\\) makes sense, because we want to look at how far our sample mean is from the hypothesized population mean\nWhether \\(\\bar{X}-\\mu_0\\) is big depends on the standard deviation. For example, a difference of \\(\\bar{X}-\\mu_0=1\\) is a small difference if we are looking at a person’s weight in g but huge for a person’s height in m. This is why we standardize the difference by dividing by the estimated SD of the mean, so \\(t\\) is a measure of how many SDs apart \\(\\mu_0\\) and \\(\\bar{X}\\) are from each other"
   },
   {
     "objectID": "slides/w07-02-test-mean-prop.html#behind-the-scenes-1",
     "href": "slides/w07-02-test-mean-prop.html#behind-the-scenes-1",
     "title": "Hypothesis Testing for Means and Proportions",
     "section": "Behind the Scenes",
-    "text": "Behind the Scenes\nThink about our test statistic \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]\n\nWhen our test statistic \\(t\\) is big and our data are approximately normal (or \\(n\\) is large), our data are not consistent with data from a population with mean \\(\\mu_0\\)\n\nProblem: our data might be unlikely under \\(H_A\\) as well (our test will not tell us that!)\n\n\nWhen our test statistic \\(t\\) is small (and our data are approximately normal or \\(n\\) is large), then our data do not refute the null hypothesis."
+    "text": "Behind the Scenes\n\nThink about our test statistic \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]\n\nWhen our test statistic \\(t\\) is big and our data are approximately normal (or \\(n\\) is large), our data are not consistent with data from a population with mean \\(\\mu_0\\)\n\nProblem: our data might be unlikely under \\(H_A\\) as well (our test will not tell us that!)\n\n\nWhen our test statistic \\(t\\) is small (and our data are approximately normal or \\(n\\) is large), then our data do not refute the null hypothesis."
   },
   {
     "objectID": "slides/w07-02-test-mean-prop.html#getting-the-p-value-2-sided-test",
     "href": "slides/w07-02-test-mean-prop.html#getting-the-p-value-2-sided-test",
     "title": "Hypothesis Testing for Means and Proportions",
     "section": "Getting the p-value: 2-sided test",
-    "text": "Getting the p-value: 2-sided test\n\n\n\n\n\n\n\\(H_0\\)\n\\(H_A\\)\n\n\n\nTwo-sided\n\\(\\mu=\\mu_0\\)\n\\(\\mu \\neq \\mu_0\\)\n\n\nOne-sided\n\\(\\mu&gt;\\mu_0\\)\n\\(\\mu \\leq \\mu_0\\)\n\n\nOne-sided\n\\(\\mu&lt;\\mu_0\\)\n\\(\\mu \\geq \\mu_0\\)\n\n\n\n\n\n\n\nFor a two-sided test, the p-value is the probability of seeing a t statistic with absolute value as big as, or larger than, what we saw in our data. Recall \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]"
+    "text": "Getting the p-value: 2-sided test\n\n\n\n\n\n\n\\(H_0\\)\n\\(H_A\\)\n\n\n\nTwo-sided\n\\(\\mu=\\mu_0\\)\n\\(\\mu \\neq \\mu_0\\)\n\n\nOne-sided\n\\(\\mu&gt;\\mu_0\\)\n\\(\\mu \\leq \\mu_0\\)\n\n\nOne-sided\n\\(\\mu&lt;\\mu_0\\)\n\\(\\mu \\geq \\mu_0\\)\n\n\n\n\n\n\n\n\nFor a two-sided test, the p-value is the probability of seeing a t statistic with absolute value as big as, or larger than, what we saw in our data. Recall \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]"
   },
   {
     "objectID": "slides/w07-02-test-mean-prop.html#getting-the-p-value-1-sided-test",
@@ -5118,6 +5370,41 @@
     "text": "Homework (Practice): Moving to High Altitude\nWhat happens to the human body when we move to high altitude? Design a study to investigate how a physiological measure, such as blood oxygen saturation or hemoglobin concentration, changes when people move from low to high altitude. Describe who you would study, what you would measure, and when you would take the measurements. Then propose an appropriate statistical analysis for determining whether the physiological measure changes, on average, with altitude."
   },
   {
+    "objectID": "slides/w07-02-test-mean-prop.html#homework-practice",
+    "href": "slides/w07-02-test-mean-prop.html#homework-practice",
+    "title": "Hypothesis Testing for Means and Proportions",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 19\n\nProblem 3\nProblem 8\nProblem 12\nProblem 13\nProblem 14\nProblem 17"
+  },
+  {
+    "objectID": "slides/w07-02-test-mean-prop.html#homework-practice-1",
+    "href": "slides/w07-02-test-mean-prop.html#homework-practice-1",
+    "title": "Hypothesis Testing for Means and Proportions",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nQuestionnaire response rate\n\nA clinic sends a follow-up questionnaire to 12 randomly selected patients. Ten return it. The clinic’s benchmark response rate is 50%. Let \\(p\\) be the proportion of patients who would return the questionnaire.\n\nState the null and alternative hypotheses for testing whether the response rate differs from the benchmark.\nUnder the null hypothesis, what distribution does the number of returned questionnaires follow?\nCalculate the exact two-sided p-value and state your conclusion at the 5% significance level.\nWhat assumptions are needed for this binomial test?"
+  },
+  {
+    "objectID": "slides/w07-02-test-mean-prop.html#homework-practice-2",
+    "href": "slides/w07-02-test-mean-prop.html#homework-practice-2",
+    "title": "Hypothesis Testing for Means and Proportions",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nComplication rate\nA hospital uses 10% as a benchmark complication rate for a procedure. Among 30 independently selected patients who received the procedure, none experienced the complication.\n\nState hypotheses for testing whether the complication rate differs from 10%.\nUse an exact two-sided binomial test to find the p-value.\nState your conclusion at the 5% significance level.\nDoes observing zero complications establish that the true complication rate is zero? Explain."
+  },
+  {
+    "objectID": "slides/w07-02-test-mean-prop.html#homework-practice-3",
+    "href": "slides/w07-02-test-mean-prop.html#homework-practice-3",
+    "title": "Hypothesis Testing for Means and Proportions",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nVideo appointments\nA health center has historically found that 25% of its patients choose a video appointment when offered a choice. In a random sample of 20 patients this month, 9 choose video.\n\nState hypotheses for testing whether the proportion choosing video has changed.\nWrite the R binom.test() command for a two-sided test and report its p-value.\nInterpret the result in the context of the health center."
+  },
+  {
+    "objectID": "slides/w07-02-test-mean-prop.html#homework-practice-4",
+    "href": "slides/w07-02-test-mean-prop.html#homework-practice-4",
+    "title": "Hypothesis Testing for Means and Proportions",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 20\n\nProblem 9\nProblem 11\nProblem 19\n\nIMS Chapter 21\n\nProblem 3\nProblem 15"
+  },
+  {
     "objectID": "slides/w07-02-test-mean-prop-slides.html#main-ideas",
     "href": "slides/w07-02-test-mean-prop-slides.html#main-ideas",
     "title": "Hypothesis Testing for Means and Proportions",
@@ -5171,21 +5458,21 @@
     "href": "slides/w07-02-test-mean-prop-slides.html#behind-the-scenes",
     "title": "Hypothesis Testing for Means and Proportions",
     "section": "Behind the Scenes",
-    "text": "Behind the Scenes\n\nYou will almost always use software to calculate the test statistic and p-value, but it is important to understand the big concepts behind the scenes.\nFirst, think about our test statistic \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]\n\n\\(\\bar{X}-\\mu_0\\) makes sense, because we want to look at how far our sample mean is from the hypothesized population mean\nWhether \\(\\bar{X}-\\mu_0\\) is big depends on the standard deviation. For example, a difference of \\(\\bar{X}-\\mu_0=1\\) is a small difference if we are looking at weight in g but huge for height in m. This is why we standardize the difference by dividing by the estimated SD of the mean, so \\(t\\) is a measure of how many SDs apart \\(\\mu_0\\) and \\(\\bar{X}\\) are from each other"
+    "text": "Behind the Scenes\n\nYou will almost always use software to calculate the test statistic and p-value, but it is important to understand the big concepts behind the scenes.\nFirst, think about our test statistic \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]\n\n\\(\\bar{X}-\\mu_0\\) makes sense, because we want to look at how far our sample mean is from the hypothesized population mean\nWhether \\(\\bar{X}-\\mu_0\\) is big depends on the standard deviation. For example, a difference of \\(\\bar{X}-\\mu_0=1\\) is a small difference if we are looking at a person’s weight in g but huge for a person’s height in m. This is why we standardize the difference by dividing by the estimated SD of the mean, so \\(t\\) is a measure of how many SDs apart \\(\\mu_0\\) and \\(\\bar{X}\\) are from each other"
   },
   {
     "objectID": "slides/w07-02-test-mean-prop-slides.html#behind-the-scenes-1",
     "href": "slides/w07-02-test-mean-prop-slides.html#behind-the-scenes-1",
     "title": "Hypothesis Testing for Means and Proportions",
     "section": "Behind the Scenes",
-    "text": "Behind the Scenes\nThink about our test statistic \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]\n\nWhen our test statistic \\(t\\) is big and our data are approximately normal (or \\(n\\) is large), our data are not consistent with data from a population with mean \\(\\mu_0\\)\n\nProblem: our data might be unlikely under \\(H_A\\) as well (our test will not tell us that!)\n\n\nWhen our test statistic \\(t\\) is small (and our data are approximately normal or \\(n\\) is large), then our data do not refute the null hypothesis."
+    "text": "Behind the Scenes\n\nThink about our test statistic \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]\n\nWhen our test statistic \\(t\\) is big and our data are approximately normal (or \\(n\\) is large), our data are not consistent with data from a population with mean \\(\\mu_0\\)\n\nProblem: our data might be unlikely under \\(H_A\\) as well (our test will not tell us that!)\n\n\nWhen our test statistic \\(t\\) is small (and our data are approximately normal or \\(n\\) is large), then our data do not refute the null hypothesis."
   },
   {
     "objectID": "slides/w07-02-test-mean-prop-slides.html#getting-the-p-value-2-sided-test",
     "href": "slides/w07-02-test-mean-prop-slides.html#getting-the-p-value-2-sided-test",
     "title": "Hypothesis Testing for Means and Proportions",
     "section": "Getting the p-value: 2-sided test",
-    "text": "Getting the p-value: 2-sided test\n\n\n\n\n\n\n\\(H_0\\)\n\\(H_A\\)\n\n\n\nTwo-sided\n\\(\\mu=\\mu_0\\)\n\\(\\mu \\neq \\mu_0\\)\n\n\nOne-sided\n\\(\\mu&gt;\\mu_0\\)\n\\(\\mu \\leq \\mu_0\\)\n\n\nOne-sided\n\\(\\mu&lt;\\mu_0\\)\n\\(\\mu \\geq \\mu_0\\)\n\n\n\n\n\n\n\nFor a two-sided test, the p-value is the probability of seeing a t statistic with absolute value as big as, or larger than, what we saw in our data. Recall \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]"
+    "text": "Getting the p-value: 2-sided test\n\n\n\n\n\n\n\\(H_0\\)\n\\(H_A\\)\n\n\n\nTwo-sided\n\\(\\mu=\\mu_0\\)\n\\(\\mu \\neq \\mu_0\\)\n\n\nOne-sided\n\\(\\mu&gt;\\mu_0\\)\n\\(\\mu \\leq \\mu_0\\)\n\n\nOne-sided\n\\(\\mu&lt;\\mu_0\\)\n\\(\\mu \\geq \\mu_0\\)\n\n\n\n\n\n\n\n\nFor a two-sided test, the p-value is the probability of seeing a t statistic with absolute value as big as, or larger than, what we saw in our data. Recall \\[t=\\frac{\\bar{X}-\\mu_0}{\\frac{s}{\\sqrt{n}}}.\\]"
   },
   {
     "objectID": "slides/w07-02-test-mean-prop-slides.html#getting-the-p-value-1-sided-test",
@@ -5454,6 +5741,41 @@
     "text": "Homework (Practice): Moving to High Altitude\nWhat happens to the human body when we move to high altitude? Design a study to investigate how a physiological measure, such as blood oxygen saturation or hemoglobin concentration, changes when people move from low to high altitude. Describe who you would study, what you would measure, and when you would take the measurements. Then propose an appropriate statistical analysis for determining whether the physiological measure changes, on average, with altitude."
   },
   {
+    "objectID": "slides/w07-02-test-mean-prop-slides.html#homework-practice",
+    "href": "slides/w07-02-test-mean-prop-slides.html#homework-practice",
+    "title": "Hypothesis Testing for Means and Proportions",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 19\n\nProblem 3\nProblem 8\nProblem 12\nProblem 13\nProblem 14\nProblem 17"
+  },
+  {
+    "objectID": "slides/w07-02-test-mean-prop-slides.html#homework-practice-1",
+    "href": "slides/w07-02-test-mean-prop-slides.html#homework-practice-1",
+    "title": "Hypothesis Testing for Means and Proportions",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nQuestionnaire response rate\n\nA clinic sends a follow-up questionnaire to 12 randomly selected patients. Ten return it. The clinic’s benchmark response rate is 50%. Let \\(p\\) be the proportion of patients who would return the questionnaire.\n\nState the null and alternative hypotheses for testing whether the response rate differs from the benchmark.\nUnder the null hypothesis, what distribution does the number of returned questionnaires follow?\nCalculate the exact two-sided p-value and state your conclusion at the 5% significance level.\nWhat assumptions are needed for this binomial test?"
+  },
+  {
+    "objectID": "slides/w07-02-test-mean-prop-slides.html#homework-practice-2",
+    "href": "slides/w07-02-test-mean-prop-slides.html#homework-practice-2",
+    "title": "Hypothesis Testing for Means and Proportions",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nComplication rate\nA hospital uses 10% as a benchmark complication rate for a procedure. Among 30 independently selected patients who received the procedure, none experienced the complication.\n\nState hypotheses for testing whether the complication rate differs from 10%.\nUse an exact two-sided binomial test to find the p-value.\nState your conclusion at the 5% significance level.\nDoes observing zero complications establish that the true complication rate is zero? Explain."
+  },
+  {
+    "objectID": "slides/w07-02-test-mean-prop-slides.html#homework-practice-3",
+    "href": "slides/w07-02-test-mean-prop-slides.html#homework-practice-3",
+    "title": "Hypothesis Testing for Means and Proportions",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nVideo appointments\nA health center has historically found that 25% of its patients choose a video appointment when offered a choice. In a random sample of 20 patients this month, 9 choose video.\n\nState hypotheses for testing whether the proportion choosing video has changed.\nWrite the R binom.test() command for a two-sided test and report its p-value.\nInterpret the result in the context of the health center."
+  },
+  {
+    "objectID": "slides/w07-02-test-mean-prop-slides.html#homework-practice-4",
+    "href": "slides/w07-02-test-mean-prop-slides.html#homework-practice-4",
+    "title": "Hypothesis Testing for Means and Proportions",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 20\n\nProblem 9\nProblem 11\nProblem 19\n\nIMS Chapter 21\n\nProblem 3\nProblem 15"
+  },
+  {
     "objectID": "slides/w07-01-testing.html",
     "href": "slides/w07-01-testing.html",
     "title": "Hypothesis Testing",
@@ -5500,7 +5822,7 @@
     "href": "slides/w07-01-testing.html#example-ultra-low-dose-contraceptives",
     "title": "Hypothesis Testing",
     "section": "Example: Ultra Low Dose Contraceptives",
-    "text": "Example: Ultra Low Dose Contraceptives\nA certain ultra-low dose oral contraceptive pill is supposed to contain 0.02 mg of estrogen. If the dose is higher, the user may risk side effects better avoided, and if the dose is lower, the user may get pregnant. The manufacturer wishes to check whether the mean concentration in a large shipment is the needed 0.02 mg or not. A random sample of \\(n=50\\) pills is tested, and the sample mean concentration is 0.017 mg with a sample standard deviation of 0.008 mg.\nLet’s go through the hypothesis testing paradigm."
+    "text": "Example: Ultra Low Dose Contraceptives\nA certain ultra low dose oral contraceptive pill is supposed to contain 0.02 mg of estrogen. If the dose is higher, the user may risk side effects better avoided, and if the dose is lower, the user may get pregnant. The manufacturer wishes to check whether the mean concentration in a large shipment is the needed 0.02 mg or not. A random sample of \\(n=50\\) pills is tested, and the sample mean concentration is 0.017 mg with a sample standard deviation of 0.008 mg.\nLet’s go through the hypothesis testing paradigm."
   },
   {
     "objectID": "slides/w07-01-testing.html#section",
@@ -5528,7 +5850,7 @@
     "href": "slides/w07-01-testing.html#hypothesis-testing-steps-again",
     "title": "Hypothesis Testing",
     "section": "Hypothesis Testing Steps (Again!)",
-    "text": "Hypothesis Testing Steps (Again!)\n\nState Claim 1 and Claim 2. Claim 1 states “nothing unusual is happening” and Claim 2 challenges it.\nFinalize data collection and analysis plans, collect relevant data, and summarize it.\nAssess how surprising it would be to see data like that, or even more extreme data, if Claim 1 is really true.\nDraw conclusions."
+    "text": "Hypothesis Testing Steps (Again!)\n\nState Claim 1 and Claim 2. Claim 1 states “nothing unusual is happening” and Claim 2 challenges it.\nFinalize data collection and analysis plans, collect relevant data, and summarize.\nAssess how surprising it would be to see data like that, or even more extreme data, if Claim 1 is really true.\nDraw conclusions."
   },
   {
     "objectID": "slides/w07-01-testing.html#details-step-1",
@@ -5549,7 +5871,7 @@
     "href": "slides/w07-01-testing.html#practice-with-step-1",
     "title": "Hypothesis Testing",
     "section": "Practice with Step 1",
-    "text": "Practice with Step 1\nWhat are \\(H_0\\) and \\(H_A\\) in each case?\n\nResearchers would like to know whether a new intervention for informing children in developing countries of their HIV status is associated with different mental health quality of life.\nResearchers would like to know if lead levels in the water from Flint exceed the EPA action level of 15 ppb.\nThe WHO would like to know if the number of Bundibugyo cases in northeastern DRC and Kampala, Uganda, this week is the same as that from last week."
+    "text": "Practice with Step 1\nWhat are \\(H_0\\) and \\(H_A\\) in each case?\n\nResearchers would like to know whether a new intervention for informing children in developing countries of their HIV status is associated with different mental health quality of life.\nResearchers would like to know if lead levels in the water from Flint exceed the EPA action level of 15 ppb.\nThe WHO would like to know if the number of Bundibugyo cases in northeastern DRC this week is the same as that from last week."
   },
   {
     "objectID": "slides/w07-01-testing.html#details-step-2",
@@ -5619,7 +5941,7 @@
     "href": "slides/w07-01-testing.html#correspondence-between-hypothesis-tests-and-confidence-intervals",
     "title": "Hypothesis Testing",
     "section": "Correspondence between Hypothesis Tests and Confidence Intervals",
-    "text": "Correspondence between Hypothesis Tests and Confidence Intervals\nWe can examine a confidence interval to decide whether a proposed value for the population mean is reasonable.\nSuppose we are testing \\(H_0:  \\mu=0.02\\) versus \\(H_A:  \\mu \\neq 0.02\\) using a significance level of \\(\\alpha=0.05\\). An alternative way to do this is to construct a 95% confidence interval for \\(\\mu\\) and use the following decision rule.\n\nIf \\(0.02\\) falls outside the confidence interval, reject \\(H_0\\)\nIf \\(0.02\\) falls inside the confidence interval, do not reject \\(H_0\\)\n\nWe may not want to make a binary decision but instead present a confidence interval and provide discussion."
+    "text": "Correspondence between Hypothesis Tests and Confidence Intervals\n\nWe can examine a confidence interval to decide whether a proposed value for the population mean is reasonable.\nSuppose we are testing \\(H_0:  \\mu=0.02\\) versus \\(H_A:  \\mu \\neq 0.02\\) using a significance level of \\(\\alpha=0.05\\). An alternative way to do this is to construct a 95% confidence interval for \\(\\mu\\) and use the following decision rule.\n\nIf \\(0.02\\) falls outside the confidence interval, reject \\(H_0\\)\nIf \\(0.02\\) falls inside the confidence interval, do not reject \\(H_0\\)\n\nWe may not want to make a binary decision but instead present a confidence interval and provide discussion."
   },
   {
     "objectID": "slides/w07-01-testing.html#sidedness-of-tests",
@@ -5640,7 +5962,7 @@
     "href": "slides/w07-01-testing.html#details-step-4",
     "title": "Hypothesis Testing",
     "section": "Details: Step 4",
-    "text": "Details: Step 4\nStep 4 is drawing conclusions based on our test results. Generally, we reject Claim 1 when the likelihood of seeing our data (or more extreme data) when Claim 1 is true would be relatively small. Often, we consider a cutpoint (also called a significance level or \\(\\alpha\\) level) of \\(\\alpha=0.05\\) as defining the p-value as “small.” Using 0.05 as a cutpoint means that when the null hypothesis is true, we would expect to make the wrong decision only 5% of the time. When the p-value \\(&lt;\\alpha\\) you often see results described as “statistically significant.”\nWhen the p-value is \\(&gt; \\alpha\\) then we say we have insufficient evidence to reject Claim 1. Sometimes people interpret p-values in the rough range of \\((\\alpha, 2\\alpha)\\) as marginally significant (so for \\(\\alpha=0.05\\) that range would be \\(0.05-0.10\\)), but this is not recommended."
+    "text": "Details: Step 4\n\nStep 4 is drawing conclusions based on our test results. Generally, we reject Claim 1 when the likelihood of seeing our data (or more extreme data) when Claim 1 is true would be relatively small. Often, we consider a cutpoint (also called a significance level or \\(\\alpha\\) level) of \\(\\alpha=0.05\\) as defining the p-value as “small.” Using 0.05 as a cutpoint means that when the null hypothesis is true, we would expect to make the wrong decision only 5% of the time. When the p-value \\(&lt;\\alpha\\) you often see results described as “statistically significant.”\nWhen the p-value is \\(&gt; \\alpha\\) then we say we have insufficient evidence to reject Claim 1. Sometimes people interpret p-values in the rough range of \\((\\alpha, 2\\alpha)\\) as marginally significant (so for \\(\\alpha=0.05\\) that range would be \\(0.05-0.10\\)), but this is not recommended."
   },
   {
     "objectID": "slides/w07-01-testing.html#section-4",
@@ -5648,13 +5970,6 @@
     "title": "Hypothesis Testing",
     "section": "",
     "text": "Common sense should also be used in drawing conclusions. For example, if there is a very strong body of evidence in favor of the alternative hypothesis and you see \\(p=0.06\\), you wouldn’t necessarily use your results to refute all the prior work in an area. This is one reason confidence intervals are often used in place of hypothesis tests."
-  },
-  {
-    "objectID": "slides/w07-01-testing.html#example-workplace-equity",
-    "href": "slides/w07-01-testing.html#example-workplace-equity",
-    "title": "Hypothesis Testing",
-    "section": "Example: Workplace Equity",
-    "text": "Example: Workplace Equity\nAn employer subscribes to an “equal opportunity” policy, stating it hires employees with children and employees without children equally often in managerial positions. Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified. The data you have are the last three hires, all of which were applicants without children. How do you carry out a hypothesis test?"
   },
   {
     "objectID": "slides/w07-01-testing.html#trial-by-jury-analogy",
@@ -5692,11 +6007,18 @@
     "text": "Type I Errors in Action\nCircle, circle, dot, dot…we’ll conduct our own study of one of the US’s most widely-administered childhood vaccinations."
   },
   {
-    "objectID": "slides/w07-01-testing.html#back-to-example-workplace-equity",
-    "href": "slides/w07-01-testing.html#back-to-example-workplace-equity",
+    "objectID": "slides/w07-01-testing.html#example-workplace-equity",
+    "href": "slides/w07-01-testing.html#example-workplace-equity",
     "title": "Hypothesis Testing",
-    "section": "Back to Example: Workplace Equity",
-    "text": "Back to Example: Workplace Equity\nAn employer subscribes to an “equal opportunity” policy, stating it hires employees with children and employees without children equally often in managerial positions. Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified. The data you have are the last three hires, all of which were applicants without children. How do you carry out a hypothesis test?\nIf the null hypothesis is true, what was the probability of seeing these data, or data even more extreme?"
+    "section": "Example: Workplace Equity",
+    "text": "Example: Workplace Equity\nAn employer subscribes to an “equal opportunity” policy, stating it hires employees with children and employees without children equally often in managerial positions. Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified. The data you have are the last three hires, all of which were applicants without children. How do you carry out a hypothesis test?\nIf the null hypothesis is true, what was the probability of seeing these data, or data even more extreme?"
+  },
+  {
+    "objectID": "slides/w07-01-testing.html#homework-practice",
+    "href": "slides/w07-01-testing.html#homework-practice",
+    "title": "Hypothesis Testing",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 13\n\nProblem 1\nProblem 11\n\nIMS Chapter 14\n\nProblem 1\nProblem 2"
   },
   {
     "objectID": "slides/w07-01-testing-slides.html#main-ideas",
@@ -5738,7 +6060,7 @@
     "href": "slides/w07-01-testing-slides.html#example-ultra-low-dose-contraceptives",
     "title": "Hypothesis Testing",
     "section": "Example: Ultra Low Dose Contraceptives",
-    "text": "Example: Ultra Low Dose Contraceptives\nA certain ultra-low dose oral contraceptive pill is supposed to contain 0.02 mg of estrogen. If the dose is higher, the user may risk side effects better avoided, and if the dose is lower, the user may get pregnant. The manufacturer wishes to check whether the mean concentration in a large shipment is the needed 0.02 mg or not. A random sample of \\(n=50\\) pills is tested, and the sample mean concentration is 0.017 mg with a sample standard deviation of 0.008 mg.\nLet’s go through the hypothesis testing paradigm."
+    "text": "Example: Ultra Low Dose Contraceptives\nA certain ultra low dose oral contraceptive pill is supposed to contain 0.02 mg of estrogen. If the dose is higher, the user may risk side effects better avoided, and if the dose is lower, the user may get pregnant. The manufacturer wishes to check whether the mean concentration in a large shipment is the needed 0.02 mg or not. A random sample of \\(n=50\\) pills is tested, and the sample mean concentration is 0.017 mg with a sample standard deviation of 0.008 mg.\nLet’s go through the hypothesis testing paradigm."
   },
   {
     "objectID": "slides/w07-01-testing-slides.html#section",
@@ -5766,7 +6088,7 @@
     "href": "slides/w07-01-testing-slides.html#hypothesis-testing-steps-again",
     "title": "Hypothesis Testing",
     "section": "Hypothesis Testing Steps (Again!)",
-    "text": "Hypothesis Testing Steps (Again!)\n\nState Claim 1 and Claim 2. Claim 1 states “nothing unusual is happening” and Claim 2 challenges it.\nFinalize data collection and analysis plans, collect relevant data, and summarize it.\nAssess how surprising it would be to see data like that, or even more extreme data, if Claim 1 is really true.\nDraw conclusions."
+    "text": "Hypothesis Testing Steps (Again!)\n\nState Claim 1 and Claim 2. Claim 1 states “nothing unusual is happening” and Claim 2 challenges it.\nFinalize data collection and analysis plans, collect relevant data, and summarize.\nAssess how surprising it would be to see data like that, or even more extreme data, if Claim 1 is really true.\nDraw conclusions."
   },
   {
     "objectID": "slides/w07-01-testing-slides.html#details-step-1",
@@ -5787,7 +6109,7 @@
     "href": "slides/w07-01-testing-slides.html#practice-with-step-1",
     "title": "Hypothesis Testing",
     "section": "Practice with Step 1",
-    "text": "Practice with Step 1\nWhat are \\(H_0\\) and \\(H_A\\) in each case?\n\nResearchers would like to know whether a new intervention for informing children in developing countries of their HIV status is associated with different mental health quality of life.\nResearchers would like to know if lead levels in the water from Flint exceed the EPA action level of 15 ppb.\nThe WHO would like to know if the number of Bundibugyo cases in northeastern DRC and Kampala, Uganda, this week is the same as that from last week."
+    "text": "Practice with Step 1\nWhat are \\(H_0\\) and \\(H_A\\) in each case?\n\nResearchers would like to know whether a new intervention for informing children in developing countries of their HIV status is associated with different mental health quality of life.\nResearchers would like to know if lead levels in the water from Flint exceed the EPA action level of 15 ppb.\nThe WHO would like to know if the number of Bundibugyo cases in northeastern DRC this week is the same as that from last week."
   },
   {
     "objectID": "slides/w07-01-testing-slides.html#details-step-2",
@@ -5857,7 +6179,7 @@
     "href": "slides/w07-01-testing-slides.html#correspondence-between-hypothesis-tests-and-confidence-intervals",
     "title": "Hypothesis Testing",
     "section": "Correspondence between Hypothesis Tests and Confidence Intervals",
-    "text": "Correspondence between Hypothesis Tests and Confidence Intervals\nWe can examine a confidence interval to decide whether a proposed value for the population mean is reasonable.\nSuppose we are testing \\(H_0:  \\mu=0.02\\) versus \\(H_A:  \\mu \\neq 0.02\\) using a significance level of \\(\\alpha=0.05\\). An alternative way to do this is to construct a 95% confidence interval for \\(\\mu\\) and use the following decision rule.\n\nIf \\(0.02\\) falls outside the confidence interval, reject \\(H_0\\)\nIf \\(0.02\\) falls inside the confidence interval, do not reject \\(H_0\\)\n\nWe may not want to make a binary decision but instead present a confidence interval and provide discussion."
+    "text": "Correspondence between Hypothesis Tests and Confidence Intervals\n\nWe can examine a confidence interval to decide whether a proposed value for the population mean is reasonable.\nSuppose we are testing \\(H_0:  \\mu=0.02\\) versus \\(H_A:  \\mu \\neq 0.02\\) using a significance level of \\(\\alpha=0.05\\). An alternative way to do this is to construct a 95% confidence interval for \\(\\mu\\) and use the following decision rule.\n\nIf \\(0.02\\) falls outside the confidence interval, reject \\(H_0\\)\nIf \\(0.02\\) falls inside the confidence interval, do not reject \\(H_0\\)\n\nWe may not want to make a binary decision but instead present a confidence interval and provide discussion."
   },
   {
     "objectID": "slides/w07-01-testing-slides.html#sidedness-of-tests",
@@ -5878,7 +6200,7 @@
     "href": "slides/w07-01-testing-slides.html#details-step-4",
     "title": "Hypothesis Testing",
     "section": "Details: Step 4",
-    "text": "Details: Step 4\nStep 4 is drawing conclusions based on our test results. Generally, we reject Claim 1 when the likelihood of seeing our data (or more extreme data) when Claim 1 is true would be relatively small. Often, we consider a cutpoint (also called a significance level or \\(\\alpha\\) level) of \\(\\alpha=0.05\\) as defining the p-value as “small.” Using 0.05 as a cutpoint means that when the null hypothesis is true, we would expect to make the wrong decision only 5% of the time. When the p-value \\(&lt;\\alpha\\) you often see results described as “statistically significant.”\nWhen the p-value is \\(&gt; \\alpha\\) then we say we have insufficient evidence to reject Claim 1. Sometimes people interpret p-values in the rough range of \\((\\alpha, 2\\alpha)\\) as marginally significant (so for \\(\\alpha=0.05\\) that range would be \\(0.05-0.10\\)), but this is not recommended."
+    "text": "Details: Step 4\n\nStep 4 is drawing conclusions based on our test results. Generally, we reject Claim 1 when the likelihood of seeing our data (or more extreme data) when Claim 1 is true would be relatively small. Often, we consider a cutpoint (also called a significance level or \\(\\alpha\\) level) of \\(\\alpha=0.05\\) as defining the p-value as “small.” Using 0.05 as a cutpoint means that when the null hypothesis is true, we would expect to make the wrong decision only 5% of the time. When the p-value \\(&lt;\\alpha\\) you often see results described as “statistically significant.”\nWhen the p-value is \\(&gt; \\alpha\\) then we say we have insufficient evidence to reject Claim 1. Sometimes people interpret p-values in the rough range of \\((\\alpha, 2\\alpha)\\) as marginally significant (so for \\(\\alpha=0.05\\) that range would be \\(0.05-0.10\\)), but this is not recommended."
   },
   {
     "objectID": "slides/w07-01-testing-slides.html#section-4",
@@ -5886,13 +6208,6 @@
     "title": "Hypothesis Testing",
     "section": "",
     "text": "Common sense should also be used in drawing conclusions. For example, if there is a very strong body of evidence in favor of the alternative hypothesis and you see \\(p=0.06\\), you wouldn’t necessarily use your results to refute all the prior work in an area. This is one reason confidence intervals are often used in place of hypothesis tests."
-  },
-  {
-    "objectID": "slides/w07-01-testing-slides.html#example-workplace-equity",
-    "href": "slides/w07-01-testing-slides.html#example-workplace-equity",
-    "title": "Hypothesis Testing",
-    "section": "Example: Workplace Equity",
-    "text": "Example: Workplace Equity\nAn employer subscribes to an “equal opportunity” policy, stating it hires employees with children and employees without children equally often in managerial positions. Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified. The data you have are the last three hires, all of which were applicants without children. How do you carry out a hypothesis test?"
   },
   {
     "objectID": "slides/w07-01-testing-slides.html#trial-by-jury-analogy",
@@ -5930,11 +6245,18 @@
     "text": "Type I Errors in Action\nCircle, circle, dot, dot…we’ll conduct our own study of one of the US’s most widely-administered childhood vaccinations."
   },
   {
-    "objectID": "slides/w07-01-testing-slides.html#back-to-example-workplace-equity",
-    "href": "slides/w07-01-testing-slides.html#back-to-example-workplace-equity",
+    "objectID": "slides/w07-01-testing-slides.html#example-workplace-equity",
+    "href": "slides/w07-01-testing-slides.html#example-workplace-equity",
     "title": "Hypothesis Testing",
-    "section": "Back to Example: Workplace Equity",
-    "text": "Back to Example: Workplace Equity\nAn employer subscribes to an “equal opportunity” policy, stating it hires employees with children and employees without children equally often in managerial positions. Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified. The data you have are the last three hires, all of which were applicants without children. How do you carry out a hypothesis test?\nIf the null hypothesis is true, what was the probability of seeing these data, or data even more extreme?"
+    "section": "Example: Workplace Equity",
+    "text": "Example: Workplace Equity\nAn employer subscribes to an “equal opportunity” policy, stating it hires employees with children and employees without children equally often in managerial positions. Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified. The data you have are the last three hires, all of which were applicants without children. How do you carry out a hypothesis test?\nIf the null hypothesis is true, what was the probability of seeing these data, or data even more extreme?"
+  },
+  {
+    "objectID": "slides/w07-01-testing-slides.html#homework-practice",
+    "href": "slides/w07-01-testing-slides.html#homework-practice",
+    "title": "Hypothesis Testing",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\nIMS Chapter 13\n\nProblem 1\nProblem 11\n\nIMS Chapter 14\n\nProblem 1\nProblem 2"
   },
   {
     "objectID": "slides/w04-02-wranglingII.html",

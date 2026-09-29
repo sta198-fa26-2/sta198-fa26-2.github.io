@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
 <meta name="author" content="Amy Herring">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-07">
 <title>STA 198 – Hypothesis Testing for Means and Proportions</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -216,7 +216,7 @@ Amy Herring
     </div>
 </div>
 
-  <p class="date">2026-09-30</p>
+  <p class="date">2026-10-07</p>
 </section><section id="section" class="slide level2" data-background-color="white"><h2></h2>
 
 <img data-src="../img/PeanutsMath.jpg" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="main-ideas" class="slide level2"><h2>Main ideas</h2>
@@ -309,10 +309,11 @@ Amy Herring
 <p>First, think about our test statistic <span class="math display">\[t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.\]</span></p>
 <ul>
 <li><p><span class="math inline">\(\bar{X}-\mu_0\)</span> makes sense, because we want to look at how far our sample mean is from the hypothesized population mean</p></li>
-<li><p>Whether <span class="math inline">\(\bar{X}-\mu_0\)</span> is big depends on the standard deviation. For example, a difference of <span class="math inline">\(\bar{X}-\mu_0=1\)</span> is a small difference if we are looking at weight in g but huge for height in m. This is why we standardize the difference by dividing by the <em>estimated</em> SD of the mean, so <span class="math inline">\(t\)</span> is a measure of how many SDs apart <span class="math inline">\(\mu_0\)</span> and <span class="math inline">\(\bar{X}\)</span> are from each other</p></li>
+<li><p>Whether <span class="math inline">\(\bar{X}-\mu_0\)</span> is big depends on the standard deviation. For example, a difference of <span class="math inline">\(\bar{X}-\mu_0=1\)</span> is a small difference if we are looking at a person’s weight in g but huge for a person’s height in m. This is why we standardize the difference by dividing by the <em>estimated</em> SD of the mean, so <span class="math inline">\(t\)</span> is a measure of how many SDs apart <span class="math inline">\(\mu_0\)</span> and <span class="math inline">\(\bar{X}\)</span> are from each other</p></li>
 </ul>
 </div>
 </section><section id="behind-the-scenes-1" class="slide level2"><h2>Behind the Scenes</h2>
+<div style="font-size:0.85em;">
 <p>Think about our test statistic <span class="math display">\[t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.\]</span></p>
 <ul>
 <li>When our test statistic <span class="math inline">\(t\)</span> is big and our data are approximately normal (or <span class="math inline">\(n\)</span> is large), our data are not consistent with data from a population with mean <span class="math inline">\(\mu_0\)</span>
@@ -321,10 +322,12 @@ Amy Herring
 </ul>
 </li>
 <li>When our test statistic <span class="math inline">\(t\)</span> is small (and our data are approximately normal or <span class="math inline">\(n\)</span> is large), then our data do not refute the null hypothesis.</li>
-</ul></section><section id="getting-the-p-value-2-sided-test" class="slide level2"><h2>Getting the p-value: 2-sided test</h2>
+</ul>
+</div>
+</section><section id="getting-the-p-value-2-sided-test" class="slide level2"><h2>Getting the p-value: 2-sided test</h2>
 <div class="columns">
-<div class="column" style="width:30%;">
-<div style="font-size:0.65em;">
+<div class="column" style="width:35%;">
+<div style="font-size:0.6em;">
 <table class="caption-top">
 <thead><tr class="header">
 <th style="text-align: left;"></th>
@@ -352,7 +355,8 @@ Amy Herring
 </div>
 </div><div class="column" style="width:5%;">
 
-</div><div class="column" style="width:65%;">
+</div><div class="column" style="width:55%;">
+<div style="font-size:0.85em;">
 <p>For a <em>two-sided</em> test, the p-value is the probability of seeing a t statistic with absolute value as big as, or larger than, what we saw in our data. Recall <span class="math display">\[t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.\]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -362,10 +366,11 @@ Amy Herring
 </div>
 </div>
 </div>
+</div>
 </div></div>
 </section><section id="getting-the-p-value-1-sided-test" class="slide level2"><h2>Getting the p-value: 1-sided test</h2>
 <div class="columns">
-<div class="column" style="width:30%;">
+<div class="column" style="width:35%;">
 <div style="font-size:0.65em;">
 <table class="caption-top">
 <thead><tr class="header">
@@ -394,7 +399,7 @@ Amy Herring
 </div>
 </div><div class="column" style="width:5%;">
 
-</div><div class="column" style="width:65%;">
+</div><div class="column" style="width:55%;">
 <div style="font-size:0.8em;">
 <p>For a <em>one-sided</em> test with <span class="math inline">\(H_0: \mu &gt; \mu_0\)</span>, the p-value is the probability of seeing a t statistic with value the same size, or smaller than, what we saw in our data. Recall <span class="math display">\[t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.\]</span></p>
 </div>
@@ -409,7 +414,7 @@ Amy Herring
 </div></div>
 </section><section id="getting-the-p-value-1-sided-test-1" class="slide level2"><h2>Getting the p-value: 1-sided test</h2>
 <div class="columns">
-<div class="column" style="width:30%;">
+<div class="column" style="width:35%;">
 <div style="font-size:0.65em;">
 <table class="caption-top">
 <thead><tr class="header">
@@ -438,7 +443,7 @@ Amy Herring
 </div>
 </div><div class="column" style="width:5%;">
 
-</div><div class="column" style="width:65%;">
+</div><div class="column" style="width:55%;">
 <div style="font-size:0.8em;">
 <p>For a <em>one-sided</em> test with <span class="math inline">\(H_0: \mu &lt; \mu_0\)</span>, the p-value is the probability of seeing a t statistic with value the same size, or larger than, what we saw in our data. Recall <span class="math display">\[t=\frac{\bar{X}-\mu_0}{\frac{s}{\sqrt{n}}}.\]</span></p>
 </div>
@@ -860,6 +865,53 @@ Amy Herring
 <p><strong>5. Statistical significance vs.&nbsp;scientific importance.</strong> Does a small p-value tell us whether the observed difference in sample means is physiologically important? Explain.</p>
 </section><section id="homework-practice-moving-to-high-altitude" class="slide level2"><h2>Homework (Practice): Moving to High Altitude</h2>
 <p>What happens to the human body when we move to high altitude? Design a study to investigate how a physiological measure, such as blood oxygen saturation or hemoglobin concentration, changes when people move from low to high altitude. Describe who you would study, what you would measure, and when you would take the measurements. Then propose an appropriate statistical analysis for determining whether the physiological measure changes, on average, with altitude.</p>
+</section><section id="homework-practice" class="slide level2"><h2>Homework (Practice)</h2>
+<p><a href="https://openintrostat.github.io/ims/inference-one-mean.html#sec-chp19-exercises"><strong>IMS Chapter 19</strong></a></p>
+<ul>
+<li>Problem 3</li>
+<li>Problem 8</li>
+<li>Problem 12</li>
+<li>Problem 13</li>
+<li>Problem 14</li>
+<li>Problem 17</li>
+</ul></section><section id="homework-practice-1" class="slide level2"><h2>Homework (Practice)</h2>
+<p><strong>Questionnaire response rate</strong></p>
+<div style="font-size:0.8em;">
+<p>A clinic sends a follow-up questionnaire to 12 randomly selected patients. Ten return it. The clinic’s benchmark response rate is 50%. Let <span class="math inline">\(p\)</span> be the proportion of patients who would return the questionnaire.</p>
+<ol type="1">
+<li>State the null and alternative hypotheses for testing whether the response rate <strong>differs from</strong> the benchmark.</li>
+<li>Under the null hypothesis, what distribution does the number of returned questionnaires follow?</li>
+<li>Calculate the exact two-sided p-value and state your conclusion at the 5% significance level.</li>
+<li>What assumptions are needed for this binomial test?</li>
+</ol>
+</div>
+</section><section id="homework-practice-2" class="slide level2"><h2>Homework (Practice)</h2>
+<p><strong>Complication rate</strong></p>
+<p>A hospital uses 10% as a benchmark complication rate for a procedure. Among 30 independently selected patients who received the procedure, none experienced the complication.</p>
+<ol type="1">
+<li>State hypotheses for testing whether the complication rate <strong>differs from</strong> 10%.</li>
+<li>Use an exact two-sided binomial test to find the p-value.</li>
+<li>State your conclusion at the 5% significance level.</li>
+<li>Does observing zero complications establish that the true complication rate is zero? Explain.</li>
+</ol></section><section id="homework-practice-3" class="slide level2"><h2>Homework (Practice)</h2>
+<p><strong>Video appointments</strong></p>
+<p>A health center has historically found that 25% of its patients choose a video appointment when offered a choice. In a random sample of 20 patients this month, 9 choose video.</p>
+<ol type="1">
+<li>State hypotheses for testing whether the proportion choosing video has changed.</li>
+<li>Write the R <code><a href="https://rdrr.io/r/stats/binom.test.html">binom.test()</a></code> command for a two-sided test and report its p-value.</li>
+<li>Interpret the result in the context of the health center.</li>
+</ol></section><section id="homework-practice-4" class="slide level2"><h2>Homework (Practice)</h2>
+<p><a href="https://openintrostat.github.io/ims/inference-two-means.html#sec-chp20-exercises"><strong>IMS Chapter 20</strong></a></p>
+<ul>
+<li>Problem 9</li>
+<li>Problem 11</li>
+<li>Problem 19</li>
+</ul>
+<p><a href="https://openintrostat.github.io/ims/inference-paired-means.html#sec-chp21-exercises"><strong>IMS Chapter 21</strong></a></p>
+<ul>
+<li>Problem 3</li>
+<li>Problem 15</li>
+</ul>
 
 
 </section></section>

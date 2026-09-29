@@ -472,6 +472,10 @@ window.Quarto = {
   <ul class="collapse">
 <li><a href="#mercury-and-assets" id="toc-mercury-and-assets" class="nav-link" data-scroll-target="#mercury-and-assets">Mercury and Assets</a></li>
   <li><a href="#goal-predict-mercury-from-assets" id="toc-goal-predict-mercury-from-assets" class="nav-link" data-scroll-target="#goal-predict-mercury-from-assets">Goal: Predict mercury from assets</a></li>
+  <li><a href="#how-did-we-know-to-transform-using-the-log" id="toc-how-did-we-know-to-transform-using-the-log" class="nav-link" data-scroll-target="#how-did-we-know-to-transform-using-the-log">How did we know to transform using the log?</a></li>
+  <li><a href="#assumptions-of-the-regression-model" id="toc-assumptions-of-the-regression-model" class="nav-link" data-scroll-target="#assumptions-of-the-regression-model">Assumptions of the Regression Model</a></li>
+  <li><a href="#are-household-assets-related-to-hair-mercury" id="toc-are-household-assets-related-to-hair-mercury" class="nav-link" data-scroll-target="#are-household-assets-related-to-hair-mercury">Are household assets related to hair mercury?</a></li>
+  <li><a href="#look-at-the-data-first" id="toc-look-at-the-data-first" class="nav-link" data-scroll-target="#look-at-the-data-first">Look at the data first</a></li>
   <li><a href="#goal-predict-mercury-from-assets-1" id="toc-goal-predict-mercury-from-assets-1" class="nav-link" data-scroll-target="#goal-predict-mercury-from-assets-1">Goal: Predict mercury from assets</a></li>
   <li><a href="#t-test-from-a-linear-model" id="toc-t-test-from-a-linear-model" class="nav-link" data-scroll-target="#t-test-from-a-linear-model"><span class="math inline">\(t\)</span>-test from a linear model</a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
@@ -480,7 +484,21 @@ window.Quarto = {
   <li><a href="#step-3-fit-model-estimate-parameters" id="toc-step-3-fit-model-estimate-parameters" class="nav-link" data-scroll-target="#step-3-fit-model-estimate-parameters">Step 3: Fit model &amp; estimate parameters</a></li>
   <li><a href="#a-closer-look-at-model-output" id="toc-a-closer-look-at-model-output" class="nav-link" data-scroll-target="#a-closer-look-at-model-output">A closer look at model output</a></li>
   <li><a href="#a-tidy-look-at-model-output" id="toc-a-tidy-look-at-model-output" class="nav-link" data-scroll-target="#a-tidy-look-at-model-output">A tidy look at model output</a></li>
+  <li><a href="#a-tidy-look-at-model-output-1" id="toc-a-tidy-look-at-model-output-1" class="nav-link" data-scroll-target="#a-tidy-look-at-model-output-1">A tidy look at model output</a></li>
   <li><a href="#a-closer-look-at-model-output-1" id="toc-a-closer-look-at-model-output-1" class="nav-link" data-scroll-target="#a-closer-look-at-model-output-1">A closer look at model output</a></li>
+  <li><a href="#a-closer-look-at-model-output-2" id="toc-a-closer-look-at-model-output-2" class="nav-link" data-scroll-target="#a-closer-look-at-model-output-2">A closer look at model output</a></li>
+  <li><a href="#what-does-the-slope-mean" id="toc-what-does-the-slope-mean" class="nav-link" data-scroll-target="#what-does-the-slope-mean">What does the slope mean?</a></li>
+  <li><a href="#what-does-the-intercept-mean" id="toc-what-does-the-intercept-mean" class="nav-link" data-scroll-target="#what-does-the-intercept-mean">What does the intercept mean?</a></li>
+  <li><a href="#what-does-the-model-output-add" id="toc-what-does-the-model-output-add" class="nav-link" data-scroll-target="#what-does-the-model-output-add">What does the model output add?</a></li>
+  <li><a href="#can-we-trust-the-model-check-the-residuals" id="toc-can-we-trust-the-model-check-the-residuals" class="nav-link" data-scroll-target="#can-we-trust-the-model-check-the-residuals">Can we trust the model? Check the residuals!</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#are-the-residuals-approximately-normal" id="toc-are-the-residuals-approximately-normal" class="nav-link" data-scroll-target="#are-the-residuals-approximately-normal">Are the residuals approximately normal?</a></li>
+  <li><a href="#tradeoffs-easy-interpretation-bad-model" id="toc-tradeoffs-easy-interpretation-bad-model" class="nav-link" data-scroll-target="#tradeoffs-easy-interpretation-bad-model">Tradeoffs: easy interpretation, bad model</a></li>
+  <li><a href="#a-look-ahead-a-transformed-response" id="toc-a-look-ahead-a-transformed-response" class="nav-link" data-scroll-target="#a-look-ahead-a-transformed-response">A look ahead: a transformed response</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
+  <li><a href="#checking-the-new-q-q-plot" id="toc-checking-the-new-q-q-plot" class="nav-link" data-scroll-target="#checking-the-new-q-q-plot">Checking the new Q-Q plot</a></li>
+  <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
+  <li><a href="#working-with-the-log-transformed-response" id="toc-working-with-the-log-transformed-response" class="nav-link" data-scroll-target="#working-with-the-log-transformed-response">Working with the log transformed response</a></li>
   <li><a href="#slope-and-intercept" id="toc-slope-and-intercept" class="nav-link" data-scroll-target="#slope-and-intercept">Slope and intercept</a></li>
   <li><a href="#slope-and-intercept-easystandard-case" id="toc-slope-and-intercept-easystandard-case" class="nav-link" data-scroll-target="#slope-and-intercept-easystandard-case">Slope and intercept: easy/standard case</a></li>
   </ul>
@@ -490,7 +508,7 @@ window.Quarto = {
   <ul class="collapse">
 <li><a href="#working-with-logs" id="toc-working-with-logs" class="nav-link" data-scroll-target="#working-with-logs">Working with logs</a></li>
   <li><a href="#interpreting-the-slope" id="toc-interpreting-the-slope" class="nav-link" data-scroll-target="#interpreting-the-slope">Interpreting the slope</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a></li>
   <li><a href="#you-said-i-didnt-need-a-calculator" id="toc-you-said-i-didnt-need-a-calculator" class="nav-link" data-scroll-target="#you-said-i-didnt-need-a-calculator">You said I didn’t need a calculator!</a></li>
   <li><a href="#correlation-does-not-imply-causation" id="toc-correlation-does-not-imply-causation" class="nav-link" data-scroll-target="#correlation-does-not-imply-causation">Correlation does not imply causation</a></li>
   </ul>
@@ -504,7 +522,7 @@ window.Quarto = {
   <li><a href="#visualizing-residuals-cont." id="toc-visualizing-residuals-cont." class="nav-link" data-scroll-target="#visualizing-residuals-cont.">Visualizing residuals (cont.)</a></li>
   <li><a href="#visualizing-residuals-cont.-1" id="toc-visualizing-residuals-cont.-1" class="nav-link" data-scroll-target="#visualizing-residuals-cont.-1">Visualizing residuals (cont.)</a></li>
   <li><a href="#how-well-does-the-model-fit-r2" id="toc-how-well-does-the-model-fit-r2" class="nav-link" data-scroll-target="#how-well-does-the-model-fit-r2">How well does the model fit? <span class="math inline">\(R^2\)</span></a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
   <li><a href="#properties-of-least-squares-regression" id="toc-properties-of-least-squares-regression" class="nav-link" data-scroll-target="#properties-of-least-squares-regression">Properties of least squares regression</a></li>
   </ul>
 </li>
@@ -519,7 +537,7 @@ window.Quarto = {
   <li><a href="#not-looking-for" id="toc-not-looking-for" class="nav-link" data-scroll-target="#not-looking-for">Not looking for…</a></li>
   <li><a href="#not-looking-for-1" id="toc-not-looking-for-1" class="nav-link" data-scroll-target="#not-looking-for-1">Not looking for…</a></li>
   <li><a href="#not-looking-for-2" id="toc-not-looking-for-2" class="nav-link" data-scroll-target="#not-looking-for-2">Not looking for…</a></li>
-  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"></a></li>
   </ul>
 </li>
   <li>
@@ -594,7 +612,7 @@ window.Quarto = {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hairHg<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">lhairHg</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="goal-predict-mercury-from-assets" class="level2"><h2 class="anchored" data-anchor-id="goal-predict-mercury-from-assets">Goal: Predict mercury from assets</h2>
-<p><span class="math display">\[\widehat{y}_{i} = \widehat{\beta}_0 + \widehat{\beta}_1 \times x_{i}\]</span> Here <span class="math inline">\(y_i\)</span> represents log hair mercury for subject <span class="math inline">\(i\)</span>, and <span class="math inline">\(x_i\)</span> represents standardized household income.</p>
+<p><span class="math display">\[\widehat{y}_{i} = \widehat{\beta}_0 + \widehat{\beta}_1 \times x_{i}\]</span> Here <span class="math inline">\(y_i\)</span> represents log hair mercury for subject <span class="math inline">\(i\)</span>, and <span class="math inline">\(x_i\)</span> represents standardized household assets.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -603,8 +621,72 @@ window.Quarto = {
 </div>
 </div>
 </div>
+</section><section id="how-did-we-know-to-transform-using-the-log" class="level2"><h2 class="anchored" data-anchor-id="how-did-we-know-to-transform-using-the-log">How did we know to transform using the log?</h2>
+<div style="font-size:0.7em;">
+<p>In the previous notes, we saw that the distribution of Hg in hair had a strong right skew.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># lhairHg is the natural log of mercury in hair</span></span>
+<span><span class="co"># this code puts it back on the ppm scale</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mercury</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">lhairHg</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Mercury (ppm)"</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section><section id="assumptions-of-the-regression-model" class="level2"><h2 class="anchored" data-anchor-id="assumptions-of-the-regression-model">Assumptions of the Regression Model</h2>
+<p>The linear model actually does not require hair mercury itself to be approximately normal. Instead, it needs for the distribution of <span class="math inline">\(y\mid x\)</span>, the conditional distribution of hair mercury given all the predictor variables, to be aproximately normal. This is the same as saying that the errors in the model are approximately normally distributed.</p>
+<p>It’s pretty easy to use a histogram to check the distribution of <span class="math inline">\(y\)</span>, but how about the distribution of <span class="math inline">\(y \mid x\)</span>? That’s not terribly complicated once you know how to fit a regression model, and we will work through an example of how to check it in the modeling process.</p>
+</section><section id="are-household-assets-related-to-hair-mercury" class="level2"><h2 class="anchored" data-anchor-id="are-household-assets-related-to-hair-mercury">Are household assets related to hair mercury?</h2>
+<ul>
+<li>
+<strong>Response:</strong> hair mercury concentration, in ppm (<span class="math inline">\(y_i\)</span>), contained in the variable <code>hairHg</code>
+</li>
+<li>
+<strong>Explanatory variable:</strong> a household assets score (<span class="math inline">\(x_i\)</span>), contained in the variable <code>assets_sc</code>
+<ul>
+<li>A value of <strong>0</strong> on <code>assets_sc</code> means average assets in the dataset.</li>
+<li>A value of <strong>1</strong> means one standard deviation above that average.</li>
+</ul>
+</li>
+</ul>
+<p>What pattern do you expect to see?</p>
+</section><section id="look-at-the-data-first" class="level2"><h2 class="anchored" data-anchor-id="look-at-the-data-first">Look at the data first</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size:0.6em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mercury</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">assets_sc</span>, y <span class="op">=</span> <span class="va">hairHg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.15</span>, color <span class="op">=</span> <span class="st">"#285B78"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>              color <span class="op">=</span> <span class="st">"#8E2C90"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Hair mercury and household assets"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Household assets (standardized)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Hair mercury (ppm)"</span></span>
+<span>  <span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="question">
+<p>Does the line slope upward or downward? What does that tell us about the association?</p>
+</div>
 </section><section id="goal-predict-mercury-from-assets-1" class="level2"><h2 class="anchored" data-anchor-id="goal-predict-mercury-from-assets-1">Goal: Predict mercury from assets</h2>
-<p>The model itself is given by <span class="math display">\[y_i=\beta_0+\beta_1x_i+\varepsilon_i,\]</span> where <span class="math inline">\(\varepsilon_i\)</span> represents a Gaussian error term, which implies that <span class="math inline">\(y_i\)</span> itself follows a Gaussian distribution conditional on the predictor <span class="math inline">\(x_i\)</span>.</p>
+<p>The model itself is given by <span class="math display">\[y_i=\beta_0+\beta_1x_i+\varepsilon_i,\]</span> where <span class="math inline">\(\varepsilon_i\)</span> represents a Gaussian error term, which implies that <span class="math inline">\(y_i\)</span> itself (hair Hg) follows a Gaussian distribution conditional on the predictor <span class="math inline">\(x_i\)</span> (assets).</p>
 <p>The typical hypothesis of interest is <span class="math display">\[H_0:  \beta=0,\]</span> which corresponds to no (linear) relationship between the predictor <span class="math inline">\(x\)</span> and response <span class="math inline">\(y\)</span>, against the alternative <span class="math display">\[H_0: \beta \neq 0.\]</span></p>
 </section><section id="t-test-from-a-linear-model" class="level2"><h2 class="anchored" data-anchor-id="t-test-from-a-linear-model">
 <span class="math inline">\(t\)</span>-test from a linear model</h2>
@@ -621,26 +703,26 @@ H_A: \beta_1 \ne 0.
 \]</span></p>
 <p>The test statistic compares the estimated coefficient with its uncertainty:</p>
 <p><span class="math display">\[
-t = \frac{\widehat{\beta}_1}{\operatorname{SE}(\widehat{\beta}_1)}.
+t = \frac{\widehat{\beta}_1-0}{\operatorname{SE}(\widehat{\beta}_1)}.
 \]</span></p>
 <p>Under <span class="math inline">\(H_0\)</span>,</p>
 <p><span class="math display">\[
 T \sim t_{n-p},
-\]</span> where <span class="math inline">\(p\)</span> is the number of parameters in the mean specification of the model (here, <span class="math inline">\(p=2\)</span> as we have <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> in the mean).</p>
+\]</span> where <span class="math inline">\(p\)</span> is the number of parameters in the mean specification of the model (here, <span class="math inline">\(p=2\)</span> as we have <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> in the mean; <span class="math inline">\(n\)</span> is the number of observations used to fit the model).</p>
 <p>A large <span class="math inline">\(|t|\)</span>—and correspondingly small <span class="math inline">\(p\)</span>-value—provides evidence that <span class="math inline">\(X\)</span> is associated with <span class="math inline">\(Y\)</span>.</p>
 </div>
 </section><section id="section" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section"></h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/tidymodels.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../img/tidymodels.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:98.0%"></a></p>
+<figure class="figure"><p><a href="../img/tidymodels.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../img/tidymodels.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:98.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </section><section id="step-1-specify-model" class="level2"><h2 class="anchored" data-anchor-id="step-1-specify-model">Step 1: Specify model</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
@@ -650,7 +732,7 @@ T \sim t_{n-p},
 </section><section id="step-2-set-model-fitting-engine" class="level2"><h2 class="anchored" data-anchor-id="step-2-set-model-fitting-engine">Step 2: Set model fitting <em>engine</em>
 </h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="co"># lm: linear model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Linear Regression Model Specification (regression)
@@ -661,19 +743,19 @@ T \sim t_{n-p},
 </section><section id="step-3-fit-model-estimate-parameters" class="level2"><h2 class="anchored" data-anchor-id="step-3-fit-model-estimate-parameters">Step 3: Fit model &amp; estimate parameters</h2>
 <p>… using <strong>formula syntax</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">assets_sc</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">hairHg</span> <span class="op">~</span> <span class="va">assets_sc</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; parsnip model object
 #&gt; 
 #&gt; 
 #&gt; Call:
-#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)
+#&gt; stats::lm(formula = hairHg ~ assets_sc, data = data)
 #&gt; 
 #&gt; Coefficients:
 #&gt; (Intercept)    assets_sc  
-#&gt;      0.2795      -0.3577</code></pre>
+#&gt;      2.3001      -0.8905</code></pre>
 </div>
 </div>
 </section><section id="a-closer-look-at-model-output" class="level2"><h2 class="anchored" data-anchor-id="a-closer-look-at-model-output">A closer look at model output</h2>
@@ -683,42 +765,289 @@ T \sim t_{n-p},
 #&gt; 
 #&gt; 
 #&gt; Call:
-#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)
+#&gt; stats::lm(formula = hairHg ~ assets_sc, data = data)
 #&gt; 
 #&gt; Coefficients:
 #&gt; (Intercept)    assets_sc  
-#&gt;      0.2795      -0.3577</code></pre>
+#&gt;      2.3001      -0.8905</code></pre>
 </div>
 </div>
 <div class="large">
-<p><span class="math display">\[\widehat{y}_{i} = 0.2795 - 0.3577 \times x_{i}\]</span></p>
+<p><span class="math display">\[\widehat{y}_{i} = 2.30 - 0.89 \times x_{i}\]</span></p>
+<p><span class="math display">\[
+\widehat{\text{hairHg}}_i
+  = 2.30 - 0.89\,\text{assets\_sc}_i
+\]</span></p>
 </div>
 </section><section id="a-tidy-look-at-model-output" class="level2"><h2 class="anchored" data-anchor-id="a-tidy-look-at-model-output">A tidy look at model output</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">assets_sc</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">hairHg</span> <span class="op">~</span> <span class="va">assets_sc</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">tidy</span><span class="op">(</span>conf.int<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 2 × 7
-#&gt;   term   estimate std.error statistic  p.value conf.low conf.high
-#&gt;   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-#&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321
-#&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315</code></pre>
+#&gt;   term  estimate std.error statistic   p.value conf.low conf.high
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 
+#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776</code></pre>
 </div>
 </div>
 <div style="font-size:0.7em;">
 <p>The key quantity here is the slope for assets, which represents the relationship between household assets and hair mercury. The estimate and standard error provided in the output are used to evaluate the hypothesis <span class="math inline">\(H_0: \beta_1=0\)</span>, which states that there is no (linear) relationship between assets and mercury. The p-value for this hypothesis test is given by the p.value column for the asset row; the statistic column is calculated by dividing the estimate column entries by their standard errors. We have to do more digging to get the right degrees of freedom for the test, though.</p>
-<p>We can also look at the 95% confidence interval for <span class="math inline">\(\beta_1\)</span>, which is given here by <span class="math inline">\((-0.40,-0.32)\)</span> – because it does not contain the null value 0, we can say there is evidence of a relationship between assets and hair mercury.</p>
+</div>
+</section><section id="a-tidy-look-at-model-output-1" class="level2"><h2 class="anchored" data-anchor-id="a-tidy-look-at-model-output-1">A tidy look at model output</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">hairHg</span> <span class="op">~</span> <span class="va">assets_sc</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">tidy</span><span class="op">(</span>conf.int<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 2 × 7
+#&gt;   term  estimate std.error statistic   p.value conf.low conf.high
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 
+#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776</code></pre>
+</div>
+</div>
+<div style="font-size:0.7em;">
+<p>We can also look at the 95% confidence interval for <span class="math inline">\(\beta_1\)</span>, which is given here by <span class="math inline">\((-1.01,-0.78)\)</span> – because it does not contain the null value 0, we can say there is evidence of a relationship between assets and hair mercury.</p>
 </div>
 </section><section id="a-closer-look-at-model-output-1" class="level2"><h2 class="anchored" data-anchor-id="a-closer-look-at-model-output-1">A closer look at model output</h2>
 <div style="font-size:0.7em;">
 <p>The tidy output sweeps a few quantities under the rug, but we can tease them out using the glance function from <code>broom</code> instead.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>Hgfit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> <span class="co">#naming my model! remember for later!</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">fit</span>(hairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
+<span id="cb15-4"><a href="#cb15-4"></a>Hgfit <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 2 × 7
+#&gt;   term  estimate std.error statistic   p.value conf.low conf.high
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 
+#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>Hgfit <span class="sc">%&gt;%</span> <span class="fu">glance</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">width =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 1 × 12
+#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik
+#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1    0.0916        0.0912  2.77      232. 6.68e-50     1 -5605.
+#&gt;      AIC    BIC deviance df.residual  nobs
+#&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+#&gt; 1 11217. 11234.   17623.        2298  2300</code></pre>
+</div>
+</div>
+<p>Here we see the <span class="math inline">\(df=n-p\)</span> for the t-test in the df.residual column. nobs contains the number of observations used in model fitting. So <span class="math inline">\(n-p=2300-2=2298\)</span>.</p>
+</div>
+</section><section id="a-closer-look-at-model-output-2" class="level2"><h2 class="anchored" data-anchor-id="a-closer-look-at-model-output-2">A closer look at model output</h2>
+<div style="font-size:0.7em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Hgfit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">tidy</span><span class="op">(</span>conf.int<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 2 × 7
+#&gt;   term  estimate std.error statistic   p.value conf.low conf.high
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 
+#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776</code></pre>
+</div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Hgfit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">glance</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 1 × 12
+#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik
+#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1    0.0916        0.0912  2.77      232. 6.68e-50     1 -5605.
+#&gt;      AIC    BIC deviance df.residual  nobs
+#&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+#&gt; 1 11217. 11234.   17623.        2298  2300</code></pre>
+</div>
+</div>
+<p>Note a different statistic is presented here – it is the square of the statistic from tidy (there was some rounding). If you take a regression course, you will learn this statistic, the square of the t-statistic, follows an <span class="math inline">\(F\)</span> distribution, which is widely used in linear models.</p>
+</div>
+</section><section id="what-does-the-slope-mean" class="level2"><h2 class="anchored" data-anchor-id="what-does-the-slope-mean">What does the slope mean?</h2>
+<p><span class="math display">\[
+\widehat{\text{hairHg}}_i
+  = 2.30 - 0.89\,\text{assets\_sc}_i
+\]</span></p>
+<p>Here <code>hairHg</code> is in <strong>ppm</strong>, so predicted values and differences in predicted values are also in <strong>ppm</strong>.</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Consider two asset scores that differ by <strong>one standard deviation</strong>.</li>
+<li>The person with the higher asset score has a predicted hair mercury concentration <strong>0.89 ppm lower</strong>, on average.</li>
+<li>This is an association. The fitted line alone cannot tell us whether assets cause the difference.</li>
+</ul>
+</div>
+</section><section id="what-does-the-intercept-mean" class="level2"><h2 class="anchored" data-anchor-id="what-does-the-intercept-mean">What does the intercept mean?</h2>
+<p><span class="math display">\[
+\widehat{\text{hairHg}}_i
+  = 2.30 - 0.89\,\text{assets\_sc}_i
+\]</span></p>
+<div class="incremental">
+<ul class="incremental">
+<li>
+<code>assets_sc = 0</code> means <strong>average household assets</strong>.</li>
+<li>At that asset score, the predicted hair mercury concentration is <strong>2.30 ppm</strong>.</li>
+<li>At <code>assets_sc = 1</code>, the predicted concentration is <span class="math inline">\(2.30 - 0.89 = 1.41\)</span> ppm.</li>
+</ul>
+</div>
+<div class="question">
+<p>What would the line predict at <code>assets_sc = -1</code>?</p>
+</div>
+</section><section id="what-does-the-model-output-add" class="level2"><h2 class="anchored" data-anchor-id="what-does-the-model-output-add">What does the model output add?</h2>
+<div style="font-size:0.8em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Hgfit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">tidy</span><span class="op">(</span>conf.int<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 2 × 7
+#&gt;   term  estimate std.error statistic   p.value conf.low conf.high
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 
+#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776</code></pre>
+</div>
+</div>
+<p>For the asset slope, look for:</p>
+<ul>
+<li>
+<strong>estimate:</strong> the fitted change in ppm for a one-standard-deviation increase in assets;</li>
+<li>
+<strong>conf.low / conf.high:</strong> endpoints of a 95% confidence interval for that slope;</li>
+<li>
+<strong>p.value:</strong> a test of <span class="math inline">\(H_0:\beta_1 = 0\)</span> against <span class="math inline">\(H_A:\beta_1 \ne 0\)</span>.</li>
+</ul>
+<p><strong>Before relying on the usual confidence interval and test, check the model’s assumptions.</strong></p>
+</div>
+</section><section id="can-we-trust-the-model-check-the-residuals" class="level2"><h2 class="anchored" data-anchor-id="can-we-trust-the-model-check-the-residuals">Can we trust the model? Check the residuals!</h2>
+<div style="font-size:0.8em;">
+<p>We saved the model as the object <code>Hgfit</code> on a prior slide. Tidymodels is going to make it very easy for me to <code>join</code> information from the fitted models, including the predicted mercury levels (<code>.fitted</code>) and the residuals (<code>.resid</code>), to my original data, using the <code><a href="https://rdrr.io/r/base/append.html">append()</a></code> function. Then, to look at how well the model does, I create a plot with the predicted mercury levels on the x-axis and the residuals on the y-axis, and I hope to see a lot of random scatter centered around the value 0.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">augment</span><span class="op">(</span><span class="va">Hgfit</span><span class="op">$</span><span class="va">fit</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.fitted</span>, y <span class="op">=</span> <span class="va">.resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.18</span>, color <span class="op">=</span> <span class="st">"#285B78"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"gray40"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Predicted hair mercury (ppm)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Residual (ppm)"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Residuals from the model in ppm"</span></span>
+<span>  <span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-15-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-15-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="question">
+<p>Is the vertical spread of the residuals about the same across fitted values?</p>
+</div>
+</section><section id="are-the-residuals-approximately-normal" class="level2"><h2 class="anchored" data-anchor-id="are-the-residuals-approximately-normal">Are the residuals approximately normal?</h2>
+<div style="font-size:0.8em;">
+<p>We can also check a Q-Q (quantile-quantile) plot, which compares the model’s residuals with values expected from a normal distribution, by plotting the quantiles of the residuals in our sample against the quantiles of a normal distribution. Points roughly following the line suggest approximate normality; clear curves or departures at the ends suggest the residuals are not normally distributed. What do you think here?</p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size:0.7em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">augment</span><span class="op">(</span><span class="va">Hgfit</span><span class="op">$</span><span class="va">fit</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># sample denotes the "sample quantiles"</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>sample <span class="op">=</span> <span class="va">.resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#285B78"</span>,</span>
+<span>          alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#8E2C90"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Theoretical normal quantiles"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Residuals (ppm)"</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="tradeoffs-easy-interpretation-bad-model" class="level2"><h2 class="anchored" data-anchor-id="tradeoffs-easy-interpretation-bad-model">Tradeoffs: easy interpretation, bad model</h2>
+<ul>
+<li>On the <strong>ppm scale</strong>, the slope and intercept are easy to explain</li>
+<li>Mercury has a strong right tail, and the spread of residuals changes across fitted values</li>
+<li>That makes the usual confidence interval and <span class="math inline">\(t\)</span> test for this raw-scale model not trustworthy</li>
+<li>A different scale for the response may give a more suitable model</li>
+</ul></section><section id="a-look-ahead-a-transformed-response" class="level2"><h2 class="anchored" data-anchor-id="a-look-ahead-a-transformed-response">A look ahead: a transformed response</h2>
+<p>Let’s compare the residuals from a model with a log (ln) transformation. The log transformation is often useful when we have right-skewed data.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lHgfit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">fit</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">assets_sc</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span></span>
-<span><span class="va">fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">tidy</span><span class="op">(</span>conf.int<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">augment</span><span class="op">(</span><span class="va">lHgfit</span><span class="op">$</span><span class="va">fit</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.fitted</span>, y <span class="op">=</span> <span class="va">.resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.18</span>, color <span class="op">=</span> <span class="st">"#8E2C90"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"gray40"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Predicted log(hair mercury)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Residual on the log scale"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Residuals after fitting log(hair mercury)"</span></span>
+<span>  <span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="section-2" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-2"></h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="question">
+<p>How does the spread compare with the previous residual plot?</p>
+</div>
+</section><section id="checking-the-new-q-q-plot" class="level2"><h2 class="anchored" data-anchor-id="checking-the-new-q-q-plot">Checking the new Q-Q plot</h2>
+<p>Does the Q-Q plot look better after the log transformation?</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size:0.7em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">augment</span><span class="op">(</span><span class="va">lHgfit</span><span class="op">$</span><span class="va">fit</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># sample denotes the "sample quantiles"</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>sample <span class="op">=</span> <span class="va">.resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#285B78"</span>,</span>
+<span>          alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#8E2C90"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Theoretical normal quantiles"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Residuals (ppm)"</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="takeaways" class="level2"><h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
+<ol type="1">
+<li>A slope describes the change in a <strong>predicted response</strong> for a one-unit increase in the explanatory variable.</li>
+<li>An intercept is the prediction when the explanatory variable equals <strong>zero</strong>; here, zero means <em>average assets</em>.</li>
+<li>Model checking tells us whether the simple line is adequate for inference.</li>
+</ol>
+<p><strong>Next:</strong> how a log transformation changes interpretation</p>
+</section><section id="working-with-the-log-transformed-response" class="level2"><h2 class="anchored" data-anchor-id="working-with-the-log-transformed-response">Working with the log transformed response</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lHgfit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">tidy</span><span class="op">(</span>conf.int<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 2 × 7
 #&gt;   term   estimate std.error statistic  p.value conf.low conf.high
@@ -726,7 +1055,7 @@ T \sim t_{n-p},
 #&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321
 #&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315</code></pre>
 </div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">glance</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lHgfit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">glance</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 1 × 12
 #&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik
@@ -736,9 +1065,6 @@ T \sim t_{n-p},
 #&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
 #&gt; 1 6638. 6655.    2407.        2298  2300</code></pre>
 </div>
-</div>
-<p>Here we see the <span class="math inline">\(df=n-p\)</span> for the t-test in the df.residual column. nobs contains the number of observations used in model fitting.</p>
-<p>Note a different statistic is presented here – it is the square of the statistic from tidy (there was some rounding). If you take a regression course, you will learn this statistic, the square of the t-statistic, follows an <span class="math inline">\(F\)</span> distribution, which is widely used in linear models.</p>
 </div>
 </section><section id="slope-and-intercept" class="level2"><h2 class="anchored" data-anchor-id="slope-and-intercept">Slope and intercept</h2>
 <div class="large">
@@ -792,7 +1118,7 @@ T \sim t_{n-p},
 </blockquote>
 </div>
 </div>
-</section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
+</section><section id="section-3" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-3"></h2>
 <div style="font-size:0.75em;">
 <blockquote class="blockquote">
 <p>For each additional increase in scaled assets, hair mercury content is expected to be <code>___</code> , on average, by a factor of <code>___</code>.</p>
@@ -814,7 +1140,7 @@ T \sim t_{n-p},
 </section><section id="you-said-i-didnt-need-a-calculator" class="level2"><h2 class="anchored" data-anchor-id="you-said-i-didnt-need-a-calculator">You said I didn’t need a calculator!</h2>
 <p>Yup, R can do this for you!</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">fit</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">assets_sc</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span></span>
 <span><span class="va">fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">tidy</span><span class="op">(</span>exponentiate<span class="op">=</span><span class="cn">TRUE</span>, conf.int<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -832,7 +1158,7 @@ T \sim t_{n-p},
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/cell_phones.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../img/cell_phones.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></a></p>
+<figure class="figure"><p><a href="../img/cell_phones.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../img/cell_phones.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -870,7 +1196,7 @@ T \sim t_{n-p},
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/least-squares-illustration-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w08-02-fitting-interpretation_files/figure-revealjs/least-squares-illustration-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/least-squares-illustration-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w08-02-fitting-interpretation_files/figure-revealjs/least-squares-illustration-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -879,7 +1205,7 @@ T \sim t_{n-p},
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -888,7 +1214,7 @@ T \sim t_{n-p},
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -897,7 +1223,7 @@ T \sim t_{n-p},
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="w08-02-fitting-interpretation_files/figure-revealjs/vis-res-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -938,10 +1264,10 @@ R^2 = r^2
 \]</span></p>
 </div>
 </div>
-</section><section id="section-2" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-2"></h2>
+</section><section id="section-4" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-4"></h2>
 <p>We can get <span class="math inline">\(R^2\)</span> from the glance function.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">fit</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">assets_sc</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span></span>
 <span><span class="va">fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">glance</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1006,7 +1332,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/residuals-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="w08-02-fitting-interpretation_files/figure-revealjs/residuals-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/residuals-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="w08-02-fitting-interpretation_files/figure-revealjs/residuals-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1014,19 +1340,19 @@ R^2 = r^2
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>hg_asset_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">fit</span>(hairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
-<span id="cb19-4"><a href="#cb19-4"></a>hg_asset_fit_aug <span class="ot">&lt;-</span> <span class="fu">augment</span>(hg_asset_fit<span class="sc">$</span>fit)</span>
-<span id="cb19-5"><a href="#cb19-5"></a><span class="fu">ggplot</span>(hg_asset_fit_aug, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"gray"</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Predicted mercury (ppm)"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>hg_asset_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">fit</span>(hairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
+<span id="cb37-4"><a href="#cb37-4"></a>hg_asset_fit_aug <span class="ot">&lt;-</span> <span class="fu">augment</span>(hg_asset_fit<span class="sc">$</span>fit)</span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="fu">ggplot</span>(hg_asset_fit_aug, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="#cb37-7"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"gray"</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb37-8"><a href="#cb37-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Predicted mercury (ppm)"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hg_asset_fit_aug</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hg_asset_fit_aug</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 2,300 × 9
 #&gt;   .rownames hairHg assets_sc[,1] .fitted .resid     .hat .sigma
@@ -1047,7 +1373,7 @@ R^2 = r^2
 </section><section id="more-on-augment" class="level2"><h2 class="anchored" data-anchor-id="more-on-augment">More on <code>augment()</code>
 </h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">hg_asset_fit_aug</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">hg_asset_fit_aug</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Rows: 2,300
 #&gt; Columns: 9
@@ -1070,7 +1396,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-29-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-29-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1082,7 +1408,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-15-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-15-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-30-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-30-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1095,7 +1421,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-31-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-31-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1108,7 +1434,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-32-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-32-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1120,19 +1446,19 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-33-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-33-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="section-3" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-3"></h2>
+</section><section id="section-5" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-5"></h2>
 <div class="question">
 <p>What patterns does the residual plot reveal that should make us question whether a linear model is a good fit for modeling the relationship between mercury (ppm) and assets?</p>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-34-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-34-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1142,7 +1468,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-20-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-35-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-35-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1151,7 +1477,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-36-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-36-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1166,7 +1492,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-22-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-37-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-37-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1175,7 +1501,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-23-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-38-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-38-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1192,7 +1518,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-24-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-39-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-39-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1201,7 +1527,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-25-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<figure class="figure"><p><a href="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-40-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-40-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1249,7 +1575,7 @@ R^2 = r^2
 </h2>
 <p>In some cases the value of the response variable might be 0, and</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] -Inf</code></pre>
 </div>
@@ -1257,7 +1583,7 @@ R^2 = r^2
 <div class="fragment">
 <p>The trick is to add a very small number to the value of the response variable for these cases so that the <code>log</code> function can still be applied:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fl">0</span> <span class="op">+</span> <span class="fl">0.00001</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fl">0</span> <span class="op">+</span> <span class="fl">0.00001</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] -11.51293</code></pre>
 </div>

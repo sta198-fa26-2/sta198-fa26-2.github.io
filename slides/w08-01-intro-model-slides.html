@@ -325,19 +325,20 @@ r = \frac{1}{n-1}
 </section><section id="mercury-and-assets" class="slide level2"><h2>Mercury and Assets</h2>
 <p>Are wealthier individuals less likely to have high mercury exposures?</p>
 <p>Today we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country).</p>
-<p>Because the scale of this variable is not easily interpreted, we will convert it to standard deviation units by subtracting the means and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase.</p>
+<p>Because the scale of this variable is not easily interpreted, we will convert it to standard deviation units by subtracting the mean and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase.</p>
 </section><section id="data-manipulation" class="slide level2"><h2>Data Manipulation</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>mercury <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"../data/mercury_reg.csv"</span>)</span>
 <span id="cb2-2"><a></a>mercury <span class="ot">&lt;-</span></span>
 <span id="cb2-3"><a></a>  mercury <span class="sc">%&gt;%</span></span>
-<span id="cb2-4"><a></a>  <span class="co"># scale() subtracts the mean and divides by the SD to make the units "standard deviations" like a z-score</span></span>
-<span id="cb2-5"><a></a>  <span class="fu">mutate</span>(<span class="at">assets_sc=</span><span class="fu">scale</span>(SESassets)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-6"><a></a>  <span class="co">#another variable we may use later</span></span>
-<span id="cb2-7"><a></a>  <span class="fu">mutate</span>(<span class="at">form_min_sc=</span><span class="fu">scale</span>(FM_buffer)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-8"><a></a>  <span class="co">#so I don't have to remember coding</span></span>
-<span id="cb2-9"><a></a>  <span class="fu">mutate</span>(sex,<span class="at">sex_cat=</span><span class="fu">ifelse</span>(sex<span class="sc">==</span><span class="dv">1</span>,<span class="st">"Male"</span>,<span class="st">"Female"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-10"><a></a>  <span class="fu">mutate</span>(native,<span class="at">native_cat=</span><span class="fu">ifelse</span>(native<span class="sc">==</span><span class="dv">1</span>,<span class="st">"Native"</span>,<span class="st">"Non-native"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a></a>  <span class="co"># scale() subtracts the mean and divides by the SD to make </span></span>
+<span id="cb2-5"><a></a>  <span class="co">#the units "standard deviations" like a z-score</span></span>
+<span id="cb2-6"><a></a>  <span class="fu">mutate</span>(<span class="at">assets_sc=</span><span class="fu">scale</span>(SESassets)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a></a>  <span class="co">#another variable we may use later</span></span>
+<span id="cb2-8"><a></a>  <span class="fu">mutate</span>(<span class="at">form_min_sc=</span><span class="fu">scale</span>(FM_buffer)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a></a>  <span class="co">#so I don't have to remember coding</span></span>
+<span id="cb2-10"><a></a>  <span class="fu">mutate</span>(sex,<span class="at">sex_cat=</span><span class="fu">ifelse</span>(sex<span class="sc">==</span><span class="dv">1</span>,<span class="st">"Male"</span>,<span class="st">"Female"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a></a>  <span class="fu">mutate</span>(native,<span class="at">native_cat=</span><span class="fu">ifelse</span>(native<span class="sc">==</span><span class="dv">1</span>,<span class="st">"Native"</span>,<span class="st">"Non-native"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="section-1" class="slide level2" data-background-color="white"><h2></h2>
 <p>The distribution of hair mercury in ppm is skewed.</p>
@@ -371,6 +372,7 @@ r = \frac{1}{n-1}
 </li>
 <li>A function is a mathematical concept: the relationship between an output and one or more inputs
 <ul>
+<li>Each input has only one output</li>
 <li>Plug in the inputs and receive back the output</li>
 <li>Example: The formula <span class="math inline">\(y = 3x + 7\)</span> is a function with input <span class="math inline">\(x\)</span> and output <span class="math inline">\(y\)</span>. If <span class="math inline">\(x\)</span> is <span class="math inline">\(5\)</span>, <span class="math inline">\(y\)</span> is <span class="math inline">\(22\)</span>, <span class="math inline">\(y = 3 \times 5 + 7 = 22\)</span>
 </li>
@@ -478,6 +480,7 @@ r = \frac{1}{n-1}
 </div>
 </div>
 </section><section id="vocabulary" class="slide level2"><h2>Vocabulary</h2>
+<div style="font-size:0.8em;">
 <ul>
 <li><p><strong>Response variable:</strong> Variable whose behavior or variation you are trying to understand, on the y-axis, denoted <span class="math inline">\(y\)</span></p></li>
 <li><p><strong>Explanatory variables:</strong> Other variables that you want to use to explain the variation in the response, on the x-axis, denoted <span class="math inline">\(x\)</span></p></li>
@@ -495,7 +498,9 @@ r = \frac{1}{n-1}
 <li><p>Tells how far above/below the expected value each case is</p></li>
 </ul>
 </li>
-</ul></section><section id="residuals-y-haty" class="slide level2"><h2>Residuals <span class="math inline">\(y-\hat{y}\)</span>
+</ul>
+</div>
+</section><section id="residuals-y-haty" class="slide level2"><h2>Residuals <span class="math inline">\(y-\hat{y}\)</span>
 </h2>
 <div class="panel-tabset">
 <ul id="tabset-4" class="panel-tabset-tabby">
@@ -540,7 +545,7 @@ r = \frac{1}{n-1}
 </div>
 </div>
 </div>
-<div style="font-size:0.7em;">
+<div style="font-size:0.6em;">
 <p>If <span class="math inline">\(y-\hat{y}\)</span> is positive, the observed value <span class="math inline">\(y\)</span> is higher than what the model predicted, and if <span class="math inline">\(y-\hat{y}\)</span> is negative, the observed data was lower than what was predicted.</p>
 </div>
 </section><section id="multiple-explanatory-variables" class="slide level2"><h2>Multiple explanatory variables</h2>
@@ -615,8 +620,9 @@ r = \frac{1}{n-1}
 </div>
 </div>
 <div id="tabset-6-2">
+<div style="font-size:0.5em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mercury, <span class="fu">aes</span>(<span class="at">x =</span> assets_sc, <span class="at">y =</span> lhairHg, <span class="at">color =</span> native_cat)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mercury, <span class="fu">aes</span>(<span class="at">x =</span> assets_sc, <span class="at">y =</span> lhairHg, <span class="at">color =</span> native_cat)) <span class="sc">+</span></span>
 <span id="cb11-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
 <span id="cb11-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
 <span id="cb11-4"><a></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
@@ -629,6 +635,7 @@ r = \frac{1}{n-1}
 <span id="cb11-11"><a></a>    <span class="at">color =</span> <span class="cn">NULL</span></span>
 <span id="cb11-12"><a></a>  )  <span class="sc">+</span></span>
 <span id="cb11-13"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#E48957"</span>, <span class="st">"#071381"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </div>
 </div>

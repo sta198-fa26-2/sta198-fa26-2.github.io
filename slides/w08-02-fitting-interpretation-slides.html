@@ -238,10 +238,73 @@ Amy Herring
 <span id="cb1-14"><a></a>  <span class="fu">mutate</span>(<span class="at">hairHg=</span><span class="fu">exp</span>(lhairHg))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="goal-predict-mercury-from-assets" class="slide level2"><h2>Goal: Predict mercury from assets</h2>
-<p><span class="math display">\[\widehat{y}_{i} = \widehat{\beta}_0 + \widehat{\beta}_1 \times x_{i}\]</span> Here <span class="math inline">\(y_i\)</span> represents log hair mercury for subject <span class="math inline">\(i\)</span>, and <span class="math inline">\(x_i\)</span> represents standardized household income.</p>
+<p><span class="math display">\[\widehat{y}_{i} = \widehat{\beta}_0 + \widehat{\beta}_1 \times x_{i}\]</span> Here <span class="math inline">\(y_i\)</span> represents log hair mercury for subject <span class="math inline">\(i\)</span>, and <span class="math inline">\(x_i\)</span> represents standardized household assets.</p>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/hg_asset_plot-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="goal-predict-mercury-from-assets-1" class="slide level2"><h2>Goal: Predict mercury from assets</h2>
-<p>The model itself is given by <span class="math display">\[y_i=\beta_0+\beta_1x_i+\varepsilon_i,\]</span> where <span class="math inline">\(\varepsilon_i\)</span> represents a Gaussian error term, which implies that <span class="math inline">\(y_i\)</span> itself follows a Gaussian distribution conditional on the predictor <span class="math inline">\(x_i\)</span>.</p>
+<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/hg_asset_plot-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="how-did-we-know-to-transform-using-the-log" class="slide level2"><h2>How did we know to transform using the log?</h2>
+<div style="font-size:0.7em;">
+<p>In the previous notes, we saw that the distribution of Hg in hair had a strong right skew.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># lhairHg is the natural log of mercury in hair</span></span>
+<span id="cb2-2"><a></a><span class="co"># this code puts it back on the ppm scale</span></span>
+<span id="cb2-3"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mercury, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">exp</span>(lhairHg))) <span class="sc">+</span></span>
+<span id="cb2-4"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb2-5"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mercury (ppm)"</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section><section id="assumptions-of-the-regression-model" class="slide level2"><h2>Assumptions of the Regression Model</h2>
+<p>The linear model actually does not require hair mercury itself to be approximately normal. Instead, it needs for the distribution of <span class="math inline">\(y\mid x\)</span>, the conditional distribution of hair mercury given all the predictor variables, to be aproximately normal. This is the same as saying that the errors in the model are approximately normally distributed.</p>
+<p>It’s pretty easy to use a histogram to check the distribution of <span class="math inline">\(y\)</span>, but how about the distribution of <span class="math inline">\(y \mid x\)</span>? That’s not terribly complicated once you know how to fit a regression model, and we will work through an example of how to check it in the modeling process.</p>
+</section><section id="are-household-assets-related-to-hair-mercury" class="slide level2"><h2>Are household assets related to hair mercury?</h2>
+<ul>
+<li>
+<strong>Response:</strong> hair mercury concentration, in ppm (<span class="math inline">\(y_i\)</span>), contained in the variable <code>hairHg</code>
+</li>
+<li>
+<strong>Explanatory variable:</strong> a household assets score (<span class="math inline">\(x_i\)</span>), contained in the variable <code>assets_sc</code>
+<ul>
+<li>A value of <strong>0</strong> on <code>assets_sc</code> means average assets in the dataset.</li>
+<li>A value of <strong>1</strong> means one standard deviation above that average.</li>
+</ul>
+</li>
+</ul>
+<p>What pattern do you expect to see?</p>
+</section><section id="look-at-the-data-first" class="slide level2"><h2>Look at the data first</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size:0.6em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">ggplot</span>(mercury, <span class="fu">aes</span>(<span class="at">x =</span> assets_sc, <span class="at">y =</span> hairHg)) <span class="sc">+</span></span>
+<span id="cb3-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">color =</span> <span class="st">"#285B78"</span>) <span class="sc">+</span></span>
+<span id="cb3-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb3-4"><a></a>              <span class="at">color =</span> <span class="st">"#8E2C90"</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-6"><a></a>    <span class="at">title =</span> <span class="st">"Hair mercury and household assets"</span>,</span>
+<span id="cb3-7"><a></a>    <span class="at">x =</span> <span class="st">"Household assets (standardized)"</span>,</span>
+<span id="cb3-8"><a></a>    <span class="at">y =</span> <span class="st">"Hair mercury (ppm)"</span></span>
+<span id="cb3-9"><a></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="question">
+<p>Does the line slope upward or downward? What does that tell us about the association?</p>
+</div>
+</section><section id="goal-predict-mercury-from-assets-1" class="slide level2"><h2>Goal: Predict mercury from assets</h2>
+<p>The model itself is given by <span class="math display">\[y_i=\beta_0+\beta_1x_i+\varepsilon_i,\]</span> where <span class="math inline">\(\varepsilon_i\)</span> represents a Gaussian error term, which implies that <span class="math inline">\(y_i\)</span> itself (hair Hg) follows a Gaussian distribution conditional on the predictor <span class="math inline">\(x_i\)</span> (assets).</p>
 <p>The typical hypothesis of interest is <span class="math display">\[H_0:  \beta=0,\]</span> which corresponds to no (linear) relationship between the predictor <span class="math inline">\(x\)</span> and response <span class="math inline">\(y\)</span>, against the alternative <span class="math display">\[H_0: \beta \neq 0.\]</span></p>
 </section><section id="t-test-from-a-linear-model" class="slide level2"><h2>
 <span class="math inline">\(t\)</span>-test from a linear model</h2>
@@ -258,19 +321,19 @@ H_A: \beta_1 \ne 0.
 \]</span></p>
 <p>The test statistic compares the estimated coefficient with its uncertainty:</p>
 <p><span class="math display">\[
-t = \frac{\widehat{\beta}_1}{\operatorname{SE}(\widehat{\beta}_1)}.
+t = \frac{\widehat{\beta}_1-0}{\operatorname{SE}(\widehat{\beta}_1)}.
 \]</span></p>
 <p>Under <span class="math inline">\(H_0\)</span>,</p>
 <p><span class="math display">\[
 T \sim t_{n-p},
-\]</span> where <span class="math inline">\(p\)</span> is the number of parameters in the mean specification of the model (here, <span class="math inline">\(p=2\)</span> as we have <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> in the mean).</p>
+\]</span> where <span class="math inline">\(p\)</span> is the number of parameters in the mean specification of the model (here, <span class="math inline">\(p=2\)</span> as we have <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> in the mean; <span class="math inline">\(n\)</span> is the number of observations used to fit the model).</p>
 <p>A large <span class="math inline">\(|t|\)</span>—and correspondingly small <span class="math inline">\(p\)</span>-value—provides evidence that <span class="math inline">\(X\)</span> is associated with <span class="math inline">\(Y\)</span>.</p>
 </div>
 </section><section id="section" class="slide level2" data-background-color="white"><h2></h2>
 
 <img data-src="../img/tidymodels.png" class="quarto-figure quarto-figure-center r-stretch" style="width:98.0%"></section><section id="step-1-specify-model" class="slide level2"><h2>Step 1: Specify model</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">linear_reg</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">linear_reg</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
@@ -280,8 +343,8 @@ T \sim t_{n-p},
 </section><section id="step-2-set-model-fitting-engine" class="slide level2"><h2>Step 2: Set model fitting <em>engine</em>
 </h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="co"># lm: linear model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="co"># lm: linear model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Linear Regression Model Specification (regression)
 #&gt; 
@@ -291,19 +354,19 @@ T \sim t_{n-p},
 </section><section id="step-3-fit-model-estimate-parameters" class="slide level2"><h2>Step 3: Fit model &amp; estimate parameters</h2>
 <p>… using <strong>formula syntax</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a></a>  <span class="fu">fit</span>(hairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; parsnip model object
 #&gt; 
 #&gt; 
 #&gt; Call:
-#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)
+#&gt; stats::lm(formula = hairHg ~ assets_sc, data = data)
 #&gt; 
 #&gt; Coefficients:
 #&gt; (Intercept)    assets_sc  
-#&gt;      0.2795      -0.3577</code></pre>
+#&gt;      2.3001      -0.8905</code></pre>
 </div>
 </div>
 </section><section id="a-closer-look-at-model-output" class="slide level2"><h2>A closer look at model output</h2>
@@ -313,42 +376,268 @@ T \sim t_{n-p},
 #&gt; 
 #&gt; 
 #&gt; Call:
-#&gt; stats::lm(formula = lhairHg ~ assets_sc, data = data)
+#&gt; stats::lm(formula = hairHg ~ assets_sc, data = data)
 #&gt; 
 #&gt; Coefficients:
 #&gt; (Intercept)    assets_sc  
-#&gt;      0.2795      -0.3577</code></pre>
+#&gt;      2.3001      -0.8905</code></pre>
 </div>
 </div>
 <div class="large">
-<p><span class="math display">\[\widehat{y}_{i} = 0.2795 - 0.3577 \times x_{i}\]</span></p>
+<p><span class="math display">\[\widehat{y}_{i} = 2.30 - 0.89 \times x_{i}\]</span></p>
+<p><span class="math display">\[
+\widehat{\text{hairHg}}_i
+  = 2.30 - 0.89\,\text{assets\_sc}_i
+\]</span></p>
 </div>
 </section><section id="a-tidy-look-at-model-output" class="slide level2"><h2>A tidy look at model output</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a></a>  <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a></a>  <span class="fu">fit</span>(hairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a></a>  <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 2 × 7
-#&gt;   term   estimate std.error statistic  p.value conf.low conf.high
-#&gt;   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-#&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321
-#&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315</code></pre>
+#&gt;   term  estimate std.error statistic   p.value conf.low conf.high
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 
+#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776</code></pre>
 </div>
 </div>
 <div style="font-size:0.7em;">
 <p>The key quantity here is the slope for assets, which represents the relationship between household assets and hair mercury. The estimate and standard error provided in the output are used to evaluate the hypothesis <span class="math inline">\(H_0: \beta_1=0\)</span>, which states that there is no (linear) relationship between assets and mercury. The p-value for this hypothesis test is given by the p.value column for the asset row; the statistic column is calculated by dividing the estimate column entries by their standard errors. We have to do more digging to get the right degrees of freedom for the test, though.</p>
-<p>We can also look at the 95% confidence interval for <span class="math inline">\(\beta_1\)</span>, which is given here by <span class="math inline">\((-0.40,-0.32)\)</span> – because it does not contain the null value 0, we can say there is evidence of a relationship between assets and hair mercury.</p>
+</div>
+</section><section id="a-tidy-look-at-model-output-1" class="slide level2"><h2>A tidy look at model output</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a></a>  <span class="fu">fit</span>(hairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a></a>  <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 2 × 7
+#&gt;   term  estimate std.error statistic   p.value conf.low conf.high
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 
+#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776</code></pre>
+</div>
+</div>
+<div style="font-size:0.7em;">
+<p>We can also look at the 95% confidence interval for <span class="math inline">\(\beta_1\)</span>, which is given here by <span class="math inline">\((-1.01,-0.78)\)</span> – because it does not contain the null value 0, we can say there is evidence of a relationship between assets and hair mercury.</p>
 </div>
 </section><section id="a-closer-look-at-model-output-1" class="slide level2"><h2>A closer look at model output</h2>
 <div style="font-size:0.7em;">
 <p>The tidy output sweeps a few quantities under the rug, but we can tease them out using the glance function from <code>broom</code> instead.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
-<span id="cb11-4"><a></a>fit <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>Hgfit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> <span class="co">#naming my model! remember for later!</span></span>
+<span id="cb15-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a></a>  <span class="fu">fit</span>(hairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
+<span id="cb15-4"><a></a>Hgfit <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 2 × 7
+#&gt;   term  estimate std.error statistic   p.value conf.low conf.high
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 
+#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>Hgfit <span class="sc">%&gt;%</span> <span class="fu">glance</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">width =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 1 × 12
+#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik
+#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1    0.0916        0.0912  2.77      232. 6.68e-50     1 -5605.
+#&gt;      AIC    BIC deviance df.residual  nobs
+#&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+#&gt; 1 11217. 11234.   17623.        2298  2300</code></pre>
+</div>
+</div>
+<p>Here we see the <span class="math inline">\(df=n-p\)</span> for the t-test in the df.residual column. nobs contains the number of observations used in model fitting. So <span class="math inline">\(n-p=2300-2=2298\)</span>.</p>
+</div>
+</section><section id="a-closer-look-at-model-output-2" class="slide level2"><h2>A closer look at model output</h2>
+<div style="font-size:0.7em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>Hgfit <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 2 × 7
+#&gt;   term  estimate std.error statistic   p.value conf.low conf.high
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 
+#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>Hgfit <span class="sc">%&gt;%</span> <span class="fu">glance</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">width =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 1 × 12
+#&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik
+#&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1    0.0916        0.0912  2.77      232. 6.68e-50     1 -5605.
+#&gt;      AIC    BIC deviance df.residual  nobs
+#&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+#&gt; 1 11217. 11234.   17623.        2298  2300</code></pre>
+</div>
+</div>
+<p>Note a different statistic is presented here – it is the square of the statistic from tidy (there was some rounding). If you take a regression course, you will learn this statistic, the square of the t-statistic, follows an <span class="math inline">\(F\)</span> distribution, which is widely used in linear models.</p>
+</div>
+</section><section id="what-does-the-slope-mean" class="slide level2"><h2>What does the slope mean?</h2>
+<p><span class="math display">\[
+\widehat{\text{hairHg}}_i
+  = 2.30 - 0.89\,\text{assets\_sc}_i
+\]</span></p>
+<p>Here <code>hairHg</code> is in <strong>ppm</strong>, so predicted values and differences in predicted values are also in <strong>ppm</strong>.</p>
+<ul>
+<li class="fragment">Consider two asset scores that differ by <strong>one standard deviation</strong>.</li>
+<li class="fragment">The person with the higher asset score has a predicted hair mercury concentration <strong>0.89 ppm lower</strong>, on average.</li>
+<li class="fragment">This is an association. The fitted line alone cannot tell us whether assets cause the difference.</li>
+</ul></section><section id="what-does-the-intercept-mean" class="slide level2"><h2>What does the intercept mean?</h2>
+<p><span class="math display">\[
+\widehat{\text{hairHg}}_i
+  = 2.30 - 0.89\,\text{assets\_sc}_i
+\]</span></p>
+<ul>
+<li class="fragment">
+<code>assets_sc = 0</code> means <strong>average household assets</strong>.</li>
+<li class="fragment">At that asset score, the predicted hair mercury concentration is <strong>2.30 ppm</strong>.</li>
+<li class="fragment">At <code>assets_sc = 1</code>, the predicted concentration is <span class="math inline">\(2.30 - 0.89 = 1.41\)</span> ppm.</li>
+</ul>
+<div class="question">
+<p>What would the line predict at <code>assets_sc = -1</code>?</p>
+</div>
+</section><section id="what-does-the-model-output-add" class="slide level2"><h2>What does the model output add?</h2>
+<div style="font-size:0.8em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>Hgfit <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 2 × 7
+#&gt;   term  estimate std.error statistic   p.value conf.low conf.high
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 (Int…    2.30     0.0577      39.8 2.71e-264     2.19     2.41 
+#&gt; 2 asse…   -0.891    0.0585     -15.2 6.68e- 50    -1.01    -0.776</code></pre>
+</div>
+</div>
+<p>For the asset slope, look for:</p>
+<ul>
+<li>
+<strong>estimate:</strong> the fitted change in ppm for a one-standard-deviation increase in assets;</li>
+<li>
+<strong>conf.low / conf.high:</strong> endpoints of a 95% confidence interval for that slope;</li>
+<li>
+<strong>p.value:</strong> a test of <span class="math inline">\(H_0:\beta_1 = 0\)</span> against <span class="math inline">\(H_A:\beta_1 \ne 0\)</span>.</li>
+</ul>
+<p><strong>Before relying on the usual confidence interval and test, check the model’s assumptions.</strong></p>
+</div>
+</section><section id="can-we-trust-the-model-check-the-residuals" class="slide level2"><h2>Can we trust the model? Check the residuals!</h2>
+<div style="font-size:0.8em;">
+<p>We saved the model as the object <code>Hgfit</code> on a prior slide. Tidymodels is going to make it very easy for me to <code>join</code> information from the fitted models, including the predicted mercury levels (<code>.fitted</code>) and the residuals (<code>.resid</code>), to my original data, using the <code><a href="https://rdrr.io/r/base/append.html">append()</a></code> function. Then, to look at how well the model does, I create a plot with the predicted mercury levels on the x-axis and the residuals on the y-axis, and I hope to see a lot of random scatter centered around the value 0.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">augment</span>(Hgfit<span class="sc">$</span>fit) <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb25-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.18</span>, <span class="at">color =</span> <span class="st">"#285B78"</span>) <span class="sc">+</span></span>
+<span id="cb25-4"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray40"</span>) <span class="sc">+</span></span>
+<span id="cb25-5"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-6"><a></a>    <span class="at">x =</span> <span class="st">"Predicted hair mercury (ppm)"</span>,</span>
+<span id="cb25-7"><a></a>    <span class="at">y =</span> <span class="st">"Residual (ppm)"</span>,</span>
+<span id="cb25-8"><a></a>    <span class="at">title =</span> <span class="st">"Residuals from the model in ppm"</span></span>
+<span id="cb25-9"><a></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="section-1" class="slide level2" data-background-color="white"><h2></h2>
+
+<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div class="question">
+<p>Is the vertical spread of the residuals about the same across fitted values?</p>
+</div>
+</section><section id="are-the-residuals-approximately-normal" class="slide level2"><h2>Are the residuals approximately normal?</h2>
+<div style="font-size:0.8em;">
+<p>We can also check a Q-Q (quantile-quantile) plot, which compares the model’s residuals with values expected from a normal distribution, by plotting the quantiles of the residuals in our sample against the quantiles of a normal distribution. Points roughly following the line suggest approximate normality; clear curves or departures at the ends suggest the residuals are not normally distributed. What do you think here?</p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size:0.7em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">augment</span>(Hgfit<span class="sc">$</span>fit) <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a></a>  <span class="co"># sample denotes the "sample quantiles"</span></span>
+<span id="cb26-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb26-4"><a></a>  <span class="fu">stat_qq</span>(<span class="at">color =</span> <span class="st">"#285B78"</span>,</span>
+<span id="cb26-5"><a></a>          <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb26-6"><a></a>  <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"#8E2C90"</span>) <span class="sc">+</span></span>
+<span id="cb26-7"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-8"><a></a>    <span class="at">x =</span> <span class="st">"Theoretical normal quantiles"</span>,</span>
+<span id="cb26-9"><a></a>    <span class="at">y =</span> <span class="st">"Residuals (ppm)"</span></span>
+<span id="cb26-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section><section id="tradeoffs-easy-interpretation-bad-model" class="slide level2"><h2>Tradeoffs: easy interpretation, bad model</h2>
+<ul>
+<li>On the <strong>ppm scale</strong>, the slope and intercept are easy to explain</li>
+<li>Mercury has a strong right tail, and the spread of residuals changes across fitted values</li>
+<li>That makes the usual confidence interval and <span class="math inline">\(t\)</span> test for this raw-scale model not trustworthy</li>
+<li>A different scale for the response may give a more suitable model</li>
+</ul></section><section id="a-look-ahead-a-transformed-response" class="slide level2"><h2>A look ahead: a transformed response</h2>
+<p>Let’s compare the residuals from a model with a log (ln) transformation. The log transformation is often useful when we have right-skewed data.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>lHgfit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
+<span id="cb27-4"><a></a><span class="fu">augment</span>(lHgfit<span class="sc">$</span>fit) <span class="sc">%&gt;%</span></span>
+<span id="cb27-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb27-6"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.18</span>, <span class="at">color =</span> <span class="st">"#8E2C90"</span>) <span class="sc">+</span></span>
+<span id="cb27-7"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray40"</span>) <span class="sc">+</span></span>
+<span id="cb27-8"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb27-9"><a></a>    <span class="at">x =</span> <span class="st">"Predicted log(hair mercury)"</span>,</span>
+<span id="cb27-10"><a></a>    <span class="at">y =</span> <span class="st">"Residual on the log scale"</span>,</span>
+<span id="cb27-11"><a></a>    <span class="at">title =</span> <span class="st">"Residuals after fitting log(hair mercury)"</span></span>
+<span id="cb27-12"><a></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="section-2" class="slide level2" data-background-color="white"><h2></h2>
+
+<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div class="question">
+<p>How does the spread compare with the previous residual plot?</p>
+</div>
+</section><section id="checking-the-new-q-q-plot" class="slide level2"><h2>Checking the new Q-Q plot</h2>
+<p>Does the Q-Q plot look better after the log transformation?</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size:0.7em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">augment</span>(lHgfit<span class="sc">$</span>fit) <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a></a>  <span class="co"># sample denotes the "sample quantiles"</span></span>
+<span id="cb28-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb28-4"><a></a>  <span class="fu">stat_qq</span>(<span class="at">color =</span> <span class="st">"#285B78"</span>,</span>
+<span id="cb28-5"><a></a>          <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb28-6"><a></a>  <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"#8E2C90"</span>) <span class="sc">+</span></span>
+<span id="cb28-7"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb28-8"><a></a>    <span class="at">x =</span> <span class="st">"Theoretical normal quantiles"</span>,</span>
+<span id="cb28-9"><a></a>    <span class="at">y =</span> <span class="st">"Residuals (ppm)"</span></span>
+<span id="cb28-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section><section id="takeaways" class="slide level2"><h2>Takeaways</h2>
+<ol type="1">
+<li>A slope describes the change in a <strong>predicted response</strong> for a one-unit increase in the explanatory variable.</li>
+<li>An intercept is the prediction when the explanatory variable equals <strong>zero</strong>; here, zero means <em>average assets</em>.</li>
+<li>Model checking tells us whether the simple line is adequate for inference.</li>
+</ol>
+<p><strong>Next:</strong> how a log transformation changes interpretation</p>
+</section><section id="working-with-the-log-transformed-response" class="slide level2"><h2>Working with the log transformed response</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>lHgfit <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 2 × 7
 #&gt;   term   estimate std.error statistic  p.value conf.low conf.high
@@ -356,7 +645,7 @@ T \sim t_{n-p},
 #&gt; 1 (Inte…    0.280    0.0213      13.1 7.49e-38    0.238     0.321
 #&gt; 2 asset…   -0.358    0.0216     -16.5 3.90e-58   -0.400    -0.315</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>fit <span class="sc">%&gt;%</span> <span class="fu">glance</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">width =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>lHgfit <span class="sc">%&gt;%</span> <span class="fu">glance</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">width =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 1 × 12
 #&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik
@@ -366,9 +655,6 @@ T \sim t_{n-p},
 #&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
 #&gt; 1 6638. 6655.    2407.        2298  2300</code></pre>
 </div>
-</div>
-<p>Here we see the <span class="math inline">\(df=n-p\)</span> for the t-test in the df.residual column. nobs contains the number of observations used in model fitting.</p>
-<p>Note a different statistic is presented here – it is the square of the statistic from tidy (there was some rounding). If you take a regression course, you will learn this statistic, the square of the t-statistic, follows an <span class="math inline">\(F\)</span> distribution, which is widely used in linear models.</p>
 </div>
 </section><section id="slope-and-intercept" class="slide level2"><h2>Slope and intercept</h2>
 <div class="large">
@@ -419,7 +705,7 @@ T \sim t_{n-p},
 </blockquote>
 </div>
 </div>
-</section><section id="section-1" class="slide level2" data-background-color="white"><h2></h2>
+</section><section id="section-3" class="slide level2" data-background-color="white"><h2></h2>
 <div style="font-size:0.75em;">
 <blockquote>
 <p>For each additional increase in scaled assets, hair mercury content is expected to be <code>___</code> , on average, by a factor of <code>___</code>.</p>
@@ -441,10 +727,10 @@ T \sim t_{n-p},
 </section><section id="you-said-i-didnt-need-a-calculator" class="slide level2"><h2>You said I didn’t need a calculator!</h2>
 <p>Yup, R can do this for you!</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
-<span id="cb15-4"><a></a>fit <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">exponentiate=</span><span class="cn">TRUE</span>, <span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
+<span id="cb33-4"><a></a>fit <span class="sc">%&gt;%</span> <span class="fu">tidy</span>(<span class="at">exponentiate=</span><span class="cn">TRUE</span>, <span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 2 × 7
 #&gt;   term   estimate std.error statistic  p.value conf.low conf.high
@@ -531,13 +817,13 @@ R^2 = r^2
 \]</span></p>
 </div>
 </div>
-</section><section id="section-2" class="slide level2" data-background-color="white"><h2></h2>
+</section><section id="section-4" class="slide level2" data-background-color="white"><h2></h2>
 <p>We can get <span class="math inline">\(R^2\)</span> from the glance function.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
-<span id="cb17-4"><a></a>fit <span class="sc">%&gt;%</span> <span class="fu">glance</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">width =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
+<span id="cb35-4"><a></a>fit <span class="sc">%&gt;%</span> <span class="fu">glance</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">width =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 1 × 12
 #&gt;   r.squared adj.r.squared sigma statistic  p.value    df logLik
@@ -608,19 +894,19 @@ R^2 = r^2
 </div>
 <div id="tabset-1-2">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>hg_asset_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-3"><a></a>  <span class="fu">fit</span>(hairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
-<span id="cb19-4"><a></a>hg_asset_fit_aug <span class="ot">&lt;-</span> <span class="fu">augment</span>(hg_asset_fit<span class="sc">$</span>fit)</span>
-<span id="cb19-5"><a></a><span class="fu">ggplot</span>(hg_asset_fit_aug, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
-<span id="cb19-6"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb19-7"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"gray"</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb19-8"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Predicted mercury (ppm)"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>hg_asset_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a></a>  <span class="fu">fit</span>(hairHg <span class="sc">~</span> assets_sc, <span class="at">data =</span> mercury)</span>
+<span id="cb37-4"><a></a>hg_asset_fit_aug <span class="ot">&lt;-</span> <span class="fu">augment</span>(hg_asset_fit<span class="sc">$</span>fit)</span>
+<span id="cb37-5"><a></a><span class="fu">ggplot</span>(hg_asset_fit_aug, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb37-6"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb37-7"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"gray"</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb37-8"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Predicted mercury (ppm)"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-3">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>hg_asset_fit_aug</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>hg_asset_fit_aug</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 2,300 × 9
 #&gt;   .rownames hairHg assets_sc[,1] .fitted .resid     .hat .sigma
@@ -641,7 +927,7 @@ R^2 = r^2
 </section><section id="more-on-augment" class="slide level2"><h2>More on <code>augment()</code>
 </h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">glimpse</span>(hg_asset_fit_aug)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">glimpse</span>(hg_asset_fit_aug)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Rows: 2,300
 #&gt; Columns: 9
@@ -662,40 +948,40 @@ R^2 = r^2
 <li>With no visible pattern along the x or y axes</li>
 </ul>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="not-hoping-for" class="slide level2"><h2>Not hoping for…</h2>
+<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="not-hoping-for" class="slide level2"><h2>Not hoping for…</h2>
 <div class="large">
 <p><strong>Fan shapes</strong></p>
 </div>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><p>(Evidence of non-constant variance in residuals across the range of predicted values)</p>
+<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-30-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><p>(Evidence of non-constant variance in residuals across the range of predicted values)</p>
 </section><section id="not-looking-for" class="slide level2"><h2>Not looking for…</h2>
 <div class="large">
 <p><strong>Groups of patterns</strong></p>
 </div>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><p>(Evidence of a missing predictor)</p>
+<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><p>(Evidence of a missing predictor)</p>
 </section><section id="not-looking-for-1" class="slide level2"><h2>Not looking for…</h2>
 <div class="large">
 <p><strong>Other non-random structure</strong></p>
 </div>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="not-looking-for-2" class="slide level2"><h2>Not looking for…</h2>
+<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-32-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="not-looking-for-2" class="slide level2"><h2>Not looking for…</h2>
 <div class="large">
 <p><strong>Any patterns!</strong></p>
 </div>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="section-3" class="slide level2" data-background-color="white"><h2></h2>
+<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="section-5" class="slide level2" data-background-color="white"><h2></h2>
 <div class="question">
 <p>What patterns does the residual plot reveal that should make us question whether a linear model is a good fit for modeling the relationship between mercury (ppm) and assets?</p>
 </div>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section></section><section><section id="exploring-linearity" class="title-slide slide level1 center"><h1>Exploring linearity</h1>
+<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-34-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section></section><section><section id="exploring-linearity" class="title-slide slide level1 center"><h1>Exploring linearity</h1>
 
 </section><section id="data-mercury" class="slide level2"><h2>Data: Mercury</h2>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="mercury-vs.-assets" class="slide level2"><h2>Mercury vs.&nbsp;assets</h2>
+<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-35-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="mercury-vs.-assets" class="slide level2"><h2>Mercury vs.&nbsp;assets</h2>
 
-<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="mercury-vs-assets" class="slide level2"><h2>Mercury vs assets</h2>
+<img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section><section id="mercury-vs-assets" class="slide level2"><h2>Mercury vs assets</h2>
 <div class="question">
 <p>Which plot shows a more linear relationship?</p>
 </div>
@@ -705,7 +991,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-37-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -714,7 +1000,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-38-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -730,7 +1016,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-24-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-39-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -739,7 +1025,7 @@ R^2 = r^2
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figure><p><img data-src="w08-02-fitting-interpretation_files/figure-revealjs/unnamed-chunk-40-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -781,7 +1067,7 @@ R^2 = r^2
 </h2>
 <p>In some cases the value of the response variable might be 0, and</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">log</span>(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="fu">log</span>(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] -Inf</code></pre>
 </div>
@@ -789,7 +1075,7 @@ R^2 = r^2
 <div class="fragment">
 <p>The trick is to add a very small number to the value of the response variable for these cases so that the <code>log</code> function can still be applied:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">log</span>(<span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.00001</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="fu">log</span>(<span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.00001</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] -11.51293</code></pre>
 </div>

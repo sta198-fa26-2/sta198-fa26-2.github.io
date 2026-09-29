@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Amy Herring">
-<meta name="dcterms.date" content="2026-09-28">
+<meta name="dcterms.date" content="2026-10-05">
 <title>Hypothesis Testing – STA 198</title>
 <style>
 code{white-space: pre-wrap;}
@@ -497,13 +497,13 @@ window.Quarto = {
   <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a></li>
   <li><a href="#details-step-4" id="toc-details-step-4" class="nav-link" data-scroll-target="#details-step-4">Details: Step 4</a></li>
   <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
-  <li><a href="#example-workplace-equity" id="toc-example-workplace-equity" class="nav-link" data-scroll-target="#example-workplace-equity">Example: Workplace Equity</a></li>
   <li><a href="#trial-by-jury-analogy" id="toc-trial-by-jury-analogy" class="nav-link" data-scroll-target="#trial-by-jury-analogy">Trial by Jury Analogy</a></li>
   <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"></a></li>
   <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6"></a></li>
   <li><a href="#possible-errors" id="toc-possible-errors" class="nav-link" data-scroll-target="#possible-errors">Possible Errors</a></li>
   <li><a href="#type-i-errors-in-action" id="toc-type-i-errors-in-action" class="nav-link" data-scroll-target="#type-i-errors-in-action">Type I Errors in Action</a></li>
-  <li><a href="#back-to-example-workplace-equity" id="toc-back-to-example-workplace-equity" class="nav-link" data-scroll-target="#back-to-example-workplace-equity">Back to Example: Workplace Equity</a></li>
+  <li><a href="#example-workplace-equity" id="toc-example-workplace-equity" class="nav-link" data-scroll-target="#example-workplace-equity">Example: Workplace Equity</a></li>
+  <li><a href="#homework-practice" id="toc-homework-practice" class="nav-link" data-scroll-target="#homework-practice">Homework (Practice)</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w07-01-testing.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="w07-01-testing-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -535,7 +535,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 28, 2026</p>
+      <p class="date">October 5, 2026</p>
     </div>
   </div>
   
@@ -570,9 +570,10 @@ window.Quarto = {
 <li><p>Figure out how likely it is to see data like what we got, if claim 1 is true.</p></li>
 <li><p>If our data would have been unlikely if claim 1 were true, then we reject claim 1 and deem claim 2 worthy of further study. Otherwise, we cannot reject claim 1.</p></li>
 </ul></section><section id="example-ultra-low-dose-contraceptives" class="level2"><h2 class="anchored" data-anchor-id="example-ultra-low-dose-contraceptives">Example: Ultra Low Dose Contraceptives</h2>
-<p>A certain ultra-low dose oral contraceptive pill is supposed to contain 0.02 mg of estrogen. If the dose is higher, the user may risk side effects better avoided, and if the dose is lower, the user may get pregnant. The manufacturer wishes to check whether the mean concentration in a large shipment is the needed 0.02 mg or not. A random sample of <span class="math inline">\(n=50\)</span> pills is tested, and the sample mean concentration is 0.017 mg with a sample standard deviation of 0.008 mg.</p>
+<p>A certain ultra low dose oral contraceptive pill is supposed to contain 0.02 mg of estrogen. If the dose is higher, the user may risk side effects better avoided, and if the dose is lower, the user may get pregnant. The manufacturer wishes to check whether the mean concentration in a large shipment is the needed 0.02 mg or not. A random sample of <span class="math inline">\(n=50\)</span> pills is tested, and the sample mean concentration is 0.017 mg with a sample standard deviation of 0.008 mg.</p>
 <p>Let’s go through the hypothesis testing paradigm.</p>
 </section><section id="section" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section"></h2>
+<div style="font-size:0.9em;">
 <div class="step-box" style="background-color: #D3B4C1; border-left: 5px solid #A6617B;">
 <p><strong>1. State the claims</strong></p>
 <ul>
@@ -586,6 +587,7 @@ window.Quarto = {
 <li><p>Plan is to sample 50 pills at random and use a one-sample t-test to evaluate whether they are consistent with a population with mean 0.02 mg estrogen</p></li>
 <li><p>50 pills were sampled with a sample mean <span class="math inline">\(\bar{x}=0.017\)</span> and sample standard deviation <span class="math inline">\(s=0.008\)</span></p></li>
 </ul>
+</div>
 </div>
 </section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
 <div class="step-box" style="background-color: #DEA99C; border-left: 5px solid #BD5338;">
@@ -622,7 +624,7 @@ window.Quarto = {
 </section><section id="hypothesis-testing-steps-again" class="level2"><h2 class="anchored" data-anchor-id="hypothesis-testing-steps-again">Hypothesis Testing Steps (Again!)</h2>
 <ol type="1">
 <li><p>State Claim 1 and Claim 2. Claim 1 states “nothing unusual is happening” and Claim 2 challenges it.</p></li>
-<li><p>Finalize data collection and analysis plans, collect relevant data, and summarize it.</p></li>
+<li><p>Finalize data collection and analysis plans, collect relevant data, and summarize.</p></li>
 <li><p>Assess how surprising it would be to see data like that, or even more extreme data, <em>if Claim 1 is really true</em>.</p></li>
 <li><p>Draw conclusions.</p></li>
 </ol></section><section id="details-step-1" class="level2"><h2 class="anchored" data-anchor-id="details-step-1">Details: Step 1</h2>
@@ -640,7 +642,7 @@ window.Quarto = {
 <ol type="1">
 <li><p>Researchers would like to know whether a new intervention for informing children in developing countries of their HIV status is associated with different mental health quality of life.</p></li>
 <li><p>Researchers would like to know if lead levels in the water from Flint exceed the EPA action level of 15 ppb.</p></li>
-<li><p>The WHO would like to know if the number of Bundibugyo cases in northeastern DRC and Kampala, Uganda, this week is the same as that from last week.</p></li>
+<li><p>The WHO would like to know if the number of Bundibugyo cases in northeastern DRC this week is the same as that from last week.</p></li>
 </ol></section><section id="details-step-2" class="level2"><h2 class="anchored" data-anchor-id="details-step-2">Details: Step 2</h2>
 <p>Step 2 is to make a plan for data collection and analysis, take a sample, and summarize the data. We will return to this topic, but the choice of summary statistic will depend on the type of data (e.g., categorical or continuous) as well as the distribution of the data.</p>
 </section><section id="details-step-3" class="level2"><h2 class="anchored" data-anchor-id="details-step-3">Details: Step 3</h2>
@@ -671,6 +673,7 @@ window.Quarto = {
 </ul>
 </div>
 </section><section id="correspondence-between-hypothesis-tests-and-confidence-intervals" class="level2"><h2 class="anchored" data-anchor-id="correspondence-between-hypothesis-tests-and-confidence-intervals">Correspondence between Hypothesis Tests and Confidence Intervals</h2>
+<div style="font-size:0.9em;">
 <p>We can examine a confidence interval to decide whether a proposed value for the population mean is reasonable.</p>
 <p>Suppose we are testing <span class="math inline">\(H_0:  \mu=0.02\)</span> versus <span class="math inline">\(H_A:  \mu \neq 0.02\)</span> using a significance level of <span class="math inline">\(\alpha=0.05\)</span>. An alternative way to do this is to construct a 95% confidence interval for <span class="math inline">\(\mu\)</span> and use the following decision rule.</p>
 <ul>
@@ -678,6 +681,7 @@ window.Quarto = {
 <li><p>If <span class="math inline">\(0.02\)</span> falls inside the confidence interval, do not reject <span class="math inline">\(H_0\)</span></p></li>
 </ul>
 <p>We may not want to make a binary decision but instead present a confidence interval and provide discussion.</p>
+</div>
 </section><section id="sidedness-of-tests" class="level2"><h2 class="anchored" data-anchor-id="sidedness-of-tests">“Sidedness” of tests</h2>
 <p>Typically, hypothesis tests are <em>two-sided</em>, meaning that we are looking for any difference from a hypothesized value, whether smaller or larger. Sometimes, it is appropriate to conduct a <em>one-sided</em> test. For example, in the Flint data, we may only be concerned if lead levels in the Flint water are higher than the EPA action level.</p>
 <p>One-sided tests are extremely rare, and even in the Flint case it would be typical to see two-sided tests and confidence intervals presented.</p>
@@ -693,12 +697,12 @@ window.Quarto = {
 </div>
 <p>For a two-sided test, the p-value is doubled, but <span class="math inline">\(\alpha\)</span> is unchanged.</p>
 </section><section id="details-step-4" class="level2"><h2 class="anchored" data-anchor-id="details-step-4">Details: Step 4</h2>
+<div style="font-size:0.85em;">
 <p>Step 4 is drawing conclusions based on our test results. Generally, we reject Claim 1 when the likelihood of seeing our data (or more extreme data) when Claim 1 is true would be relatively small. Often, we consider a cutpoint (also called a significance level or <span class="math inline">\(\alpha\)</span> level) of <span class="math inline">\(\alpha=0.05\)</span> as defining the p-value as “small.” Using 0.05 as a cutpoint means that when the null hypothesis is true, we would expect to make the wrong decision only 5% of the time. When the p-value <span class="math inline">\(&lt;\alpha\)</span> you often see results described as “statistically significant.”</p>
 <p>When the p-value is <span class="math inline">\(&gt; \alpha\)</span> then we say we have insufficient evidence to reject Claim 1. Sometimes people interpret p-values in the rough range of <span class="math inline">\((\alpha, 2\alpha)\)</span> as marginally significant (so for <span class="math inline">\(\alpha=0.05\)</span> that range would be <span class="math inline">\(0.05-0.10\)</span>), but this is not recommended.</p>
+</div>
 </section><section id="section-4" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-4"></h2>
 <p>Common sense should also be used in drawing conclusions. For example, if there is a very strong body of evidence in favor of the alternative hypothesis and you see <span class="math inline">\(p=0.06\)</span>, you wouldn’t necessarily use your results to refute all the prior work in an area. This is one reason confidence intervals are often used in place of hypothesis tests.</p>
-</section><section id="example-workplace-equity" class="level2"><h2 class="anchored" data-anchor-id="example-workplace-equity">Example: Workplace Equity</h2>
-<p>An employer subscribes to an “equal opportunity” policy, stating it hires employees with children and employees without children equally often in managerial positions. Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified. The data you have are the last three hires, all of which were applicants without children. How do you carry out a hypothesis test?</p>
 </section><section id="trial-by-jury-analogy" class="level2"><h2 class="anchored" data-anchor-id="trial-by-jury-analogy">Trial by Jury Analogy</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -748,7 +752,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/odin.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../img/odin.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="../img/notme.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../img/notme.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -756,7 +760,7 @@ window.Quarto = {
 </div>
 </div>
 </section><section id="section-6" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-6"></h2>
-<div style="font-size:0.8em;">
+<div style="font-size:0.7em;">
 <p>Let’s translate into a hypothesis testing framework. Suppose we wish to test that the population mean equals some value, say <span class="math inline">\(\mu_0\)</span>.</p>
 <p>Test of <span class="math inline">\(H_0:  \mu=\mu_0\)</span></p>
 <table class="caption-top table">
@@ -805,9 +809,20 @@ window.Quarto = {
 </div>
 </section><section id="type-i-errors-in-action" class="level2"><h2 class="anchored" data-anchor-id="type-i-errors-in-action">Type I Errors in Action</h2>
 <p>Circle, circle, dot, dot…we’ll conduct our own study of one of the US’s most widely-administered childhood vaccinations.</p>
-</section><section id="back-to-example-workplace-equity" class="level2"><h2 class="anchored" data-anchor-id="back-to-example-workplace-equity">Back to Example: Workplace Equity</h2>
+</section><section id="example-workplace-equity" class="level2"><h2 class="anchored" data-anchor-id="example-workplace-equity">Example: Workplace Equity</h2>
 <p>An employer subscribes to an “equal opportunity” policy, stating it hires employees with children and employees without children equally often in managerial positions. Suppose the current hiring pool is half applicants with children and half applicants without children, with both groups equally well-qualified. The data you have are the last three hires, all of which were applicants without children. How do you carry out a hypothesis test?</p>
 <p>If the null hypothesis is true, what was the probability of seeing these data, or data even more extreme?</p>
+</section><section id="homework-practice" class="level2"><h2 class="anchored" data-anchor-id="homework-practice">Homework (Practice)</h2>
+<p><a href="https://openintrostat.github.io/ims/foundations-mathematical.html#sec-chp13-exercises"><strong>IMS Chapter 13</strong></a></p>
+<ul>
+<li>Problem 1</li>
+<li>Problem 11</li>
+</ul>
+<p><a href="https://openintrostat.github.io/ims/foundations-errors.html#sec-chp14-exercises"><strong>IMS Chapter 14</strong></a></p>
+<ul>
+<li>Problem 1</li>
+<li>Problem 2</li>
+</ul>
 
 
 </section></section></main><!-- /main --><script>
