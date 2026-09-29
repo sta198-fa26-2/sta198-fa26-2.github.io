@@ -1,7 +1,7 @@
 ---
 title: "Model Fitting and Interpretation"
 subtitle: "Introduction to Global Health Data Science"
-date: "2026-10-19"
+date: "2026-10-14"
 format:
   revealjs:
     output-file: w08-02-fitting-interpretation-slides.html 
@@ -604,11 +604,7 @@ augment(lHgfit$fit) %>%
 
 - Problem 3
 - Problem 4
-- Problem 7
-- Problem 8
-- Problem 12
 - Problem 17
-- Problem 22
-- Problem 23
+
 
 

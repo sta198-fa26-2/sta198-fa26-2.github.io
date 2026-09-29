@@ -1,0 +1,963 @@
+---
+title: "Model Fitting and Interpretation: Part II"
+subtitle: "Introduction to Global Health Data Science"
+date: "2026-10-19"
+format:
+  revealjs:
+    output-file: w09-01-fit-interp-slides.html 
+    footer: "[🔗 sta198-fa26-2.github.io](https://sta198-fa26-2.github.io/)"
+    theme: slides.scss
+    transition: fade
+    slide-number: true
+    pdf-separate-fragments: true
+    toc: false
+  html:
+    code-link: true
+filters: 
+  - ../remove-fmt-skip.lua
+editor_options: 
+  chunk_output_type: console
+---
+```{r}
+#| echo: FALSE
+#| label: global_options
+#| include: false
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
+                      comment = "#>", highlight = TRUE,
+                      fig.align = "center")
+library(ggtext)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(tidymodels)
+library(readr)
+mercury <- readr::read_csv("../data/mercury_reg.csv")
+mercury <-
+  mercury %>%
+  # scale() subtracts the mean and divides by the SD to make the units "standard deviations" like a z-score
+  mutate(assets_sc=scale(SESassets)) %>%
+  #another variable we may use later
+  mutate(form_min_sc=scale(FM_buffer)) %>%
+  #so I don't have to remember coding
+  mutate(sex,sex_cat=ifelse(sex==1,"Male","Female")) %>%
+  mutate(native,native_cat=ifelse(native==1,"Native","Non-native")) %>%
+  mutate(hairHg=exp(lhairHg))
+
+```
+
+## Working with the log transformed response
+
+<div style="font-size:0.8em;">
+
+
+```{r}
+lHgfit <- linear_reg() %>% 
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc, data = mercury)
+lHgfit %>% tidy(conf.int=TRUE)
+lHgfit %>% glance() %>% print(width = Inf)
+```
+
+</div>
+
+## Slope and intercept
+
+$$
+\widehat{\text{lhairHg}}_i
+  = 0.280 - 0.358\,\text{assets\_sc}_i
+$$
+
+
+<div style="font-size:0.8em;">
+
+::: {.incremental}
+
+- **Slope:** When assets are one standard deviation higher, the log hair mercury level is expected to be lower, on average, by 0.358 log ppm.
+  - perhaps not a very useful statement given the scale
+- **Intercept:** Individuals with household assets at the mean level (`assets_sc`=0) are expected to have hair mercury concentrations of 0.280 log ppm, on average
+  - Remember `assets_sc` was standardized, so `assets_sc`=0 does not mean "no assets" but instead means "average assets" as it corresponds to an assets z-score of 0. 
+  
+:::
+
+</div>
+
+## Slope and intercept: easy/standard case
+
+<div style="font-size:0.8em;">
+
+Interpretation is a little easier without a log transformation. Suppose our outcome $y$ is exam score, and the predictor $x$ is hours studied, and we fit a linear model and get the following estimated line.
+
+::: {.large}
+$$\widehat{y}_{i} = 60 + 5 \times x_{i}$$
+:::
+
+</div>
+
+<div style="font-size:0.7em;">
+
+::: {.incremental}
+
+- **Slope:** For each additional hour of study, the exam score is expected to be higher, on average, by 5 points.
+
+- **Intercept:** Individuals who do not study are expected to have exam scores of 60 points, on average
+
+- Note: now you can see the danger of extrapolating beyond the range of the data. We don't expect someone who studies 20 hours to have an exam score of 160 on a 100-point scale -- at some point, mastery (hopefully not futility!) is reached.
+
+:::
+
+</div>
+
+# Better Interpretation in Models with Log Transformation
+
+## Working with logs
+
+- Subtraction and logs: $log(a) − log(b) = log(a / b)$
+
+
+- Natural logarithm: $e^{log(x)} = x$
+
+
+- We can use these identities to "undo" the log transformation
+
+## Interpreting the slope
+
+The slope coefficient for the log transformed model is -0.358, meaning the log mercury difference between people whose household incomes are one SD apart is predicted to be -0.358 (95% CI=(-0.400,-0.315)) log ppm.
+
+::: {.fragment}
+::: {.question}
+Using this information, and properties of logs that we just reviewed, fill in the blanks in the following alternate interpretation of the slope:
+
+>For each additional SD the household assets are greater, the hair mercury concentration is expected to be `___` , on average, by a factor of `___`.
+:::
+:::
+
+## {background-color="white"}
+
+<div style="font-size:0.75em;">
+
+
+>For each additional increase in scaled assets, hair mercury content is expected to be `___` , on average, by a factor of `___`.
+
+$$ \log(\text{hair Hg for assets x+1}) - \log(\text{hair Hg for assets x}) = -0.358 $$
+
+::: {.fragment}
+$$ \log\left(\frac{\text{hair Hg for assets x+1}}{\text{hair Hg for assets x}}\right) = -0.358 $$
+:::
+
+::: {.fragment}
+$$ e^{\log\left(\frac{\text{Hg for assets x+1}}{\text{Hg for assets x}}\right)} = e^{-0.358} $$
+:::
+
+::: {.fragment}
+$$ \frac{\text{Hg for assets x+1}}{\text{Hg for assets x}} \approx 0.70 $$
+:::
+
+::: {.fragment}
+When assets are one standard deviation higher, the hair Hg is expected to be lower, on average, by a factor of 0.70.
+:::
+
+</div>
+
+## You said I didn't need a calculator!
+
+<div style="font-size:0.85em;">
+
+
+Yup, R can do this for you!
+
+```{r}
+fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc, data = mercury)
+fit %>% tidy(exponentiate=TRUE, conf.int=TRUE)
+```
+
+When assets are one standard deviation higher, the hair Hg is expected to be lower, on average, by a factor of 0.70 (95% CI=(0.67, 0.73)).
+
+</div>
+
+## The Geometric Mean
+
+<div style="font-size:0.85em;">
+
+The **geometric mean** averages positive values on the log scale, then converts back:
+
+$$
+\text{Geometric mean of } y
+= e^{\,\text{mean}(\log y)}
+$$
+
+::: {.incremental}
+
+- Our model predicts the **mean of log hair mercury** at a given asset score.
+- Exponentiating that prediction gives the **geometric mean hair mercury** in ppm.
+- Therefore, $e^{-0.358}\approx 0.70$ compares **two predicted geometric means**: at an asset score one standard deviation higher, the geometric mean is about **70% as high**, or **30% lower**.
+
+:::
+
+::: {.fragment}
+
+Because mercury concentrations are right-skewed, the geometric mean is generally **lower than the arithmetic mean**. They should not be interpreted as the same quantity, strictly speaking.
+
+:::
+
+</div>
+
+## {background-color="white"}
+
+
+
+**When is a geometric mean useful?**
+
+- For positive, right-skewed measurements, such as many exposure concentrations.
+- When we want to describe **proportional differences**: “30% lower” rather than “0.89 ppm lower.”
+- When a few very high values would strongly pull up the arithmetic mean.
+
+Use the **arithmetic mean** when the question is about the average amount in ppm or a total across people. A geometric mean requires positive values.
+
+
+
+## From a ratio to a percentage
+
+We found that a one-standard-deviation increase in assets multiplies the predicted **geometric mean** hair mercury concentration by
+
+$$e^{-0.358} \approx 0.70.$$
+
+::: {.incremental}
+
+- **0.70 times as high** means **70% as high**.
+- $100\%(1-0.70)=30\%$ lower.
+
+:::
+
+**Interpretation:** People whose household asset score is one standard deviation higher have a predicted geometric mean hair mercury concentration **about 30% lower**.
+
+## A reusable rule
+
+If we fit a model for $\log(y)$ and the slope is $\widehat\beta_1$:
+
+$$
+\text{Multiplier for a one-unit increase in }x = e^{\widehat\beta_1}
+$$
+
+$$
+\text{Percentage change} = \left(e^{\widehat\beta_1}-1\right)\times100\%.
+$$
+
+::: {.incremental}
+
+- Negative result: a **percentage decrease**.
+- Positive result: a **percentage increase**.
+- Use the *exponential*, not $100\widehat\beta_1\%$, for the exact percentage change.
+
+:::
+
+## Let R do the conversion
+
+<div style="font-size:0.5em;">
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+**Code**
+
+```{r}
+#| eval: FALSE
+tidy(lHgfit$fit, conf.int = TRUE) %>%
+  filter(term == "assets_sc") %>%
+  mutate(
+    multiplier = exp(estimate),
+    percent_change = 100 * (exp(estimate) - 1),
+    ci_low = 100 * (exp(conf.low) - 1),
+    ci_high = 100 * (exp(conf.high) - 1)
+  ) %>%
+  select(term, multiplier, percent_change, ci_low, ci_high) %>%
+  mutate(across(where(is.numeric), ~round(.x, 1)))
+```
+
+:::
+
+::: {.column width="45%"}
+
+**Output**
+
+```{r}
+#| echo: FALSE
+tidy(lHgfit$fit, conf.int = TRUE) %>%
+  filter(term == "assets_sc") %>%
+  mutate(
+    multiplier = exp(estimate),
+    percent_change = 100 * (exp(estimate) - 1),
+    ci_low = 100 * (exp(conf.low) - 1),
+    ci_high = 100 * (exp(conf.high) - 1)
+  ) %>%
+  select(term, multiplier, percent_change, ci_low, ci_high) %>%
+  mutate(across(where(is.numeric), ~round(.x, 1)))
+```
+
+:::
+
+::::
+
+
+
+</div>
+
+
+The estimate is approximately **−30.1%**. The 95% confidence interval is approximately **−33.0% to −27.0%**.
+
+
+## Interpreting the confidence interval
+
+For a one-standard-deviation difference in household assets:
+
+$$
+95\%\ \text{CI for the multiplier:}\quad
+\left(e^{-0.400},\ e^{-0.315}\right) \approx (0.67,\ 0.73).
+$$
+
+::: {.incremental}
+
+- The predicted geometric mean hair mercury concentration is estimated to be **27% to 33% lower** at the higher asset score.
+- The interval excludes a multiplier of **1**, equivalent to excluding a percentage change of **0%**.
+
+:::
+
+## What about the intercept?
+
+$$
+\widehat{\log(\text{hair Hg})}
+   = 0.280 - 0.358\,\text{assets\_sc}
+$$
+
+::: {.incremental}
+
+- At `assets_sc = 0` (average assets): $e^{0.280}\approx\mathbf{1.32}$ ppm.
+- At `assets_sc = 1`: $e^{0.280-0.358}\approx\mathbf{0.92}$ ppm.
+- Compare: $0.92/1.32\approx 0.70$, or about **30% lower**.
+
+:::
+
+::: {.fragment}
+
+These are predictions for the **geometric mean**, not the arithmetic mean mercury concentration in ppm.
+
+:::
+
+
+## Correlation does not imply causation
+
+Remember this when interpreting model coefficients!
+
+![](https://upload.wikimedia.org/wikipedia/commons/9/93/Correlation_vs_causation.png){width=65%}
+
+::: {.footnote}
+Illustration: [Rcragun, Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Correlation_vs_causation.png), CC BY 3.0
+:::
+
+## {background-color="white"}
+
+
+![](https://imgs.xkcd.com/comics/correlation.png){width=65%}
+
+::: {.footnote}
+Source: [xkcd, “Correlation”](https://xkcd.com/552/)
+:::
+
+# Estimation Details
+
+## Linear model with a single predictor
+
+<div style="font-size:0.75em;">
+
+
+- We're interested in $\beta_0$ (population parameter for the intercept) and $\beta_1$ (population parameter for the slope) in the following model:
+
+$$y_{i} = \beta_0 + \beta_1~x_{i}+\varepsilon_i$$
+
+where $\varepsilon$ represents random error around our mean
+
+::: {.fragment}
+- Tough luck, you can't have them...
+:::
+
+::: {.fragment}
+- So we use sample statistics to estimate them, using the notation  $b$ or $\widehat{\beta}$ to distinguish our estimates from the true parameters $\beta$
+
+$\widehat{y}_{i} = b_0 + b_1~x_{i}$ or $\widehat{y}_i = \widehat{\beta}_0 + \widehat{\beta}_1~x_i$
+:::
+
+</div>
+
+## Least squares regression
+
+- The regression line minimizes the sum of squared residuals (the residuals are estimates of the error $\varepsilon_i$).
+
+- If $e_i = y_i - \hat{y}_i$, then, the regression line minimizes 
+$\sum_{i = 1}^n e_i^2$.
+
+- Why do we square the residuals?
+
+
+```{r}
+#| label: least-squares-illustration
+#| echo: false
+#| warning: false
+#| out-width: 70%
+
+set.seed(198)
+df_ls <- tibble(
+  x = seq(1, 10, length.out = 12),
+  y = 2 + 1.5 * x + rnorm(12, mean = 0, sd = 2.5)
+)
+
+fit_ls <- lm(y ~ x, data = df_ls)
+df_ls <- df_ls %>%
+  mutate(fitted = predict(fit_ls))
+
+ggplot(df_ls, aes(x = x, y = y)) +
+  geom_segment(
+    aes(xend = x, yend = fitted),
+    color = "#8E2C90", linetype = "dashed", linewidth = 0.6
+  ) +
+  geom_smooth(method = "lm", se = FALSE, color = "#E48957", linewidth = 1) +
+  geom_point(size = 2.5) +
+  labs(
+    title = "Least squares minimizes the sum of squared residuals",
+    subtitle = "Dashed segments represent residuals (e_i = y_i - ŷ_i)",
+    x = "x",
+    y = "y"
+  ) +
+  theme_minimal(base_size = 16)
+```
+
+## Visualizing residuals
+
+```{r}
+#| label: vis-res-1
+#| echo: false
+#| out-width: 70%
+hg_assets_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc, data = mercury)
+hg_assets_fit_tidy <- tidy(hg_assets_fit$fit) 
+hg_assets_fit_aug  <- augment(hg_assets_fit$fit) %>%
+  mutate(res_cat = ifelse(.resid > 0, TRUE, FALSE))
+p <- ggplot(data = hg_assets_fit_aug, 
+            aes(x = assets_sc, y = lhairHg)) +
+  geom_point(alpha = 0.1) + 
+  labs(
+    title = "Hair mercury by assets",
+    subtitle = "Peruvian Amazon",
+    x = "Household assets (standardized)",
+    y = "Hair mercury (log ppm)"
+    ) +
+  #coord_cartesian(xlim = c(0, 250), ylim = c(0, 200)) +
+  theme(plot.subtitle = element_text(colour = "#E48957", face = "bold", size = rel(1.5)))
+p
+```
+
+
+## Visualizing residuals (cont.)
+
+```{r}
+#| label: vis-res-2
+#| echo: false
+#| out-width: 70%
+p <- p + 
+  geom_smooth(method = "lm", color = "#8E2C90", se = FALSE) +
+  labs(subtitle = "Data + least squares line")
+p
+```
+
+
+## Visualizing residuals (cont.)
+
+```{r}
+#| label: vis-res-3
+#| echo: false
+#| out-width: 70%
+p + 
+  geom_segment(mapping = aes(xend = assets_sc, yend = .fitted), color = "#E48957", alpha = 0.4) +
+  labs(subtitle = "Data + least squares line + residuals")
+```
+
+
+## How well does the model fit? $R^2$
+
+<div style="font-size:0.7em;">
+
+
+The **coefficient of determination**, $R^2$, measures the proportion of variation in the response $y$ that is explained by the regression model.
+
+$$
+R^2
+=
+1 -
+\frac{\sum_{i=1}^n (y_i-\widehat{y}_i)^2}
+     {\sum_{i=1}^n (y_i-\bar{y})^2}
+$$
+
+- $\sum (y_i-\widehat{y}_i)^2$: variation **not explained** by the model
+- $\sum (y_i-\bar{y})^2$: **total variation** in $y$
+
+::: {.fragment}
+$R^2$ ranges from **0 to 1**.
+
+- $R^2 = 0$: the model explains none of the variation in $y$
+- $R^2 = 1$: the model explains all of the variation in $y$
+:::
+
+::: {.fragment}
+For simple linear regression with one predictor:
+
+$$
+R^2 = r^2
+$$
+:::
+
+</div>
+
+## {background-color="white"}
+
+<div style="font-size:0.85em;">
+
+We can get $R^2$ from the glance function.
+
+```{r}
+fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc, data = mercury)
+fit %>% glance() %>% print(width = Inf)
+```
+
+While $R^2=0.106$ may seem quite low (the corresponding estimated correlation between $x$ and $y$ is $\sqrt{0.106}=0.33$), it's actually not too alarming given that we have observational data from humans with highly variable activities and exposures.
+
+</div>
+
+
+## Properties of least squares regression
+
+<div style="font-size:0.65em;">
+
+
+- The regression line goes through the center of mass point, the coordinates corresponding to average $x$ and average $y$, $(\bar{x}, \bar{y})$:  
+$$\bar{y} = \hat{\beta}_0 + \hat{\beta}_1 \bar{x} ~ \rightarrow ~ \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$$
+
+::: {.fragment}
+- The slope has the same sign as the correlation coefficient: $\hat{\beta}_1 = r \frac{s_y}{s_x}$
+  - $s_x$ is the standard deviation of the explanatory variable $x$, and $s_y$ is the standard deviation of the response variable $y$
+  - If $y$ varies a lot more than $x$ does (large $s_y$ relative to $s_x$), the slope will be steeper for the same correlation — a small change in $x$ corresponds to a much bigger typical change in $y$
+  - In our example, $s_x$ is the standard deviation of `assets_sc` (which is 1, since it was standardized), and $s_y$ is the standard deviation of `lhairHg`
+:::
+
+::: {.fragment}
+- The sum of the residuals is zero: $\sum_{i = 1}^n e_i = 0$
+:::
+
+::: {.fragment}
+- The residuals and $x$ values are uncorrelated
+:::
+
+</div>
+
+
+
+# Model checking
+
+
+## "Linear" models
+
+- We're fitting a "linear" model, which assumes a linear relationship between our explanatory and response variables.
+- But how do we assess this?
+- We saw residual plots earlier -- let's dive in with more detail now!
+
+## Graphical diagnostic: residuals plot (ppm units)
+
+::: {.panel-tabset}
+
+## Plot
+
+```{r}
+#| label: residuals-plot
+#| echo: false
+#| warning: false
+#| out-width: "60%"
+
+hg_asset_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(hairHg ~ assets_sc, data = mercury)
+hg_asset_fit_aug <- augment(hg_asset_fit$fit)
+ggplot(hg_asset_fit_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted mercury (ppm)", y = "Residuals")
+```
+
+## Code
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "4"
+hg_asset_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(hairHg ~ assets_sc, data = mercury)
+hg_asset_fit_aug <- augment(hg_asset_fit$fit)
+ggplot(hg_asset_fit_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted mercury (ppm)", y = "Residuals")
+```
+
+## Augment
+
+```{r}
+#| echo: true
+
+hg_asset_fit_aug
+```
+
+:::
+
+## More on `augment()`
+
+```{r}
+glimpse(hg_asset_fit_aug)
+```
+
+
+
+## Looking for...
+
+- Residuals distributed randomly around 0
+- With no visible pattern along the x or y axes
+
+```{r}
+#| out.width: "60%"
+#| echo: false 
+df <- tibble(
+  fake_resid = rnorm(1000, mean = 0, sd = 30),
+  fake_predicted = runif(1000, min = 0, max = 200)
+)
+ggplot(df, mapping = aes(x = fake_predicted, y = fake_resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted", y = "Residuals")
+```
+
+## Not hoping for...
+
+::: {.large}
+**Fan shapes**
+:::
+
+```{r}
+#| out-width: "60%"
+#| echo: false
+
+set.seed(12346)
+df <- tibble(
+  fake_resid = c(rnorm(100, mean = 0, sd = 1), 
+                 rnorm(100, mean = 0, sd = 15), 
+                 rnorm(100, mean = 0, sd = 25), 
+                 rnorm(100, mean = 0, sd = 20), 
+                 rnorm(100, mean = 0, sd = 25), 
+                 rnorm(100, mean = 0, sd = 50), 
+                 rnorm(100, mean = 0, sd = 35), 
+                 rnorm(100, mean = 0, sd = 40),
+                 rnorm(200, mean = 0, sd = 80)),
+  fake_predicted = seq(0.2, 200, 0.2)
+)
+ggplot(df, mapping = aes(x = fake_predicted, y = fake_resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted", y = "Residuals")
+```
+
+(Evidence of non-constant variance in residuals across the range of predicted values)
+
+## Not looking for...
+
+::: {.large}
+**Groups of patterns**
+:::
+
+```{r}
+#| out-width: "60%"
+#| echo: false
+
+set.seed(12346)
+df <- tibble(
+  fake_predicted = seq(0.2, 200, 0.2),
+  fake_resid = c(
+    rnorm(500, mean = -20, sd = 10),
+    rnorm(500, mean = 10, sd = 10)
+  )
+)
+ggplot(df, mapping = aes(x = fake_predicted, y = fake_resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted", y = "Residuals")
+```
+
+(Evidence of a missing predictor)
+
+## Not looking for...
+
+::: {.large}
+**Other non-random structure**
+:::
+
+```{r}
+#| out-width: "60%"
+#| echo: false
+
+set.seed(12346)
+df <- tibble(
+  fake_predicted = seq(0.2, 200, 0.2),
+  fake_resid = fake_predicted + rnorm(1000, mean = 0, sd = 50)
+)
+ggplot(df, mapping = aes(x = fake_predicted, y = fake_resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted", y = "Residuals")
+```
+
+
+## Not looking for...
+
+::: {.large}
+**Any patterns!**
+:::
+
+```{r}
+#| out-width: "60%"
+#| echo: false
+
+set.seed(12346)
+df <- tibble(
+  fake_predicted = seq(-100, 100, 0.4),
+  fake_resid = -5*fake_predicted^2 - 3*fake_predicted + 20000 + rnorm(501, mean = 0, sd = 10000)
+)
+ggplot(df, mapping = aes(x = fake_predicted, y = fake_resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted", y = "Residuals")
+```
+
+## {background-color="white"}
+
+
+::: {.question}
+What patterns does the residual plot reveal that should make us question whether a linear model is a good fit for modeling the relationship between mercury (ppm) and assets?
+:::
+
+```{r}
+#| out-width: "60%"
+#| echo: false
+
+ggplot(hg_asset_fit_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted mercury (ppm)", y = "Residuals")
+```
+
+
+# Exploring linearity
+
+## Data: Mercury
+
+```{r}
+#| echo: false
+#| out-width: "70%"
+
+ggplot(data = mercury, aes(x = hairHg)) +
+  geom_histogram() +
+  labs(title = "Mercury (ppm)")
+```
+
+## Mercury vs. assets
+
+```{r}
+#| echo: false
+#| out-width: "70%"
+#| warning: false
+
+ggplot(data = mercury, aes(x = assets_sc, y = hairHg)) +
+  geom_point(alpha = 0.05) +
+  labs(x = "Assets (standardized)", y = "Mercury (ppm)") 
+```
+
+## Mercury vs assets
+
+::: {.question}
+Which plot shows a more linear relationship?
+:::
+
+::: {.small}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| message: false
+#| echo: false
+#| out-width: "100%"
+
+ggplot(data = mercury, 
+       mapping = aes(x = assets_sc, y = hairHg)) +
+  geom_point(alpha = 0.2) +
+  labs(
+    title = "Mercury and Assets", 
+    x = "Assets (standardized)", 
+    y = "Mercury (ppm)"
+    )
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| message: false
+#| echo: false
+#| out-width: "100%"
+
+ggplot(data = mercury, 
+       mapping = aes(x = assets_sc, y = lhairHg)) +
+  geom_point(alpha = 0.2) +
+  labs(
+    title = "Log(Mercury) and Assets", 
+    x = "Assets (standardized)", 
+    y = "Mercury (log ppm)"
+    )
+```
+:::
+
+::::
+
+:::
+
+## Mercury and Assets, residuals
+
+::: {.question}
+Which plot shows a residuals that are uncorrelated with predicted values from the model? Also, what is the unit of the residuals?
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| message: false
+#| echo: false
+#| out-width: "100%"
+
+hg_assets_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(hairHg ~ assets_sc, data = mercury)
+hg_assets_fit_aug <- augment(hg_assets_fit$fit)
+ggplot(data = hg_assets_fit_aug, 
+       mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.2) +
+  labs(
+    title = "Mercury vs. assets, residuals", 
+    x = "Predicted mercury (ppm)", 
+    y = "Residuals"
+    )
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| message: false
+#| echo: false
+#| out-width: "100%"
+
+lhg_assets_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ assets_sc, data = mercury)
+lhg_assets_fit_aug <- augment(lhg_assets_fit$fit)
+ggplot(data = lhg_assets_fit_aug, 
+       mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.2) +
+  labs(
+    title = "Log Mercury vs. assets, residuals", 
+    x = "Predicted mercury (log ppm)", 
+    y = "Residuals"
+    )
+```
+:::
+
+::::
+
+## Transforming the data
+
+::: {.incremental}
+- We saw that `hairHg` has a right-skewed distribution, and the residuals of that model don't look great.
+- In these situations a transformation applied to the response variable may be useful.
+- In order to decide which transformation to use, we should examine the distribution of the response variable.
+- The extremely right skewed distribution suggests that a log transformation may 
+be useful.
+    - log = natural log, $ln$
+    - Default base of the `log` function in R is the natural log: <br>
+    `log(x, base = exp(1))`
+:::
+
+## Transformations
+
+<div style="font-size:0.8em;">
+
+
+::: {.incremental}
+- Non-constant variance is one of the most common model violations, however it is usually fixable by transforming the response (y) variable.
+- The most common transformation when the response variable is right skewed is the log transform: $log(y)$, especially useful when the response variable is 
+(extremely) right skewed.
+- This transformation is also useful for variance stabilization.
+- When using a log transformation on the response variable the interpretation of 
+the slope changes: *"For each unit increase in x, y is expected on average to be higher/lower by a factor of $e^{\hat{\beta}_1}$."*
+- When the response is log-transformed, a one-unit increase in $x$ multiplies the predicted **geometric mean** of $y$ by $e^{\hat{\beta}_1}$. This corresponds to a percentage change of $100(e^{\hat{\beta}_1}-1)\%$; a negative result means a decrease.
+- Another useful transformation is the square root: $\sqrt{y}$, especially 
+useful when the response variable is a count.
+:::
+
+</div>
+
+## Transform, or learn more?
+
+- Data transformations may also be useful when the relationship is non-linear
+- However in those cases a polynomial regression may be more appropriate
+  + This is beyond the scope of this course, but you're welcomed to try it on your own, and I'd be happy to provide further guidance!
+
+
+
+## Aside: when $y = 0$
+
+In some cases the value of the response variable might be 0, and
+
+```{r}
+log(0)
+```
+
+::: {.fragment}
+The trick is to add a very small number to the value of the response variable for these cases so that the `log` function can still be applied:
+
+```{r}
+log(0 + 0.00001)
+```
+:::
+
+::: {.fragment}
+If there are a lot of 0 values for $y$, this trick is not such a good idea, and you may need to take an alternative approach (e.g., a zero-inflated model).
+:::
+
+
+
+## Homework (Practice)
+
+[**IMS Chapter 7**](https://openintrostat.github.io/ims/model-slr.html#sec-chp7-exercises)
+
+- Problem 7
+- Problem 8
+- Problem 12
+- Problem 22
+- Problem 23
