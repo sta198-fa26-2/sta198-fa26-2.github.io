@@ -97,7 +97,7 @@ $$\widehat{y}_{i} = 60 + 5 \times x_{i}$$
 
 ::: {.incremental}
 
-- **Slope:** For each additional hour of study, the exam score is expected to be higher, on average, by 5 points.
+- **Slope:**  For each additional hour of study, the exam score is expected to be higher, on average, by 5 points.
 
 - **Intercept:** Individuals who do not study are expected to have exam scores of 60 points, on average
 
@@ -240,17 +240,19 @@ $$
 \text{Multiplier for a one-unit increase in }x = e^{\widehat\beta_1}
 $$
 
-$$
-\text{Percentage change} = \left(e^{\widehat\beta_1}-1\right)\times100\%.
-$$
+For a model with a natural log-transformed response, a one-unit increase
+in a predictor corresponds to:
 
-::: {.incremental}
+- A **$100(e^{\hat{\beta}}-1)\%$ increase** in the geometric mean of
+  the response if $\hat{\beta}>0$.
 
-- Negative result: a **percentage decrease**.
-- Positive result: a **percentage increase**.
-- Use the *exponential*, not $100\widehat\beta_1\%$, for the exact percentage change.
+- A **$100(1-e^{\hat{\beta}})\%$ decrease** in the geometric mean of
+  the response if $\hat{\beta}<0$.
 
-:::
+These interpretations hold other predictors fixed. For a categorical
+predictor, the comparison is with the reference category.
+
+
 
 ## Let R do the conversion
 
@@ -961,3 +963,4 @@ If there are a lot of 0 values for $y$, this trick is not such a good idea, and 
 - Problem 12
 - Problem 22
 - Problem 23
+

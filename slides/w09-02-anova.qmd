@@ -23,8 +23,7 @@ editor_options:
 ```
 
 ```{r}
-library(tidyverse)
-library(tidymodels)
+#| echo: FALSE
 library(ggtext)
 library(knitr)
 library(kableExtra)
@@ -45,6 +44,7 @@ library(tidyverse)
 library(tidymodels)
 library(readr)
 mercury <- readr::read_csv("../data/mercury_reg.csv")
+head(mercury)
 ```
 
 ## Relationship between mercury and individual community
@@ -83,7 +83,7 @@ print(res,n=23)
 
 When our predictor variable is categorical and the response is (approximately) normal (perhaps after transformation), often this type of model is fitted as an **ANOVA** model. **ANOVA or Analysis of Variance** refers to an approach when we have all categorical predictors, in which the hypothesis of interest is related to the degree of variability in the means across groups (versus within-group variability).  
 
-We can think of ANOVA as a special case of regression, when all predictors are categorical. Technically, ANOVA is more of a tool to break apart different sources of variation in data.
+We can think of ANOVA as a special case of regression, when all predictors are categorical. Philosophically, ANOVA is more of a tool to break apart different sources of variation in data.
 
 ## {background-color="white"}
 
@@ -468,11 +468,14 @@ mercury %>%
 
 ## ANOVA for Mercury Data
 
+<div style="font-size:0.9em;">
+
+
 - Let the hair mercury of subject $j$ in community $i$ be given by $y_{ij}$, $i=1,2,\ldots, 23$, $j=1,\ldots,n_i$
 
 - We have 23 communities with $n_i$ subjects in each  
 
-- For each community, calculate the sample mean and variance, so now we have $\bar{y}_1$ and ${s_1}^2$, $\bar{y}_2$ and ${s_2}^2$, and so on $\bar{y}_i$ and ${s_i}^2$ $i=1,\ldots,23$
+- For each community, calculate the sample mean and variance, so now we have $\bar{y}_1$ and $s^2_1$, $\bar{y}_2$ and $s^2_2$, and so on $\bar{y}_i$ and $s^2_i$, $i=1,\ldots,23$
 
 - ANOVA is concerned with two different types of variances:  
 
@@ -480,17 +483,50 @@ mercury %>%
   
   - *Between-groups variance*:  variance of the community means around the overall mean of all observations, $\bar{y}_\cdot$ 
   
+</div>
+  
 ## Overall variance
 
-Variance of $y$ is estimated as $$s^2=\frac{\sum_{i=1}^K \sum_{j=1}^{n_i} (y_{ij}-\bar{y})^2}{n-1},$$ where $n=\sum_{i=1}^K n_i$ is the total sample size across all communities
+Variance of $y$ is estimated as $$s^2=\frac{\sum_{i=1}^K \sum_{j=1}^{n_i} (y_{ij}-\bar{y})^2}{n-1},$$ where $n=\sum_{i=1}^K n_i$ is the total sample size across all communities.
+
+<div style="font-size:0.65em;">
+
+
+While the double summation may look confusing, it is not too bad.  The inner $\sum_{j=1}^{n_i}$ is just taking the sum of the squared differences between each individual log hair mercury concentration $y_{ij}$ and the overall average log concentration $\bar{y}$ for the people in community $i$.  The outer sum is over the $K=23$ total communities so we end up getting the sum of squared differences for every sampled person in every community.
+
+</div>
+
+ANOVA breaks the overall variance down into two parts: variance within groups, and variance between groups.
 
 
 ## Within-groups variance
 
-<div style="font-size:0.85em;">
 
 
-Each community's variance $${s}^2_i=\frac{\sum_{j=1}^{n_i} (y_{ij}-\overline{y}_i)^2}{n_i-1}$$ is a measure of the variance of the individuals around that community mean.  To get a pooled estimate of the common variance of individuals around their community means, we can calculate $${s_W}^2=\frac{(n_1-1){s_1}^2 + (n_2-1){s_2}^2 + \cdots + (n_K-1){s_K}^2}{n - K},$$ where $K$ is the number of groups and $n=n_1+n_2+\cdots+n_K$.  We can think of the within-groups variance as the inherent variability in the population.
+
+Each community's variance $${s}^2_i=\frac{\sum_{j=1}^{n_i} (y_{ij}-\overline{y}_i)^2}{n_i-1}$$ is a measure of the variance of the individuals around that community mean.  There is a separate variance here for each community. 
+
+
+## Within-groups variance
+
+<div style="font-size:0.75em;">
+
+
+Recall ${s}^2_i=\frac{\sum_{j=1}^{n_i} (y_{ij}-\overline{y}_i)^2}{n_i-1}.$ 
+
+
+To get a pooled estimate of the common variance of individuals around their community means, we can calculate 
+
+$$
+\begin{aligned}
+{s_W}^2 &= \frac{(n_1-1){s_1}^2 + (n_2-1){s_2}^2 + \cdots + (n_K-1){s_K}^2}{n - K} \\[1.5ex]
+        &= \frac{\sum_{i=1}^K \sum_{j=1}^{n_i} (y_{ij}-\bar{y}_i)^2}{n-K},
+\end{aligned}
+$$ 
+
+where $K$ is the number of groups and $n=n_1+n_2+\cdots+n_K$.  
+
+We can think of this within-groups variance as the inherent variability in the population.
 
 </div>
 
@@ -499,7 +535,7 @@ Each community's variance $${s}^2_i=\frac{\sum_{j=1}^{n_i} (y_{ij}-\overline{y}_
 The between groups variance is estimated by $$s_B^2=\frac{n_1(\bar{y}_1-\bar{y}_\cdot)^2+n_2(\bar{y}_2-\bar{y}_\cdot)^2 + \cdots + n_K(\bar{y}_K-\bar{y}_\cdot)^2}{K-1}.$$
 
 
-We can think of the between-groups variance as the sum of inherent variability *and* any kind of systematic variability due to the group/community effect.
+We can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it also reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability *and* any kind of systematic variability due to the group/community effect.
 
 ## F test
 
@@ -712,8 +748,10 @@ We interpret the ICC=0.49 as the correlation inside a household, or the fraction
 
 ## {background-color="white"}
 
+<div style="font-size:0.8em;">
 
-```{r pairwise_re}
+
+```{r}
 library(emmeans)
 library(lmerTest)
 library(pbkrtest)
@@ -725,6 +763,23 @@ paired$emmeans
 ```
 
 Here we see estimated means by community. 
+
+</div>
+
+
+## {background-color="white"}
+
+<div style="font-size:0.7em;">
+
+
+```{r}
+options(width = 120)
+paired$contrasts
+```
+
+We can also examine estimated differences between means (these do have a multiple comparisons adjustment applied). 
+
+</div>
 
 ## {background-color="white"}
 
@@ -738,9 +793,9 @@ To learn more about *random effects models*, also known as *hierarchical* or *mu
 
 :::: {.columns}
 
-::: {.column width="40%"}
+::: {.column width="60%"}
 ```{r}
-#| echo: false
+#| echo: FALSE
 #| class-output: small
 
 mercury <-
@@ -759,7 +814,7 @@ mercury %>%
 ```
 :::
 
-::: {.column width="60%"}
+::: {.column width="40%"}
 - `Native`: community classified as native by Peruvian government
 - `Non-native`: community does not have native classification
 :::
@@ -779,14 +834,17 @@ linear_reg() %>%
 
 ## Mercury and native communities
 
-<div style="font-size:0.9em;">
+<div style="font-size:0.7em;">
 
 
 Define $\text{Non-native}_i$=1 if non-native community and 0 otherwise.
 
 $$\widehat{y_i} = 1.12 - 1.11~\text{Non-native}_i$$
 
-- **Slope:** Residents of non-native communities, on average, are expected to have Hg concentrations that are -1.11 log ppm lower, on average, than residents of native communities.  Alternatively, the hair Hg is expected to be lower, on average, by a factor of $e^{-1.11}=0.33$ among residents of non-native communities.
+- **Slope:** Residents of non-native communities, on average, are expected to have Hg concentrations that are -1.11 log ppm lower, on average, than residents of native communities.  Alternatively, the hair Hg is expected to be lower, on average, by a factor of $e^{-1.11}=0.33$ among residents of non-native communities. The geometric mean of hair Hg is estimated to be
+$100\left(1-e^{-1.11}\right)=67\%$ lower
+among residents of non-native communities than among residents of
+native communities, holding other predictors fixed.
   - Compares baseline level (`Native`) to the other level (`Non-native`)
     
 - **Intercept:** Individuals living in native communities (`Non-native`=0) are expected to have hair mercury exposures of 1.12 log ppm.
@@ -822,7 +880,9 @@ tidy(com_fit)
 
 ## Categorical predictor with 3+ levels
 
-<div style="font-size:0.7em;">
+Here is how you code the indicator variables.
+
+<div style="font-size:0.5em;">
 
 
 ```{r}
@@ -869,7 +929,7 @@ etc. for the other communities. Note Boca Colorado, the *referent community*, =0
 
 ## Relationship between mercury and community
 
-<div style="font-size:0.5em;">
+<div style="font-size:0.4em;">
 
 
 ```{r hg-comm}
@@ -878,9 +938,15 @@ etc. for the other communities. Note Boca Colorado, the *referent community*, =0
 ```
 
 ::: {.tiny}
-- **Boca Colorado** hair mercury levels are expected, on average, to be **0.614 log ppm**.
-- **Boca Isiriwe** hair mercury levels are expected, on average, to be **1.2 log ppm higher** than *Boca Colorado* levels, at **1.814 log ppm** on average.
-- **Caychihue** hair mercury levels are expected, on average, to be **1.10 log ppm lower** than *Boca Colorado* levels, at **-0.486 log ppm** on average.
+- **Boca Colorado** hair mercury levels are expected, on average, to be **0.614 log ppm**. The estimated geometric mean hair mercury level among
+  residents of **Boca Colorado** is $e^{0.614} \approx \mathbf{1.85}$ ppm.
+- **Boca Isiriwe** hair mercury levels are expected, on average, to be **1.2 log ppm higher** than *Boca Colorado* levels, at **1.814 log ppm** on average. The estimated geometric mean hair mercury level among
+  residents of **Boca Isiriwe** is
+  $100(e^{1.2}-1) \approx \mathbf{232\%}$ higher than among residents of
+  **Boca Colorado**. (Note: 1.85+2.32*1.85=6.142, and $\exp^{0.614+1.2}=6.13$)
+- **Caychihue** hair mercury levels are expected, on average, to be **1.10 log ppm lower** than *Boca Colorado* levels, at **-0.486 log ppm** on average. The estimated geometric mean hair mercury level among residents of
+  **Caychihue** is $100(1-\exp^{-1.1}) \approx \mathbf{67\%}$ lower than
+  among residents of **Boca Colorado**. 
 - etc. It can be nice to have a table showing the estimated mean (along with uncertainty measures -- coming soon) for each community, and a plot can also be useful.
 :::
 
@@ -888,15 +954,26 @@ etc. for the other communities. Note Boca Colorado, the *referent community*, =0
 
 ## Regression and ANOVA
 
+<div style="font-size:0.8em;">
+
+
 You might be wondering how this model differs from the ANOVA model we just presented when exploring how community is related to mercury levels.  In fact, the two models are equivalent!  In our ANOVA discussion, we specified our model as $$y_{ij}=\mu_i+\varepsilon_{ij}$$ with a separate mean $\mu_i$ for each community, $\mu_1, \mu_2, \ldots, \mu_{23}$.
 
 Here, we fit the same model with a slightly different **coding scheme**, where we define the regression model intercept $\beta_0$ to be the mean for the **reference** community, Boca Colorado, and the regression model parameters $\beta_1, \beta_2, \ldots, \beta_{22}$ each measure the difference in mercury levels between Boca Colorado and the community of interest. 
 
+</div>
+
 ## ANOVA as Regression
+
+<div style="font-size:0.8em;">
+
 
 Our model thus is $$y_i=\beta_0 + \beta_1\text{Boca Isiriwe}_i + \beta_2\text{Boca Manu}_i + \ldots + \beta_{22}\text{Shipitiari}_i + \varepsilon_i$$ where $\text{Boca Manu}_i$ is an indicator variable that takes value 1 if the measurement is from a resident of Boca Manu, and it takes value 0 otherwise. 
 
----
+</div>
+
+## {background-color="white"}
+
 
 The mean for each community is given below.
 
