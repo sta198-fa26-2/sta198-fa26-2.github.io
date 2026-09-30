@@ -367,14 +367,13 @@ Amy Herring
 <p><span class="math display">\[
 \text{Multiplier for a one-unit increase in }x = e^{\widehat\beta_1}
 \]</span></p>
-<p><span class="math display">\[
-\text{Percentage change} = \left(e^{\widehat\beta_1}-1\right)\times100\%.
-\]</span></p>
+<p>For a model with a natural log-transformed response, a one-unit increase in a predictor corresponds to:</p>
 <ul>
-<li class="fragment">Negative result: a <strong>percentage decrease</strong>.</li>
-<li class="fragment">Positive result: a <strong>percentage increase</strong>.</li>
-<li class="fragment">Use the <em>exponential</em>, not <span class="math inline">\(100\widehat\beta_1\%\)</span>, for the exact percentage change.</li>
-</ul></section><section id="let-r-do-the-conversion" class="slide level2"><h2>Let R do the conversion</h2>
+<li><p>A <strong><span class="math inline">\(100(e^{\hat{\beta}}-1)\%\)</span> increase</strong> in the geometric mean of the response if <span class="math inline">\(\hat{\beta}&gt;0\)</span>.</p></li>
+<li><p>A <strong><span class="math inline">\(100(1-e^{\hat{\beta}})\%\)</span> decrease</strong> in the geometric mean of the response if <span class="math inline">\(\hat{\beta}&lt;0\)</span>.</p></li>
+</ul>
+<p>These interpretations hold other predictors fixed. For a categorical predictor, the comparison is with the reference category.</p>
+</section><section id="let-r-do-the-conversion" class="slide level2"><h2>Let R do the conversion</h2>
 <div style="font-size:0.5em;">
 <div class="columns">
 <div class="column" style="width:55%;">

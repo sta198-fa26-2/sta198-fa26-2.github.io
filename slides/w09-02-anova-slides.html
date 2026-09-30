@@ -217,24 +217,32 @@ Amy Herring
 </div>
 
   <p class="date">2026-10-21</p>
-</section><section class="slide level2"><div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb1-3"><a></a><span class="fu">library</span>(ggtext)</span>
-<span id="cb1-4"><a></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-5"><a></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb1-6"><a></a><span class="fu">options</span>(<span class="at">dplyr.print_min =</span> <span class="dv">10</span>, <span class="at">dplyr.print_max =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section><section><section id="data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon" class="title-slide slide level1 center"><h1>Data: Artisanal and Small-Scale Gold Mining in the Peruvian Amazon</h1>
 
 </section><section id="mercury-and-community" class="slide level2"><h2>Mercury and Community</h2>
 <p><a href="https://theconversation.com/gold-rush-mercury-legacy-small-scale-mining-for-gold-has-produced-long-lasting-toxic-pollution-from-1860s-california-to-modern-peru-133324">Artisinal and small-scale gold mining is largest source of mercury pollution worldwide</a>.</p>
 <p>Are mercury concentrations in hair related to community of residence?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb2-3"><a></a><span class="fu">library</span>(readr)</span>
-<span id="cb2-4"><a></a>mercury <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"../data/mercury_reg.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-3"><a></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-4"><a></a>mercury <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"../data/mercury_reg.csv"</span>)</span>
+<span id="cb1-5"><a></a><span class="fu">head</span>(mercury)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 18
+     id withinid   hid   cid community      age SESassets lhairHg
+  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1     1        1     1     1 Boca Colora…    29    -1.09   0.676 
+2     2        1     2     1 Boca Colora…    31     0.235 NA     
+3     3        3     2     1 Boca Colora…    26     0.235  0.0908
+4     4        2     2     1 Boca Colora…     5     0.235 NA     
+5     5        1     3     1 Boca Colora…    45    -0.157 NA     
+6     6        3     3     1 Boca Colora…    38    -0.157 NA     
+# ℹ 10 more variables: sex &lt;dbl&gt;, wcba &lt;dbl&gt;, urban &lt;dbl&gt;,
+#   mining &lt;dbl&gt;, agriculture &lt;dbl&gt;, FM_buffer &lt;dbl&gt;,
+#   IM_buffer &lt;dbl&gt;, longitude &lt;dbl&gt;, latitude &lt;dbl&gt;,
+#   native &lt;dbl&gt;</code></pre>
+</div>
 </div>
 </section><section id="relationship-between-mercury-and-individual-community" class="slide level2"><h2>Relationship between mercury and individual community</h2>
 <p>One way to explore this relationship is through a linear regression model, with <em>dummy</em> or <em>indicator variables</em> for community as predictors.</p>
@@ -284,7 +292,7 @@ Amy Herring
 <li><p>What if we want to make comparisons between pairs of communities that don’t involve Boca Colorado? We’ll address that shortly!</p></li>
 </ul></section><section id="anova" class="slide level2"><h2>ANOVA</h2>
 <p>When our predictor variable is categorical and the response is (approximately) normal (perhaps after transformation), often this type of model is fitted as an <strong>ANOVA</strong> model. <strong>ANOVA or Analysis of Variance</strong> refers to an approach when we have all categorical predictors, in which the hypothesis of interest is related to the degree of variability in the means across groups (versus within-group variability).</p>
-<p>We can think of ANOVA as a special case of regression, when all predictors are categorical. Technically, ANOVA is more of a tool to break apart different sources of variation in data.</p>
+<p>We can think of ANOVA as a special case of regression, when all predictors are categorical. Philosophically, ANOVA is more of a tool to break apart different sources of variation in data.</p>
 </section><section id="section-2" class="slide level2" data-background-color="white"><h2></h2>
 <p>First, let’s explore hair Hg levels (in log ppm) by community in our data visually.</p>
 <div class="panel-tabset">
@@ -483,10 +491,11 @@ Amy Herring
 <li><p>Equal variances: more or less ok on the log scale</p></li>
 <li><p>Independence: this is an issue with these data, as some households provided multiple hair samples, and individuals within households may share exposure sources (e.g., meals), leading to correlated data within household. We will address this issue shortly.</p></li>
 </ul></section><section id="anova-for-mercury-data" class="slide level2"><h2>ANOVA for Mercury Data</h2>
+<div style="font-size:0.9em;">
 <ul>
 <li><p>Let the hair mercury of subject <span class="math inline">\(j\)</span> in community <span class="math inline">\(i\)</span> be given by <span class="math inline">\(y_{ij}\)</span>, <span class="math inline">\(i=1,2,\ldots, 23\)</span>, <span class="math inline">\(j=1,\ldots,n_i\)</span></p></li>
 <li><p>We have 23 communities with <span class="math inline">\(n_i\)</span> subjects in each</p></li>
-<li><p>For each community, calculate the sample mean and variance, so now we have <span class="math inline">\(\bar{y}_1\)</span> and <span class="math inline">\({s_1}^2\)</span>, <span class="math inline">\(\bar{y}_2\)</span> and <span class="math inline">\({s_2}^2\)</span>, and so on <span class="math inline">\(\bar{y}_i\)</span> and <span class="math inline">\({s_i}^2\)</span> <span class="math inline">\(i=1,\ldots,23\)</span></p></li>
+<li><p>For each community, calculate the sample mean and variance, so now we have <span class="math inline">\(\bar{y}_1\)</span> and <span class="math inline">\(s^2_1\)</span>, <span class="math inline">\(\bar{y}_2\)</span> and <span class="math inline">\(s^2_2\)</span>, and so on <span class="math inline">\(\bar{y}_i\)</span> and <span class="math inline">\(s^2_i\)</span>, <span class="math inline">\(i=1,\ldots,23\)</span></p></li>
 <li>
 <p>ANOVA is concerned with two different types of variances:</p>
 <ul>
@@ -494,15 +503,32 @@ Amy Herring
 <li><p><em>Between-groups variance</em>: variance of the community means around the overall mean of all observations, <span class="math inline">\(\bar{y}_\cdot\)</span></p></li>
 </ul>
 </li>
-</ul></section><section id="overall-variance" class="slide level2"><h2>Overall variance</h2>
-<p>Variance of <span class="math inline">\(y\)</span> is estimated as <span class="math display">\[s^2=\frac{\sum_{i=1}^K \sum_{j=1}^{n_i} (y_{ij}-\bar{y})^2}{n-1},\]</span> where <span class="math inline">\(n=\sum_{i=1}^K n_i\)</span> is the total sample size across all communities</p>
+</ul>
+</div>
+</section><section id="overall-variance" class="slide level2"><h2>Overall variance</h2>
+<p>Variance of <span class="math inline">\(y\)</span> is estimated as <span class="math display">\[s^2=\frac{\sum_{i=1}^K \sum_{j=1}^{n_i} (y_{ij}-\bar{y})^2}{n-1},\]</span> where <span class="math inline">\(n=\sum_{i=1}^K n_i\)</span> is the total sample size across all communities.</p>
+<div style="font-size:0.65em;">
+<p>While the double summation may look confusing, it is not too bad. The inner <span class="math inline">\(\sum_{j=1}^{n_i}\)</span> is just taking the sum of the squared differences between each individual log hair mercury concentration <span class="math inline">\(y_{ij}\)</span> and the overall average log concentration <span class="math inline">\(\bar{y}\)</span> for the people in community <span class="math inline">\(i\)</span>. The outer sum is over the <span class="math inline">\(K=23\)</span> total communities so we end up getting the sum of squared differences for every sampled person in every community.</p>
+</div>
+<p>ANOVA breaks the overall variance down into two parts: variance within groups, and variance between groups.</p>
 </section><section id="within-groups-variance" class="slide level2"><h2>Within-groups variance</h2>
-<div style="font-size:0.85em;">
-<p>Each community’s variance <span class="math display">\[{s}^2_i=\frac{\sum_{j=1}^{n_i} (y_{ij}-\overline{y}_i)^2}{n_i-1}\]</span> is a measure of the variance of the individuals around that community mean. To get a pooled estimate of the common variance of individuals around their community means, we can calculate <span class="math display">\[{s_W}^2=\frac{(n_1-1){s_1}^2 + (n_2-1){s_2}^2 + \cdots + (n_K-1){s_K}^2}{n - K},\]</span> where <span class="math inline">\(K\)</span> is the number of groups and <span class="math inline">\(n=n_1+n_2+\cdots+n_K\)</span>. We can think of the within-groups variance as the inherent variability in the population.</p>
+<p>Each community’s variance <span class="math display">\[{s}^2_i=\frac{\sum_{j=1}^{n_i} (y_{ij}-\overline{y}_i)^2}{n_i-1}\]</span> is a measure of the variance of the individuals around that community mean. There is a separate variance here for each community.</p>
+</section><section id="within-groups-variance-1" class="slide level2"><h2>Within-groups variance</h2>
+<div style="font-size:0.75em;">
+<p>Recall <span class="math inline">\({s}^2_i=\frac{\sum_{j=1}^{n_i} (y_{ij}-\overline{y}_i)^2}{n_i-1}.\)</span></p>
+<p>To get a pooled estimate of the common variance of individuals around their community means, we can calculate</p>
+<p><span class="math display">\[
+\begin{aligned}
+{s_W}^2 &amp;= \frac{(n_1-1){s_1}^2 + (n_2-1){s_2}^2 + \cdots + (n_K-1){s_K}^2}{n - K} \\[1.5ex]
+        &amp;= \frac{\sum_{i=1}^K \sum_{j=1}^{n_i} (y_{ij}-\bar{y}_i)^2}{n-K},
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(K\)</span> is the number of groups and <span class="math inline">\(n=n_1+n_2+\cdots+n_K\)</span>.</p>
+<p>We can think of this within-groups variance as the inherent variability in the population.</p>
 </div>
 </section><section id="between-groups-variance" class="slide level2"><h2>Between-groups variance</h2>
 <p>The between groups variance is estimated by <span class="math display">\[s_B^2=\frac{n_1(\bar{y}_1-\bar{y}_\cdot)^2+n_2(\bar{y}_2-\bar{y}_\cdot)^2 + \cdots + n_K(\bar{y}_K-\bar{y}_\cdot)^2}{K-1}.\]</span></p>
-<p>We can think of the between-groups variance as the sum of inherent variability <em>and</em> any kind of systematic variability due to the group/community effect.</p>
+<p>We can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it also reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability <em>and</em> any kind of systematic variability due to the group/community effect.</p>
 </section><section id="f-test" class="slide level2"><h2>F test</h2>
 <div style="font-size:0.85em;">
 <p>Both <span class="math inline">\({s_W}^2\)</span> and <span class="math inline">\({s_B}^2\)</span> are estimates of the population variance <span class="math inline">\(\sigma^2\)</span> if <span class="math inline">\(H_0\)</span> is true. Now, if the sample means vary around the overall mean (this variance measured by <span class="math inline">\({s_B}^2\)</span>) more than the individual observations vary around the sample means (measured by <span class="math inline">\({s_W}^2\)</span>), we have evidence that the corresponding group population means are in fact different (so that all <span class="math inline">\(K\)</span> means are not the same).</p>
@@ -709,6 +735,7 @@ community   22 258.74  11.761  28.853</code></pre>
 </div>
 <p>We interpret the ICC=0.49 as the correlation inside a household, or the fraction of variance explained by household membership. The correlation here is quite large. We should not be making any decisions based on the first analysis that included multiple individuals per household with no adjustment for correlated data (the analysis limiting to one person per household is still fine).</p>
 </section><section id="section-8" class="slide level2" data-background-color="white"><h2></h2>
+<div style="font-size:0.8em;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">library</span>(emmeans)</span>
 <span id="cb27-2"><a></a><span class="fu">library</span>(lmerTest)</span>
@@ -748,42 +775,310 @@ Confidence level used: 0.95 </code></pre>
 </div>
 </div>
 <p>Here we see estimated means by community.</p>
+</div>
 </section><section id="section-9" class="slide level2" data-background-color="white"><h2></h2>
+<div style="font-size:0.7em;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">options</span>(<span class="at">width =</span> <span class="dv">120</span>)</span>
+<span id="cb29-2"><a></a>paired<span class="sc">$</span>contrasts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast                            estimate     SE   df t.ratio p.value
+ Boca Colorado - Boca Isiriwe        -1.16471 0.2260  835  -5.142  0.0001
+ Boca Colorado - Boca Manu           -0.82609 0.1660  996  -4.990  0.0002
+ Boca Colorado - Caychihue            1.09529 0.1680 1033   6.528  &lt;.0001
+ Boca Colorado - Choque               0.77238 0.1480 1067   5.219  0.0001
+ Boca Colorado - Diamante            -1.00188 0.1350 1060  -7.407  &lt;.0001
+ Boca Colorado - Huepetuhe            0.67104 0.0904 1078   7.423  &lt;.0001
+ Boca Colorado - Isla de los Valles  -1.00742 0.3450  865  -2.923  0.3310
+ Boca Colorado - Masenawa            -1.28740 0.4820 1196  -2.669  0.5206
+ Boca Colorado - Palotoa Teparo      -0.33148 0.1940  926  -1.710  0.9889
+ Boca Colorado - Puerto Azul         -1.17977 0.2960  937  -3.981  0.0143
+ Boca Colorado - Puerto Luz          -0.50051 0.1380  879  -3.625  0.0504
+ Boca Colorado - Punquiri             0.70929 0.2230 1018   3.183  0.1821
+ Boca Colorado - Puquiri              0.02490 0.2500 1034   0.099  1.0000
+ Boca Colorado - Quebrada Neuva       0.78252 0.1240 1019   6.302  &lt;.0001
+ Boca Colorado - Queros               0.77015 0.3210  935   2.402  0.7282
+ Boca Colorado - Quimiri              0.51883 0.3870  884   1.341  0.9996
+ Boca Colorado - Quincemil            0.81149 0.1080 1050   7.500  &lt;.0001
+ Boca Colorado - Salvacion            0.74286 0.1070 1036   6.949  &lt;.0001
+ Boca Colorado - San Lorenzo          0.29234 0.1690  896   1.730  0.9872
+ Boca Colorado - Setapo              -0.50155 0.4510  921  -1.112  1.0000
+ Boca Colorado - Shintuya            -0.13127 0.1580  972  -0.830  1.0000
+ Boca Colorado - Shipitiari          -0.56975 0.2080  977  -2.738  0.4661
+ Boca Isiriwe - Boca Manu             0.33862 0.2580  853   1.314  0.9997
+ Boca Isiriwe - Caychihue             2.25999 0.2590  867   8.721  &lt;.0001
+ Boca Isiriwe - Choque                1.93709 0.2470  862   7.849  &lt;.0001
+ Boca Isiriwe - Diamante              0.16282 0.2390  849   0.680  1.0000
+ Boca Isiriwe - Huepetuhe             1.83574 0.2170  813   8.452  &lt;.0001
+ Boca Isiriwe - Isla de los Valles    0.15728 0.3970  839   0.396  1.0000
+ Boca Isiriwe - Masenawa             -0.12270 0.5210 1121  -0.235  1.0000
+ Boca Isiriwe - Palotoa Teparo        0.83323 0.2770  840   3.011  0.2745
+ Boca Isiriwe - Puerto Azul          -0.01507 0.3560  880  -0.042  1.0000
+ Boca Isiriwe - Puerto Luz            0.66420 0.2410  802   2.756  0.4523
+ Boca Isiriwe - Punquiri              1.87400 0.2980  897   6.293  &lt;.0001
+ Boca Isiriwe - Puquiri               1.18960 0.3190  920   3.730  0.0354
+ Boca Isiriwe - Quebrada Neuva        1.94723 0.2330  830   8.347  &lt;.0001
+ Boca Isiriwe - Queros                1.93486 0.3770  885   5.138  0.0001
+ Boca Isiriwe - Quimiri               1.68353 0.4340  858   3.877  0.0212
+ Boca Isiriwe - Quincemil             1.97619 0.2250  823   8.776  &lt;.0001
+ Boca Isiriwe - Salvacion             1.90756 0.2250  820   8.494  &lt;.0001
+ Boca Isiriwe - San Lorenzo           1.45704 0.2600  819   5.606  &lt;.0001
+ Boca Isiriwe - Setapo                0.66316 0.4920  894   1.347  0.9996
+ Boca Isiriwe - Shintuya              1.03344 0.2530  840   4.085  0.0097
+ Boca Isiriwe - Shipitiari            0.59495 0.2870  870   2.074  0.9120
+ Boca Manu - Caychihue                1.92138 0.2080  991   9.237  &lt;.0001
+ Boca Manu - Choque                   1.59847 0.1920 1003   8.309  &lt;.0001
+ Boca Manu - Diamante                -0.17580 0.1830  993  -0.962  1.0000
+ Boca Manu - Huepetuhe                1.49713 0.1530  971   9.811  &lt;.0001
+ Boca Manu - Isla de los Valles      -0.18133 0.3660  871  -0.496  1.0000
+ Boca Manu - Masenawa                -0.46132 0.4980 1177  -0.927  1.0000
+ Boca Manu - Palotoa Teparo           0.49461 0.2300  923   2.155  0.8775
+ Boca Manu - Puerto Azul             -0.35369 0.3210  934  -1.102  1.0000
+ Boca Manu - Puerto Luz               0.32558 0.1850  896   1.761  0.9841
+ Boca Manu - Punquiri                 1.53538 0.2550  994   6.032  &lt;.0001
+ Boca Manu - Puquiri                  0.85099 0.2790 1010   3.050  0.2507
+ Boca Manu - Quebrada Neuva           1.60861 0.1750  967   9.206  &lt;.0001
+ Boca Manu - Queros                   1.59624 0.3430  933   4.648  0.0009
+ Boca Manu - Quimiri                  1.34491 0.4060  887   3.314  0.1289
+ Boca Manu - Quincemil                1.63757 0.1640  973   9.999  &lt;.0001
+ Boca Manu - Salvacion                1.56895 0.1630  966   9.630  &lt;.0001
+ Boca Manu - San Lorenzo              1.11842 0.2090  903   5.352  &lt;.0001
+ Boca Manu - Setapo                   0.32454 0.4680  921   0.694  1.0000
+ Boca Manu - Shintuya                 0.69482 0.2000  951   3.469  0.0821
+ Boca Manu - Shipitiari               0.25633 0.2420  961   1.061  1.0000
+ Caychihue - Choque                  -0.32291 0.1940 1030  -1.662  0.9922
+ Caychihue - Diamante                -2.09717 0.1850 1023 -11.347  &lt;.0001
+ Caychihue - Huepetuhe               -0.42425 0.1550 1013  -2.737  0.4672
+ Caychihue - Isla de los Valles      -2.10271 0.3670  878  -5.730  &lt;.0001
+ Caychihue - Masenawa                -2.38269 0.4990 1181  -4.779  0.0005
+ Caychihue - Palotoa Teparo          -1.42676 0.2310  942  -6.172  &lt;.0001
+ Caychihue - Puerto Azul             -2.27506 0.3220  943  -7.066  &lt;.0001
+ Caychihue - Puerto Luz              -1.59579 0.1870  924  -8.539  &lt;.0001
+ Caychihue - Punquiri                -0.38600 0.2560 1009  -1.508  0.9979
+ Caychihue - Puquiri                 -1.07039 0.2800 1023  -3.818  0.0259
+ Caychihue - Quebrada Neuva          -0.31277 0.1770 1000  -1.768  0.9833
+ Caychihue - Queros                  -0.32513 0.3450  941  -0.944  1.0000
+ Caychihue - Quimiri                 -0.57646 0.4070  893  -1.417  0.9991
+ Caychihue - Quincemil               -0.28380 0.1660 1010  -1.709  0.9889
+ Caychihue - Salvacion               -0.35243 0.1650 1004  -2.133  0.8874
+ Caychihue - San Lorenzo             -0.80295 0.2110  925  -3.810  0.0268
+ Caychihue - Setapo                  -1.59683 0.4680  925  -3.409  0.0982
+ Caychihue - Shintuya                -1.22656 0.2020  975  -6.068  &lt;.0001
+ Caychihue - Shipitiari              -1.66504 0.2430  978  -6.846  &lt;.0001
+ Choque - Diamante                   -1.77426 0.1670 1047 -10.622  &lt;.0001
+ Choque - Huepetuhe                  -0.10134 0.1330 1048  -0.760  1.0000
+ Choque - Isla de los Valles         -1.77980 0.3580  876  -4.967  0.0002
+ Choque - Masenawa                   -2.05978 0.4920 1189  -4.185  0.0064
+ Choque - Palotoa Teparo             -1.10385 0.2170  945  -5.081  0.0001
+ Choque - Puerto Azul                -1.95215 0.3120  945  -6.254  &lt;.0001
+ Choque - Puerto Luz                 -1.27288 0.1690  924  -7.517  &lt;.0001
+ Choque - Punquiri                   -0.06309 0.2430 1019  -0.259  1.0000
+ Choque - Puquiri                    -0.74748 0.2690 1032  -2.779  0.4342
+ Choque - Quebrada Neuva              0.01014 0.1580 1020   0.064  1.0000
+ Choque - Queros                     -0.00222 0.3350  942  -0.007  1.0000
+ Choque - Quimiri                    -0.25355 0.3990  892  -0.635  1.0000
+ Choque - Quincemil                   0.03911 0.1460 1038   0.268  1.0000
+ Choque - Salvacion                  -0.02952 0.1450 1030  -0.204  1.0000
+ Choque - San Lorenzo                -0.48004 0.1950  926  -2.457  0.6873
+ Choque - Setapo                     -1.27392 0.4620  925  -2.759  0.4498
+ Choque - Shintuya                   -0.90365 0.1860  986  -4.858  0.0003
+ Choque - Shipitiari                 -1.34213 0.2300  985  -5.835  &lt;.0001
+ Diamante - Huepetuhe                 1.67292 0.1190 1035  14.051  &lt;.0001
+ Diamante - Isla de los Valles       -0.00554 0.3530  870  -0.016  1.0000
+ Diamante - Masenawa                 -0.28552 0.4890 1190  -0.584  1.0000
+ Diamante - Palotoa Teparo            0.67041 0.2090  933   3.211  0.1695
+ Diamante - Puerto Azul              -0.17789 0.3060  939  -0.581  1.0000
+ Diamante - Puerto Luz                0.50138 0.1580  901   3.167  0.1899
+ Diamante - Punquiri                  1.71117 0.2360 1014   7.252  &lt;.0001
+ Diamante - Puquiri                   1.02678 0.2620 1029   3.917  0.0181
+ Diamante - Quebrada Neuva            1.78440 0.1460 1007  12.192  &lt;.0001
+ Diamante - Queros                    1.77204 0.3300  937   5.371  &lt;.0001
+ Diamante - Quimiri                   1.52071 0.3940  887   3.855  0.0228
+ Diamante - Quincemil                 1.81337 0.1330 1025  13.626  &lt;.0001
+ Diamante - Salvacion                 1.74474 0.1320 1016  13.214  &lt;.0001
+ Diamante - San Lorenzo               1.29422 0.1860  910   6.961  &lt;.0001
+ Diamante - Setapo                    0.50034 0.4580  923   1.093  1.0000
+ Diamante - Shintuya                  0.87061 0.1760  973   4.944  0.0002
+ Diamante - Shipitiari                0.43213 0.2220  977   1.946  0.9523
+ Huepetuhe - Isla de los Valles      -1.67846 0.3390  856  -4.956  0.0002
+ Huepetuhe - Masenawa                -1.95844 0.4780 1197  -4.097  0.0090
+ Huepetuhe - Palotoa Teparo          -1.00251 0.1830  901  -5.480  &lt;.0001
+ Huepetuhe - Puerto Azul             -1.85081 0.2890  927  -6.397  &lt;.0001
+ Huepetuhe - Puerto Luz              -1.17154 0.1220  817  -9.584  &lt;.0001
+ Huepetuhe - Punquiri                 0.03825 0.2130 1007   0.179  1.0000
+ Huepetuhe - Puquiri                 -0.64614 0.2420 1026  -2.669  0.5205
+ Huepetuhe - Quebrada Neuva           0.11148 0.1060  974   1.049  1.0000
+ Huepetuhe - Queros                   0.09912 0.3140  927   0.315  1.0000
+ Huepetuhe - Quimiri                 -0.15221 0.3810  877  -0.399  1.0000
+ Huepetuhe - Quincemil                0.14045 0.0871  998   1.613  0.9947
+ Huepetuhe - Salvacion                0.07182 0.0855  975   0.840  1.0000
+ Huepetuhe - San Lorenzo             -0.37870 0.1560  859  -2.422  0.7131
+ Huepetuhe - Setapo                  -1.17258 0.4470  917  -2.626  0.5553
+ Huepetuhe - Shintuya                -0.80231 0.1450  940  -5.552  &lt;.0001
+ Huepetuhe - Shipitiari              -1.24079 0.1980  960  -6.269  &lt;.0001
+ Isla de los Valles - Masenawa       -0.27998 0.5820 1070  -0.481  1.0000
+ Isla de los Valles - Palotoa Teparo  0.67595 0.3800  863   1.781  0.9819
+ Isla de los Valles - Puerto Azul    -0.17235 0.4410  883  -0.391  1.0000
+ Isla de los Valles - Puerto Luz      0.50692 0.3540  847   1.430  0.9990
+ Isla de los Valles - Punquiri        1.71671 0.3950  893   4.344  0.0034
+ Isla de los Valles - Puquiri         1.03232 0.4110  907   2.509  0.6474
+ Isla de los Valles - Quebrada Neuva  1.78994 0.3490  862   5.126  0.0001
+ Isla de los Valles - Queros          1.77758 0.4580  886   3.885  0.0205
+ Isla de los Valles - Quimiri         1.52625 0.5060  866   3.016  0.2714
+ Isla de los Valles - Quincemil       1.81891 0.3440  860   5.290  &lt;.0001
+ Isla de los Valles - Salvacion       1.75028 0.3430  858   5.096  0.0001
+ Isla de los Valles - San Lorenzo     1.29976 0.3680  853   3.536  0.0669
+ Isla de los Valles - Setapo          0.50588 0.5570  893   0.908  1.0000
+ Isla de los Valles - Shintuya        0.87615 0.3630  865   2.416  0.7179
+ Isla de los Valles - Shipitiari      0.43767 0.3870  878   1.131  1.0000
+ Masenawa - Palotoa Teparo            0.95593 0.5080 1157   1.882  0.9665
+ Masenawa - Puerto Azul               0.10763 0.5550 1119   0.194  1.0000
+ Masenawa - Puerto Luz                0.78690 0.4890 1172   1.608  0.9949
+ Masenawa - Punquiri                  1.99669 0.5200 1165   3.842  0.0236
+ Masenawa - Puquiri                   1.31230 0.5320 1162   2.466  0.6805
+ Masenawa - Quebrada Neuva            2.06992 0.4860 1189   4.263  0.0046
+ Masenawa - Queros                    2.05756 0.5690 1109   3.619  0.0509
+ Masenawa - Quimiri                   1.80623 0.6080 1060   2.970  0.2997
+ Masenawa - Quincemil                 2.09889 0.4820 1193   4.357  0.0031
+ Masenawa - Salvacion                 2.03026 0.4810 1193   4.217  0.0056
+ Masenawa - San Lorenzo               1.57974 0.4990 1162   3.166  0.1895
+ Masenawa - Setapo                    0.78586 0.6510 1057   1.207  0.9999
+ Masenawa - Shintuya                  1.15614 0.4950 1176   2.334  0.7752
+ Masenawa - Shipitiari                0.71765 0.5130 1161   1.398  0.9993
+ Palotoa Teparo - Puerto Azul        -0.84830 0.3360  917  -2.522  0.6373
+ Palotoa Teparo - Puerto Luz         -0.16903 0.2110  863  -0.803  1.0000
+ Palotoa Teparo - Punquiri            1.04077 0.2740  958   3.801  0.0276
+ Palotoa Teparo - Puquiri             0.35637 0.2970  977   1.201  0.9999
+ Palotoa Teparo - Quebrada Neuva      1.11399 0.2020  911   5.521  &lt;.0001
+ Palotoa Teparo - Queros              1.10163 0.3580  918   3.078  0.2355
+ Palotoa Teparo - Quimiri             0.85030 0.4180  879   2.033  0.9267
+ Palotoa Teparo - Quincemil           1.14296 0.1920  909   5.942  &lt;.0001
+ Palotoa Teparo - Salvacion           1.07433 0.1920  904   5.606  &lt;.0001
+ Palotoa Teparo - San Lorenzo         0.62381 0.2320  875   2.688  0.5056
+ Palotoa Teparo - Setapo             -0.17007 0.4780  913  -0.356  1.0000
+ Palotoa Teparo - Shintuya            0.20021 0.2240  909   0.893  1.0000
+ Palotoa Teparo - Shipitiari         -0.23828 0.2620  928  -0.910  1.0000
+ Puerto Azul - Puerto Luz             0.67927 0.3080  906   2.209  0.8502
+ Puerto Azul - Punquiri               1.88906 0.3540  953   5.339  &lt;.0001
+ Puerto Azul - Puquiri                1.20467 0.3720  965   3.240  0.1571
+ Puerto Azul - Quebrada Neuva         1.96229 0.3020  930   6.507  &lt;.0001
+ Puerto Azul - Queros                 1.94993 0.4220  925   4.617  0.0010
+ Puerto Azul - Quimiri                1.69860 0.4740  893   3.580  0.0582
+ Puerto Azul - Quincemil              1.99126 0.2950  930   6.742  &lt;.0001
+ Puerto Azul - Salvacion              1.92263 0.2950  928   6.520  &lt;.0001
+ Puerto Azul - San Lorenzo            1.47211 0.3230  908   4.563  0.0013
+ Puerto Azul - Setapo                 0.67823 0.5280  919   1.284  0.9998
+ Puerto Azul - Shintuya               1.04851 0.3170  927   3.307  0.1312
+ Puerto Azul - Shipitiari             0.61002 0.3450  935   1.770  0.9832
+ Puerto Luz - Punquiri                1.20980 0.2380  952   5.092  0.0001
+ Puerto Luz - Puquiri                 0.52540 0.2640  977   1.993  0.9395
+ Puerto Luz - Quebrada Neuva          1.28302 0.1490  859   8.613  &lt;.0001
+ Puerto Luz - Queros                  1.27066 0.3310  908   3.838  0.0242
+ Puerto Luz - Quimiri                 1.01933 0.3950  868   2.578  0.5936
+ Puerto Luz - Quincemil               1.31199 0.1360  846   9.651  &lt;.0001
+ Puerto Luz - Salvacion               1.24336 0.1350  837   9.216  &lt;.0001
+ Puerto Luz - San Lorenzo             0.79284 0.1880  826   4.218  0.0057
+ Puerto Luz - Setapo                 -0.00104 0.4590  908  -0.002  1.0000
+ Puerto Luz - Shintuya                0.36924 0.1780  872   2.071  0.9130
+ Puerto Luz - Shipitiari             -0.06925 0.2240  911  -0.309  1.0000
+ Punquiri - Puquiri                  -0.68439 0.3160 1018  -2.163  0.8735
+ Punquiri - Quebrada Neuva            0.07323 0.2300 1000   0.319  1.0000
+ Punquiri - Queros                    0.06087 0.3740  950   0.163  1.0000
+ Punquiri - Quimiri                  -0.19046 0.4320  904  -0.440  1.0000
+ Punquiri - Quincemil                 0.10220 0.2220 1005   0.461  1.0000
+ Punquiri - Salvacion                 0.03357 0.2210 1002   0.152  1.0000
+ Punquiri - San Lorenzo              -0.41695 0.2570  949  -1.624  0.9942
+ Punquiri - Setapo                   -1.21084 0.4910  932  -2.467  0.6801
+ Punquiri - Shintuya                 -0.84056 0.2500  984  -3.366  0.1112
+ Punquiri - Shipitiari               -1.27904 0.2840  984  -4.503  0.0017
+ Puquiri - Quebrada Neuva             0.75762 0.2570 1018   2.953  0.3108
+ Puquiri - Queros                     0.74526 0.3910  961   1.904  0.9620
+ Puquiri - Quimiri                    0.49393 0.4470  916   1.104  1.0000
+ Puquiri - Quincemil                  0.78659 0.2490 1023   3.156  0.1949
+ Puquiri - Salvacion                  0.71796 0.2490 1021   2.887  0.3554
+ Puquiri - San Lorenzo                0.26744 0.2810  971   0.952  1.0000
+ Puquiri - Setapo                    -0.52644 0.5040  939  -1.045  1.0000
+ Puquiri - Shintuya                  -0.15617 0.2750 1002  -0.569  1.0000
+ Puquiri - Shipitiari                -0.59465 0.3060  998  -1.942  0.9532
+ Quebrada Neuva - Queros             -0.01236 0.3260  929  -0.038  1.0000
+ Quebrada Neuva - Quimiri            -0.26369 0.3910  881  -0.675  1.0000
+ Quebrada Neuva - Quincemil           0.02897 0.1220  977   0.238  1.0000
+ Quebrada Neuva - Salvacion          -0.03966 0.1210  965  -0.329  1.0000
+ Quebrada Neuva - San Lorenzo        -0.49018 0.1780  880  -2.754  0.4541
+ Quebrada Neuva - Setapo             -1.28406 0.4550  918  -2.824  0.4005
+ Quebrada Neuva - Shintuya           -0.91379 0.1680  944  -5.449  &lt;.0001
+ Quebrada Neuva - Shipitiari         -1.35227 0.2150  959  -6.276  &lt;.0001
+ Queros - Quimiri                    -0.25133 0.4900  895  -0.513  1.0000
+ Queros - Quincemil                   0.04133 0.3200  929   0.129  1.0000
+ Queros - Salvacion                  -0.02730 0.3190  927  -0.085  1.0000
+ Queros - San Lorenzo                -0.47782 0.3450  910  -1.385  0.9994
+ Queros - Setapo                     -1.27170 0.5420  919  -2.345  0.7676
+ Queros - Shintuya                   -0.90142 0.3400  926  -2.652  0.5343
+ Queros - Shipitiari                 -1.33991 0.3660  934  -3.663  0.0444
+ Quimiri - Quincemil                  0.29266 0.3860  880   0.758  1.0000
+ Quimiri - Salvacion                  0.22403 0.3860  879   0.581  1.0000
+ Quimiri - San Lorenzo               -0.22649 0.4070  872  -0.556  1.0000
+ Quimiri - Setapo                    -1.02037 0.5840  899  -1.748  0.9855
+ Quimiri - Shintuya                  -0.65009 0.4030  882  -1.614  0.9947
+ Quimiri - Shipitiari                -1.08858 0.4250  892  -2.562  0.6064
+ Quincemil - Salvacion               -0.06863 0.1040  979  -0.659  1.0000
+ Quincemil - San Lorenzo             -0.51915 0.1670  874  -3.104  0.2215
+ Quincemil - Setapo                  -1.31303 0.4510  918  -2.914  0.3364
+ Quincemil - Shintuya                -0.94275 0.1560  946  -6.033  &lt;.0001
+ Quincemil - Shipitiari              -1.38124 0.2070  962  -6.684  &lt;.0001
+ Salvacion - San Lorenzo             -0.45052 0.1660  868  -2.707  0.4906
+ Salvacion - Setapo                  -1.24440 0.4500  917  -2.764  0.4461
+ Salvacion - Shintuya                -0.87413 0.1550  939  -5.626  &lt;.0001
+ Salvacion - Shipitiari              -1.31261 0.2060  958  -6.372  &lt;.0001
+ San Lorenzo - Setapo                -0.79388 0.4690  909  -1.693  0.9901
+ San Lorenzo - Shintuya              -0.42361 0.2030  885  -2.085  0.9076
+ San Lorenzo - Shipitiari            -0.86209 0.2440  914  -3.532  0.0676
+ Setapo - Shintuya                    0.37028 0.4650  917   0.796  1.0000
+ Setapo - Shipitiari                 -0.06821 0.4840  922  -0.141  1.0000
+ Shintuya - Shipitiari               -0.43849 0.2370  949  -1.853  0.9716
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 23 estimates </code></pre>
+</div>
+</div>
+<p>We can also examine estimated differences between means (these do have a multiple comparisons adjustment applied).</p>
+</div>
+</section><section id="section-10" class="slide level2" data-background-color="white"><h2></h2>
 <p>To learn more about <em>random effects models</em>, also known as <em>hierarchical</em> or <em>multilevel</em> models, check out STA 210 or STA 221 (regression analysis) sometime!</p>
 </section></section><section><section id="regression-models-with-categorical-explanatory-variables" class="title-slide slide level1 center"><h1>Regression models with categorical explanatory variables</h1>
 
 </section><section id="categorical-predictor-with-2-levels" class="slide level2"><h2>Categorical predictor with 2 levels</h2>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:60%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource small number-lines code-with-copy"><code class="sourceCode"><span id="cb29-1"><a></a># A tibble: 2,308 × 3</span>
-<span id="cb29-2"><a></a>   lhairHg assets_sc[,1] native_cat</span>
-<span id="cb29-3"><a></a>     &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;     </span>
-<span id="cb29-4"><a></a> 1  0.676         -0.837 Non-native</span>
-<span id="cb29-5"><a></a> 2  0.0908         0.197 Non-native</span>
-<span id="cb29-6"><a></a> 3  1.67          -0.280 Non-native</span>
-<span id="cb29-7"><a></a> 4  0.450         -0.280 Non-native</span>
-<span id="cb29-8"><a></a> 5  0.704         -0.280 Non-native</span>
-<span id="cb29-9"><a></a> 6 -0.512         -0.280 Non-native</span>
-<span id="cb29-10"><a></a> 7 -0.125          0.826 Non-native</span>
-<span id="cb29-11"><a></a> 8 -0.103          0.826 Non-native</span>
-<span id="cb29-12"><a></a> 9  0.351         -1.27  Non-native</span>
-<span id="cb29-13"><a></a>10  0.0444        -1.27  Non-native</span>
-<span id="cb29-14"><a></a>11  0.662         -0.359 Non-native</span>
-<span id="cb29-15"><a></a>12  1.01           1.29  Non-native</span>
-<span id="cb29-16"><a></a>13 -0.149          1.29  Non-native</span>
-<span id="cb29-17"><a></a>14  0.881          0.517 Non-native</span>
-<span id="cb29-18"><a></a>15  1.51           0.517 Non-native</span>
-<span id="cb29-19"><a></a>16  0.328         -0.658 Non-native</span>
-<span id="cb29-20"><a></a>17  0.0553         0.533 Non-native</span>
-<span id="cb29-21"><a></a>18  0.768          1.29  Non-native</span>
-<span id="cb29-22"><a></a>19  0.431          1.30  Non-native</span>
-<span id="cb29-23"><a></a>20  1.55           1.30  Non-native</span>
-<span id="cb29-24"><a></a># ℹ 2,288 more rows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource small number-lines code-with-copy"><code class="sourceCode"><span id="cb31-1"><a></a># A tibble: 2,308 × 3</span>
+<span id="cb31-2"><a></a>   lhairHg assets_sc[,1] native_cat</span>
+<span id="cb31-3"><a></a>     &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;     </span>
+<span id="cb31-4"><a></a> 1  0.676         -0.837 Non-native</span>
+<span id="cb31-5"><a></a> 2  0.0908         0.197 Non-native</span>
+<span id="cb31-6"><a></a> 3  1.67          -0.280 Non-native</span>
+<span id="cb31-7"><a></a> 4  0.450         -0.280 Non-native</span>
+<span id="cb31-8"><a></a> 5  0.704         -0.280 Non-native</span>
+<span id="cb31-9"><a></a> 6 -0.512         -0.280 Non-native</span>
+<span id="cb31-10"><a></a> 7 -0.125          0.826 Non-native</span>
+<span id="cb31-11"><a></a> 8 -0.103          0.826 Non-native</span>
+<span id="cb31-12"><a></a> 9  0.351         -1.27  Non-native</span>
+<span id="cb31-13"><a></a>10  0.0444        -1.27  Non-native</span>
+<span id="cb31-14"><a></a>11  0.662         -0.359 Non-native</span>
+<span id="cb31-15"><a></a>12  1.01           1.29  Non-native</span>
+<span id="cb31-16"><a></a>13 -0.149          1.29  Non-native</span>
+<span id="cb31-17"><a></a>14  0.881          0.517 Non-native</span>
+<span id="cb31-18"><a></a>15  1.51           0.517 Non-native</span>
+<span id="cb31-19"><a></a>16  0.328         -0.658 Non-native</span>
+<span id="cb31-20"><a></a>17  0.0553         0.533 Non-native</span>
+<span id="cb31-21"><a></a>18  0.768          1.29  Non-native</span>
+<span id="cb31-22"><a></a>19  0.431          1.30  Non-native</span>
+<span id="cb31-23"><a></a>20  1.55           1.30  Non-native</span>
+<span id="cb31-24"><a></a># ℹ 2,288 more rows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-</div><div class="column" style="width:60%;">
+</div><div class="column" style="width:40%;">
 <ul>
 <li>
 <code>Native</code>: community classified as native by Peruvian government</li>
@@ -793,10 +1088,10 @@ Confidence level used: 0.95 </code></pre>
 </div></div>
 </section><section id="mercury-native-community-relationship" class="slide level2"><h2>Mercury &amp; native community relationship</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb30-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb30-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> native_cat, <span class="at">data =</span> mercury) <span class="sc">%&gt;%</span></span>
-<span id="cb30-4"><a></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> native_cat, <span class="at">data =</span> mercury) <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term                 estimate std.error statistic   p.value
@@ -806,12 +1101,12 @@ Confidence level used: 0.95 </code></pre>
 </div>
 </div>
 </section><section id="mercury-and-native-communities" class="slide level2"><h2>Mercury and native communities</h2>
-<div style="font-size:0.9em;">
+<div style="font-size:0.7em;">
 <p>Define <span class="math inline">\(\text{Non-native}_i\)</span>=1 if non-native community and 0 otherwise.</p>
 <p><span class="math display">\[\widehat{y_i} = 1.12 - 1.11~\text{Non-native}_i\]</span></p>
 <ul>
 <li>
-<strong>Slope:</strong> Residents of non-native communities, on average, are expected to have Hg concentrations that are -1.11 log ppm lower, on average, than residents of native communities. Alternatively, the hair Hg is expected to be lower, on average, by a factor of <span class="math inline">\(e^{-1.11}=0.33\)</span> among residents of non-native communities.
+<strong>Slope:</strong> Residents of non-native communities, on average, are expected to have Hg concentrations that are -1.11 log ppm lower, on average, than residents of native communities. Alternatively, the hair Hg is expected to be lower, on average, by a factor of <span class="math inline">\(e^{-1.11}=0.33\)</span> among residents of non-native communities. The geometric mean of hair Hg is estimated to be <span class="math inline">\(100\left(1-e^{-1.11}\right)=67\%\)</span> lower among residents of non-native communities than among residents of native communities, holding other predictors fixed.
 <ul>
 <li>Compares baseline level (<code>Native</code>) to the other level (<code>Non-native</code>)</li>
 </ul>
@@ -822,11 +1117,11 @@ Confidence level used: 0.95 </code></pre>
 </div>
 </section><section id="relationship-between-mercury-and-individual-community-1" class="slide level2"><h2>Relationship between mercury and individual community</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>com_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb32-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> community, <span class="at">data =</span> mercury) </span>
-<span id="cb32-4"><a></a></span>
-<span id="cb32-5"><a></a><span class="fu">tidy</span>(com_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>com_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> community, <span class="at">data =</span> mercury) </span>
+<span id="cb34-4"><a></a></span>
+<span id="cb34-5"><a></a><span class="fu">tidy</span>(com_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 23 × 5
    term                     estimate std.error statistic  p.value
@@ -883,7 +1178,8 @@ Confidence level used: 0.95 </code></pre>
 </ul>
 </div>
 </section><section id="categorical-predictor-with-3-levels" class="slide level2"><h2>Categorical predictor with 3+ levels</h2>
-<div style="font-size:0.7em;">
+<p>Here is how you code the indicator variables.</p>
+<div style="font-size:0.5em;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
@@ -1005,55 +1301,60 @@ Confidence level used: 0.95 </code></pre>
 <p>etc. for the other communities. Note Boca Colorado, the <em>referent community</em>, =0 for all vars. This is closely related to <strong>one-hot encoding</strong>.</p>
 </div>
 </section><section id="relationship-between-mercury-and-community" class="slide level2"><h2>Relationship between mercury and community</h2>
-<div style="font-size:0.5em;">
+<div style="font-size:0.4em;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource tiny number-lines code-with-copy"><code class="sourceCode"><span id="cb35-1"><a></a># A tibble: 23 × 5</span>
-<span id="cb35-2"><a></a>   term                     estimate std.error statistic  p.value</span>
-<span id="cb35-3"><a></a>   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span id="cb35-4"><a></a> 1 (Intercept)                0.614     0.0644     9.54  3.55e-21</span>
-<span id="cb35-5"><a></a> 2 communityBoca Isiriwe      1.20      0.159      7.56  5.77e-14</span>
-<span id="cb35-6"><a></a> 3 communityBoca Manu         0.833     0.129      6.43  1.56e-10</span>
-<span id="cb35-7"><a></a> 4 communityCaychihue        -1.10      0.132     -8.36  1.09e-16</span>
-<span id="cb35-8"><a></a> 5 communityChoque           -0.778     0.117     -6.68  3.04e-11</span>
-<span id="cb35-9"><a></a> 6 communityDiamante          1.06      0.109      9.67  1.00e-21</span>
-<span id="cb35-10"><a></a> 7 communityHuepetuhe        -0.694     0.0732    -9.48  5.96e-21</span>
-<span id="cb35-11"><a></a> 8 communityIsla de los Va…   1.12      0.245      4.57  5.18e- 6</span>
-<span id="cb35-12"><a></a> 9 communityMasenawa          1.20      0.401      3.00  2.74e- 3</span>
-<span id="cb35-13"><a></a>10 communityPalotoa Teparo    0.350     0.148      2.36  1.82e- 2</span>
-<span id="cb35-14"><a></a>11 communityPuerto Azul       1.22      0.230      5.27  1.45e- 7</span>
-<span id="cb35-15"><a></a>12 communityPuerto Luz        0.494     0.0991     4.98  6.67e- 7</span>
-<span id="cb35-16"><a></a>13 communityPunquiri         -0.678     0.176     -3.84  1.26e- 4</span>
-<span id="cb35-17"><a></a>14 communityPuquiri           0.0842    0.192      0.439 6.61e- 1</span>
-<span id="cb35-18"><a></a>15 communityQuebrada Neuva   -0.812     0.0966    -8.41  7.21e-17</span>
-<span id="cb35-19"><a></a>16 communityQueros           -0.707     0.245     -2.89  3.93e- 3</span>
-<span id="cb35-20"><a></a>17 communityQuimiri          -0.621     0.274     -2.26  2.38e- 2</span>
-<span id="cb35-21"><a></a>18 communityQuincemil        -0.822     0.0858    -9.57  2.55e-21</span>
-<span id="cb35-22"><a></a>19 communitySalvacion        -0.732     0.0850    -8.61  1.31e-17</span>
-<span id="cb35-23"><a></a>20 communitySan Lorenzo      -0.245     0.124     -1.98  4.82e- 2</span>
-<span id="cb35-24"><a></a>21 communitySetapo            0.517     0.319      1.62  1.05e- 1</span>
-<span id="cb35-25"><a></a>22 communityShintuya          0.130     0.122      1.07  2.86e- 1</span>
-<span id="cb35-26"><a></a>23 communityShipitiari        0.532     0.161      3.30  9.65e- 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource tiny number-lines code-with-copy"><code class="sourceCode"><span id="cb37-1"><a></a># A tibble: 23 × 5</span>
+<span id="cb37-2"><a></a>   term                     estimate std.error statistic  p.value</span>
+<span id="cb37-3"><a></a>   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span id="cb37-4"><a></a> 1 (Intercept)                0.614     0.0644     9.54  3.55e-21</span>
+<span id="cb37-5"><a></a> 2 communityBoca Isiriwe      1.20      0.159      7.56  5.77e-14</span>
+<span id="cb37-6"><a></a> 3 communityBoca Manu         0.833     0.129      6.43  1.56e-10</span>
+<span id="cb37-7"><a></a> 4 communityCaychihue        -1.10      0.132     -8.36  1.09e-16</span>
+<span id="cb37-8"><a></a> 5 communityChoque           -0.778     0.117     -6.68  3.04e-11</span>
+<span id="cb37-9"><a></a> 6 communityDiamante          1.06      0.109      9.67  1.00e-21</span>
+<span id="cb37-10"><a></a> 7 communityHuepetuhe        -0.694     0.0732    -9.48  5.96e-21</span>
+<span id="cb37-11"><a></a> 8 communityIsla de los Va…   1.12      0.245      4.57  5.18e- 6</span>
+<span id="cb37-12"><a></a> 9 communityMasenawa          1.20      0.401      3.00  2.74e- 3</span>
+<span id="cb37-13"><a></a>10 communityPalotoa Teparo    0.350     0.148      2.36  1.82e- 2</span>
+<span id="cb37-14"><a></a>11 communityPuerto Azul       1.22      0.230      5.27  1.45e- 7</span>
+<span id="cb37-15"><a></a>12 communityPuerto Luz        0.494     0.0991     4.98  6.67e- 7</span>
+<span id="cb37-16"><a></a>13 communityPunquiri         -0.678     0.176     -3.84  1.26e- 4</span>
+<span id="cb37-17"><a></a>14 communityPuquiri           0.0842    0.192      0.439 6.61e- 1</span>
+<span id="cb37-18"><a></a>15 communityQuebrada Neuva   -0.812     0.0966    -8.41  7.21e-17</span>
+<span id="cb37-19"><a></a>16 communityQueros           -0.707     0.245     -2.89  3.93e- 3</span>
+<span id="cb37-20"><a></a>17 communityQuimiri          -0.621     0.274     -2.26  2.38e- 2</span>
+<span id="cb37-21"><a></a>18 communityQuincemil        -0.822     0.0858    -9.57  2.55e-21</span>
+<span id="cb37-22"><a></a>19 communitySalvacion        -0.732     0.0850    -8.61  1.31e-17</span>
+<span id="cb37-23"><a></a>20 communitySan Lorenzo      -0.245     0.124     -1.98  4.82e- 2</span>
+<span id="cb37-24"><a></a>21 communitySetapo            0.517     0.319      1.62  1.05e- 1</span>
+<span id="cb37-25"><a></a>22 communityShintuya          0.130     0.122      1.07  2.86e- 1</span>
+<span id="cb37-26"><a></a>23 communityShipitiari        0.532     0.161      3.30  9.65e- 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="tiny">
 <ul>
 <li>
-<strong>Boca Colorado</strong> hair mercury levels are expected, on average, to be <strong>0.614 log ppm</strong>.</li>
+<strong>Boca Colorado</strong> hair mercury levels are expected, on average, to be <strong>0.614 log ppm</strong>. The estimated geometric mean hair mercury level among residents of <strong>Boca Colorado</strong> is <span class="math inline">\(e^{0.614} \approx \mathbf{1.85}\)</span> ppm.</li>
 <li>
-<strong>Boca Isiriwe</strong> hair mercury levels are expected, on average, to be <strong>1.2 log ppm higher</strong> than <em>Boca Colorado</em> levels, at <strong>1.814 log ppm</strong> on average.</li>
+<strong>Boca Isiriwe</strong> hair mercury levels are expected, on average, to be <strong>1.2 log ppm higher</strong> than <em>Boca Colorado</em> levels, at <strong>1.814 log ppm</strong> on average. The estimated geometric mean hair mercury level among residents of <strong>Boca Isiriwe</strong> is <span class="math inline">\(100(e^{1.2}-1) \approx \mathbf{232\%}\)</span> higher than among residents of <strong>Boca Colorado</strong>. (Note: 1.85+2.32*1.85=6.142, and <span class="math inline">\(\exp^{0.614+1.2}=6.13\)</span>)</li>
 <li>
-<strong>Caychihue</strong> hair mercury levels are expected, on average, to be <strong>1.10 log ppm lower</strong> than <em>Boca Colorado</em> levels, at <strong>-0.486 log ppm</strong> on average.</li>
+<strong>Caychihue</strong> hair mercury levels are expected, on average, to be <strong>1.10 log ppm lower</strong> than <em>Boca Colorado</em> levels, at <strong>-0.486 log ppm</strong> on average. The estimated geometric mean hair mercury level among residents of <strong>Caychihue</strong> is <span class="math inline">\(100(1-\exp^{-1.1}) \approx \mathbf{67\%}\)</span> lower than among residents of <strong>Boca Colorado</strong>.</li>
 <li>etc. It can be nice to have a table showing the estimated mean (along with uncertainty measures – coming soon) for each community, and a plot can also be useful.</li>
 </ul>
 </div>
 </div>
 </section><section id="regression-and-anova" class="slide level2"><h2>Regression and ANOVA</h2>
+<div style="font-size:0.8em;">
 <p>You might be wondering how this model differs from the ANOVA model we just presented when exploring how community is related to mercury levels. In fact, the two models are equivalent! In our ANOVA discussion, we specified our model as <span class="math display">\[y_{ij}=\mu_i+\varepsilon_{ij}\]</span> with a separate mean <span class="math inline">\(\mu_i\)</span> for each community, <span class="math inline">\(\mu_1, \mu_2, \ldots, \mu_{23}\)</span>.</p>
 <p>Here, we fit the same model with a slightly different <strong>coding scheme</strong>, where we define the regression model intercept <span class="math inline">\(\beta_0\)</span> to be the mean for the <strong>reference</strong> community, Boca Colorado, and the regression model parameters <span class="math inline">\(\beta_1, \beta_2, \ldots, \beta_{22}\)</span> each measure the difference in mercury levels between Boca Colorado and the community of interest.</p>
+</div>
 </section><section id="anova-as-regression" class="slide level2"><h2>ANOVA as Regression</h2>
+<div style="font-size:0.8em;">
 <p>Our model thus is <span class="math display">\[y_i=\beta_0 + \beta_1\text{Boca Isiriwe}_i + \beta_2\text{Boca Manu}_i + \ldots + \beta_{22}\text{Shipitiari}_i + \varepsilon_i\]</span> where <span class="math inline">\(\text{Boca Manu}_i\)</span> is an indicator variable that takes value 1 if the measurement is from a resident of Boca Manu, and it takes value 0 otherwise.</p>
-</section><section class="slide level2"><p>The mean for each community is given below.</p>
+</div>
+</section><section id="section-11" class="slide level2" data-background-color="white"><h2></h2>
+<p>The mean for each community is given below.</p>
 <p>Boca Colorado: <span class="math inline">\(\beta_0\)</span></p>
 <p>Boca Isiriwe: <span class="math inline">\(\beta_0+\beta_1\)</span></p>
 <p>Boca Manu: <span class="math inline">\(\beta_0 + \beta_2\)</span> … Shipitiari: <span class="math inline">\(\beta_0+\beta_{22}\)</span></p>
@@ -1062,17 +1363,17 @@ Confidence level used: 0.95 </code></pre>
 <p>Here we can compare the F test from the regression model with that from ANOVA.</p>
 <p>Regression:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a>res <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(lhairHg<span class="sc">~</span>community, <span class="at">data =</span> mercury))</span>
-<span id="cb36-2"><a></a><span class="fu">print</span>(res<span class="sc">$</span>fstatistic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>res <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(lhairHg<span class="sc">~</span>community, <span class="at">data =</span> mercury))</span>
+<span id="cb38-2"><a></a><span class="fu">print</span>(res<span class="sc">$</span>fstatistic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     value      numdf      dendf 
   52.81756   22.00000 2285.00000 </code></pre>
 </div>
 </div>
-</section><section id="section-10" class="slide level2" data-background-color="white"><h2></h2>
+</section><section id="section-12" class="slide level2" data-background-color="white"><h2></h2>
 <p>ANOVA:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="fu">summary</span>(<span class="fu">aov</span>(lhairHg<span class="sc">~</span>community,<span class="at">data=</span>mercury))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">summary</span>(<span class="fu">aov</span>(lhairHg<span class="sc">~</span>community,<span class="at">data=</span>mercury))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              Df Sum Sq Mean Sq F value Pr(&gt;F)    
 community     22  909.6   41.34   52.82 &lt;2e-16 ***
