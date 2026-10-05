@@ -419,7 +419,7 @@ Suppose we wish to test the null hypothesis that 20% of Flint households have wa
 
 While we could use the Central Limit Theorem here, we actually have an even better option in R -- we can carry out this test based on the (exact) binomial distribution. With the binomial distribution, we don't have to worry about the sample size or rules of thumb for our test to be accurate. The Central Limit Theorem-based methods became very popular when computers were less powerful, but now we can use *exact* tests much more easily, even when large combinatorial calculations are involved.
 
-This exact binomial test works in the same manner as the test we used earlier for fairness in hiring -- but we can avoid doing it by hand using `binom.test` (you can go back and check that result!).
+This exact binomial test works in the same manner as the test we used earlier for fairness in hiring -- but we can avoid doing it by hand using `binom.test` (you can go back and check that result -- `binom.test(0,3,p=0.5)`!).
 
 </div>
 
