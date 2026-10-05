@@ -323,10 +323,10 @@ knitr::include_graphics("../img/murderkitty.jpeg")
 
 A cat is on trial. Did it commit the crime? Evidence is presented as part of the trial by jury.
 
-|  | Truly Innocent | Truly Guilty |
+| Jury Verdict  | Truly Innocent | Truly Guilty |
 |:------|:------:|:---------:|
-| Jury: Not Guilty | $\checkmark$ | <img src="../img/kittyskull.jpeg" width="60px"> |
-| Jury: Guilty | <img src="../img/kittyskull.jpeg" width="60px"> | $\checkmark$ |
+| Not Guilty | $\checkmark$ | <img src="../img/kittyskull.jpeg" width="60px"> |
+| Guilty | <img src="../img/kittyskull.jpeg" width="60px"> | $\checkmark$ |
 
 </div>
 
