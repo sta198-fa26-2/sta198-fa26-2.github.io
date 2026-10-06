@@ -574,7 +574,7 @@ Amy Herring
 <div style="font-size:0.8em;">
 <p>Suppose we wish to test the null hypothesis that 20% of Flint households have water with lead levels over 15 ppb, versus the alternative that this percentage is not 20%.</p>
 <p>While we could use the Central Limit Theorem here, we actually have an even better option in R – we can carry out this test based on the (exact) binomial distribution. With the binomial distribution, we don’t have to worry about the sample size or rules of thumb for our test to be accurate. The Central Limit Theorem-based methods became very popular when computers were less powerful, but now we can use <em>exact</em> tests much more easily, even when large combinatorial calculations are involved.</p>
-<p>This exact binomial test works in the same manner as the test we used earlier for fairness in hiring – but we can avoid doing it by hand using <code>binom.test</code> (you can go back and check that result!).</p>
+<p>This exact binomial test works in the same manner as the test we used earlier for fairness in hiring – but we can avoid doing it by hand using <code>binom.test</code> (you can go back and check that result – <code>binom.test(0,3,p=0.5)</code>!).</p>
 </div>
 </section><section id="section-3" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
