@@ -1,0 +1,1273 @@
+---
+title: "Categorical Data and Contingency Tables"
+subtitle: "Introduction to Global Health Data Science"
+author: "Prof. Amy Herring"
+format:
+  revealjs:
+    output-file: categorical-data-slides.html
+    footer: "[🔗 sta198-fa26-2.github.io](https://sta198-fa26-2.github.io/)"
+    theme: slides.scss
+    transition: fade
+    slide-number: true
+    pdf-separate-fragments: true
+    toc: false
+  html:
+    code-link: true
+editor_options:
+  chunk_output_type: console
+---
+
+<!-- Save this file beside the slides.scss used by your other lectures.
+     Render slides with: quarto render categorical-data.qmd --to revealjs
+     Render notes with: quarto render categorical-data.qmd --to html
+     The common plotting setup is included inline.
+-->
+
+# Introduction to contingency tables
+
+
+
+## Recall our termite-raiding ant data
+
+Recall our termite-raiding ant data:
+
+<div style="height: 40px;"></div>
+
+| | **Carried Back** | **Carried Away** | **Not Carried** |
+|:--|:--:|:--:|:--:|
+| **Lightly Injured** | 45 | 0 | 5 |
+| **Heavily Injured** | 5 | 5 | 20 |
+
+<div style="overflow:hidden; height:250px; margin-top:20px;">
+  <img src="../img/mantabele.jpg" alt="Termite-raiding ants"
+       style="width:100%; height:auto; transform:translateY(-80px);">
+</div>
+
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(tidymodels)
+library(infer)
+library(knitr)
+
+options(
+  dplyr.print_min = 6,
+  dplyr.print_max = 6,
+  tibble.width = 65,
+  width = 65
+)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "#>",
+  highlight = TRUE,
+  fig.width = 8,
+  fig.asp = 0.618,
+  out.width = "60%",
+  fig.align = "center",
+  dpi = 300
+)
+theme_set(theme_gray(base_size = 16))
+set.seed(1234)
+```
+
+
+## Contingency tables
+
+A *contingency table* displays the relationship between two categorical variables.
+
+Here, each observation is an ant. The variables are **injury severity** and **carrying outcome**.
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 45 | 0 | 5 | 50 |
+| Heavily injured | 5 | 5 | 20 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+## Dataset: one row per ant (subset of 15 rows)
+
+```{r}
+#| label: ant-data
+#| include: false
+
+# Expand the six cell counts to one row per ant.
+ant_counts <- tibble(
+  Injury = rep(c("Lightly injured", "Heavily injured"), each = 3),
+  Outcome = rep(c("Carried back", "Carried away", "Not carried"), 2),
+  n = c(45, 0, 5, 5, 5, 20)
+)
+
+ants <- ant_counts %>%
+  uncount(n) %>%
+  mutate(
+    Injury = factor(Injury,
+                    levels = c("Lightly injured", "Heavily injured")),
+    Outcome = factor(Outcome,
+                     levels = c("Carried back", "Carried away", "Not carried"))
+  )
+
+ant_tab <- table(ants$Injury, ants$Outcome)
+```
+
+<div style="font-size:0.6em;">
+
+```{r}
+#| label: view-ants
+#| echo: false
+
+ants %>%
+  slice_sample(n = 15) %>%
+  knitr::kable()
+```
+
+</div>
+
+## Visualizing injury severity and carrying outcome
+
+::: {.panel-tabset}
+
+## Plot
+
+```{r}
+#| label: viz-ants
+#| echo: false
+
+ants %>%
+  ggplot(aes(y = Injury, fill = Outcome)) +
+  geom_bar(position = position_fill(reverse = TRUE)) +
+  #reverse equals true puts carried back on the left
+  scale_y_discrete(limits = c("Heavily injured", "Lightly injured")) +
+  labs(x = "Proportion", y = "Injury severity",
+       title = "Carrying outcome by injury severity") +
+  scale_fill_manual(values = c(
+    "Carried back" = "#7FBB9E",  # Neptune Green
+    "Carried away" = "#60373D",  # Red Mahogany
+    "Not carried" = "#133955"   # Poseidon
+  ))
+```
+
+## Code
+
+```{r}
+#| echo: true
+#| eval: false
+
+ants %>%
+  ggplot(aes(y = Injury, fill = Outcome)) +
+  geom_bar(position = position_fill(reverse = TRUE)) +
+  #reverse equals true puts carried back on the left
+  scale_y_discrete(limits = c("Heavily injured", "Lightly injured")) + #this line puts light injury as the top row to match our contingency table formatting
+  labs(x = "Proportion", y = "Injury severity",
+       title = "Carrying outcome by injury severity") +
+  scale_fill_manual(values = c(
+    "Carried back" = "#7FBB9E",  # Neptune Green
+    "Carried away" = "#60373D",  # Red Mahogany
+    "Not carried" = "#133955"   # Poseidon
+  ))
+```
+
+:::
+
+## Are injury severity and carrying outcome related?
+
+If there were no association, we would expect approximately the same proportions of the three outcomes in both injury groups.
+
+Are the differences in this sample evidence of an association, or could they reflect random variation?
+
+```{r}
+#| label: viz-ants-repeat
+#| echo: false
+
+ants %>%
+  ggplot(aes(y = Injury, fill = Outcome)) +
+  geom_bar(position = position_fill(reverse = TRUE)) +
+  #reverse equals true puts carried back on the left
+  scale_y_discrete(limits = c("Heavily injured", "Lightly injured")) +
+  labs(x = "Proportion", y = "Injury severity",
+       title = "Carrying outcome by injury severity") +
+  scale_fill_manual(values = c(
+    "Carried back" = "#7FBB9E",  # Neptune Green
+    "Carried away" = "#60373D",  # Red Mahogany
+    "Not carried" = "#133955"   # Poseidon
+  ))
+```
+
+
+
+
+## Typical questions with $r\times c$ contingency tables
+
+- Is there an association between the row variable and the column variable?
+  - Here, $r=2$ injury groups and $c=3$ carrying outcomes.
+- How strong is the association?
+
+$H_0:$ injury severity and carrying outcome are independent.
+
+$H_A:$ injury severity and carrying outcome are associated.
+
+# Tests for association
+
+
+
+# Fisher's exact test
+
+
+
+## Fisher's exact test
+
+Fisher's exact test assesses whether two categorical variables are associated.
+
+It does not require large expected cell counts, so it is useful when a contingency table includes small counts, as is the case here.
+
+The test can be computationally expensive for large tables.
+
+## How Fisher's exact test works
+
+<div style="font-size:0.8em;">
+
+We condition on the observed **margins**, the row and column totals:
+
+- 50 lightly injured ants and 30 heavily injured ants;
+- 50 carried back, 5 carried away, and 25 not carried.
+
+Consider all possible tables with those same margins. Under $H_0$, each table has a probability.
+
+The two-sided p-value sums the probabilities of tables whose null probabilities are less than or equal to that of our observed table.
+
+</div>
+
+::: {.notes}
+R documentation for the fixed-margins test and probability ordering:
+https://stat.ethz.ch/R-manual/R-devel/library/stats/html/fisher.test.html
+:::
+
+## Tables with the same margins
+
+<div style="font-size:0.65em;">
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Observed table**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 45 | 0 | 5 | <span style="color: blue;">50</span> |
+| Heavily injured | 5 | 5 | 20 | <span style="color: blue;">30</span> |
+| Total | <span style="color: blue;">50</span> | <span style="color: blue;">5</span> | <span style="color: blue;">25</span> | <span style="color: blue;">80</span> |
+
+:::
+
+::: {.column width="50%"}
+
+**A <span style="color: red;">more extreme</span> table with the same margins**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | <span style="color: red;">50</span> | 0 | <span style="color: red;">0</span> | <span style="color: blue;">50</span> |
+| Heavily injured | <span style="color: red;">0</span> | 5 | <span style="color: red;">25</span> | <span style="color: blue;">30</span> |
+| Total | <span style="color: blue;">50</span> | <span style="color: blue;">5</span> | <span style="color: blue;">25</span> | <span style="color: blue;">80</span> |
+
+:::
+
+::::
+
+</div>
+
+```{r}
+#| echo: false
+#| fig-width: 11
+#| fig-height: 4.2
+#| out-width: 100%
+#| fig-align: center
+
+library(tidyverse)
+
+plot_data <- tribble(
+  ~Table,          ~Injury,            ~Outcome,        ~n,
+  "Observed",       "Lightly injured",  "Carried back",   45,
+  "Observed",       "Lightly injured",  "Carried away",    0,
+  "Observed",       "Lightly injured",  "Not carried",     5,
+  "Observed",       "Heavily injured",  "Carried back",    5,
+  "Observed",       "Heavily injured",  "Carried away",    5,
+  "Observed",       "Heavily injured",  "Not carried",    20,
+  "More extreme",   "Lightly injured",  "Carried back",   50,
+  "More extreme",   "Lightly injured",  "Carried away",    0,
+  "More extreme",   "Lightly injured",  "Not carried",     0,
+  "More extreme",   "Heavily injured",  "Carried back",    0,
+  "More extreme",   "Heavily injured",  "Carried away",    5,
+  "More extreme",   "Heavily injured",  "Not carried",    25
+) %>%
+  mutate(
+    Table = factor(Table, levels = c("Observed", "More extreme")),
+    Outcome = factor(
+      Outcome,
+      levels = c("Carried back", "Carried away", "Not carried")
+    )
+  )
+
+ggplot(plot_data, aes(x = n, y = Injury, fill = Outcome)) +
+  geom_col(position = position_fill(reverse = TRUE), width = 0.65) +
+  facet_wrap(~ Table, nrow = 1) +
+  scale_y_discrete(limits = c("Heavily injured", "Lightly injured")) +
+  scale_x_continuous(labels = scales::label_percent()) +
+  scale_fill_manual(values = c(
+    "Carried back" = "#7FBB9E",
+    "Carried away" = "#60373D",
+    "Not carried" = "#133955"
+  )) +
+  labs(x = "Proportion", y = NULL, fill = NULL) +
+  theme_minimal(base_size = 23) +
+  theme(
+    panel.spacing.x = grid::unit(0.7, "in"),
+    axis.text = element_text(size = 22),
+    axis.title.x = element_text(size = 23),
+    strip.text = element_text(size = 25, face = "bold"),
+    legend.text = element_text(size = 21),
+    legend.position = "bottom"
+  )
+```
+
+## Fisher's exact test for the ant data
+
+<div style="font-size:0.8em;">
+
+
+```{r}
+#| label: ant-fisher
+
+ant_tab #view the table
+
+ant_fisher <- fisher.test(ant_tab)
+ant_fisher
+```
+
+The p-value is approximately $2.58\times10^{-11}$.
+
+There is strong evidence of an association between injury severity and carrying outcome.
+
+</div>
+
+# $\chi^2$ (chi-squared) test
+
+
+
+## $\chi^2$ test
+
+The chi-squared test compares **observed** cell counts with the counts **expected** if $H_0$ were true.
+
+Its p-value uses an approximation that depends on the expected counts. For this course, use the guideline that every expected cell count should be at least 5.
+
+We will calculate the expected counts and test statistic for the ant table, then check that guideline.
+
+## Marginal probabilities
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 45 | 0 | 5 | 50 |
+| Heavily injured | 5 | 5 | 20 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+<div style="font-size:0.8em;">
+
+:::: {.columns}
+
+::: {.column width="48%" style="background-color: #eaf4ef; padding: 0.6em; border-radius: 10px; box-sizing: border-box;"}
+
+
+Injury severity: 
+
+- $P(\text{lightly injured})=50/80$ 
+
+- $P(\text{heavily injured})=30/80$
+
+:::
+
+::: {.column width="48%" style="background-color: #f5ebee; padding: 0.6em; border-radius: 10px; box-sizing: border-box;"}
+
+
+Carrying outcome: 
+
+- $P(\text{back})=50/80$
+
+- $P(\text{away})=5/80$
+
+- $P(\text{not carried})=25/80$.
+
+:::
+
+::::
+
+</div>
+
+## Expected counts under independence
+
+Suppose $H_0$ is true: injury severity and carrying outcome are independent.
+
+What is the probability that an ant is **lightly injured and carried back**? Recall that under independence, $P(A \cap B)=P(A)P(B)$.
+
+<div style="font-size:0.65em;">
+
+
+::: {.fragment}
+$$
+P(\text{lightly injured and carried back})
+=P(\text{lightly injured})P(\text{carried back})
+=\frac{50}{80}\times\frac{50}{80}.
+$$
+:::
+
+</div>
+
+## From probabilities to expected counts
+
+Multiply the probability by the number of ants:
+
+$$
+E_{\text{light, back}}
+=\frac{50}{80}\times\frac{50}{80}\times80
+=31.25.
+$$
+
+In general, for any cell:
+
+$$
+E=\frac{\text{row total}\times\text{column total}}{\text{grand total}}.
+$$
+
+## Building the expected table
+
+$E_{\text{light, back}}=\frac{50\times50}{80}=31.25$
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | <span style="color: red;">31.25</span> |  |  | 50 |
+| Heavily injured |  |  |  | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+
+
+## Building the expected table
+
+$E_{\text{light, away}}=\frac{50\times5}{80}=3.125$
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.25 | <span style="color: red;">3.125</span> |  | 50 |
+| Heavily injured |  |  |  | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+
+
+## Building the expected table
+
+$E_{\text{light, not carried}}=50-31.25-3.125=15.625$
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | <span style="color: red;">15.625</span> | 50 |
+| Heavily injured |  |  |  | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+
+
+## Building the expected table
+
+$E_{\text{heavy, back}}=50-31.25=18.75$
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | 15.625 | 50 |
+| Heavily injured | <span style="color: red;">18.75</span> |  |  | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+
+
+## Building the expected table
+
+$E_{\text{heavy, away}}=5-3.125=1.875$
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | 15.625 | 50 |
+| Heavily injured | 18.750 | <span style="color: red;">1.875</span> |  | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+
+## Building the expected table
+
+$E_{\text{heavy, not carried}}=30-18.75-1.875=9.375$
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | 15.625 | 50 |
+| Heavily injured | 18.750 | 1.875 | <span style="color: red;">9.375</span> | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+
+
+## The expected table under $H_0$
+
+If injury severity and carrying outcome were independent, these would be the expected counts:
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | 15.625 | 50 |
+| Heavily injured | 18.750 | 1.875 | 9.375 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+## Comparing observed and expected tables
+
+<div style="font-size:0.65em;">
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Observed**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 45 | 0 | 5 | 50 |
+| Heavily injured | 5 | 5 | 20 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::: {.column width="50%"}
+
+**Expected under $H_0$**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | 15.625 | 50 |
+| Heavily injured | 18.750 | 1.875 | 9.375 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::::
+
+</div>
+
+The observed table differs from the expected table. How can we summarize those differences?
+
+## Comparing observed and expected tables
+
+<div style="font-size:0.65em;">
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Observed**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 45 | 0 | 5 | 50 |
+| Heavily injured | 5 | 5 | 20 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::: {.column width="50%"}
+
+**Expected under $H_0$**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | 15.625 | 50 |
+| Heavily injured | 18.750 | 1.875 | 9.375 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::::
+
+</div>
+
+The $\chi^2$ test compares observed frequencies, $O$, with expected frequencies, $E$, in each cell.
+
+## Comparing observed and expected tables
+
+<div style="font-size:0.65em;">
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Observed**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 45 | 0 | 5 | 50 |
+| Heavily injured | 5 | 5 | 20 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::: {.column width="50%"}
+
+**Expected under $H_0$**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | 15.625 | 50 |
+| Heavily injured | 18.750 | 1.875 | 9.375 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::::
+
+</div>
+
+Large differences, $O-E$, provide evidence against $H_0$.
+
+## Comparing observed and expected tables
+
+<div style="font-size:0.65em;">
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Observed**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 45 | 0 | 5 | 50 |
+| Heavily injured | 5 | 5 | 20 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::: {.column width="50%"}
+
+**Expected under $H_0$**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | 15.625 | 50 |
+| Heavily injured | 18.750 | 1.875 | 9.375 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::::
+
+</div>
+
+We square the differences, $(O-E)^2$, so that positive and negative differences do not cancel each other out.
+
+## Comparing observed and expected tables
+
+<div style="font-size:0.65em;">
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Observed**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 45 | 0 | 5 | 50 |
+| Heavily injured | 5 | 5 | 20 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::: {.column width="50%"}
+
+**Expected under $H_0$**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | 15.625 | 50 |
+| Heavily injured | 18.750 | 1.875 | 9.375 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::::
+
+</div>
+
+We divide each squared difference by $E$ to account for the scale of the expected count: $\frac{(O-E)^2}{E}$
+
+## The $\chi^2$ test statistic
+
+<div style="font-size:0.65em;">
+
+Our test statistic is
+
+$$
+X^2=\sum_{i=1}^{rc}\frac{(O_i-E_i)^2}{E_i}.
+$$
+
+Here, there are $r\times c=2\times3=6$ cells, excluding the totals:
+
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Observed**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 45 | 0 | 5 | 50 |
+| Heavily injured | 5 | 5 | 20 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::: {.column width="50%"}
+
+**Expected under $H_0$**
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | 15.625 | 50 |
+| Heavily injured | 18.750 | 1.875 | 9.375 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+:::
+
+::::
+
+
+
+$$
+X^2=\frac{(45-31.25)^2}{31.25}
++\frac{(0-3.125)^2}{3.125}
++\cdots+\frac{(20-9.375)^2}{9.375}
+=43.73.
+$$
+</div>
+
+## Checking the expected counts
+
+| Injury | Carried back | Carried away | Not carried | Total |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 31.250 | 3.125 | 15.625 | 50 |
+| Heavily injured | 18.750 | 1.875 | 9.375 | 30 |
+| Total | 50 | 5 | 25 | 80 |
+
+The expected counts for **carried away** are 3.125 and 1.875, both below 5.
+
+Use **Fisher's exact test** for the main conclusion. The chi-squared calculations illustrate the method, but the large-sample approximation may be unreliable here.
+
+## The $\chi^2$ distribution
+
+- Under $H_0$, the test statistic is approximately chi-squared when expected counts are sufficiently large.
+- The degrees of freedom are $(r-1)(c-1)=(2-1)(3-1)=2$.
+- The distribution is asymmetric and takes nonnegative values.
+- Larger statistics provide more evidence against $H_0$, so the p-value is an area in the **right tail**.
+
+## Calculating the $\chi^2$ statistic in R
+
+```{r}
+#| label: ant-chisq-statistic
+
+observed_chisq_statistic <- ants %>%
+  specify(Injury ~ Outcome) %>%
+  calculate(stat = "Chisq")
+
+observed_chisq_statistic
+```
+
+The statistic is approximately **43.7**.
+
+## Simulating the null distribution
+
+We can generate a null distribution by permuting carrying outcomes among the ants, keeping the margins fixed.
+
+```{r}
+#| label: ant-simulated-null
+
+set.seed(1234)
+null_distribution_simulated <- ants %>%
+  specify(Injury ~ Outcome) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 5000, type = "permute") %>%
+  calculate(stat = "Chisq")
+```
+
+## The theoretical null distribution
+
+The theoretical approximation uses a $\chi^2_2$ distribution.
+
+```{r}
+#| label: ant-theoretical-null
+
+ant_hypothesis <- ants %>%
+  specify(Injury ~ Outcome) %>%
+  hypothesize(null = "independence")
+```
+
+Remember that two expected counts are below 5. We will compare this approximation with the simulated null distribution.
+
+## Visualizing the simulated null distribution
+
+::: {.panel-tabset}
+
+## Plot
+
+```{r}
+#| label: ant-viz-sim
+#| echo: false
+
+null_distribution_simulated %>%
+  visualize() +
+  shade_p_value(observed_chisq_statistic, direction = "greater")
+```
+
+## Code
+
+```{r}
+#| echo: true
+#| eval: false
+
+null_distribution_simulated %>%
+  visualize() +
+  shade_p_value(observed_chisq_statistic, direction = "greater")
+```
+
+:::
+
+## Visualizing the theoretical null distribution
+
+::: {.panel-tabset}
+
+## Plot
+
+```{r}
+#| label: ant-viz-theory
+#| echo: false
+
+ant_hypothesis %>%
+  visualize(method = "theoretical") +
+  shade_p_value(observed_chisq_statistic, direction = "greater")
+```
+
+## Code
+
+```{r}
+#| echo: true
+#| eval: false
+
+ant_hypothesis %>%
+  visualize(method = "theoretical") +
+  shade_p_value(observed_chisq_statistic, direction = "greater")
+```
+
+:::
+
+## Comparing both null distributions
+
+::: {.panel-tabset}
+
+## Plot
+
+```{r}
+#| label: ant-viz-both
+#| echo: false
+
+null_distribution_simulated %>%
+  visualize(method = "both") +
+  shade_p_value(observed_chisq_statistic, direction = "greater")
+```
+
+## Code
+
+```{r}
+#| echo: true
+#| eval: false
+
+null_distribution_simulated %>%
+  visualize(method = "both") +
+  shade_p_value(observed_chisq_statistic, direction = "greater")
+```
+
+:::
+
+## The chi-squared approximation for the ant data
+
+```{r}
+#| label: ant-chisq-test
+
+# This returns an approximate p-value.
+ant_chisq <- chisq.test(ant_tab, correct = FALSE)
+ant_chisq
+```
+
+$X^2=43.73$ on 2 degrees of freedom, with an approximate p-value of $3.19\times10^{-10}$.
+
+Because two expected counts are small, use the earlier **Fisher p-value** for inference. Both calculations suggest a strong association.
+
+::: {.notes}
+The warning about a potentially incorrect approximation is expected for these
+data. The global chunk settings suppress warnings on the slides, but the
+limitation is stated explicitly in the slide text. Yates' correction applies
+only to 2 x 2 tables, not this 2 x 3 table.
+https://stat.ethz.ch/R-manual/R-devel/library/stats/html/chisq.test.html
+:::
+
+## A very small p-value and simulation
+
+With 5,000 permutations, we may see no simulated statistics as large as 43.73. That does **not** mean the true p-value is zero.
+
+```{r}
+#| label: ant-simulated-p
+
+n_extreme <- sum(
+  null_distribution_simulated$stat >= observed_chisq_statistic$stat
+)
+p_sim <- (n_extreme + 1) / (nrow(null_distribution_simulated) + 1)
+p_sim
+```
+
+If none are as extreme, this adjusted estimate is $1/5001\approx0.0002$. Fisher's exact test can resolve the much smaller p-value for this table.
+
+# How strong is the association?
+
+
+
+## The Odds Ratio
+
+<div style="font-size:0.8em;">
+
+
+An odds ratio compares two groups that have a **binary** outcome.
+
+For the ants, compare **carried back** with **not carried back**. The latter combines carried away and not carried.
+
+| Injury | Carried back | Not carried back | Total |
+|:--|--:|--:|--:|
+| Lightly injured | 45 | 5 | 50 |
+| Heavily injured | 5 | 25 | 30 |
+| Total | 50 | 30 | 80 |
+
+This asks whether injury severity is associated with being carried back. It uses all 80 ants, but it summarizes the original three outcomes as two.
+
+Let $B$ mean carried back and $L$ mean lightly injured. Then $\overline{L}$ means heavily injured.
+
+</div>
+
+## What are the Odds?
+
+<div style="font-size:0.7em;">
+
+
+The **odds of an event** compare how often it happens with how often it does **not** happen:
+
+</div>
+
+<div style="font-size:0.5em;">
+
+$$
+\text{Odds of being carried back}
+=\frac{P(B)}{1-P(B)}
+=\frac{\text{number carried back}}{\text{number not carried back}}.
+$$
+
+| Injury | Carried back | Not carried back | Probability | Odds |
+|:--|--:|--:|--:|--:|
+| Lightly injured | 45 | 5 | $45/50=0.90$ | $\frac{\frac{45}{50}}{\frac{5}{50}}=\frac{45}{5}=9$ to $1$ |
+| Heavily injured | 5 | 25 | $5/30\approx0.17$ | $\frac{\frac{5}{50}}{\frac{25}{50}}=\frac{5}{25}=1$ to $5$ |
+
+</div>
+
+<div style="font-size:0.7em;">
+
+For lightly injured ants, **9 to 1 odds** means that for every one ant *not* carried back, nine were carried back.
+
+</div>
+
+## The odds ratio (OR)
+
+
+
+$$
+OR=\frac{P(B\mid L)/[1-P(B\mid L)]}
+        {P(B\mid \overline{L})/[1-P(B\mid \overline{L})]}.
+$$
+
+The OR ranges from 0 to $\infty$.
+
+- $OR=1$: the two groups have equal odds of being carried back.
+- $OR>1$: lightly injured ants have higher odds.
+- $OR<1$: lightly injured ants have lower odds.
+
+## Odds ratio from a contingency table
+
+<div style="font-size:0.65em;">
+
+| | Group 1 | Group 2 |
+|:--|--:|--:|
+| Outcome present | $a$ | $b$ |
+| Outcome absent | $c$ | $d$ |
+
+The estimated probabilities are
+
+$$
+\widehat P_1=\frac{a}{a+c},
+\qquad
+\widehat P_2=\frac{b}{b+d}.
+$$
+
+For Group 1, the probability of the outcome being absent is
+$1-\widehat P_1=c/(a+c)$. Thus its odds are
+
+$$
+\frac{\widehat P_1}{1-\widehat P_1}
+=
+\frac{a/(a+c)}{c/(a+c)}
+=
+\frac{a}{c}.
+$$
+
+Similarly, the odds for Group 2 are
+$\dfrac{b/(b+d)}{d/(b+d)}=\dfrac{b}{d}$. Dividing the two odds gives
+
+$$
+\widehat{OR}
+=
+\frac{a/c}{b/d}
+=
+\frac{ad}{bc}.
+$$
+
+</div>
+
+## Odds ratio for being carried back
+
+The odds of being carried back are
+
+$$
+\text{Lightly injured: }\frac{45}{5}=9,
+\qquad
+\text{Heavily injured: }\frac{5}{25}=0.2.
+$$
+
+$$
+\widehat{OR}=\frac{9}{0.2}=45.
+$$
+
+In this sample, lightly injured ants have **45 times the odds** of being carried back compared with heavily injured ants.
+
+This compares odds, rather than probabilities.
+
+## Odds ratio using the formula
+
+<div style="font-size:0.8em;">
+
+
+Here, the outcome is **carried back**. “Not carried back” includes ants carried away or not carried at all.
+
+| | Lightly injured (Group 1) | Heavily injured (Group 2) |
+|:--|--:|--:|
+| Carried back | $a=45$ | $b=5$ |
+| Not carried back | $c=5$ | $d=25$ |
+
+Substitute these counts into the formula:
+
+$$
+\widehat{OR}
+=\frac{ad}{bc}
+=\frac{45(25)}{5(5)}
+=\frac{1125}{25}
+=45.
+$$
+
+The odds of being carried back were **45 times as high** for lightly injured ants as for heavily injured ants.
+
+</div>
+
+## Creating the binary outcome in R
+
+<div style="font-size:0.75em;">
+
+
+```{r}
+#| label: ant-binary-data
+
+ants_binary <- ants %>%
+  mutate(
+    Carried_back = if_else(Outcome == "Carried back", "Yes", "No"),
+    Carried_back = factor(Carried_back, levels = c("Yes", "No"))
+  )
+
+ant_binary_tab <- table(ants_binary$Injury, ants_binary$Carried_back)
+ant_binary_tab
+```
+
+Rows are ordered lightly injured, heavily injured. Columns are ordered Yes, No. This makes the OR compare lightly injured with heavily injured ants.
+
+</div>
+
+## Estimating an OR and a 95% confidence interval
+
+```{r}
+#| label: ant-or-ci
+
+ant_or_result <- fisher.test(ant_binary_tab)
+ant_or_result
+```
+
+<div style="font-size:0.8em;">
+
+The estimated OR is **`r round(unname(ant_or_result$estimate), 1)`**, with a 95% CI of **(`r round(ant_or_result$conf.int[1], 1)`, `r round(ant_or_result$conf.int[2], 1)`)**.
+
+The CI excludes 1, providing evidence that the odds of being carried back differ by injury severity.
+
+`fisher.test()` reports a conditional estimate, which differs slightly from the sample cross-product estimate of 45.
+
+</div>
+
+::: {.notes}
+The conditional OR is about 41.35, with exact 95% CI approximately
+(10.29, 213.32). R documents the distinction from the sample odds ratio:
+https://stat.ethz.ch/R-manual/R-devel/library/stats/html/fisher.test.html
+:::
+
+# Practice: pneumococcal serotypes and survival
+
+
+
+## Practice: the serotype data
+
+<div style="font-size:0.8em;">
+
+
+A Scottish study examined the association between pneumococcal serotype and survival following infection.
+
+| Serotype | Survived | Died | Total |
+|:--|--:|--:|--:|
+| Serotype 10 | 37 | 7 | 44 |
+| Serotype 15 | 60 | 12 | 72 |
+| Serotype 20 | 97 | 9 | 106 |
+| Serotype 31 | 24 | 10 | 34 |
+| Total | 218 | 38 | 256 |
+
+1. Identify the two categorical variables and the dimensions of this table.
+2. State the null and alternative hypotheses for a test of association.
+
+</div>
+
+## Practice: expected counts
+
+<div style="font-size:0.8em;">
+
+
+| Serotype | Survived | Died | Total |
+|:--|--:|--:|--:|
+| Serotype 10 | 37 | 7 | 44 |
+| Serotype 15 | 60 | 12 | 72 |
+| Serotype 20 | 97 | 9 | 106 |
+| Serotype 31 | 24 | 10 | 34 |
+| Total | 218 | 38 | 256 |
+
+3. Calculate the expected number of deaths for serotype 31 under $H_0$.
+4. Calculate the other expected counts. Is the chi-squared approximation appropriate under our course guideline?
+5. What are the degrees of freedom?
+
+::: {.notes}
+Expected survivors and deaths, respectively:
+Serotype 10: 37.46875, 6.53125.
+Serotype 15: 61.3125, 10.6875.
+Serotype 20: 90.265625, 15.734375.
+Serotype 31: 28.953125, 5.046875.
+All expected counts exceed 5. The degrees of freedom are 3.
+:::
+
+</div>
+
+## Practice: enter the data in R
+
+```{r}
+#| label: practice-pneu-data
+
+pneu_counts <- tibble(
+  Serotype = rep(c("Serotype 10", "Serotype 15",
+                  "Serotype 20", "Serotype 31"), each = 2),
+  Survival = rep(c("Survived", "Died"), 4),
+  n = c(37, 7, 60, 12, 97, 9, 24, 10)
+)
+
+pneu <- pneu_counts %>% uncount(n)
+pneu_tab <- table(pneu$Serotype, pneu$Survival)
+```
+
+The dataset contains one row per person. `pneu_tab` contains the cell counts.
+
+## Practice: tests of association
+
+6. Use Fisher's exact test and the chi-squared test. Compare their conclusions and interpret the p-values in context.
+
+```{r}
+#| label: practice-pneu-tests
+#| eval: false
+
+# Run the tests, then interpret the results.
+fisher.test(pneu_tab)
+chisq.test(pneu_tab)
+```
+
+::: {.notes}
+The chi-squared statistic is approximately 9.322 on 3 degrees of freedom,
+with p-value 0.02530. Fisher's p-value is approximately 0.02658.
+Both provide evidence of an association at the 0.05 level.
+:::
+
+## Practice: odds ratio
+
+7. Compare serotypes **20 and 31**. Calculate the sample odds ratio for **death**, comparing serotype 20 with serotype 31.
+8. Use R to obtain an odds ratio and 95% CI. Interpret them and explain whether the CI supports an association.
+
+```{r}
+#| label: practice-pneu-or
+#| eval: false
+
+pneu_20_31 <- pneu %>%
+  filter(Serotype %in% c("Serotype 20", "Serotype 31")) %>%
+  mutate(
+    Serotype = factor(Serotype, levels = c("Serotype 20", "Serotype 31")),
+    Survival = factor(Survival, levels = c("Died", "Survived"))
+  )
+
+# Check the row and column order before interpreting the OR.
+table(pneu_20_31$Serotype, pneu_20_31$Survival)
+fisher.test(table(pneu_20_31$Serotype, pneu_20_31$Survival))
+```
+
+::: {.notes}
+The sample OR is $(9\times24)/(97\times10)=0.2227$.
+R's conditional OR is approximately 0.23, with 95% CI approximately
+(0.07, 0.69). Serotype 20 is associated with lower odds of death than
+serotype 31. The CI excludes 1. This comparison concerns odds, not risk.
+:::
+
+## Practice: another comparison
+
+9. Compare serotypes **10 and 31** using Fisher's exact test. What do you conclude?
+
+```{r}
+#| label: practice-pneu-10-31
+#| eval: false
+
+pneu_10_31 <- pneu %>%
+  filter(Serotype %in% c("Serotype 10", "Serotype 31"))
+
+fisher.test(table(pneu_10_31$Serotype, pneu_10_31$Survival))
+```
+
+If you test several serotype pairs, consider how multiple comparisons affect the chance of a false positive.
