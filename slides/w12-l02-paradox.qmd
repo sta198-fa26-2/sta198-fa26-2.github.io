@@ -4,7 +4,7 @@ subtitle: "Introduction to Global Health Data Science"
 author: "Prof. Amy Herring"
 format:
   revealjs:
-    output-file: w12-l02-paradox.html
+    output-file: w12-l02-paradox-slides.html
     footer: "[🔗 sta198-fa26-2.github.io](https://sta198-fa26-2.github.io/)"
     theme: slides.scss
     transition: fade
