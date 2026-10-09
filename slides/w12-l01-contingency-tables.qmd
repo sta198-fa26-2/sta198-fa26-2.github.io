@@ -1116,6 +1116,8 @@ Rows are ordered lightly injured, heavily injured. Columns are ordered Yes, No. 
 
 ## Estimating an OR and a 95% confidence interval
 
+<div style="font-size:0.7em;">
+
 ```{r}
 #| label: ant-or-ci
 
@@ -1123,21 +1125,17 @@ ant_or_result <- fisher.test(ant_binary_tab)
 ant_or_result
 ```
 
-<div style="font-size:0.8em;">
 
-The estimated OR is **`r round(unname(ant_or_result$estimate), 1)`**, with a 95% CI of **(`r round(ant_or_result$conf.int[1], 1)`, `r round(ant_or_result$conf.int[2], 1)`)**.
+
+The estimated OR (conditional MLE) is **`r round(unname(ant_or_result$estimate), 1)`**, with a 95% CI of **(`r round(ant_or_result$conf.int[1], 1)`, `r round(ant_or_result$conf.int[2], 1)`)**.
 
 The CI excludes 1, providing evidence that the odds of being carried back differ by injury severity.
 
-`fisher.test()` reports a conditional estimate, which differs slightly from the sample cross-product estimate of 45.
+`fisher.test()` reports a conditional maximum likelihood estimate, which differs slightly from the sample cross-product estimate of 45.
 
 </div>
 
-::: {.notes}
-The conditional OR is about 41.35, with exact 95% CI approximately
-(10.29, 213.32). R documents the distinction from the sample odds ratio:
-https://stat.ethz.ch/R-manual/R-devel/library/stats/html/fisher.test.html
-:::
+
 
 # Practice: pneumococcal serotypes and survival
 

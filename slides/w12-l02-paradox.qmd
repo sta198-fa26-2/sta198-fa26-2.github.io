@@ -1,0 +1,363 @@
+---
+title: "Paradoxes and Fallacies"
+subtitle: "Introduction to Global Health Data Science"
+author: "Prof. Amy Herring"
+format:
+  revealjs:
+    output-file: w12-l02-paradox.html
+    footer: "[🔗 sta198-fa26-2.github.io](https://sta198-fa26-2.github.io/)"
+    theme: slides.scss
+    transition: fade
+    slide-number: true
+    pdf-separate-fragments: true
+    toc: false
+  html:
+    code-link: true
+editor_options:
+  chunk_output_type: console
+---
+
+# Berkson's Fallacy
+
+## Berkson's Fallacy
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(tidymodels)
+library(infer)
+library(knitr)
+
+options(
+  dplyr.print_min = 6,
+  dplyr.print_max = 6,
+  tibble.width = 65,
+  width = 65
+)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "#>",
+  highlight = TRUE,
+  fig.width = 8,
+  fig.asp = 0.618,
+  out.width = "60%",
+  fig.align = "center",
+  dpi = 300
+)
+theme_set(theme_gray(base_size = 16))
+set.seed(1234)
+```
+
+<div style="font-size:0.8em;">
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+Due to ease of data collection, a restricted sample is often used to test a hypothesis of interest. We illustrate a common problem with this approach.
+
+Researchers are interested in HIV-positive women on antiretroviral therapy in sub-Saharan Africa. They would like to know whether a new pregnancy is related to the probability of having an AIDS-defining event.
+
+:::
+
+::: {.column width="5%"}
+
+:::
+
+::: {.column width="50%"}
+
+They recruit women from a large network of health care clinics and find the following.
+
+| | AIDS | No AIDS | Total |
+|:--|--:|--:|--:|
+| Pregnant | 31 | 44 | 75 |
+| Not pregnant | 124 | 99 | 223 |
+| Total | 155 | 143 | 298 |
+
+The estimated $\widehat{OR}$ is $\frac{31\times99}{44\times124}=0.56$, with a 95% CI of $(0.32,0.99)$. Should HIV-positive women on antiretroviral therapy try to get pregnant to prevent an AIDS-defining event?
+
+:::
+
+::::
+
+</div>
+
+## Berkson's Fallacy
+
+Now we consider all HIV-positive women in the area, including those who did not visit a health clinic during the study period.
+
+| | AIDS | No AIDS | Total |
+|:--|--:|--:|--:|
+| Pregnant | 44 | 175 | 219 |
+| Not pregnant | 248 | 990 | 1238 |
+| Total | 292 | 1165 | 1457 |
+
+The estimated $\widehat{OR}$ is $\frac{44\times990}{175\times248}=1.00$, with a 95% CI of $(0.68,1.44)$. What happened?
+
+## Berkson's Fallacy
+
+
+<div style="font-size:0.8em;">
+
+The bias in the clinic sample comes from differences in the probability of visiting a clinic.
+
+| Diagnosis | With clinic visit | Total women | $P(\text{visit})$ |
+|:--|--:|--:|--:|
+| Pregnant and AIDS | 31 | 44 | $31/44=0.70$ |
+| Pregnant only | 44 | 175 | $44/175=0.25$ |
+| AIDS only | 124 | 248 | $124/248=0.50$ |
+| Neither | 99 | 990 | $99/990=0.10$ |
+
+The spurious relationship created by selecting this clinic sample is called *Berkson's fallacy*. It is a danger with clinic or hospital samples.
+
+</div>
+
+# Simpson's Paradox
+
+## Multiple Contingency Tables
+
+Previously, we analyzed $r\times c$ tables to quantify an association between two factors. Now we consider that relationship in the presence of a third factor.
+
+When might this be useful?
+
+- We have a $2\times2$ table at each site in a multisite study.
+- We wish to combine results from several studies in a meta-analysis.
+- A third factor may change the estimated association between two factors.
+
+## Combining Multiple Tables
+
+A third factor can affect the relationship between two factors of interest. We will examine what happens when we aggregate data across levels of that third factor.
+
+Whether to aggregate often depends on subject matter knowledge as well as statistical considerations.
+
+We start with *Simpson's paradox*: combining groups can produce a very different conclusion from examining them separately.
+
+## Simpson's Paradox
+
+:::: {.columns}
+
+::: {.column width="48%"}
+
+*Simpson's paradox* occurs when an association between two variables reverses or disappears after stratifying by a third variable.
+
+:::
+
+::: {.column width="48%"}
+
+```{r}
+#| echo: false
+#| out-width: 90%
+#| fig-align: left
+knitr::include_graphics("../img/simpsons1.png")
+```
+
+:::
+
+::::
+
+## COVID Delta cases: the overall picture
+
+<div style="font-size:0.8em;">
+
+
+Public Health England recorded confirmed and provisional Delta cases in England from February 1 through August 2, 2021. The outcome here is **death within 28 days of a positive specimen**, among reported cases with a known age.
+
+“Vaccinated” means at least 21 days after a first dose, including people who received two doses.
+
+| Vaccination status | Deaths | Reported cases | Deaths / cases |
+|:--|--:|--:|--:|
+| Vaccinated | 481 | 117,114 | **0.41%** |
+| Unvaccinated | 253 | 151,052 | **0.17%** |
+
+The odds of death among vaccinated individuals were $\frac{481(151052)}{117114(253)}=2.13$ times the odds among unvaccinated individuals. What might explain the higher *overall* risk among vaccinated cases? Was the vaccine harming people?
+
+*Source: [Public Health England, Technical Briefing 20, Table 5 (2021)](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009243/Technical_Briefing_20.pdf). Counts exclude cases with unknown age and vaccination categories other than the two shown.*
+
+</div>
+
+## Reported Delta cases under age 50
+
+<div style="font-size:0.9em;">
+
+
+| Vaccination status | Death | No death | Total |
+|:--|--:|--:|--:|
+| Vaccinated | 21 | 89,786 | 89,807 |
+| Unvaccinated | 48 | 147,564 | 147,612 |
+
+Among reported cases, the percentage who died was
+
+- **0.023%** for vaccinated people;
+- **0.033%** for unvaccinated people.
+
+The odds ratio for death, vaccinated versus unvaccinated, is
+
+$$
+\widehat{OR}
+=\frac{21(147{,}564)}{89{,}786(48)}
+\approx 0.72.
+$$
+
+Conclusion: vaccines look good here
+
+</div>
+
+## Reported Delta cases age 50 or older
+
+<div style="font-size:0.8em;">
+
+
+| Vaccination status | Death | No death | Total |
+|:--|--:|--:|--:|
+| Vaccinated | 460 | 26,847 | 27,307 |
+| Unvaccinated | 205 | 3,235 | 3,440 |
+
+Among reported cases, the percentage who died was **1.68% vaccinated** versus **5.96% unvaccinated**.
+
+$$
+\widehat{OR}
+=\frac{460(3{,}235)}{26{,}847(205)}
+\approx 0.27.
+$$
+
+**Both age groups show lower percentages of death among vaccinated cases. Why does the overall comparison go the other way?**
+
+*Source: [Public Health England, Technical Briefing 20, Table 5 (2021)](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009243/Technical_Briefing_20.pdf). “No death” is calculated as reported cases minus deaths within 28 days.*
+
+</div>
+
+## Why the aggregate reverses
+
+<div style="font-size:0.8em;">
+
+
+Age 50 or older accounts for $27{,}307/117{,}114=23.3\%$ of the vaccinated cases, but only $3{,}440/151{,}052=2.3\%$ of the unvaccinated cases.
+
+The older group has a much higher death percentage in **both** vaccination groups, and the older individuals in this group of reported cases are more likely to be vaccinated. The overall percentages weight the two age groups differently:
+
+$$
+\begin{aligned}
+\text{Vaccinated:}\quad &\frac{21+460}{89{,}807+27{,}307}=0.41\% \\
+\text{Unvaccinated:}\quad &\frac{48+205}{147{,}612+3{,}440}=0.17\%.
+\end{aligned}
+$$
+
+These are **deaths among reported cases**, not death rates among all vaccinated or unvaccinated people. They do not by themselves estimate vaccine effectiveness.
+
+</div>
+
+## Another Example: Graduate Admissions
+
+Imagine that your dream university, which has only two departments: English and Mathematics, admitted 30.0% of men but only 21.3% of women last year. You wonder whether the university favors male applicants.
+
+During visits to the English and mathematics departments, you see figures that complicate the university-wide comparison. 
+
+## The English Department
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+| | Rejected | Admitted |
+|:--|--:|--:|
+| Female | 29 | 21 |
+| Male | 60 | 40 |
+
+:::
+
+::: {.column width="50%"}
+
+English admitted $21/50=42\%$ of women and $40/100=40\%$ of men. Maybe the mathematics department is driving the overall pattern.
+
+```{r}
+#| echo: false
+#| fig-align: left
+knitr::include_graphics("../img/lisa2.png")
+```
+
+:::
+
+::::
+
+## The Department of Mathematics
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+| | Rejected | Admitted |
+|:--|--:|--:|
+| Female | 89 | 11 |
+| Male | 45 | 5 |
+
+:::
+
+::: {.column width="50%"}
+
+Mathematics admitted $11/100=11\%$ of women and $5/50=10\%$ of men.
+
+```{r}
+#| echo: false
+#| fig-align: left
+knitr::include_graphics("../img/bart2.png")
+```
+
+:::
+
+::::
+
+## UC Berkeley
+
+Overall, the university in our example admitted $(21+11)/(50+100)=21.3\%$ of women and $(40+5)/(100+50)=30\%$ of men. However, two thirds of the women applied to mathematics, the harder department to enter, compared with only one third of the men.
+
+A similar pattern appeared in the University of California, Berkeley's fall 1973 graduate admissions data, and the university was sued for gender discrimination. Women applied more often to departments with lower admission rates (these were generally in the humanities), and men tended to apply to departments with higher admissions rates (engineering and physical sciences). 
+
+## Practice at home: kidney stone treatments
+
+A 1986 *British Medical Journal* study compared open surgery with percutaneous nephrolithotomy (PN). Here are the numbers of successful and unsuccessful procedures by stone size.
+
+<div style="font-size:0.82em;">
+
+:::: {.columns}
+
+::: {.column width="49%"}
+
+**Small stones**
+
+| Treatment | Success | No success |
+|:--|--:|--:|
+| Open surgery | 81 | 6 |
+| PN | 234 | 36 |
+
+:::
+
+::: {.column width="49%"}
+
+**Large stones**
+
+| Treatment | Success | No success |
+|:--|--:|--:|
+| Open surgery | 192 | 71 |
+| PN | 55 | 25 |
+
+:::
+
+::::
+
+</div>
+
+## Practice at home: questions
+
+Using the two tables on the previous slide:
+
+1. Calculate the proportion of successful procedures for each treatment, separately for small and large stones. Which treatment has the higher success proportion in each group?
+
+2. Combine the counts across stone sizes. Calculate the overall success proportion for each treatment. Does the comparison change?
+
+3. Calculate the odds ratio for success (open surgery compared with PN) for small stones, large stones, and all stones combined.
+
+4. Explain the change in the overall comparison. Which treatment was used more often for large stones?
