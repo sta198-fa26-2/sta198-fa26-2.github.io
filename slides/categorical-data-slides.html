@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="author" content="Prof.&nbsp;Amy Herring">
+<title>STA 198 – Categorical Data - Contingency Tables</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+<link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+<style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+<link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-f0195dcd610196b9111c6e10e98695f4.css">
+<link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+<style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<meta property="og:title" content="Categorical Data - Contingency Tables – STA 198">
+<meta property="og:description" content="Introduction to Global Health Data Science">
+<meta property="og:site_name" content="STA 198">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center"><h1 class="title">Categorical Data - Contingency Tables</h1>
+  <p class="subtitle">Introduction to Global Health Data Science</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Prof.&nbsp;Amy Herring 
+</div>
+        <p class="quarto-title-affiliation">
+            Duke University <br> STA/GLHLTH 198 Fall 2026
+          </p>
+    </div>
+</div>
+
+</section><section class="slide level2"><!-- Save this file beside the slides.scss used by your other lectures.
+     Render slides with: quarto render categorical-data.qmd --to revealjs
+     Render notes with: quarto render categorical-data.qmd --to html
+     The common plotting setup is included inline.
+--></section><section><section id="introduction-to-contingency-tables" class="title-slide slide level1 center"><h1>Introduction to contingency tables</h1>
+
+</section><section id="motivating-example-streptococcus-pneumoniae" class="slide level2"><h2>Motivating example: <em>Streptococcus pneumoniae</em>
+</h2>
+<div style="font-size:0.8em;">
+<p>Infections due to <em>Streptococcus pneumoniae</em> remain a substantial source of morbidity and mortality in both developing and developed countries despite a century of research and the development of therapeutic interventions such as multiple classes of antibiotics and vaccination. The World Health Organization estimates that in developing countries 814,000 children under the age of five die annually from invasive pneumococcal disease (IPD), with an estimated 1.6 million deaths affecting all ages globally.</p>
+<p>Several recent studies have identified associations between pneumococcal serotypes (species variations) and patient outcomes from IPD. We consider data from a Scottish study of pneumococcal serotypes and mortality.</p>
+</div>
+</section><section id="contingency-tables" class="slide level2"><h2>Contingency tables</h2>
+<p>A <em>contingency table</em> is a display format for showing the relationship between two categorical variables. Below is a contingency table for a subset of serotypes from the Scottish study.</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table></section><section id="dataset-random-sample-of-observations-printed" class="slide level2"><h2>Dataset (Random sample of observations printed)</h2>
+<div style="font-size:0.6em;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: left;">Survived</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: left;">Did not survive</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: left;">Did not survive</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: left;">Did not survive</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: left;">Did not survive</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="visualizing-serotypes-and-survival" class="slide level2"><h2>Visualizing Serotypes and Survival</h2>
+<p>Here’s the relationship in the sample data.</p>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby">
+<li><a data-tabby-default="" href="#tabset-1-1">Plot</a></li>
+<li><a href="#tabset-1-2">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="w12-l01-contingency-tables-old_files/figure-revealjs/vizpneu-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>pneu <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Serotype, <span class="at">fill =</span> Survived)) <span class="sc">+</span></span>
+<span id="cb1-3"><a></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb1-4"><a></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Proportion"</span>,</span>
+<span id="cb1-5"><a></a>       <span class="at">title=</span><span class="st">"Survival by Streptococcus Serotype"</span>) <span class="sc">+</span> </span>
+<span id="cb1-6"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"#638B27"</span>,<span class="st">"#BBA2B6"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="are-serotype-and-survival-related" class="slide level2"><h2>Are serotype and survival related?</h2>
+<p>If there were no relationship between serotype and survival, we’d expect to see the lavender bars all the same length across the serotypes. Are the differences we see here reflecting actual differences in population-level survival across serotypes, or are they just a function of random variation?</p>
+
+<img data-src="w12-l01-contingency-tables-old_files/figure-revealjs/vizpneu-repeat-3-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section><section id="typical-questions-of-interest-with-r-times-c-contingency-tables" class="slide level2"><h2>Typical questions of interest with <span class="math inline">\(r \times c\)</span> contingency tables</h2>
+<ul>
+<li>
+<p>Is there an association between the row variable (indexed by <span class="math inline">\(r\)</span>) and the column variable (indexed by <span class="math inline">\(c\)</span>)?</p>
+<ul>
+<li>In our case, <span class="math inline">\(r=4\)</span> (4 serotypes) and <span class="math inline">\(c=2\)</span> (survived or died). We could easily reverse rows and columns with no ill effects.</li>
+</ul>
+</li>
+<li><p>How strong is any association?</p></li>
+</ul>
+<p>Here, we would like to test <span class="math inline">\(H_0:\)</span> pneumococcal serotype is unrelated to mortality against the alternative <span class="math inline">\(H_A:\)</span> pneumococcal serotype is related to mortality</p>
+</section></section><section id="tests-for-association" class="title-slide slide level1 center"><h1>Tests for Association</h1>
+
+</section><section><section id="fishers-exact-test" class="title-slide slide level1 center"><h1>Fisher’s Exact Test</h1>
+
+</section><section id="fishers-exact-test-1" class="slide level2"><h2>Fisher’s Exact Test</h2>
+<p>Fisher’s exact test is a great first choice for testing a relationship between two variables in a contingency table. While it has been around for almost 100 years, it was originally used only for very small samples due to the computational burden involved (this concern has been largely alleviated by modern computing). This test was invented by the same person for whom the F test we studied recently was named (Fisher made many important contributions to statistics).</p>
+</section><section id="fishers-exact-test-2" class="slide level2"><h2>Fisher’s Exact Test</h2>
+<div style="font-size:0.8em;">
+<p>Fisher’s exact test is fairly intuitive. The way it works is that we assume the column and row totals are fixed (so for our pneumococcus example, we condition on having 38 deaths and 218 survivors and that we have 34 in serotype 31, 44 in serotype 10, 72 in serotype 15, and 106 in serotype 20). Then, we construct all possible contingency tables with the same margins, and then sum up the probabilities of all tables with null probabilities less than or equal to that of our observed table to get the p-value (recall the p-value is the probability of the observed data, or more extreme data, occurring under the null hypothesis).</p>
+<p>Margins: row and column totals</p>
+<p>Obviously, this was no fun before modern computing.</p>
+</div>
+</section><section id="tables-with-the-same-margins" class="slide level2"><h2>Tables with the same margins</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Our table:</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<p>A more extreme table with same margins:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 28%">
+<col style="width: 24%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;"><span style="color: red;">38</span></td>
+<td style="text-align: right;"><span style="color: red;">6</span></td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;"><span style="color: red;">23</span></td>
+<td style="text-align: right;"><span style="color: red;">11</span></td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</section><section id="a-more-extreme-table" class="slide level2"><h2>A more extreme table</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Our table:</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<p>A more extreme table with same margins:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 28%">
+<col style="width: 24%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;"><span style="color: red;">44</span></td>
+<td style="text-align: right;"><span style="color: red;">0</span></td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;"><span style="color: red;">17</span></td>
+<td style="text-align: right;"><span style="color: red;">17</span></td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</section><section id="conducting-the-test-for-pneumococcus-data" class="slide level2"><h2>Conducting the test for Pneumococcus data</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">fisher.test</span>(pneu<span class="sc">$</span>Serotype,pneu<span class="sc">$</span>Survived)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 
+#&gt;  Fisher's Exact Test for Count Data
+#&gt; 
+#&gt; data:  pneu$Serotype and pneu$Survived
+#&gt; p-value = 0.02658
+#&gt; alternative hypothesis: two.sided</code></pre>
+</div>
+</div>
+<p>Here we conclude that the rows and columns of our table are not independent. That is, we conclude that there is a relationship between serotype and survival.</p>
+</section></section><section><section id="chi2-chi-squared-test" class="title-slide slide level1 center"><h1>
+<span class="math inline">\(\chi^2\)</span> (Chi-Squared) Test</h1>
+
+</section><section id="chi2-test" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<div style="font-size:0.8em;">
+<p>We can also test our null hypothesis that serotype is unrelated to survival using a <span class="math inline">\(\chi^2\)</span> test.</p>
+<p>The chi-squared approximation depends on the <strong>expected</strong> cell counts under <span class="math inline">\(H_0\)</span>. For this course, use the guideline that every expected cell count should be at least 5. Fisher’s exact test does not require large expected counts.</p>
+<p>Yates’ continuity correction applies to <span class="math inline">\(2\times2\)</span> tables. In R, <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> uses it by default for those tables. It does not apply to our <span class="math inline">\(4\times2\)</span> table.</p>
+<p>For <em>very</em> large samples, Fisher’s exact test can still be too computationally expensive, and the <span class="math inline">\(\chi^2\)</span> test has nice connections to the logistic regression models we will study later in the course.</p>
+<p>In addition, the chi-squared test has a very nice motivation in terms of comparing observed proportions in the data to the proportions we would expect if <span class="math inline">\(H_0\)</span> were true.</p>
+</div>
+<aside class="notes"><p>The source notes used observed counts greater than 10 and described Yates’ correction as a response to small counts. The relevant quantities are expected counts, and R applies the continuity correction by default only to 2 x 2 tables. See the R documentation: https://stat.ethz.ch/R-manual/R-devel/library/stats/html/chisq.test.html https://stat.ethz.ch/R-manual/R-devel/library/stats/html/fisher.test.html</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="marginal-probabilities" class="slide level2"><h2>Marginal probabilities</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">table</span>(pneu<span class="sc">$</span>Serotype, pneu<span class="sc">$</span>Survived) <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Did not survive</th>
+<th style="text-align: right;">Survived</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">37</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">97</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">24</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Some summaries of <em>marginal</em> probabilities will be helpful as we consider the data.</p>
+<p>Survived: <span class="math inline">\(\frac{37+60+97+24}{37+60+97+24+7+12+9+10}=\frac{218}{256}=85.2\%\)</span> survived</p>
+<p>Prevalence of serotypes: serotype 10: <span class="math inline">\(\frac{44}{256}=17.2\%\)</span>; serotype 15: <span class="math inline">\(\frac{72}{256}=28.1\%\)</span>; serotype 20: <span class="math inline">\(\frac{106}{256}=41.4\%\)</span>; serotype 31: <span class="math inline">\(\frac{34}{256}=13.3\%\)</span></p>
+</section><section id="chi2-test-1" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<p>Suppose that <span class="math inline">\(H_0\)</span> is true, and serotype of infection and survival are independent events. In that case, how would we calculate the probability that a patient had serotype 10 and survived?</p>
+</section><section id="back-to-probability" class="slide level2"><h2>Back to probability!</h2>
+<p>Remember for two independent events, <span class="math inline">\(P(A \cap B)=P(A)P(B)\)</span>.</p>
+<p>Another handy probability law in this setting is the law of total probability, e.g.&nbsp;<span class="math inline">\(P(A)+P(A^c)=1\)</span>.</p>
+<p>We can use these probability rules to calculate what our table would be expected to look like, given <em>fixed margins</em> (i.e., the same number of survivors and infections of each serotype as we have here), if <span class="math inline">\(H_0\)</span> is true. When <span class="math inline">\(H_0\)</span> is true, the serotype is independent of survival.</p>
+</section><section id="chi2-test-2" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Let’s create the table we would expect to see if <span class="math inline">\(H_0\)</span> were true.</p>
+<p><span style="color: red;">?</span> = expected # who survived and had serotype 10 if <span class="math inline">\(H_0\)</span> true</p>
+<p><span style="color: red;">?</span> = probability of being both serotype 10 and surviving times number of study participants = P(Serotype 10) <span class="math inline">\(\times\)</span> P(Survived) <span class="math inline">\(\times\)</span> 256</p>
+<p><span style="color: red;">?</span> = <span class="math inline">\(\frac{44}{256}\times\frac{218}{256}\times 256=37.5\)</span></p>
+</div><div class="column" style="width:50%;">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;"><span style="color: red;">?</span></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</section><section id="chi2-test-3" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span style="color: red;">?</span> can be obtained by subtraction as 44-37.5</p>
+</div><div class="column" style="width:50%;">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;"><span style="color: red;">?</span></td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</section><section id="chi2-test-4" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span style="color: red;">?</span> = expected # who survived and had serotype 15 if <span class="math inline">\(H_0\)</span> true</p>
+<p><span style="color: red;">?</span> = probability of being both serotype 15 and surviving times number of study participants = P(Serotype 15) <span class="math inline">\(\times\)</span> P(Survived) <span class="math inline">\(\times\)</span> 256</p>
+<p><span style="color: red;">?</span> = <span class="math inline">\(\frac{72}{256}\times\frac{218}{256}\times 256=61.3\)</span></p>
+</div><div class="column" style="width:50%;">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;"><span style="color: red;">?</span></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</section><section id="chi2-test-5" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span style="color: red;">?</span> can be obtained by subtraction as 72-61.3</p>
+</div><div class="column" style="width:50%;">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;"><span style="color: red;">?</span></td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</section><section id="chi2-test-6" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span style="color: red;">?</span> = expected # who survived and had serotype 20 if <span class="math inline">\(H_0\)</span> true</p>
+<p><span style="color: red;">?</span> = probability of being both serotype 20 and surviving times number of study participants = P(Serotype 20) <span class="math inline">\(\times\)</span> P(Survived) <span class="math inline">\(\times\)</span> 256</p>
+<p><span style="color: red;">?</span> = <span class="math inline">\(\frac{106}{256}\times\frac{218}{256}\times 256=90.3\)</span></p>
+<p>The remainder of the entries in the table can be obtained now by subtraction.</p>
+</div><div class="column" style="width:50%;">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;"><span style="color: red;">?</span></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</section><section id="chi2-test-7" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 25%">
+<col style="width: 29%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">90.3</td>
+<td style="text-align: right;"><span style="color: red;">106-90.3</span></td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table></section><section id="chi2-test-8" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 25%">
+<col style="width: 29%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">15.7</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;"><span style="color: red;"><span class="math inline">\(34\times\frac{218}{256}\)</span></span></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table></section><section id="chi2-test-9" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 25%">
+<col style="width: 29%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">15.7</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">29.0</td>
+<td style="text-align: right;"><span style="color: red;"><span class="math inline">\(34-34\times\frac{218}{256}\)</span></span></td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table></section><section id="chi2-test-10" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<p>Thus if <span class="math inline">\(H_0\)</span> is true, we would expect to see a table like this. Expected counts are calculated at full precision and then rounded to one decimal place.</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">15.7</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">29.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table></section><section id="comparing-observed-and-expected-tables" class="slide level2"><h2>Comparing Observed and Expected Tables</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Observed Table</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<p>Expected Table under <span class="math inline">\(H_0\)</span></p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">15.7</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">29.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>So we do observe some different proportions than we would expect under <span class="math inline">\(H_0\)</span>, in particular for serotypes 20 and 31. Is this “different enough” for us to raise an alarm about one or more serotypes?</p>
+</section><section id="comparing-observed-and-expected-tables-1" class="slide level2"><h2>Comparing Observed and Expected Tables</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Observed Table</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<p>Expected Table under <span class="math inline">\(H_0\)</span></p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">15.7</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">29.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<ul>
+<li>The <span class="math inline">\(\chi^2\)</span> test compares the observed frequencies, <span class="math inline">\(O\)</span>, in each cell of the table to the expected frequencies, <span class="math inline">\(E\)</span>, if <span class="math inline">\(H_0\)</span> is true.</li>
+</ul></section><section id="comparing-observed-and-expected-tables-2" class="slide level2"><h2>Comparing Observed and Expected Tables</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Observed Table</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<p>Expected Table under <span class="math inline">\(H_0\)</span></p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">15.7</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">29.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<ul>
+<li>If differences between what we observe and expect, <span class="math inline">\(O-E\)</span>, are large enough, we reject <span class="math inline">\(H_0\)</span>.</li>
+</ul></section><section id="comparing-observed-and-expected-tables-3" class="slide level2"><h2>Comparing Observed and Expected Tables</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Observed Table</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<p>Expected Table under <span class="math inline">\(H_0\)</span></p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">15.7</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">29.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<ul>
+<li>To combine differences across table cells, we need to square them (so that extra deaths in one serotype are not cancelled out by fewer deaths in another serotype) before adding them up.</li>
+</ul></section><section id="comparing-observed-and-expected-tables-4" class="slide level2"><h2>Comparing Observed and Expected Tables</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Observed Table</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<p>Expected Table under <span class="math inline">\(H_0\)</span></p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">15.7</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">29.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<ul>
+<li>In addition, we need to <em>scale</em> the differences. That is, seeing 5 ‘extra’ deaths is a big deal if our study only contains 10 participants and is not a big deal if our study contains 100,000 participants, so we divide by <span class="math inline">\(E\)</span> to examine relative differences</li>
+</ul></section><section id="comparing-observed-and-expected-tables-5" class="slide level2"><h2>Comparing Observed and Expected Tables</h2>
+<div style="font-size:0.8em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Observed Table</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">Serotype</th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<p>Expected Table under <span class="math inline">\(H_0\)</span></p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Survived</th>
+<th style="text-align: right;">Died</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serotype 10</td>
+<td style="text-align: right;">37.5</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 15</td>
+<td style="text-align: right;">61.3</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Serotype 20</td>
+<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">15.7</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Serotype 31</td>
+<td style="text-align: right;">29.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">256</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Our test statistic is <span class="math inline">\(X^2=\sum_{i=1}^{rc} \frac{(O_i-E_i)^2}{E_i},\)</span> where <span class="math inline">\(r\times c=rc\)</span> is the number of cells in the table (not including any totals, so there are 8 cells here). So here that’s <span class="math display">\[\frac{(37-37.5)^2}{37.5}+\frac{(7-6.5)^2}{6.5}+ \cdots + \frac{(10-5.0)^2}{5.0}\]</span></p>
+</section><section id="chi2-test-11" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Test</h2>
+<ul>
+<li><p>The distribution of this sum is approximated by a chi-squared distribution with <span class="math inline">\((r-1)(c-1)\)</span> degrees of freedom, written <span class="math inline">\({\chi^2}_{(r-1)(c-1)}\)</span></p></li>
+<li><p>Like the <span class="math inline">\(F\)</span> distribution, there is a different <span class="math inline">\(\chi^2\)</span> distribution for each degrees of freedom, and chi-squared distribution is not symmetric</p></li>
+<li><p>Like the <span class="math inline">\(F\)</span> distribution, all the mass is above 0, and to calculate the p-value we look at the area in the right tail only.</p></li>
+</ul></section><section id="chi2-statistic" class="slide level2"><h2>
+<span class="math inline">\(\chi^2\)</span> Statistic</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>observed_chisq_statistic <span class="ot">&lt;-</span> pneu <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a></a>  <span class="fu">specify</span>(Serotype <span class="sc">~</span> Survived) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Before we calculate the p-value corresponding to this test statistic, we can visualize the distribution of <span class="math inline">\(\chi^2_{(4-1)(2-1)}=\chi^2_3\)</span> statistics we would see under <span class="math inline">\(H_0\)</span>.</p>
+</section><section id="simulating-the-null-distribution" class="slide level2"><h2>Simulating the null distribution</h2>
+<p>We can visualize the null distribution in two ways: by looking at the <span class="math inline">\(\chi^2_3\)</span> distribution directly or by randomly sampling to generate the null distribution. First, let’s consider a simulated null distribution.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="co"># generate the null distribution using randomization</span></span>
+<span id="cb6-2"><a></a>null_distribution_simulated <span class="ot">&lt;-</span> pneu <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a></a>  <span class="fu">specify</span>(Serotype <span class="sc">~</span> Survived) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">5000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="the-theoretical-null-distribution" class="slide level2"><h2>The theoretical null distribution</h2>
+<p>Next we can use the <span class="math inline">\(\chi^2_3\)</span> distribution as an approximation to the null distribution.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="co"># Specify the test for use with the theoretical approximation.</span></span>
+<span id="cb7-2"><a></a>null_distribution_theoretical <span class="ot">&lt;-</span> pneu <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a></a>  <span class="fu">specify</span>(Serotype <span class="sc">~</span> Survived) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a></a><span class="co"># No permutation generation is needed for the theoretical approximation.</span></span>
+<span id="cb7-6"><a></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="visualizing-the-simulated-null-distribution" class="slide level2"><h2>Visualizing the simulated null distribution</h2>
+<p>Let’s visualize based on the simulated null distribution.</p>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby">
+<li><a data-tabby-default="" href="#tabset-2-1">Plot</a></li>
+<li><a href="#tabset-2-2">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="w12-l01-contingency-tables-old_files/figure-revealjs/vizsim-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="co"># visualize the null distribution and test statistic!</span></span>
+<span id="cb8-2"><a></a>null_distribution_simulated <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a></a>  <span class="fu">visualize</span>() <span class="sc">+</span> </span>
+<span id="cb8-4"><a></a>  <span class="fu">shade_p_value</span>(observed_chisq_statistic,</span>
+<span id="cb8-5"><a></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="visualizing-the-theoretical-null-distribution" class="slide level2"><h2>Visualizing the theoretical null distribution</h2>
+<p>We can also visualize based on the theoretical distribution, <span class="math inline">\(\chi^2_3\)</span>.</p>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby">
+<li><a data-tabby-default="" href="#tabset-3-1">Plot</a></li>
+<li><a href="#tabset-3-2">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="w12-l01-contingency-tables-old_files/figure-revealjs/viz2-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="co"># visualize the theoretical null distribution and test statistic!</span></span>
+<span id="cb9-2"><a></a>pneu <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a></a>  <span class="fu">specify</span>(Serotype <span class="sc">~</span> Survived) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a></a>  <span class="fu">hypothesize</span>(<span class="at">null=</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a></a>  <span class="fu">visualize</span>(<span class="at">method =</span> <span class="st">"theoretical"</span>) <span class="sc">+</span> </span>
+<span id="cb9-6"><a></a>  <span class="fu">shade_p_value</span>(observed_chisq_statistic,</span>
+<span id="cb9-7"><a></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="comparing-both-null-distributions" class="slide level2"><h2>Comparing both null distributions</h2>
+<p>Here we can also have our cake and eat it, too! Let’s visualize both.</p>
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby">
+<li><a data-tabby-default="" href="#tabset-4-1">Plot</a></li>
+<li><a href="#tabset-4-2">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="w12-l01-contingency-tables-old_files/figure-revealjs/viz3-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-2">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># visualize both null distributions and the test statistic!</span></span>
+<span id="cb10-2"><a></a>null_distribution_simulated <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a></a>  <span class="fu">visualize</span>(<span class="at">method =</span> <span class="st">"both"</span>) <span class="sc">+</span> </span>
+<span id="cb10-4"><a></a>  <span class="fu">shade_p_value</span>(observed_chisq_statistic,</span>
+<span id="cb10-5"><a></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="conducting-the-chi-squared-test" class="slide level2"><h2>Conducting the chi-squared test</h2>
+<p>We can now carry out the test.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">chisq_test</span>(pneu,Serotype<span class="sc">~</span>Survived)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 1 × 3
+#&gt;   statistic chisq_df p_value
+#&gt;       &lt;dbl&gt;    &lt;int&gt;   &lt;dbl&gt;
+#&gt; 1      9.32        3  0.0253</code></pre>
+</div>
+</div>
+<p>If there were no relationship, the probability we would see a <span class="math inline">\(\chi^2_3\)</span> test statistic as large as 9.32 or larger is just 0.0253. So serotypes are related to survival probability.</p>
+</section><section id="step-down-tests" class="slide level2"><h2>Step-Down Tests</h2>
+<p>We can also compare pairs of serotypes. If we test multiple pairs, we should adjust for multiple comparisons before concluding which serotypes differ. Here, we compare serotypes 20 and 31.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>pneu2 <span class="ot">&lt;-</span> pneu <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a></a>  <span class="fu">filter</span>(Serotype<span class="sc">==</span><span class="st">"Serotype 20"</span> <span class="sc">|</span> Serotype <span class="sc">==</span> <span class="st">"Serotype 31"</span>)</span>
+<span id="cb13-3"><a></a><span class="fu">chisq_test</span>(pneu2,Serotype<span class="sc">~</span>Survived)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 1 × 3
+#&gt;   statistic chisq_df p_value
+#&gt;       &lt;dbl&gt;    &lt;int&gt;   &lt;dbl&gt;
+#&gt; 1      7.91        1 0.00493</code></pre>
+</div>
+</div>
+</section></section><section><section id="how-strong-is-the-association" class="title-slide slide level1 center"><h1>How strong is the association?</h1>
+
+</section><section id="the-odds-ratio-or" class="slide level2"><h2>The Odds Ratio (OR)</h2>
+<p>Suppose we have a disease <span class="math inline">\(D\)</span> (e.g., lung cancer) and two groups, <span class="math inline">\(E\)</span> and <span class="math inline">\(E^c\)</span>, where <span class="math inline">\(E\)</span>=smokers and <span class="math inline">\(E^c\)</span>=nonsmokers.</p>
+<p><span class="math display">\[OR=\frac{\left\{\frac{Pr(D \mid E)}{1-Pr(D \mid E)}\right\}}{\left\{\frac{Pr(D \mid E^c)}{1-Pr(D \mid E^c)}\right\}}\]</span></p>
+<p>The OR ranges from 0 to <span class="math inline">\(\infty\)</span>. When <span class="math inline">\(OR=1\)</span> (even odds), there is no association between two variables.</p>
+</section><section id="odds-ratio" class="slide level2"><h2>Odds Ratio</h2>
+<p>Consider the following contingency table.</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Exposed</th>
+<th style="text-align: center;">Unexposed</th>
+<th style="text-align: right;">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Disease</td>
+<td style="text-align: center;">a</td>
+<td style="text-align: center;">b</td>
+<td style="text-align: right;">a+b</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No disease</td>
+<td style="text-align: center;">c</td>
+<td style="text-align: center;">d</td>
+<td style="text-align: right;">c+d</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: center;">a+c</td>
+<td style="text-align: center;">b+d</td>
+<td style="text-align: right;">a+b+c+d</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[\widehat{Pr}(D \mid E)=\frac{a}{a+c}\]</span> <span class="math display">\[\widehat{Pr}(D \mid E^c) = \frac{b}{b+d}\]</span></p>
+</section><section id="odds-ratio-1" class="slide level2"><h2>Odds Ratio</h2>
+<p><span class="math display">\[\widehat{Pr}(D \mid E)=\frac{a}{a+c} ~~~~~~~\widehat{Pr}(D \mid E^c) = \frac{b}{b+d}\]</span> <span class="math display">\[OR=\frac{\left\{\frac{Pr(D \mid E)}{1-Pr(D \mid E)}\right\}}{\left\{\frac{Pr(D \mid E^c)}{1-Pr(D \mid E^c)}\right\}}\]</span></p>
+<p><span class="math display">\[\widehat{OR}=\frac{\left\{\frac{\frac{a}{a+c}}{\frac{c}{a+c}}\right\}}{\left\{\frac{\frac{b}{b+d}}{\frac{d}{b+d}} \right\}} =\frac{ad}{bc}\]</span></p>
+</section><section id="estimating-an-or-and-a-95-ci-for-it" class="slide level2"><h2>Estimating an OR and a 95% CI for it</h2>
+<div style="font-size:0.8em;">
+<p>Many R packages will estimate an odds ratio and 95% CI for it when provided a 2 <span class="math inline">\(\times\)</span> 2 table. For now, we can take advantage of the fact that the <code>fisher.test</code> function does this automatically. First, though, we need to subset to only two serotypes. Below we subset to serotypes 20 and 31 so we get an OR comparing these two. Our null hypothesis is that the survival probabilities are the same for both serotypes, and the alternative is that they are different.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>pneu2 <span class="ot">&lt;-</span> pneu <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a></a>  <span class="fu">filter</span>(Serotype<span class="sc">==</span><span class="st">"Serotype 20"</span> <span class="sc">|</span> Serotype <span class="sc">==</span> <span class="st">"Serotype 31"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="odds-ratio-serotype-20-versus-serotype-31" class="slide level2"><h2>Odds ratio: serotype 20 versus serotype 31</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">table</span>(pneu2<span class="sc">$</span>Serotype, pneu2<span class="sc">$</span>Survived)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;              
+#&gt;               Did not survive Survived
+#&gt;   Serotype 20               9       97
+#&gt;   Serotype 31              10       24</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="co"># Columns are ordered: Did not survive, Survived.</span></span>
+<span id="cb18-2"><a></a><span class="co"># The OR compares odds of death for serotype 20 versus serotype 31.</span></span>
+<span id="cb18-3"><a></a><span class="fu">fisher.test</span>(<span class="fu">table</span>(pneu2<span class="sc">$</span>Serotype, pneu2<span class="sc">$</span>Survived))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 
+#&gt;  Fisher's Exact Test for Count Data
+#&gt; 
+#&gt; data:  table(pneu2$Serotype, pneu2$Survived)
+#&gt; p-value = 0.003891
+#&gt; alternative hypothesis: true odds ratio is not equal to 1
+#&gt; 95 percent confidence interval:
+#&gt;  0.07201804 0.69330783
+#&gt; sample estimates:
+#&gt; odds ratio 
+#&gt;  0.2257481</code></pre>
+</div>
+</div>
+<p><span class="math inline">\(\widehat{OR}=0.23\)</span> with a 95% CI of (0.07, 0.69). Those infected with serotype 20 have just 0.23 (95% CI=(0.07, 0.69)) times the odds of death as those infected with serotype 31.</p>
+</section><section id="comparing-serotypes-10-and-31" class="slide level2"><h2>Comparing serotypes 10 and 31</h2>
+<p>Now we can quantify other differences. For example, we may wish to evaluate whether serotype 10 and serotype 31 have the same survival probability or not.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>pneu3 <span class="ot">&lt;-</span> pneu <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a></a>  <span class="fu">filter</span>(Serotype<span class="sc">==</span><span class="st">"Serotype 10"</span> <span class="sc">|</span> Serotype <span class="sc">==</span> <span class="st">"Serotype 31"</span>)</span>
+<span id="cb20-3"><a></a><span class="fu">table</span>(pneu3<span class="sc">$</span>Serotype, pneu3<span class="sc">$</span>Survived)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;              
+#&gt;               Did not survive Survived
+#&gt;   Serotype 10               7       37
+#&gt;   Serotype 31              10       24</code></pre>
+</div>
+</div>
+</section><section id="fishers-exact-test-serotypes-10-and-31" class="slide level2"><h2>Fisher’s exact test: serotypes 10 and 31</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">fisher.test</span>(<span class="fu">table</span>(pneu3<span class="sc">$</span>Serotype, pneu3<span class="sc">$</span>Survived))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 
+#&gt;  Fisher's Exact Test for Count Data
+#&gt; 
+#&gt; data:  table(pneu3$Serotype, pneu3$Survived)
+#&gt; p-value = 0.1758
+#&gt; alternative hypothesis: true odds ratio is not equal to 1
+#&gt; 95 percent confidence interval:
+#&gt;  0.128805 1.546707
+#&gt; sample estimates:
+#&gt; odds ratio 
+#&gt;    0.45881</code></pre>
+</div>
+</div>
+<p>What do you conclude?</p>
+
+
+</section></section>
+</div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p><a href="https://sta198-fa26-2.github.io/">🔗 sta198-fa26-2.github.io</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="../site_libs/revealjs/dist/reveal.js"></script><!-- reveal.js plugins --><script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script><script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script><script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script><script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script><script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script><script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script><script src="../site_libs/revealjs/plugin/notes/notes.js"></script><script src="../site_libs/revealjs/plugin/search/search.js"></script><script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script><script src="../site_libs/revealjs/plugin/math/math.js"></script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': true,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script><script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script><script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/sta198-fa26-2\.github\.io\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+
+
+</body></html>
