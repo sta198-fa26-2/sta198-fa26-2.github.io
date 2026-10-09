@@ -1,0 +1,807 @@
+---
+title: "Logistic Regression"
+subtitle: "Introduction to Global Health Data Science"
+author: "Prof. Amy Herring"
+format:
+  revealjs:
+    output-file: w12-l03-logistic-slides.html
+    footer: "[🔗 sta198-fa26-2.github.io](https://sta198-fa26-2.github.io/)"
+    theme: slides.scss
+    transition: fade
+    slide-number: true
+    pdf-separate-fragments: true
+    toc: false
+  html:
+    code-link: true
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(tidymodels)
+library(knitr)
+
+options(dplyr.print_min = 8, tibble.width = 70, width = 70)
+knitr::opts_chunk$set(
+  echo = TRUE, message = FALSE, warning = FALSE,
+  comment = "#>", fig.width = 8, fig.asp = 0.6,
+  out.width = "75%", fig.align = "center", dpi = 300
+)
+theme_set(theme_minimal(base_size = 18))
+```
+
+## Our question
+
+We will use the same **2024 U.S. birth records** introduced in the birth weight labs.
+
+**How are maternal characteristics associated with birth before 37 completed weeks, called preterm birth?**
+
+- Outcome: **preterm birth**, defined as `combgest < 37`.
+- Predictors: maternal age group, pre-pregnancy BMI category, smoking during pregnancy, gestational diabetes, and plurality.
+
+This is an analysis of associations in observational data.
+
+*Source: [NCHS 2024 natality public-use data](https://www.cdc.gov/nchs/data_access/vitalstatsonline.htm)*
+
+## Preparing the birth records
+
+The lab used term births only. Here we must **include preterm births** to study the outcome.
+
+```{r}
+#| label: prepare-births
+#| include: false
+
+load("../data/births.RData")
+births_raw <- births_raw %>% rename_with(tolower)
+
+needed <- c("combgest", "mager", "bmi_r", "cig_rec", "rf_gdiab", "dplural")
+if (!all(needed %in% names(births_raw))) {
+  stop("Check that births.RData contains: ",
+       paste(setdiff(needed, names(births_raw)), collapse = ", "))
+}
+
+births_eligible <- births_raw %>%
+  transmute(
+    gest_weeks = as.numeric(as.character(combgest)),
+    maternal_age = as.numeric(as.character(mager)),
+    bmi_category = case_when(
+      as.character(bmi_r) == "1" ~ "Underweight",
+      as.character(bmi_r) == "2" ~ "Normal",
+      as.character(bmi_r) == "3" ~ "Overweight",
+      as.character(bmi_r) %in% c("4", "5", "6") ~ "Obese",
+      TRUE ~ NA_character_
+    ),
+    smoking = factor(as.character(cig_rec),
+                     levels = c("N", "Y"), labels = c("No", "Yes")),
+    gest_diabetes = factor(as.character(rf_gdiab),
+                           levels = c("N", "Y"), labels = c("No", "Yes")),
+    plurality = case_when(
+      as.character(dplural) == "1" ~ "Singleton",
+      as.character(dplural) %in% c("2", "3", "4", "5") ~ "Multiple birth",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(
+    between(gest_weeks, 17, 47),
+    between(maternal_age, 10, 54),
+    !is.na(bmi_category), !is.na(smoking),
+    !is.na(gest_diabetes), !is.na(plurality)
+  ) %>%
+  mutate(
+    age_group = factor(case_when(
+      maternal_age < 15 ~ "<15",
+      maternal_age < 40 ~ "15-39",
+      TRUE ~ "40+"
+    ), levels = c("15-39", "<15", "40+")),
+    bmi_category = factor(bmi_category,
+                          levels = c("Normal", "Underweight",
+                                     "Overweight", "Obese")),
+    plurality = factor(plurality,
+                       levels = c("Singleton", "Multiple birth")),
+    preterm = factor(if_else(gest_weeks < 37, "Yes", "No"),
+                     levels = c("No", "Yes"))
+  )
+
+set.seed(198)
+analysis_births <- births_eligible %>% slice_sample(n = 10000)
+```
+
+We keep valid gestational ages, maternal ages, and known values of the predictors. Unknown smoking status, BMI, and gestational diabetes status are excluded. We draw a new sample of 10,000 births; the earlier lab's term-only sample cannot answer this question.
+
+## Variables of interest
+
+<div style="font-size:0.7em;">
+
+
+| Variable | In the data | In our analysis |
+|:--|:--|:--|
+| Gestational age | `combgest` | `preterm`: Yes if less than 37 weeks |
+| Maternal age | `mager` | `<15`, `15–39`, or `40+` years |
+| Pre-pregnancy BMI | `bmi_r` | Underweight (<18.5), normal (18.5–24.9), overweight (25–29.9), obese (≥30) |
+| Smoking during pregnancy | `cig_rec` | `smoking`: No or Yes |
+| Gestational diabetes | `rf_gdiab` | `gest_diabetes`: No or Yes |
+| Plurality | `dplural` | Singleton or multiple birth |
+
+`bmi_r` measures **pre-pregnancy** BMI; its three obesity codes are combined here. Ages 40 and above are in `40+`, so the middle group ends at 39.
+
+A birth at **37 completed weeks** belongs to the **term birth** group.
+
+</div>
+
+## How many births in our sample are preterm?
+
+```{r}
+#| label: preterm-frequencies
+
+analysis_births %>%
+  count(preterm) %>%
+  mutate(percent = scales::percent(n / sum(n), accuracy = 0.1)) %>%
+  knitr::kable()
+```
+
+**Which outcome should we code as the event of interest?** Here `Yes` is the second factor level, so the fitted model targets the probability of preterm birth.
+
+## Preterm birth and smoking
+
+```{r}
+#| label: preterm-by-smoking
+#| echo: true
+#| code-fold: true
+
+analysis_births %>%
+  ggplot(aes(x = smoking, fill = preterm)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::label_percent()) +
+  scale_fill_manual(values = c("No" = "#B9AEC8", "Yes" = "#012169")) +
+  labs(x = "Smoking during pregnancy", y = "Proportion of births",
+       fill = "Preterm")
+```
+
+## Preterm birth and gestational diabetes
+
+```{r}
+#| label: preterm-by-diabetes
+#| echo: true
+#| code-fold: true
+
+analysis_births %>%
+  ggplot(aes(x = gest_diabetes, fill = preterm)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::label_percent()) +
+  scale_fill_manual(values = c("No" = "#B9AEC8", "Yes" = "#012169")) +
+  labs(x = "Gestational diabetes", y = "Proportion of births",
+       fill = "Preterm")
+```
+
+## Preterm birth and plurality
+
+```{r}
+#| label: preterm-by-plurality
+#| echo: true
+#| code-fold: true
+
+analysis_births %>%
+  ggplot(aes(x = plurality, fill = preterm)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::label_percent()) +
+  scale_fill_manual(values = c("No" = "#B9AEC8", "Yes" = "#012169")) +
+  labs(x = "Plurality", y = "Proportion of births", fill = "Preterm")
+```
+
+## Preterm birth and pre-pregnancy BMI
+
+```{r}
+#| label: preterm-by-bmi
+#| echo: true
+#| code-fold: true
+
+analysis_births %>%
+  ggplot(aes(x = bmi_category, fill = preterm)) +
+  geom_bar(position = "fill") +
+  scale_x_discrete(limits = c("Underweight", "Normal", "Overweight", "Obese")) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  scale_fill_manual(values = c("No" = "#B9AEC8", "Yes" = "#012169")) +
+  labs(x = "Pre-pregnancy BMI category", y = "Proportion of births",
+       fill = "Preterm")
+```
+
+## Preterm birth and maternal age group
+
+```{r}
+#| label: preterm-by-age-group
+#| echo: true
+#| code-fold: true
+
+analysis_births %>%
+  ggplot(aes(x = age_group, fill = preterm)) +
+  geom_bar(position = "fill") +
+  scale_x_discrete(limits = c("<15", "15-39", "40+")) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  scale_fill_manual(values = c("No" = "#B9AEC8", "Yes" = "#012169")) +
+  labs(x = "Maternal age group (years)", y = "Proportion of births",
+       fill = "Preterm")
+```
+
+**Question:** Why can we describe associations from these plots but not infer that a predictor caused a preterm birth?
+
+## Framing the outcome
+
+For birth $i$, define
+
+$$Y_i=\begin{cases}1 & \text{if gestational age is less than 37 weeks},\\
+0 & \text{otherwise.}\end{cases}$$
+
+Each $Y_i$ has two possible values. We can model it with a Bernoulli distribution:
+
+$$Y_i\sim\operatorname{Bernoulli}(\pi_i),\qquad
+\pi_i=P(Y_i=1\mid X_i).$$
+
+The probability $\pi_i$ can depend on the birth's predictors $X_i$. This relaxes our assumption about previous binomial data, in which everyone needed to have the same probability $\pi$ of the outcome.
+
+## Why not ordinary linear regression?
+
+If we model $\pi_i$ directly with a straight line, a prediction could be less than 0 or greater than 1.
+
+We need a model that permits a linear combination of predictors **and** produces valid probabilities between 0 and 1.
+
+**Logistic regression** connects the linear predictor to the probability through the logit function.
+
+## Three pieces of a generalized linear model
+
+1. **Outcome distribution:** $Y_i\sim\operatorname{Bernoulli}(\pi_i)$.
+
+2. **Linear predictor:** $\eta_i=\beta_0+\beta_1 X_{1i}+\cdots+\beta_k X_{ki}$.
+
+3. **Link function:** $\operatorname{logit}(\pi_i)=\eta_i$.
+
+Ordinary linear regression also has these three pieces, but uses a normal distribution and the identity link.
+
+## Log odds
+
+For an event with probability $\pi$:
+
+$$\text{odds}=\frac{\pi}{1-\pi},\qquad
+\operatorname{logit}(\pi)=\log\left(\frac{\pi}{1-\pi}\right).$$
+
+- $\pi=0.5$ gives odds of $1$ and log odds of $0$.
+- $\pi<0.5$ gives negative log odds.
+- $\pi>0.5$ gives positive log odds.
+
+The logit is defined for $0<\pi<1$.
+
+## The logit function
+
+```{r}
+#| label: logit-plot
+#| echo: false
+
+p_grid <- tibble(p = seq(0.001, 0.999, length.out = 400))
+
+ggplot(p_grid, aes(x = p, y = qlogis(p))) +
+  geom_line(linewidth = 1.1, color = "#133955") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_x_continuous(labels = scales::label_percent()) +
+  labs(x = "Probability", y = "Log odds")
+```
+
+## From log odds back to probability
+
+The inverse logit converts **any** linear predictor $\eta_i$ into a probability:
+
+$$\pi_i=\frac{\exp(\eta_i)}{1+\exp(\eta_i)}
+=\frac{1}{1+\exp(-\eta_i)}.$$
+
+When $\eta_i=0$, the probability is $0.5$. A positive value produces a probability above $0.5$; a negative value produces a probability below $0.5$.
+
+## What is an indicator variable?
+
+<div style="font-size:0.85em;">
+
+
+An **indicator variable** records whether a condition is true (1) or false (0). For example,
+
+$$
+I(\text{maternal age}<15)=
+\begin{cases}
+1 & \text{if the mother is younger than 15},\\
+0 & \text{if the mother is 15 or older}.
+\end{cases}
+$$
+
+| Maternal age | $I(\text{age}<15)$ |
+|--:|--:|
+| 14 | 1 |
+| 15 | 0 |
+| 25 | 0 |
+| 45 | 0 |
+
+
+</div>
+
+## {background-color="white"}
+
+
+<div style="font-size:0.85em;">
+
+
+$$
+I(\text{maternal age}>40)=
+\begin{cases}
+1 & \text{if the mother is older than 40},\\
+0 & \text{if the mother is 40 or younger}.
+\end{cases}
+$$
+
+| Maternal age | $I(\text{age}\ge40)$ |
+|--:|--:|
+| 14 | 0 |
+| 15 | 0 |
+| 25 | 0 |
+| 45 | 1 |
+
+</div>
+
+
+## {background-color="white"}
+
+
+<div style="font-size:0.85em;">
+
+So looking at both indicator variables together, we understand the age group of the participant.
+
+| Maternal age | $I(\text{age}<15)$ | $I(\text{age}\ge40)$ |
+|--:|--:|--:|
+| 14 | 1 | 0 |
+| 15 | 0 | 0 |
+| 25 | 0 | 0 |
+| 45 | 0 | 1 |
+
+
+In a logistic regression, the indicator lets us compare mothers **under 15** with the reference group, mothers **15-39**. Its exponentiated coefficient is the odds ratio for that comparison. Similarly, we can also compare older mothers to the reference group.
+
+
+</div>
+
+
+## A model with maternal age group
+
+Use ages **15–39** as the reference group. The model adds one indicator for ages under 15 and another for ages 40 or older:
+
+$$\operatorname{logit}(\pi_i)=\beta_0
++\beta_1 I(\text{age}<15)_i
++\beta_2 I(\text{age}\ge40)_i.$$
+
+The intercept $\beta_0$ is the log odds of preterm birth for the 15–39 group. We call this model an *unadjusted model* because it only assesses the effects of a single predictor, maternal age.
+
+
+## Fit the age-group model
+
+<div style="font-size:0.75em;">
+
+
+```{r}
+#| label: fit-age-model
+
+age_fit <- logistic_reg() %>%
+  set_engine("glm") %>%
+  fit(preterm ~ age_group, data = analysis_births)
+
+tidy(age_fit, conf.int = TRUE) %>%
+  mutate(across(where(is.numeric), ~round(.x, 3))) %>%
+  knitr::kable()
+```
+
+The model estimates one coefficient for **under 15 versus 15–39** and another for **40+ versus 15–39**.
+
+</div>
+
+
+## Odds ratios for the age groups
+
+The fitted odds for ages 15–39 and 40+ are
+
+$$\text{odds}_{15\text{–}39}=\exp(\beta_0),\qquad
+\text{odds}_{40+}=\exp(\beta_0+\beta_2).$$
+
+Thus $\exp(\beta_2)$ is the odds ratio for **40+ versus 15–39**. Similarly, $\exp(\beta_1)$ compares **under 15 versus 20–39**.
+
+These comparisons are for **groups**, rather than for a one-year or ten-year difference.
+
+## Tests and confidence intervals
+
+The two coefficient tests ask separate questions:
+
+- $H_0:\beta_1=0$ tests whether the **under-15** group differs from ages 15–39.
+- $H_0:\beta_2=0$ tests whether the **40+** group differs from ages 15–39.
+
+The test used is based on a $z$-score constructed by taking our estimate, subtracting 0, and then dividing by the standard deviation of our estimate.
+
+## Tests and confidence intervals
+
+Exponentiating each coefficient and its confidence limits gives the odds ratio and its confidence interval for that comparison.
+
+```{r}
+#| label: age-odds-ratios
+
+tidy(age_fit, conf.int = TRUE, exponentiate = TRUE) %>%
+  filter(term != "(Intercept)") %>%
+  select(term, estimate, conf.low, conf.high, p.value) %>%
+  mutate(across(where(is.numeric), ~round(.x, 3))) %>%
+  knitr::kable()
+```
+
+*The usual model standard errors treat birth records as independent; births from the same multiple pregnancy will violate this assumption.*
+
+## Interpreting results
+
+
+```{r}
+#| echo: false
+
+tidy(age_fit, conf.int = TRUE, exponentiate = TRUE) %>%
+  filter(term != "(Intercept)") %>%
+  select(term, estimate, conf.low, conf.high, p.value) %>%
+  mutate(across(where(is.numeric), ~round(.x, 3))) %>%
+  knitr::kable()
+```
+
+Mothers aged $<15$ do not have significantly different risk of preterm birth as mothers aged 15-39.  Mothers aged 40+ have 1.68 (1.30, 2.14) times the odds of preterm birth as their counterparts aged 15-39.
+
+
+
+## Multiple logistic regression
+
+<div style="font-size:0.75em;">
+
+
+Now include the five predictors. We call this type of model a *multiple logistic regression model* or an *adjusted* model. The age and BMI categories enter the model through indicator variables:
+
+$$
+\begin{aligned}
+\log\left(\frac{\pi_i}{1-\pi_i}\right)
+={}& \beta_0
++\beta_1 I(\text{age}_i<15)
++\beta_2 I(\text{age}_i\ge 40)\\
+&+\beta_3 I(\text{BMI}_i=\text{Underweight})
++\beta_4 I(\text{BMI}_i=\text{Overweight})\\
+&+\beta_5 I(\text{BMI}_i=\text{Obese})
++\beta_6 I(\text{smoking}_i=\text{Yes})\\
+&+\beta_7 I(\text{gestational diabetes}_i=\text{Yes})
++\beta_8 I(\text{plurality}_i=\text{Multiple birth}).
+\end{aligned}
+$$
+
+Reference group: **ages 15–39**, **normal BMI**, **no smoking**, **no gestational diabetes**, and **singleton**.
+
+</div>
+
+## Fit the multiple logistic model
+
+```{r}
+#| label: fit-multiple-logistic
+
+birth_fit <- logistic_reg() %>%
+  set_engine("glm") %>%
+  fit(preterm ~ age_group + bmi_category + smoking +
+        gest_diabetes + plurality,
+      data = analysis_births)
+```
+
+We use `exponentiate = TRUE` to turn the coefficients into odds ratios. Each estimate compares one category with its reference category while holding the other predictors fixed.
+
+## Adjusted odds ratios for age and BMI
+
+<div style="font-size:0.75em;">
+
+
+```{r}
+#| label: age-bmi-odds-ratios
+
+tidy(birth_fit, conf.int = TRUE, exponentiate = TRUE) %>%
+  filter(str_starts(term, "age_group") |
+           str_starts(term, "bmi_category")) %>%
+  select(term, estimate, conf.low, conf.high, p.value) %>%
+  mutate(across(where(is.numeric), ~round(.x, 3))) %>%
+  knitr::kable()
+```
+
+Each age-group estimate compares with **ages 15–39**. Each BMI estimate compares with **normal pre-pregnancy BMI**. For each comparison, we assume no other predictor values change.
+
+</div>
+
+
+## {background-color="white"}
+
+
+<div style="font-size:0.75em;">
+
+
+```{r}
+#| echo: FALSE
+
+tidy(birth_fit, conf.int = TRUE, exponentiate = TRUE) %>%
+  filter(str_starts(term, "age_group") |
+           str_starts(term, "bmi_category")) %>%
+  select(term, estimate, conf.low, conf.high, p.value) %>%
+  mutate(across(where(is.numeric), ~round(.x, 3))) %>%
+  knitr::kable()
+```
+
+Mothers aged 40+ have 1.62 (1.24, 2.08) times the odds of preterm birth as mothers aged 15-39, adjusting for BMI, smoking status, gestational diabetes status, and plurality. Underweight mothers have 1.86 (1.27, 2.66) times the odds of preterm birth as their normal weight counterparts, and obese mothers have 1.34 (1.15, 1.56) times the odds of preterm birth as their normal weight counterparts, adjusting for maternal age, smoking status, gestational diabetes status, and plurality. Thus both age and BMI are predictors of the probability of preterm birth.
+</div>
+
+
+
+
+## Adjusted odds ratios for the other predictors
+
+<div style="font-size:0.75em;">
+
+
+```{r}
+#| label: other-odds-ratios
+
+tidy(birth_fit, conf.int = TRUE, exponentiate = TRUE) %>%
+  filter(term != "(Intercept)",
+         !str_starts(term, "age_group"),
+         !str_starts(term, "bmi_category")) %>%
+  select(term, estimate, conf.low, conf.high, p.value) %>%
+  mutate(across(where(is.numeric), ~round(.x, 3))) %>%
+  knitr::kable()
+```
+
+For example, `smokingYes` compares reported smoking with no smoking among births with the same age group, BMI category, diabetes status, and plurality.
+
+</div>
+
+## {background-color="white"}
+
+<div style="font-size:0.75em;">
+
+
+```{r}
+#| echo: FALSE
+
+tidy(birth_fit, conf.int = TRUE, exponentiate = TRUE) %>%
+  filter(term != "(Intercept)",
+         !str_starts(term, "age_group"),
+         !str_starts(term, "bmi_category")) %>%
+  select(term, estimate, conf.low, conf.high, p.value) %>%
+  mutate(across(where(is.numeric), ~round(.x, 3))) %>%
+  knitr::kable()
+```
+
+Maternal smoking, gestational diabetes, and higher-order pregnancies also convey greater risk of preterm birth. Women smoking during pregnancy have 1.89 (1.36, 2.60) times the odds of preterm birth as their nonsmoking counterparts, after adjustment for maternal age, BMI, gestational diabetes status, and the multiplicity of the pregnancy. Similarly, gestational diabetes is associated with 1.35 (1.09, 1.65) times the odds of preterm birth, and a multiple pregnancy is associated with a whopping 12.0 (9.5, 15.3) times the odds of preterm birth, after adjusting for the other factors in the model.
+
+</div>
+
+
+# Why Did the Odds Ratio Change?
+
+## Simple and Multiple Logistic Regression
+
+<div style="font-size:0.75em;">
+
+
+:::: {.columns}
+
+::: {.column width="48%"}
+
+**Simple (unadjusted) model**
+
+$$
+\begin{aligned}
+\operatorname{logit}\{P(Y_i=1\mid X_i)\}
+&= \alpha_0+\alpha_1X_i.
+\end{aligned}
+$$
+
+For a one-unit increase in $X$, the estimated **crude odds ratio** is
+
+$$
+\widehat{OR}_{\text{crude}}=e^{\hat{\alpha}_1}.
+$$
+
+:::
+
+::: {.column width="48%"}
+
+**Multiple (adjusted) model**
+
+$$
+\begin{aligned}
+\operatorname{logit}\{P(Y_i=1\mid X_i,\mathbf Z_i)\}
+&= \beta_0+\beta_1X_i\\
+&\quad+\beta_2Z_{2i}+\cdots+\beta_pZ_{pi}.
+\end{aligned}
+$$
+
+Holding the other predictors constant, the estimated **adjusted odds ratio** is
+
+$$
+\widehat{OR}_{\text{adjusted}}=e^{\hat{\beta}_1}.
+$$
+
+:::
+
+::::
+
+</div>
+
+## The Models Compare Different Groups
+
+The two odds ratios answer different questions.
+
+- **Crude OR:** How do the odds of $Y=1$ compare for groups that differ by one unit in $X$, without accounting for other predictors?
+
+- **Adjusted OR:** How do the odds compare for groups that differ by one unit in $X$ but have the **same values of the other predictors**?
+
+For binary $X$, this compares $X=1$ with $X=0$.
+
+The adjusted interpretation assumes the model does not include interactions involving $X$.
+
+## Confounding
+
+<div style="font-size:0.85em;">
+
+
+A **confounder** is a variable that creates a noncausal association between the predictor of interest and the outcome.
+
+For example, a third variable $Z$ may influence both $X$ and $Y$:
+
+$$
+X \leftarrow Z \rightarrow Y.
+$$
+
+- The groups defined by $X$ differ in their distribution of $Z$.
+- Because $Z$ also predicts $Y$, the crude association mixes the relationship of interest with differences in $Z$.
+- Adjusting for $Z$ compares groups with the **same value of $Z$**.
+
+Subject-matter knowledge helps us decide which variables to adjust for.
+
+</div>
+
+## How Can Confounding Change an Association?
+
+<div style="font-size:0.75em;">
+
+
+Confounding can make an association appear **stronger**, **weaker**, or even point in the **opposite direction**.
+
+| Pattern | What can happen after appropriate adjustment? |
+|:--|:--|
+| Crude association exaggerated | The OR moves closer to 1. |
+| Crude association masked | The OR moves further from 1. |
+| Crude association reversed | The OR changes from above 1 to below 1, or vice versa. |
+
+A reversal between an overall association and associations within subgroups is an example of **Simpson's paradox**.
+
+A change in the estimated OR alone does **not** establish that a variable is a confounder.
+
+</div>
+
+## A Simulated Example of Confounding
+
+Suppose $Z$ influences both $X$ and $Y$.
+
+For each observation $i=1,\ldots,n$:
+
+$$
+\begin{aligned}
+Z_i &\sim \operatorname{Bernoulli}(0.5),\\[6pt]
+\operatorname{logit}\!\left\{P(X_i=1\mid Z_i)\right\}
+&= -1+2Z_i,\\[6pt]
+\operatorname{logit}\!\left\{P(Y_i=1\mid X_i,Z_i)\right\}
+&= -1+0.5X_i+1.5Z_i.
+\end{aligned}
+$$
+
+Here, $X_i$ and $Y_i$ are binary, and
+$\operatorname{logit}(p)=\log\{p/(1-p)\}$.
+
+Thus, $Z$ predicts both $X$ and $Y$, while $X$ also predicts $Y$.
+
+## {background-color="white"}
+
+
+```{r}
+#| label: or-confounding-data
+#| echo: true
+#| message: false
+#| warning: false
+
+set.seed(2024)
+n <- 20000
+z <- rbinom(n, 1, 0.5)
+x <- rbinom(n, 1, plogis(-1 + 2 * z))
+y <- rbinom(n, 1, plogis(-1 + 0.5 * x + 1.5 * z))
+
+or_confounding_data <- data.frame(
+  x,
+  y = factor(y, levels = c(0, 1)),
+  z
+)
+```
+
+- $X=1$ is more common among those with $Z=1$.
+- $Z=1$ also increases the probability of $Y=1$.
+- Holding $Z$ constant, the true OR for $X$ is $e^{0.5}\approx1.65$.
+
+## Compare the Crude and Adjusted Odds Ratios
+
+```{r}
+#| label: or-confounding-models
+#| echo: true
+#| message: false
+#| warning: false
+
+or_confounding_simple <- logistic_reg() %>%
+  set_engine("glm") %>%
+  fit(y ~ x, data = or_confounding_data)
+
+or_confounding_adjusted <- logistic_reg() %>%
+  set_engine("glm") %>%
+  fit(y ~ x + z, data = or_confounding_data)
+```
+
+```{r}
+#| label: or-confounding-results
+#| echo: false
+#| results: asis
+
+or_confounding_results <- bind_rows(
+  Crude = tidy(or_confounding_simple,
+               conf.int = TRUE, exponentiate = TRUE),
+  Adjusted = tidy(or_confounding_adjusted,
+                  conf.int = TRUE, exponentiate = TRUE),
+  .id = "Model"
+) %>%
+  filter(term == "x") %>%
+  select(Model, estimate, conf.low, conf.high)
+
+knitr::kable(
+  or_confounding_results,
+  digits = 3,
+  col.names = c("Model", "Estimated OR",
+               "95% CI: lower", "95% CI: upper")
+)
+
+
+```
+
+Both models use the **same observations**.
+
+## What Happened in This Example?
+
+The simulation was constructed so that $Z$ influences both $X$ and $Y$.
+
+- In the simple model, $X$ partly stands in for $Z$.
+- Some of the higher odds of $Y=1$ among those with $X=1$ reflect their greater probability of having $Z=1$.
+- After adjustment, the estimated OR should be near the true conditional OR of **1.65**.
+
+For this data-generating mechanism, the population crude OR is approximately **3.05**, compared with the conditional OR of **1.65**.
+
+The simulated estimates will vary around these values.
+
+## Interpreting a Change After Adjustment
+
+1. **Compare the same observations.** Added predictors may have missing values, causing the adjusted model to use a smaller sample.
+
+2. **Use subject-matter knowledge.** Decide whether a variable could create a noncausal association between $X$ and $Y$.
+
+3. **Interpret the adjusted OR conditionally.** State which variables are being held constant.
+
+4. **Avoid causal conclusions from adjustment alone.** Including additional predictors does not automatically make an association causal.
+
+
+## Homework (Practice)
+
+[**IMS Chapter 9**](https://openintrostat.github.io/ims/model-logistic.html#sec-chp09-exercises)
+
+- Problem 3
+
+

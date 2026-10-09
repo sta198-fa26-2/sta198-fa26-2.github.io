@@ -657,3 +657,16 @@ At the mean asset level, holding age constant, hair mercury in non-native commun
 
 ::::
 
+## Homework (Practice)
+
+[**IMS Chapter 8**](https://openintrostat.github.io/ims/model-mlr.html#sec-chp8-exercises)
+
+
+- Problem 3
+- Problem 7
+- Problem 8
+- Problem 11
+- Problem 12
+
+
+
