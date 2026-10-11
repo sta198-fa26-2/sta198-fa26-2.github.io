@@ -133,7 +133,7 @@ window.Quarto = {
 </script>
 <meta property="og:title" content="Logistic Regression – STA 198">
 <meta property="og:description" content="Introduction to Global Health Data Science">
-<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w12-l03-logistic_files/figure-revealjs/preterm-by-smoking-1.png">
+<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w12-l03-logistic_files/figure-revealjs/unnamed-chunk-1-1.png">
 <meta property="og:site_name" content="STA 198">
 <meta property="og:image:height" content="2880">
 <meta property="og:image:width" content="4800">
@@ -467,10 +467,15 @@ window.Quarto = {
   <li><a href="#preparing-the-birth-records" id="toc-preparing-the-birth-records" class="nav-link" data-scroll-target="#preparing-the-birth-records">Preparing the birth records</a></li>
   <li><a href="#variables-of-interest" id="toc-variables-of-interest" class="nav-link" data-scroll-target="#variables-of-interest">Variables of interest</a></li>
   <li><a href="#how-many-births-in-our-sample-are-preterm" id="toc-how-many-births-in-our-sample-are-preterm" class="nav-link" data-scroll-target="#how-many-births-in-our-sample-are-preterm">How many births in our sample are preterm?</a></li>
+  <li><a href="#how-many-moms-smoke" id="toc-how-many-moms-smoke" class="nav-link" data-scroll-target="#how-many-moms-smoke">How many moms smoke?</a></li>
   <li><a href="#preterm-birth-and-smoking" id="toc-preterm-birth-and-smoking" class="nav-link" data-scroll-target="#preterm-birth-and-smoking">Preterm birth and smoking</a></li>
+  <li><a href="#how-many-moms-have-gestational-diabetes" id="toc-how-many-moms-have-gestational-diabetes" class="nav-link" data-scroll-target="#how-many-moms-have-gestational-diabetes">How many moms have gestational diabetes?</a></li>
   <li><a href="#preterm-birth-and-gestational-diabetes" id="toc-preterm-birth-and-gestational-diabetes" class="nav-link" data-scroll-target="#preterm-birth-and-gestational-diabetes">Preterm birth and gestational diabetes</a></li>
+  <li><a href="#how-many-births-are-multiples" id="toc-how-many-births-are-multiples" class="nav-link" data-scroll-target="#how-many-births-are-multiples">How many births are multiples?</a></li>
   <li><a href="#preterm-birth-and-plurality" id="toc-preterm-birth-and-plurality" class="nav-link" data-scroll-target="#preterm-birth-and-plurality">Preterm birth and plurality</a></li>
+  <li><a href="#to-which-bmi-categories-do-the-mothers-belong" id="toc-to-which-bmi-categories-do-the-mothers-belong" class="nav-link" data-scroll-target="#to-which-bmi-categories-do-the-mothers-belong">To which BMI categories do the mothers belong?</a></li>
   <li><a href="#preterm-birth-and-pre-pregnancy-bmi" id="toc-preterm-birth-and-pre-pregnancy-bmi" class="nav-link" data-scroll-target="#preterm-birth-and-pre-pregnancy-bmi">Preterm birth and pre-pregnancy BMI</a></li>
+  <li><a href="#how-old-are-the-moms" id="toc-how-old-are-the-moms" class="nav-link" data-scroll-target="#how-old-are-the-moms">How old are the moms?</a></li>
   <li><a href="#preterm-birth-and-maternal-age-group" id="toc-preterm-birth-and-maternal-age-group" class="nav-link" data-scroll-target="#preterm-birth-and-maternal-age-group">Preterm birth and maternal age group</a></li>
   <li><a href="#framing-the-outcome" id="toc-framing-the-outcome" class="nav-link" data-scroll-target="#framing-the-outcome">Framing the outcome</a></li>
   <li><a href="#why-not-ordinary-linear-regression" id="toc-why-not-ordinary-linear-regression" class="nav-link" data-scroll-target="#why-not-ordinary-linear-regression">Why not ordinary linear regression?</a></li>
@@ -634,6 +639,15 @@ window.Quarto = {
 </div>
 </div>
 <p><strong>Which outcome should we code as the event of interest?</strong> Here <code>Yes</code> is the second factor level, so the fitted model targets the probability of preterm birth.</p>
+</section><section id="how-many-moms-smoke" class="level2"><h2 class="anchored" data-anchor-id="how-many-moms-smoke">How many moms smoke?</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
 </section><section id="preterm-birth-and-smoking" class="level2"><h2 class="anchored" data-anchor-id="preterm-birth-and-smoking">Preterm birth and smoking</h2>
 <div class="cell" data-layout-align="center">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">analysis_births</span> <span class="op">%&gt;%</span></span>
@@ -645,7 +659,16 @@ window.Quarto = {
 <span>       fill <span class="op">=</span> <span class="st">"Preterm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-smoking-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-smoking-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-smoking-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-smoking-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="how-many-moms-have-gestational-diabetes" class="level2"><h2 class="anchored" data-anchor-id="how-many-moms-have-gestational-diabetes">How many moms have gestational diabetes?</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -661,7 +684,16 @@ window.Quarto = {
 <span>       fill <span class="op">=</span> <span class="st">"Preterm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-diabetes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-diabetes-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-diabetes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-diabetes-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="how-many-births-are-multiples" class="level2"><h2 class="anchored" data-anchor-id="how-many-births-are-multiples">How many births are multiples?</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -676,7 +708,16 @@ window.Quarto = {
 <span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Plurality"</span>, y <span class="op">=</span> <span class="st">"Proportion of births"</span>, fill <span class="op">=</span> <span class="st">"Preterm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-plurality-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-plurality-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-plurality-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-plurality-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="to-which-bmi-categories-do-the-mothers-belong" class="level2"><h2 class="anchored" data-anchor-id="to-which-bmi-categories-do-the-mothers-belong">To which BMI categories do the mothers belong?</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -693,7 +734,16 @@ window.Quarto = {
 <span>       fill <span class="op">=</span> <span class="st">"Preterm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-bmi-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-bmi-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-bmi-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-bmi-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="how-old-are-the-moms" class="level2"><h2 class="anchored" data-anchor-id="how-old-are-the-moms">How old are the moms?</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -710,7 +760,7 @@ window.Quarto = {
 <span>       fill <span class="op">=</span> <span class="st">"Preterm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-age-group-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-age-group-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-age-group-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-age-group-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -752,7 +802,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/logit-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w12-l03-logistic_files/figure-revealjs/logit-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/logit-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w12-l03-logistic_files/figure-revealjs/logit-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
