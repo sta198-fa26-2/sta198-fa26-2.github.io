@@ -145,6 +145,26 @@ analysis_births %>%
 
 **Which outcome should we code as the event of interest?** Here `Yes` is the second factor level, so the fitted model targets the probability of preterm birth.
 
+## How many moms smoke?
+
+```{r}
+#| echo: FALSE
+analysis_births %>%
+  ggplot(aes(x = smoking)) +
+  geom_bar(fill = "#012169") +
+  geom_text(
+    stat = "count",
+    aes(label = after_stat(count)),
+    vjust = -0.4
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    x = "Smoking during pregnancy",
+    y = "Number of births"
+  ) +
+  theme_minimal()
+```
+
 ## Preterm birth and smoking
 
 ```{r}
@@ -160,6 +180,27 @@ analysis_births %>%
   labs(x = "Smoking during pregnancy", y = "Proportion of births",
        fill = "Preterm")
 ```
+
+## How many moms have gestational diabetes?
+
+```{r}
+#| echo: FALSE
+analysis_births %>%
+  ggplot(aes(x = gest_diabetes)) +
+  geom_bar(fill = "#012169") +
+  geom_text(
+    stat = "count",
+    aes(label = after_stat(count)),
+    vjust = -0.4
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    x = "Gestational diabetes during pregnancy",
+    y = "Number of births"
+  ) +
+  theme_minimal()
+```
+
 
 ## Preterm birth and gestational diabetes
 
@@ -177,6 +218,28 @@ analysis_births %>%
        fill = "Preterm")
 ```
 
+## How many births are multiples?
+
+```{r}
+#| echo: FALSE
+analysis_births %>%
+  ggplot(aes(x = plurality)) +
+  geom_bar(fill = "#012169") +
+  geom_text(
+    stat = "count",
+    aes(label = after_stat(count)),
+    vjust = -0.4
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    x = "Singleton vs multiple birth",
+    y = "Number of births"
+  ) +
+  theme_minimal()
+```
+
+
+
 ## Preterm birth and plurality
 
 ```{r}
@@ -191,6 +254,28 @@ analysis_births %>%
   scale_fill_manual(values = c("No" = "#B9AEC8", "Yes" = "#012169")) +
   labs(x = "Plurality", y = "Proportion of births", fill = "Preterm")
 ```
+
+## To which BMI categories do the mothers belong?
+
+```{r}
+#| echo: FALSE
+analysis_births %>%
+  ggplot(aes(x = bmi_category)) +
+  geom_bar(fill = "#012169") +
+  geom_text(
+    stat = "count",
+    aes(label = after_stat(count)),
+    vjust = -0.4
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    x = "BMI Category",
+    y = "Number of births"
+  ) +
+  theme_minimal()
+```
+
+
 
 ## Preterm birth and pre-pregnancy BMI
 
@@ -208,6 +293,28 @@ analysis_births %>%
   labs(x = "Pre-pregnancy BMI category", y = "Proportion of births",
        fill = "Preterm")
 ```
+
+
+## How old are the moms?
+
+```{r}
+#| echo: FALSE
+analysis_births %>%
+  ggplot(aes(x = age_group)) +
+  geom_bar(fill = "#012169") +
+  geom_text(
+    stat = "count",
+    aes(label = after_stat(count)),
+    vjust = -0.4
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    x = "Maternal Age",
+    y = "Number of births"
+  ) +
+  theme_minimal()
+```
+
 
 ## Preterm birth and maternal age group
 
