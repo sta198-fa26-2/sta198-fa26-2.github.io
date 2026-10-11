@@ -43,7 +43,8 @@ Are mercury concentrations in hair related to community of residence?
 library(tidyverse)
 library(tidymodels)
 library(readr)
-mercury <- readr::read_csv("../data/mercury_reg.csv")
+mercury <- readr::read_csv("../data/mercury_reg.csv") %>%
+  mutate(community = factor(community))
 head(mercury)
 ```
 
@@ -51,21 +52,30 @@ head(mercury)
 
 One way to explore this relationship is through a linear regression model, with *dummy* or *indicator variables* for community as predictors.
 
+Save the fitted model as `com_fit`, then use `tidy(com_fit)` to display its coefficient estimates, standard errors, test statistics, and p-values.
+
 ```{r}
 #| label: hg-comm
 #| eval: false 
-res <- linear_reg() %>%
+com_fit <- linear_reg() %>%
   set_engine("lm") %>%
-  fit(lhairHg ~ community, data = mercury) %>%
-  tidy() 
-print(res,n=23)
+  fit(lhairHg ~ community, data = mercury)
+
+tidy(com_fit)
 ```
 
 ## {background-color="white"}
 
 ```{r}
-#| ref.label: hg-comm
+#| label: hg-comm-output
 #| echo: false
+
+com_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ community, data = mercury)
+
+tidy(com_fit) %>%
+  print(n = 23)
 ```
 
 ## {background-color="white"}
@@ -579,12 +589,25 @@ We can visualize the between and within groups variances, as well as how testing
 
 ## ANOVA for Mercury Data
 
+<div style="font-size:0.8em;">
+
+
 ```{r}
-#: label: anovahg
-summary(aov(lhairHg~community,data=mercury))
+#| label: anovahg
+
+com_anova <- com_fit %>%
+  extract_fit_engine() %>%
+  anova() %>%
+  tidy()
+
+com_anova
 ```
 
+`tidy(com_fit)` reports tests of individual coefficients. For the **overall ANOVA test**, we pass the underlying `lm` model to `anova()` using `extract_fit_engine()`, then use `tidy()` to make its table easy to read.
+
 Here's the **overall test** of the null hypothesis that all 23 means are equal, versus the alternative that at least one mean is different.  Based on that p-value, these data, or more extreme data, would be highly unlikely if the null hypothesis were true. Next, we probably wish to know which means are different!
+
+</div>
 
 ## Step-Down Tests
 
@@ -592,7 +615,7 @@ Here's the **overall test** of the null hypothesis that all 23 means are equal, 
 # label: holm
 # Holm's correction gives us good protection against type I errors
 # under a wide variety of settings
-hairpair <- pairwise.t.test(mercury$lhairHg,    mercury$community, p.adj = "holm")
+hairpair <- pairwise.t.test(mercury$lhairHg, mercury$community, p.adj = "holm")
 sigpairs <- broom::tidy(hairpair) %>%
   filter(p.value<0.05) %>%
   arrange(group1,group2)
@@ -673,16 +696,30 @@ Typically, observations within a household are positively correlated (e.g., if o
 
 ## Simple Fix: Limit to One Person Per Household
 
+<div style="font-size:0.75em;">
+
+
 The easiest solution to this problem is to limit the dataset to a single person per household. In this case, we'll limit to the household member denoted `withinid=1`.
 
 ```{r}
-mercuryone <- mercury %>%
-  filter(withinid==1)
+#| label: fit-one-per-household
 
-summary(aov(lhairHg~community,data=mercuryone))
+mercuryone <- mercury %>%
+  filter(withinid == 1)
+
+com_one_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(lhairHg ~ community, data = mercuryone)
+
+com_one_fit %>%
+  extract_fit_engine() %>%
+  anova() %>%
+  tidy()
 ```
 
 Our dataset is much smaller now, but we still see differences across communities and reject the overall test.
+
+</div>
 
 ## {background-color="white"}
 
@@ -718,6 +755,8 @@ NOTE:  this discussion of *random effects ANOVA* is something you get for free w
 
 ## Random effects results
 
+This extension uses `lme4::lmer()` to include a household random effect.
+
 <div style="font-size:0.85em;">
 
 
@@ -727,7 +766,7 @@ library(lme4)
 mercury <- mercury %>%
   mutate(hhid=as.factor(hid))
 
-m1=lmer(lhairHg ~ community + (1 | hhid), data = mercury)
+m1 <- lmer(lhairHg ~ community + (1 | hhid), data = mercury)
 anova(m1)
 ```
 
@@ -825,10 +864,12 @@ mercury %>%
 
 ```{r}
 #| label: hg-native-fit
-linear_reg() %>%
+
+native_fit <- linear_reg() %>%
   set_engine("lm") %>%
-  fit(lhairHg ~ native_cat, data = mercury) %>%
-  tidy()
+  fit(lhairHg ~ native_cat, data = mercury)
+
+tidy(native_fit)
 ```
 
 
@@ -856,9 +897,11 @@ native communities, holding other predictors fixed.
 
 ```{r}
 #| label: hg-community
+#| eval: false
+
 com_fit <- linear_reg() %>%
   set_engine("lm") %>%
-  fit(lhairHg ~ community, data = mercury) 
+  fit(lhairHg ~ community, data = mercury)
 
 tidy(com_fit)
 ```
@@ -866,8 +909,11 @@ tidy(com_fit)
 ## Dummy or indicator variables
 
 ```{r}
-#| ref.label: "hg-comm"
+#| label: hg-community-coefficients
 #| echo: false
+
+tidy(com_fit) %>%
+  print(n = 23)
 ```
 
 <div style="font-size:0.9em;">
@@ -932,9 +978,13 @@ etc. for the other communities. Note Boca Colorado, the *referent community*, =0
 <div style="font-size:0.4em;">
 
 
-```{r hg-comm}
+```{r}
+#| label: hg-community-interpretation
 #| echo: false
 #| class-output: tiny
+
+tidy(com_fit) %>%
+  print(n = 23)
 ```
 
 ::: {.tiny}
@@ -989,21 +1039,29 @@ In the ANOVA model, the Boca Colorado mean was $\mu_1$, the Boca Isiriwe mean wa
 
 ## Correspondence between regression and ANOVA
 
-Here we can compare the F test from the regression model with that from ANOVA.
+We can obtain the same overall $F$ test from the fitted model's summary or its ANOVA table. Both use the saved `com_fit` object.
 
-Regression:
+**Overall regression test:**
+
 ```{r}
-res <- summary(lm(lhairHg~community, data = mercury))
-print(res$fstatistic)
+#| label: community-overall-test
+
+glance(com_fit) %>%
+  select(statistic, p.value, df, df.residual)
 ```
+
+`glance()` returns one row summarizing the whole model. Here, `statistic` is the overall $F$ statistic, `df` is its numerator degrees of freedom, and `df.residual` is its denominator degrees of freedom.
 
 ## {background-color="white"}
 
-ANOVA:
+**ANOVA table:**
 
 ```{r}
-summary(aov(lhairHg~community,data=mercury))
+#| label: community-anova-comparison
+
+com_anova
 ```
 
+The `community` row gives the same $F$ statistic and p-value as `glance(com_fit)`. Its degrees of freedom are the numerator df; the `Residuals` row gives the denominator df.
 
-We get the same F statistic and degrees of freedom fitting the model using either parameterization!
+One fitted model gives both the regression coefficient table and the ANOVA table. The intercept and community differences are simply another way to express the separate community means.
