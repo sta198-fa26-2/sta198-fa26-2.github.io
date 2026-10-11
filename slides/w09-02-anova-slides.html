@@ -226,12 +226,13 @@ Amy Herring
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a></a><span class="fu">library</span>(tidymodels)</span>
 <span id="cb1-3"><a></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-4"><a></a>mercury <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"../data/mercury_reg.csv"</span>)</span>
-<span id="cb1-5"><a></a><span class="fu">head</span>(mercury)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a></a>mercury <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"../data/mercury_reg.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a></a>  <span class="fu">mutate</span>(<span class="at">community =</span> <span class="fu">factor</span>(community))</span>
+<span id="cb1-6"><a></a><span class="fu">head</span>(mercury)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 18
      id withinid   hid   cid community      age SESassets lhairHg
-  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
 1     1        1     1     1 Boca Colora…    29    -1.09   0.676 
 2     2        1     2     1 Boca Colora…    31     0.235 NA     
 3     3        3     2     1 Boca Colora…    26     0.235  0.0908
@@ -246,12 +247,13 @@ Amy Herring
 </div>
 </section><section id="relationship-between-mercury-and-individual-community" class="slide level2"><h2>Relationship between mercury and individual community</h2>
 <p>One way to explore this relationship is through a linear regression model, with <em>dummy</em> or <em>indicator variables</em> for community as predictors.</p>
+<p>Save the fitted model as <code>com_fit</code>, then use <code>tidy(com_fit)</code> to display its coefficient estimates, standard errors, test statistics, and p-values.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>res <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>com_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> community, <span class="at">data =</span> mercury) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a></a>  <span class="fu">tidy</span>() </span>
-<span id="cb3-5"><a></a><span class="fu">print</span>(res,<span class="at">n=</span><span class="dv">23</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> community, <span class="at">data =</span> mercury)</span>
+<span id="cb3-4"><a></a></span>
+<span id="cb3-5"><a></a><span class="fu">tidy</span>(com_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="section" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
@@ -305,7 +307,7 @@ Amy Herring
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="w09-02-anova_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+<figure><p><img data-src="w09-02-anova_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
 </figure>
 </div>
 </div>
@@ -545,25 +547,31 @@ Amy Herring
 </section><section id="visualizing-anova" class="slide level2"><h2>Visualizing ANOVA</h2>
 <p>We can visualize the between and within groups variances, as well as how testing variances tells us about means, using <a href="https://gallery.shinyapps.io/anova_shiny_rstudio/">this cool R Shiny app</a>.</p>
 </section><section id="anova-for-mercury-data-1" class="slide level2"><h2>ANOVA for Mercury Data</h2>
+<div style="font-size:0.8em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="co">#: label: anovahg</span></span>
-<span id="cb8-2"><a></a><span class="fu">summary</span>(<span class="fu">aov</span>(lhairHg<span class="sc">~</span>community,<span class="at">data=</span>mercury))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>com_anova <span class="ot">&lt;-</span> com_fit <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a></a>  <span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a></a>  <span class="fu">anova</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a></a>  <span class="fu">tidy</span>()</span>
+<span id="cb8-5"><a></a></span>
+<span id="cb8-6"><a></a>com_anova</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>              Df Sum Sq Mean Sq F value Pr(&gt;F)    
-community     22  909.6   41.34   52.82 &lt;2e-16 ***
-Residuals   2285 1788.7    0.78                   
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-1775 observations deleted due to missingness</code></pre>
+<pre><code># A tibble: 2 × 6
+  term         df sumsq meansq statistic    p.value
+  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 community    22  910. 41.3        52.8  2.13e-185
+2 Residuals  2285 1789.  0.783      NA   NA        </code></pre>
 </div>
 </div>
+<p><code>tidy(com_fit)</code> reports tests of individual coefficients. For the <strong>overall ANOVA test</strong>, we pass the underlying <code>lm</code> model to <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> using <code>extract_fit_engine()</code>, then use <code>tidy()</code> to make its table easy to read.</p>
 <p>Here’s the <strong>overall test</strong> of the null hypothesis that all 23 means are equal, versus the alternative that at least one mean is different. Based on that p-value, these data, or more extreme data, would be highly unlikely if the null hypothesis were true. Next, we probably wish to know which means are different!</p>
+</div>
 </section><section id="step-down-tests" class="slide level2"><h2>Step-Down Tests</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># label: holm</span></span>
 <span id="cb10-2"><a></a><span class="co"># Holm's correction gives us good protection against type I errors</span></span>
 <span id="cb10-3"><a></a><span class="co"># under a wide variety of settings</span></span>
-<span id="cb10-4"><a></a>hairpair <span class="ot">&lt;-</span> <span class="fu">pairwise.t.test</span>(mercury<span class="sc">$</span>lhairHg,    mercury<span class="sc">$</span>community, <span class="at">p.adj =</span> <span class="st">"holm"</span>)</span>
+<span id="cb10-4"><a></a>hairpair <span class="ot">&lt;-</span> <span class="fu">pairwise.t.test</span>(mercury<span class="sc">$</span>lhairHg, mercury<span class="sc">$</span>community, <span class="at">p.adj =</span> <span class="st">"holm"</span>)</span>
 <span id="cb10-5"><a></a>sigpairs <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(hairpair) <span class="sc">%&gt;%</span></span>
 <span id="cb10-6"><a></a>  <span class="fu">filter</span>(p.value<span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb10-7"><a></a>  <span class="fu">arrange</span>(group1,group2)</span>
@@ -617,7 +625,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 23 × 2
    community          avgct
-   &lt;chr&gt;              &lt;dbl&gt;
+   &lt;fct&gt;              &lt;dbl&gt;
  1 Boca Colorado      0.794
  2 Boca Isiriwe       0.973
  3 Boca Manu          0.903
@@ -648,22 +656,30 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </section><section id="concerns-when-independence-is-violated" class="slide level2"><h2>Concerns when Independence is Violated</h2>
 <p>Typically, observations within a household are positively correlated (e.g., if one family member has a high level of hair mercury, another family member is more likely to have high hair mercury). Ignoring this type of positive correlation within household can lead to estimated standard errors (and thus p-values) that are <strong>too small</strong> when we’re estimating group means, invalidating our inferences.</p>
 </section><section id="simple-fix-limit-to-one-person-per-household" class="slide level2"><h2>Simple Fix: Limit to One Person Per Household</h2>
+<div style="font-size:0.75em;">
 <p>The easiest solution to this problem is to limit the dataset to a single person per household. In this case, we’ll limit to the household member denoted <code>withinid=1</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>mercuryone <span class="ot">&lt;-</span> mercury <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a></a>  <span class="fu">filter</span>(withinid<span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb16-2"><a></a>  <span class="fu">filter</span>(withinid <span class="sc">==</span> <span class="dv">1</span>)</span>
 <span id="cb16-3"><a></a></span>
-<span id="cb16-4"><a></a><span class="fu">summary</span>(<span class="fu">aov</span>(lhairHg<span class="sc">~</span>community,<span class="at">data=</span>mercuryone))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-4"><a></a>com_one_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> community, <span class="at">data =</span> mercuryone)</span>
+<span id="cb16-7"><a></a></span>
+<span id="cb16-8"><a></a>com_one_fit <span class="sc">%&gt;%</span></span>
+<span id="cb16-9"><a></a>  <span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb16-10"><a></a>  <span class="fu">anova</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb16-11"><a></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>             Df Sum Sq Mean Sq F value Pr(&gt;F)    
-community    22  237.4  10.792   11.84 &lt;2e-16 ***
-Residuals   669  610.0   0.912                   
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-434 observations deleted due to missingness</code></pre>
+<pre><code># A tibble: 2 × 6
+  term         df sumsq meansq statistic   p.value
+  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 community    22  237. 10.8        11.8  3.20e-35
+2 Residuals   669  610.  0.912      NA   NA       </code></pre>
 </div>
 </div>
 <p>Our dataset is much smaller now, but we still see differences across communities and reject the overall test.</p>
+</div>
 </section><section id="section-5" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>hairpair <span class="ot">&lt;-</span> <span class="fu">pairwise.t.test</span>(mercuryone<span class="sc">$</span>lhairHg,    mercuryone<span class="sc">$</span>community, <span class="at">p.adj =</span> <span class="st">"holm"</span>)</span>
@@ -703,6 +719,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 <p>NOTE: this discussion of <em>random effects ANOVA</em> is something you get for free with STA 198! I’m not going to expect you to fit these models, but I will expect you just to know that if you have correlated data, a <em>random effects model</em> is a good option!</p>
 </div>
 </section><section id="random-effects-results" class="slide level2"><h2>Random effects results</h2>
+<p>This extension uses <code>lme4::lmer()</code> to include a household random effect.</p>
 <div style="font-size:0.85em;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">library</span>(lme4)</span>
@@ -710,7 +727,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 <span id="cb22-3"><a></a>mercury <span class="ot">&lt;-</span> mercury <span class="sc">%&gt;%</span></span>
 <span id="cb22-4"><a></a>  <span class="fu">mutate</span>(<span class="at">hhid=</span><span class="fu">as.factor</span>(hid))</span>
 <span id="cb22-5"><a></a></span>
-<span id="cb22-6"><a></a>m1<span class="ot">=</span><span class="fu">lmer</span>(lhairHg <span class="sc">~</span> community <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> hhid), <span class="at">data =</span> mercury)</span>
+<span id="cb22-6"><a></a>m1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(lhairHg <span class="sc">~</span> community <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> hhid), <span class="at">data =</span> mercury)</span>
 <span id="cb22-7"><a></a><span class="fu">anova</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
@@ -1088,10 +1105,11 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 </div></div>
 </section><section id="mercury-native-community-relationship" class="slide level2"><h2>Mercury &amp; native community relationship</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>native_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb32-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> native_cat, <span class="at">data =</span> mercury) <span class="sc">%&gt;%</span></span>
-<span id="cb32-4"><a></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> native_cat, <span class="at">data =</span> mercury)</span>
+<span id="cb32-4"><a></a></span>
+<span id="cb32-5"><a></a><span class="fu">tidy</span>(native_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term                 estimate std.error statistic   p.value
@@ -1119,25 +1137,9 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>com_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb34-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> community, <span class="at">data =</span> mercury) </span>
+<span id="cb34-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> community, <span class="at">data =</span> mercury)</span>
 <span id="cb34-4"><a></a></span>
 <span id="cb34-5"><a></a><span class="fu">tidy</span>(com_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 23 × 5
-   term                     estimate std.error statistic  p.value
-   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
- 1 (Intercept)                 0.614    0.0644      9.54 3.55e-21
- 2 communityBoca Isiriwe       1.20     0.159       7.56 5.77e-14
- 3 communityBoca Manu          0.833    0.129       6.43 1.56e-10
- 4 communityCaychihue         -1.10     0.132      -8.36 1.09e-16
- 5 communityChoque            -0.778    0.117      -6.68 3.04e-11
- 6 communityDiamante           1.06     0.109       9.67 1.00e-21
- 7 communityHuepetuhe         -0.694    0.0732     -9.48 5.96e-21
- 8 communityIsla de los Va…    1.12     0.245       4.57 5.18e- 6
- 9 communityMasenawa           1.20     0.401       3.00 2.74e- 3
-10 communityPalotoa Teparo     0.350    0.148       2.36 1.82e- 2
-# ℹ 13 more rows</code></pre>
-</div>
 </div>
 </section><section id="dummy-or-indicator-variables" class="slide level2"><h2>Dummy or indicator variables</h2>
 <div class="cell" data-layout-align="center">
@@ -1304,32 +1306,32 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 <div style="font-size:0.4em;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource tiny number-lines code-with-copy"><code class="sourceCode"><span id="cb37-1"><a></a># A tibble: 23 × 5</span>
-<span id="cb37-2"><a></a>   term                     estimate std.error statistic  p.value</span>
-<span id="cb37-3"><a></a>   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span id="cb37-4"><a></a> 1 (Intercept)                0.614     0.0644     9.54  3.55e-21</span>
-<span id="cb37-5"><a></a> 2 communityBoca Isiriwe      1.20      0.159      7.56  5.77e-14</span>
-<span id="cb37-6"><a></a> 3 communityBoca Manu         0.833     0.129      6.43  1.56e-10</span>
-<span id="cb37-7"><a></a> 4 communityCaychihue        -1.10      0.132     -8.36  1.09e-16</span>
-<span id="cb37-8"><a></a> 5 communityChoque           -0.778     0.117     -6.68  3.04e-11</span>
-<span id="cb37-9"><a></a> 6 communityDiamante          1.06      0.109      9.67  1.00e-21</span>
-<span id="cb37-10"><a></a> 7 communityHuepetuhe        -0.694     0.0732    -9.48  5.96e-21</span>
-<span id="cb37-11"><a></a> 8 communityIsla de los Va…   1.12      0.245      4.57  5.18e- 6</span>
-<span id="cb37-12"><a></a> 9 communityMasenawa          1.20      0.401      3.00  2.74e- 3</span>
-<span id="cb37-13"><a></a>10 communityPalotoa Teparo    0.350     0.148      2.36  1.82e- 2</span>
-<span id="cb37-14"><a></a>11 communityPuerto Azul       1.22      0.230      5.27  1.45e- 7</span>
-<span id="cb37-15"><a></a>12 communityPuerto Luz        0.494     0.0991     4.98  6.67e- 7</span>
-<span id="cb37-16"><a></a>13 communityPunquiri         -0.678     0.176     -3.84  1.26e- 4</span>
-<span id="cb37-17"><a></a>14 communityPuquiri           0.0842    0.192      0.439 6.61e- 1</span>
-<span id="cb37-18"><a></a>15 communityQuebrada Neuva   -0.812     0.0966    -8.41  7.21e-17</span>
-<span id="cb37-19"><a></a>16 communityQueros           -0.707     0.245     -2.89  3.93e- 3</span>
-<span id="cb37-20"><a></a>17 communityQuimiri          -0.621     0.274     -2.26  2.38e- 2</span>
-<span id="cb37-21"><a></a>18 communityQuincemil        -0.822     0.0858    -9.57  2.55e-21</span>
-<span id="cb37-22"><a></a>19 communitySalvacion        -0.732     0.0850    -8.61  1.31e-17</span>
-<span id="cb37-23"><a></a>20 communitySan Lorenzo      -0.245     0.124     -1.98  4.82e- 2</span>
-<span id="cb37-24"><a></a>21 communitySetapo            0.517     0.319      1.62  1.05e- 1</span>
-<span id="cb37-25"><a></a>22 communityShintuya          0.130     0.122      1.07  2.86e- 1</span>
-<span id="cb37-26"><a></a>23 communityShipitiari        0.532     0.161      3.30  9.65e- 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource tiny number-lines code-with-copy"><code class="sourceCode"><span id="cb36-1"><a></a># A tibble: 23 × 5</span>
+<span id="cb36-2"><a></a>   term                     estimate std.error statistic  p.value</span>
+<span id="cb36-3"><a></a>   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span id="cb36-4"><a></a> 1 (Intercept)                0.614     0.0644     9.54  3.55e-21</span>
+<span id="cb36-5"><a></a> 2 communityBoca Isiriwe      1.20      0.159      7.56  5.77e-14</span>
+<span id="cb36-6"><a></a> 3 communityBoca Manu         0.833     0.129      6.43  1.56e-10</span>
+<span id="cb36-7"><a></a> 4 communityCaychihue        -1.10      0.132     -8.36  1.09e-16</span>
+<span id="cb36-8"><a></a> 5 communityChoque           -0.778     0.117     -6.68  3.04e-11</span>
+<span id="cb36-9"><a></a> 6 communityDiamante          1.06      0.109      9.67  1.00e-21</span>
+<span id="cb36-10"><a></a> 7 communityHuepetuhe        -0.694     0.0732    -9.48  5.96e-21</span>
+<span id="cb36-11"><a></a> 8 communityIsla de los Va…   1.12      0.245      4.57  5.18e- 6</span>
+<span id="cb36-12"><a></a> 9 communityMasenawa          1.20      0.401      3.00  2.74e- 3</span>
+<span id="cb36-13"><a></a>10 communityPalotoa Teparo    0.350     0.148      2.36  1.82e- 2</span>
+<span id="cb36-14"><a></a>11 communityPuerto Azul       1.22      0.230      5.27  1.45e- 7</span>
+<span id="cb36-15"><a></a>12 communityPuerto Luz        0.494     0.0991     4.98  6.67e- 7</span>
+<span id="cb36-16"><a></a>13 communityPunquiri         -0.678     0.176     -3.84  1.26e- 4</span>
+<span id="cb36-17"><a></a>14 communityPuquiri           0.0842    0.192      0.439 6.61e- 1</span>
+<span id="cb36-18"><a></a>15 communityQuebrada Neuva   -0.812     0.0966    -8.41  7.21e-17</span>
+<span id="cb36-19"><a></a>16 communityQueros           -0.707     0.245     -2.89  3.93e- 3</span>
+<span id="cb36-20"><a></a>17 communityQuimiri          -0.621     0.274     -2.26  2.38e- 2</span>
+<span id="cb36-21"><a></a>18 communityQuincemil        -0.822     0.0858    -9.57  2.55e-21</span>
+<span id="cb36-22"><a></a>19 communitySalvacion        -0.732     0.0850    -8.61  1.31e-17</span>
+<span id="cb36-23"><a></a>20 communitySan Lorenzo      -0.245     0.124     -1.98  4.82e- 2</span>
+<span id="cb36-24"><a></a>21 communitySetapo            0.517     0.319      1.62  1.05e- 1</span>
+<span id="cb36-25"><a></a>22 communityShintuya          0.130     0.122      1.07  2.86e- 1</span>
+<span id="cb36-26"><a></a>23 communityShipitiari        0.532     0.161      3.30  9.65e- 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="tiny">
@@ -1360,30 +1362,33 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 <p>Boca Manu: <span class="math inline">\(\beta_0 + \beta_2\)</span> … Shipitiari: <span class="math inline">\(\beta_0+\beta_{22}\)</span></p>
 <p>In the ANOVA model, the Boca Colorado mean was <span class="math inline">\(\mu_1\)</span>, the Boca Isiriwe mean was <span class="math inline">\(\mu_2\)</span>, etc. There is a 1:1 correspondence between the parameters in the two formulations with <span class="math inline">\(\mu_1=\beta_0,\)</span> <span class="math inline">\(\mu_2=\beta_0+\beta_1\)</span>, etc.</p>
 </section><section id="correspondence-between-regression-and-anova" class="slide level2"><h2>Correspondence between regression and ANOVA</h2>
-<p>Here we can compare the F test from the regression model with that from ANOVA.</p>
-<p>Regression:</p>
+<p>We can obtain the same overall <span class="math inline">\(F\)</span> test from the fitted model’s summary or its ANOVA table. Both use the saved <code>com_fit</code> object.</p>
+<p><strong>Overall regression test:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>res <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(lhairHg<span class="sc">~</span>community, <span class="at">data =</span> mercury))</span>
-<span id="cb38-2"><a></a><span class="fu">print</span>(res<span class="sc">$</span>fstatistic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">glance</span>(com_fit) <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a></a>  <span class="fu">select</span>(statistic, p.value, df, df.residual)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     value      numdf      dendf 
-  52.81756   22.00000 2285.00000 </code></pre>
+<pre><code># A tibble: 1 × 4
+  statistic   p.value    df df.residual
+      &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;       &lt;int&gt;
+1      52.8 2.13e-185    22        2285</code></pre>
 </div>
 </div>
+<p><code>glance()</code> returns one row summarizing the whole model. Here, <code>statistic</code> is the overall <span class="math inline">\(F\)</span> statistic, <code>df</code> is its numerator degrees of freedom, and <code>df.residual</code> is its denominator degrees of freedom.</p>
 </section><section id="section-12" class="slide level2" data-background-color="white"><h2></h2>
-<p>ANOVA:</p>
+<p><strong>ANOVA table:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">summary</span>(<span class="fu">aov</span>(lhairHg<span class="sc">~</span>community,<span class="at">data=</span>mercury))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>com_anova</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>              Df Sum Sq Mean Sq F value Pr(&gt;F)    
-community     22  909.6   41.34   52.82 &lt;2e-16 ***
-Residuals   2285 1788.7    0.78                   
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-1775 observations deleted due to missingness</code></pre>
+<pre><code># A tibble: 2 × 6
+  term         df sumsq meansq statistic    p.value
+  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 community    22  910. 41.3        52.8  2.13e-185
+2 Residuals  2285 1789.  0.783      NA   NA        </code></pre>
 </div>
 </div>
-<p>We get the same F statistic and degrees of freedom fitting the model using either parameterization!</p>
+<p>The <code>community</code> row gives the same <span class="math inline">\(F\)</span> statistic and p-value as <code>glance(com_fit)</code>. Its degrees of freedom are the numerator df; the <code>Residuals</code> row gives the denominator df.</p>
+<p>One fitted model gives both the regression coefficient table and the ANOVA table. The intercept and community differences are simply another way to express the separate community means.</p>
 
 
 </section></section>
