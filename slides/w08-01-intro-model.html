@@ -477,10 +477,11 @@ window.Quarto = {
   <ul class="collapse">
 <li><a href="#study" id="toc-study" class="nav-link" data-scroll-target="#study">Study</a></li>
   <li><a href="#mercury-and-assets" id="toc-mercury-and-assets" class="nav-link" data-scroll-target="#mercury-and-assets">Mercury and Assets</a></li>
-  <li><a href="#data-manipulation" id="toc-data-manipulation" class="nav-link" data-scroll-target="#data-manipulation">Data Manipulation</a></li>
   <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#data-manipulation" id="toc-data-manipulation" class="nav-link" data-scroll-target="#data-manipulation">Data Manipulation</a></li>
   <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
   <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
   <li><a href="#models-as-functions" id="toc-models-as-functions" class="nav-link" data-scroll-target="#models-as-functions">Models as functions</a></li>
   <li><a href="#hair-mercury-as-a-function-of-assets" id="toc-hair-mercury-as-a-function-of-assets" class="nav-link" data-scroll-target="#hair-mercury-as-a-function-of-assets">Hair mercury as a function of assets</a></li>
   <li><a href="#with-different-cosmetic-choices" id="toc-with-different-cosmetic-choices" class="nav-link" data-scroll-target="#with-different-cosmetic-choices">With different cosmetic choices…</a></li>
@@ -637,10 +638,26 @@ r = \frac{1}{n-1}
 <span class="math inline">\(|r|\)</span> closer to 1: stronger linear relationship</li>
 </ul></section><section id="data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon" class="level1"><h1>Data: Artisanal and Small-Scale Gold Mining in the Peruvian Amazon</h1>
 <section id="study" class="level2"><h2 class="anchored" data-anchor-id="study">Study</h2>
-<p><a href="https://www.reuters.com/business/environment/amazon-rainforest-gold-mining-is-poisoning-scores-threatened-species-2023-08-05/">A growing body of scientific work</a> has shown that a wide variety of species are threatened by mercury pollution. We will explore data from Duke researcher Prof.&nbsp;Bill Pan, collected in the Peruvian Amazon. He gives a thorough introduction to artisanal and small-scale gold mining in this environment <a href="https://www.youtube.com/watch?v=zUoN6FlyeGQ&amp;t=189s">here</a>.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><a href="https://www.reuters.com/business/environment/amazon-rainforest-gold-mining-is-poisoning-scores-threatened-species-2023-08-05/">A growing body of scientific work</a> has shown that a wide variety of species are threatened by mercury pollution.</p>
+<p>We will explore data from Duke researcher Prof.&nbsp;Bill Pan, collected in the Peruvian Amazon. He gives a thorough introduction to artisanal and small-scale gold mining in this environment <a href="https://www.youtube.com/watch?v=zUoN6FlyeGQ&amp;t=189s">here</a>.</p>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/perusite.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../img/perusite.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:98.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section><section id="mercury-and-assets" class="level2"><h2 class="anchored" data-anchor-id="mercury-and-assets">Mercury and Assets</h2>
 <p>Are wealthier individuals less likely to have high mercury exposures?</p>
 <p>Today we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country).</p>
+</section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
+<p>The asset-based index is based on a weighted sum of positive answers to questions such as whether the household owned a blender, cell phone, chainsaw, generator, motorcycle, radio, refrigerator, sound system, or wall clock. Different items provide different amounts of information about a household’s economic resources and are calculated from patterns of asset ownership across households in the study. For example, owning a sound system helps distinguish wealthier households more definitively than owning a radio.</p>
 <p>Because the scale of this variable is not easily interpreted, we will convert it to standard deviation units by subtracting the mean and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase.</p>
 </section><section id="data-manipulation" class="level2"><h2 class="anchored" data-anchor-id="data-manipulation">Data Manipulation</h2>
 <div class="cell" data-layout-align="center">
@@ -656,7 +673,7 @@ r = \frac{1}{n-1}
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">sex</span>,sex_cat<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">sex</span><span class="op">==</span><span class="fl">1</span>,<span class="st">"Male"</span>,<span class="st">"Female"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">native</span>,native_cat<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">native</span><span class="op">==</span><span class="fl">1</span>,<span class="st">"Native"</span>,<span class="st">"Non-native"</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="section-1" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-1"></h2>
+</section><section id="section-2" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-2"></h2>
 <p>The distribution of hair mercury in ppm is skewed.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># lhairHg is the natural log of mercury in hair</span></span>
@@ -666,25 +683,25 @@ r = \frac{1}{n-1}
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Mercury (ppm)"</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/outcomedistcheck-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w08-01-intro-model_files/figure-revealjs/outcomedistcheck-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/outcomedistcheck-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w08-01-intro-model_files/figure-revealjs/outcomedistcheck-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="section-2" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-2"></h2>
+</section><section id="section-3" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-3"></h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mercury</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lhairHg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Mercury (log ppm)"</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/xformhist-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w08-01-intro-model_files/figure-revealjs/xformhist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/xformhist-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w08-01-intro-model_files/figure-revealjs/xformhist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Because the models we will discuss to start prefer data that are approximately normally distributed, we will work with the log of hair mercury concentrations.</p>
-</section><section id="section-3" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-3"></h2>
+</section><section id="section-4" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-4"></h2>
 <p>In our model, we will use assets to <em>predict</em> our <em>response variable</em>, the log of hair mercury concentrations. The regression model does not require predictors to follow any specific distributions, which is a good thing here!</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mercury</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">assets_sc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -692,7 +709,7 @@ r = \frac{1}{n-1}
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Assets (standardized)"</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/assetshist-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w08-01-intro-model_files/figure-revealjs/assetshist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></a></p>
+<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/assetshist-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w08-01-intro-model_files/figure-revealjs/assetshist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -720,7 +737,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -755,7 +772,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -788,7 +805,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -843,7 +860,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -898,7 +915,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -932,7 +949,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -940,7 +957,7 @@ r = \frac{1}{n-1}
 <p>Why does the native village line stop at assets around 1.5 sd?</p>
 </section><section id="extending-regression-lines" class="level2"><h2 class="anchored" data-anchor-id="extending-regression-lines">Extending regression lines</h2>
 <div style="font-size:0.7em;">
-<p>Extrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals (say $&gt;$3 SD above the mean asset level), do we believe the lines actually cross, and those in native villages have lower exposures?</p>
+<p>Extrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals, say &gt;3 SD above the mean asset level, do we believe the lines actually cross, and those in native villages have lower exposures?</p>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -952,7 +969,7 @@ r = \frac{1}{n-1}
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:45.0%"></a></p>
+<figure class="figure"><p><a href="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="w08-01-intro-model_files/figure-revealjs/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:45.0%"></a></p>
 </figure>
 </div>
 </div>

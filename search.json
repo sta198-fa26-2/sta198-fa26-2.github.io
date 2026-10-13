@@ -3981,14 +3981,21 @@
     "href": "slides/w08-01-intro-model-slides.html#study",
     "title": "Introduction to Modelling",
     "section": "Study",
-    "text": "Study\nA growing body of scientific work has shown that a wide variety of species are threatened by mercury pollution. We will explore data from Duke researcher Prof. Bill Pan, collected in the Peruvian Amazon. He gives a thorough introduction to artisanal and small-scale gold mining in this environment here."
+    "text": "Study\n\n\nA growing body of scientific work has shown that a wide variety of species are threatened by mercury pollution.\nWe will explore data from Duke researcher Prof. Bill Pan, collected in the Peruvian Amazon. He gives a thorough introduction to artisanal and small-scale gold mining in this environment here."
   },
   {
     "objectID": "slides/w08-01-intro-model-slides.html#mercury-and-assets",
     "href": "slides/w08-01-intro-model-slides.html#mercury-and-assets",
     "title": "Introduction to Modelling",
     "section": "Mercury and Assets",
-    "text": "Mercury and Assets\nAre wealthier individuals less likely to have high mercury exposures?\nToday we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country).\nBecause the scale of this variable is not easily interpreted, we will convert it to standard deviation units by subtracting the mean and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase."
+    "text": "Mercury and Assets\nAre wealthier individuals less likely to have high mercury exposures?\nToday we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country)."
+  },
+  {
+    "objectID": "slides/w08-01-intro-model-slides.html#section-1",
+    "href": "slides/w08-01-intro-model-slides.html#section-1",
+    "title": "Introduction to Modelling",
+    "section": "",
+    "text": "The asset-based index is based on a weighted sum of positive answers to questions such as whether the household owned a blender, cell phone, chainsaw, generator, motorcycle, radio, refrigerator, sound system, or wall clock. Different items provide different amounts of information about a household’s economic resources and are calculated from patterns of asset ownership across households in the study. For example, owning a sound system helps distinguish wealthier households more definitively than owning a radio.\nBecause the scale of this variable is not easily interpreted, we will convert it to standard deviation units by subtracting the mean and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase."
   },
   {
     "objectID": "slides/w08-01-intro-model-slides.html#data-manipulation",
@@ -3998,22 +4005,22 @@
     "text": "Data Manipulation\n\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make \n  #the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\"))"
   },
   {
-    "objectID": "slides/w08-01-intro-model-slides.html#section-1",
-    "href": "slides/w08-01-intro-model-slides.html#section-1",
+    "objectID": "slides/w08-01-intro-model-slides.html#section-2",
+    "href": "slides/w08-01-intro-model-slides.html#section-2",
     "title": "Introduction to Modelling",
     "section": "",
     "text": "The distribution of hair mercury in ppm is skewed.\n\n# lhairHg is the natural log of mercury in hair\n# this code puts it back on the ppm scale\nggplot(data = mercury, aes(x = exp(lhairHg))) +\n  geom_histogram() +\n  labs(x = \"Mercury (ppm)\", y = NULL)"
   },
   {
-    "objectID": "slides/w08-01-intro-model-slides.html#section-2",
-    "href": "slides/w08-01-intro-model-slides.html#section-2",
+    "objectID": "slides/w08-01-intro-model-slides.html#section-3",
+    "href": "slides/w08-01-intro-model-slides.html#section-3",
     "title": "Introduction to Modelling",
     "section": "",
     "text": "ggplot(data = mercury, aes(x = lhairHg)) +\n  geom_histogram() +\n  labs(x = \"Mercury (log ppm)\", y = NULL)\n\n\nBecause the models we will discuss to start prefer data that are approximately normally distributed, we will work with the log of hair mercury concentrations."
   },
   {
-    "objectID": "slides/w08-01-intro-model-slides.html#section-3",
-    "href": "slides/w08-01-intro-model-slides.html#section-3",
+    "objectID": "slides/w08-01-intro-model-slides.html#section-4",
+    "href": "slides/w08-01-intro-model-slides.html#section-4",
     "title": "Introduction to Modelling",
     "section": "",
     "text": "In our model, we will use assets to predict our response variable, the log of hair mercury concentrations. The regression model does not require predictors to follow any specific distributions, which is a good thing here!\n\nggplot(data = mercury, aes(x = assets_sc)) +\n  geom_histogram() +\n  labs(x = \"Assets (standardized)\", y = NULL)"
@@ -4079,7 +4086,7 @@
     "href": "slides/w08-01-intro-model-slides.html#extending-regression-lines",
     "title": "Introduction to Modelling",
     "section": "Extending regression lines",
-    "text": "Extending regression lines\n\nExtrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals (say $&gt;$3 SD above the mean asset level), do we believe the lines actually cross, and those in native villages have lower exposures?\n\n\n\nPlot\nCode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth(method = \"lm\",\n              se = FALSE,\n              fullrange = TRUE) +\n  labs(\n    title = \"Hair mercury as a function of assets, by village type\",\n    subtitle = \"Line Artifically Extended Beyond Data Range (Native)\",\n    x = \"Household assets (standardized)\",\n    y = \"Hair mercury (log ppm)\",\n    color = NULL\n  )  +\n  scale_color_manual(values = c(\"#E48957\", \"#071381\"))"
+    "text": "Extending regression lines\n\nExtrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals, say &gt;3 SD above the mean asset level, do we believe the lines actually cross, and those in native villages have lower exposures?\n\n\n\nPlot\nCode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth(method = \"lm\",\n              se = FALSE,\n              fullrange = TRUE) +\n  labs(\n    title = \"Hair mercury as a function of assets, by village type\",\n    subtitle = \"Line Artifically Extended Beyond Data Range (Native)\",\n    x = \"Household assets (standardized)\",\n    y = \"Hair mercury (log ppm)\",\n    color = NULL\n  )  +\n  scale_color_manual(values = c(\"#E48957\", \"#071381\"))"
   },
   {
     "objectID": "slides/w08-01-intro-model-slides.html#models---upsides-and-downsides",
@@ -4149,14 +4156,21 @@
     "href": "slides/w08-01-intro-model.html#study",
     "title": "Introduction to Modelling",
     "section": "Study",
-    "text": "Study\nA growing body of scientific work has shown that a wide variety of species are threatened by mercury pollution. We will explore data from Duke researcher Prof. Bill Pan, collected in the Peruvian Amazon. He gives a thorough introduction to artisanal and small-scale gold mining in this environment here."
+    "text": "Study\n\n\nA growing body of scientific work has shown that a wide variety of species are threatened by mercury pollution.\nWe will explore data from Duke researcher Prof. Bill Pan, collected in the Peruvian Amazon. He gives a thorough introduction to artisanal and small-scale gold mining in this environment here."
   },
   {
     "objectID": "slides/w08-01-intro-model.html#mercury-and-assets",
     "href": "slides/w08-01-intro-model.html#mercury-and-assets",
     "title": "Introduction to Modelling",
     "section": "Mercury and Assets",
-    "text": "Mercury and Assets\nAre wealthier individuals less likely to have high mercury exposures?\nToday we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country).\nBecause the scale of this variable is not easily interpreted, we will convert it to standard deviation units by subtracting the mean and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase."
+    "text": "Mercury and Assets\nAre wealthier individuals less likely to have high mercury exposures?\nToday we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country)."
+  },
+  {
+    "objectID": "slides/w08-01-intro-model.html#section-1",
+    "href": "slides/w08-01-intro-model.html#section-1",
+    "title": "Introduction to Modelling",
+    "section": "",
+    "text": "The asset-based index is based on a weighted sum of positive answers to questions such as whether the household owned a blender, cell phone, chainsaw, generator, motorcycle, radio, refrigerator, sound system, or wall clock. Different items provide different amounts of information about a household’s economic resources and are calculated from patterns of asset ownership across households in the study. For example, owning a sound system helps distinguish wealthier households more definitively than owning a radio.\nBecause the scale of this variable is not easily interpreted, we will convert it to standard deviation units by subtracting the mean and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase."
   },
   {
     "objectID": "slides/w08-01-intro-model.html#data-manipulation",
@@ -4166,22 +4180,22 @@
     "text": "Data Manipulation\n\nmercury &lt;- readr::read_csv(\"../data/mercury_reg.csv\")\nmercury &lt;-\n  mercury %&gt;%\n  # scale() subtracts the mean and divides by the SD to make \n  #the units \"standard deviations\" like a z-score\n  mutate(assets_sc=scale(SESassets)) %&gt;%\n  #another variable we may use later\n  mutate(form_min_sc=scale(FM_buffer)) %&gt;%\n  #so I don't have to remember coding\n  mutate(sex,sex_cat=ifelse(sex==1,\"Male\",\"Female\")) %&gt;%\n  mutate(native,native_cat=ifelse(native==1,\"Native\",\"Non-native\"))"
   },
   {
-    "objectID": "slides/w08-01-intro-model.html#section-1",
-    "href": "slides/w08-01-intro-model.html#section-1",
+    "objectID": "slides/w08-01-intro-model.html#section-2",
+    "href": "slides/w08-01-intro-model.html#section-2",
     "title": "Introduction to Modelling",
     "section": "",
     "text": "The distribution of hair mercury in ppm is skewed.\n\n# lhairHg is the natural log of mercury in hair\n# this code puts it back on the ppm scale\nggplot(data = mercury, aes(x = exp(lhairHg))) +\n  geom_histogram() +\n  labs(x = \"Mercury (ppm)\", y = NULL)"
   },
   {
-    "objectID": "slides/w08-01-intro-model.html#section-2",
-    "href": "slides/w08-01-intro-model.html#section-2",
+    "objectID": "slides/w08-01-intro-model.html#section-3",
+    "href": "slides/w08-01-intro-model.html#section-3",
     "title": "Introduction to Modelling",
     "section": "",
     "text": "ggplot(data = mercury, aes(x = lhairHg)) +\n  geom_histogram() +\n  labs(x = \"Mercury (log ppm)\", y = NULL)\n\n\n\n\n\n\n\nBecause the models we will discuss to start prefer data that are approximately normally distributed, we will work with the log of hair mercury concentrations."
   },
   {
-    "objectID": "slides/w08-01-intro-model.html#section-3",
-    "href": "slides/w08-01-intro-model.html#section-3",
+    "objectID": "slides/w08-01-intro-model.html#section-4",
+    "href": "slides/w08-01-intro-model.html#section-4",
     "title": "Introduction to Modelling",
     "section": "",
     "text": "In our model, we will use assets to predict our response variable, the log of hair mercury concentrations. The regression model does not require predictors to follow any specific distributions, which is a good thing here!\n\nggplot(data = mercury, aes(x = assets_sc)) +\n  geom_histogram() +\n  labs(x = \"Assets (standardized)\", y = NULL)"
@@ -4247,7 +4261,7 @@
     "href": "slides/w08-01-intro-model.html#extending-regression-lines",
     "title": "Introduction to Modelling",
     "section": "Extending regression lines",
-    "text": "Extending regression lines\n\nExtrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals (say $&gt;$3 SD above the mean asset level), do we believe the lines actually cross, and those in native villages have lower exposures?\n\n\n\nPlot\nCode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth(method = \"lm\",\n              se = FALSE,\n              fullrange = TRUE) +\n  labs(\n    title = \"Hair mercury as a function of assets, by village type\",\n    subtitle = \"Line Artifically Extended Beyond Data Range (Native)\",\n    x = \"Household assets (standardized)\",\n    y = \"Hair mercury (log ppm)\",\n    color = NULL\n  )  +\n  scale_color_manual(values = c(\"#E48957\", \"#071381\"))"
+    "text": "Extending regression lines\n\nExtrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals, say &gt;3 SD above the mean asset level, do we believe the lines actually cross, and those in native villages have lower exposures?\n\n\n\nPlot\nCode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = mercury, aes(x = assets_sc, y = lhairHg, color = native_cat)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth(method = \"lm\",\n              se = FALSE,\n              fullrange = TRUE) +\n  labs(\n    title = \"Hair mercury as a function of assets, by village type\",\n    subtitle = \"Line Artifically Extended Beyond Data Range (Native)\",\n    x = \"Household assets (standardized)\",\n    y = \"Hair mercury (log ppm)\",\n    color = NULL\n  )  +\n  scale_color_manual(values = c(\"#E48957\", \"#071381\"))"
   },
   {
     "objectID": "slides/w08-01-intro-model.html#models---upsides-and-downsides",
