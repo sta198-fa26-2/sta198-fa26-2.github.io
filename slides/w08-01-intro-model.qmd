@@ -160,13 +160,32 @@ $$
 
 ## Study
 
-[A growing body of scientific work](https://www.reuters.com/business/environment/amazon-rainforest-gold-mining-is-poisoning-scores-threatened-species-2023-08-05/) has shown that a wide variety of species are threatened by mercury pollution. We will explore data from Duke researcher Prof. Bill Pan, collected in the Peruvian Amazon. He gives a thorough introduction to artisanal and small-scale gold mining in this environment [here](https://www.youtube.com/watch?v=zUoN6FlyeGQ&t=189s). 
+:::: {.columns}
 
+::: {.column width="50%"}
+[A growing body of scientific work](https://www.reuters.com/business/environment/amazon-rainforest-gold-mining-is-poisoning-scores-threatened-species-2023-08-05/) has shown that a wide variety of species are threatened by mercury pollution.
+
+We will explore data from Duke researcher Prof. Bill Pan, collected in the Peruvian Amazon. He gives a thorough introduction to artisanal and small-scale gold mining in this environment [here](https://www.youtube.com/watch?v=zUoN6FlyeGQ&t=189s).
+:::
+
+::: {.column width="50%"}
+```{r}
+#| out.width: "98%"
+#| echo: false
+knitr::include_graphics("../img/perusite.jpeg")
+```
+:::
+
+::::
 ## Mercury and Assets
 
 Are wealthier individuals less likely to have high mercury exposures?
 
 Today we will explore the relationship between levels of mercury in hair and an index measuring socio-economic position as a function of household assets. Note that asset-based indices are not at all a perfect proxy and may perform poorly, particularly in low income countries (the World Bank classifies Peru as an upper-middle income country). 
+
+## {background-color="white"}
+
+The asset-based index is based on a weighted sum of positive answers to questions such as whether the household owned a blender, cell phone, chainsaw, generator, motorcycle, radio, refrigerator, sound system, or wall clock. Different items provide different amounts of information about a household’s economic resources and are calculated from patterns of asset ownership across households in the study. For example, owning a sound system helps distinguish wealthier households more definitively than owning a radio.
 
 Because the scale of this variable  is not easily interpreted, we will convert it to standard deviation units by subtracting the mean and dividing by the standard deviation (like getting a z-score). Then a one-unit increase in the variable is a one standard deviation increase.
 
@@ -506,7 +525,7 @@ Why does the native village line stop at assets around 1.5 sd?
 <div style="font-size:0.7em;">
 
 
-Extrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals (say $>$3 SD above the mean asset level), do we believe the lines actually cross, and those in native villages have lower exposures?  
+Extrapolation beyond the range of data observed is quite risky and is generally best avoided, though sometimes the goal is to do so (e.g., weather forecasting, election prediction). Here, we have extended the line for native villages beyond the value of 1.5 for assets, but we do not see such wealthy individuals in native villages in our data. If we extend the lines to ultra wealthy individuals, say >3 SD above the mean asset level, do we believe the lines actually cross, and those in native villages have lower exposures?  
 
 </div>
 
