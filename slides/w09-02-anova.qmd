@@ -420,7 +420,7 @@ ANOVA model is $$y_{ij}=\mu_i+\varepsilon_{ij}$$ where we assume the $\varepsilo
 
 - Outcomes within groups are normally distributed
 
-- *Homoscedastic variance* (same variance of individual observations in each group)
+- *Homoscedastic variance* (same variance of individual observations in each group, similar to the equal variances assumption of two sample t-test with equal variances)
 
 - Samples are independent
 
