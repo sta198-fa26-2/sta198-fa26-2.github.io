@@ -2693,7 +2693,7 @@
     "href": "slides/w09-02-anova-slides.html#assumptions-of-anova",
     "title": "ANOVA: Analysis of Variance",
     "section": "Assumptions of ANOVA",
-    "text": "Assumptions of ANOVA\n\nOutcomes within groups are normally distributed\nHomoscedastic variance (same variance of individual observations in each group)\nSamples are independent"
+    "text": "Assumptions of ANOVA\n\nOutcomes within groups are normally distributed\nHomoscedastic variance (same variance of individual observations in each group, similar to the equal variances assumption of two sample t-test with equal variances)\nSamples are independent"
   },
   {
     "objectID": "slides/w09-02-anova-slides.html#checking-anova-assumptions-in-mercury-data-ppm-scale",
@@ -3197,7 +3197,7 @@
     "href": "slides/w09-02-anova.html#assumptions-of-anova",
     "title": "ANOVA: Analysis of Variance",
     "section": "Assumptions of ANOVA",
-    "text": "Assumptions of ANOVA\n\nOutcomes within groups are normally distributed\nHomoscedastic variance (same variance of individual observations in each group)\nSamples are independent"
+    "text": "Assumptions of ANOVA\n\nOutcomes within groups are normally distributed\nHomoscedastic variance (same variance of individual observations in each group, similar to the equal variances assumption of two sample t-test with equal variances)\nSamples are independent"
   },
   {
     "objectID": "slides/w09-02-anova.html#checking-anova-assumptions-in-mercury-data-ppm-scale",
