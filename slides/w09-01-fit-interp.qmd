@@ -211,9 +211,6 @@ Because mercury concentrations are right-skewed, the geometric mean is generally
 
 - For positive, right-skewed measurements, such as many exposure concentrations.
 - When we want to describe **proportional differences**: “30% lower” rather than “0.89 ppm lower.”
-- When a few very high values would strongly pull up the arithmetic mean.
-
-Use the **arithmetic mean** when the question is about the average amount in ppm or a total across people. A geometric mean requires positive values.
 
 
 
@@ -234,6 +231,9 @@ $$e^{-0.358} \approx 0.70.$$
 
 ## A reusable rule
 
+<div style="font-size:0.7em;">
+
+
 If we fit a model for $\log(y)$ and the slope is $\widehat\beta_1$:
 
 $$
@@ -252,7 +252,7 @@ in a predictor corresponds to:
 These interpretations hold other predictors fixed. For a categorical
 predictor, the comparison is with the reference category.
 
-
+</div>
 
 ## Let R do the conversion
 
@@ -917,7 +917,7 @@ be useful.
 - This transformation is also useful for variance stabilization.
 - When using a log transformation on the response variable the interpretation of 
 the slope changes: *"For each unit increase in x, y is expected on average to be higher/lower by a factor of $e^{\hat{\beta}_1}$."*
-- When the response is log-transformed, a one-unit increase in $x$ multiplies the predicted **geometric mean** of $y$ by $e^{\hat{\beta}_1}$. This corresponds to a percentage change of $100(e^{\hat{\beta}_1}-1)\%$; a negative result means a decrease.
+- When the response is log-transformed, a one-unit increase in $x$ multiplies the predicted **geometric mean** of $y$ by $e^{\hat{\beta}_1}$. 
 - Another useful transformation is the square root: $\sqrt{y}$, especially 
 useful when the response variable is a count.
 :::

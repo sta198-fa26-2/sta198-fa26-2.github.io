@@ -177,6 +177,7 @@ knitr::include_graphics("../img/perusite.jpeg")
 :::
 
 ::::
+
 ## Mercury and Assets
 
 Are wealthier individuals less likely to have high mercury exposures?

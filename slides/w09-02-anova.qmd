@@ -35,6 +35,13 @@ options(dplyr.print_min = 10, dplyr.print_max = 6)
 
 ## Mercury and Community
 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<div style="font-size:0.6em;">
+
 [Artisinal and small-scale gold mining is largest source of mercury pollution worldwide](https://theconversation.com/gold-rush-mercury-legacy-small-scale-mining-for-gold-has-produced-long-lasting-toxic-pollution-from-1860s-california-to-modern-peru-133324).
 
 Are mercury concentrations in hair related to community of residence?
@@ -47,6 +54,20 @@ mercury <- readr::read_csv("../data/mercury_reg.csv") %>%
   mutate(community = factor(community))
 head(mercury)
 ```
+</div>
+:::
+
+::: {.column width="50%"}
+```{r}
+#| out.width: "98%"
+#| echo: false
+knitr::include_graphics("../img/perusite.jpeg")
+```
+:::
+
+::::
+
+
 
 ## Relationship between mercury and individual community
 
@@ -652,6 +673,8 @@ One challenge to the validity of this analysis is that multiple measures were ob
 
 As we showed earlier, conducting multiple tests on a data set increases the *family-wise error rate*.  One very conservative way to ensure this is not the case is to divide $\alpha$ by the number of tests to be done and to use that as the significance level.  This procedure is called the Bonferroni correction. For example for two tests, to preserve an overall 0.05 type I error rate, the Bonferroni correction would use $\frac{\alpha}{2}=0.025$ as the significance level for each individual test instead of $0.05$.  Bonferroni is a conservative multiple comparisons correction (like saving your money in your mattress!), making it harder to reject the null hypothesis, but it is a safe bet in controlling the type I error rate. A less conservative method that also offers strong control of the error rate is Holm's method, which we used in our code.
 
+# Back to that thought: did we do something wrong?
+
 ## Violation of independence
 
 The violation of the independence assumption due to the inclusion of multiple household members is indeed a concern. To explore this, let's calculate the fraction of households (coded using `hid`) that provided hair measures from more than one household member.
@@ -882,7 +905,7 @@ Define $\text{Non-native}_i$=1 if non-native community and 0 otherwise.
 
 $$\widehat{y_i} = 1.12 - 1.11~\text{Non-native}_i$$
 
-- **Slope:** Residents of non-native communities, on average, are expected to have Hg concentrations that are -1.11 log ppm lower, on average, than residents of native communities.  Alternatively, the hair Hg is expected to be lower, on average, by a factor of $e^{-1.11}=0.33$ among residents of non-native communities. The geometric mean of hair Hg is estimated to be
+- **Slope:** Residents of non-native communities, on average, are expected to have Hg concentrations that are -1.11 log ppm lower, on average, than residents of native communities.  Alternatively, the hair Hg is expected to be lower, on average, by a factor of $e^{-1.11}=0.33$ (33% as high) among residents of non-native communities. The geometric mean of hair Hg is estimated to be
 $100\left(1-e^{-1.11}\right)=67\%$ lower
 among residents of non-native communities than among residents of
 native communities, holding other predictors fixed.
