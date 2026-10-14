@@ -105,7 +105,7 @@ ggplot(data = mercury, aes(x = exp(lhairHg))) +
 
 ## Assumptions of the Regression Model
 
-The linear model actually does not require hair mercury itself to be approximately normal. Instead, it needs for the distribution of $y\mid x$, the conditional distribution of hair mercury given all the predictor variables, to be aproximately normal. This is the same as saying that the errors in the model are approximately normally distributed.
+The linear model actually does not require hair mercury itself to be approximately normal. Instead, it needs for the distribution of $y\mid x$, the conditional distribution of hair mercury given all the predictor variables, to be approximately normal. This is the same as saying that the errors in the model are approximately normally distributed.
 
 It's pretty easy to use a histogram to check the distribution of $y$, but how about the distribution of $y \mid x$?  That's not terribly complicated once you know how to fit a regression model, and we will work through an example of how to check it in the modeling process.
 
