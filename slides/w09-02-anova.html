@@ -138,10 +138,8 @@ window.Quarto = {
 </script>
 <meta property="og:title" content="ANOVA: Analysis of Variance – STA 198">
 <meta property="og:description" content="Introduction to Global Health Data Science">
-<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w09-02-anova_files/figure-revealjs/unnamed-chunk-3-1.png">
+<meta property="og:image" content="https://sta198-fa26-2.github.io/img/perusite.jpeg">
 <meta property="og:site_name" content="STA 198">
-<meta property="og:image:height" content="2966">
-<meta property="og:image:width" content="4800">
 </head>
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
@@ -534,7 +532,12 @@ window.Quarto = {
 <a href="#wait-is-that-wrong-hold-that-thought." id="toc-wait-is-that-wrong-hold-that-thought." class="nav-link" data-scroll-target="#wait-is-that-wrong-hold-that-thought.">Wait, is that wrong? Hold that thought.</a>
   <ul class="collapse">
 <li><a href="#bonferroni-correction" id="toc-bonferroni-correction" class="nav-link" data-scroll-target="#bonferroni-correction">Bonferroni Correction</a></li>
-  <li><a href="#violation-of-independence" id="toc-violation-of-independence" class="nav-link" data-scroll-target="#violation-of-independence">Violation of independence</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#back-to-that-thought-did-we-do-something-wrong" id="toc-back-to-that-thought-did-we-do-something-wrong" class="nav-link" data-scroll-target="#back-to-that-thought-did-we-do-something-wrong">Back to that thought: did we do something wrong?</a>
+  <ul class="collapse">
+<li><a href="#violation-of-independence" id="toc-violation-of-independence" class="nav-link" data-scroll-target="#violation-of-independence">Violation of independence</a></li>
   <li><a href="#concerns-when-independence-is-violated" id="toc-concerns-when-independence-is-violated" class="nav-link" data-scroll-target="#concerns-when-independence-is-violated">Concerns when Independence is Violated</a></li>
   <li><a href="#simple-fix-limit-to-one-person-per-household" id="toc-simple-fix-limit-to-one-person-per-household" class="nav-link" data-scroll-target="#simple-fix-limit-to-one-person-per-household">Simple Fix: Limit to One Person Per Household</a></li>
   <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"></a></li>
@@ -604,6 +607,9 @@ window.Quarto = {
 
 </header><section id="data-artisanal-and-small-scale-gold-mining-in-the-peruvian-amazon" class="level1"><h1>Data: Artisanal and Small-Scale Gold Mining in the Peruvian Amazon</h1>
 <section id="mercury-and-community" class="level2"><h2 class="anchored" data-anchor-id="mercury-and-community">Mercury and Community</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size:0.6em;">
 <p><a href="https://theconversation.com/gold-rush-mercury-legacy-small-scale-mining-for-gold-has-produced-long-lasting-toxic-pollution-from-1860s-california-to-modern-peru-133324">Artisinal and small-scale gold mining is largest source of mercury pollution worldwide</a>.</p>
 <p>Are mercury concentrations in hair related to community of residence?</p>
 <div class="cell" data-layout-align="center">
@@ -627,6 +633,18 @@ window.Quarto = {
 #   mining &lt;dbl&gt;, agriculture &lt;dbl&gt;, FM_buffer &lt;dbl&gt;,
 #   IM_buffer &lt;dbl&gt;, longitude &lt;dbl&gt;, latitude &lt;dbl&gt;,
 #   native &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/perusite.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../img/perusite.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:98.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section><section id="relationship-between-mercury-and-individual-community" class="level2"><h2 class="anchored" data-anchor-id="relationship-between-mercury-and-individual-community">Relationship between mercury and individual community</h2>
@@ -691,7 +709,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w09-02-anova_files/figure-revealjs/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w09-02-anova_files/figure-revealjs/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w09-02-anova_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="w09-02-anova_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -749,7 +767,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jb1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../img/jb1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="../img/jb1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../img/jb1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -758,7 +776,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbpurple.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../img/jbpurple.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbpurple.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../img/jbpurple.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -767,7 +785,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbbrown.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../img/jbbrown.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbbrown.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../img/jbbrown.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -776,7 +794,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbpink.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../img/jbpink.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbpink.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../img/jbpink.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -785,7 +803,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbblue.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../img/jbblue.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbblue.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="../img/jbblue.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -794,7 +812,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbteal.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="../img/jbteal.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbteal.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../img/jbteal.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -803,7 +821,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbsalmon.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="../img/jbsalmon.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbsalmon.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../img/jbsalmon.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -812,7 +830,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbred.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../img/jbred.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbred.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="../img/jbred.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -821,7 +839,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbturquoise.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="../img/jbturquoise.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbturquoise.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="../img/jbturquoise.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -830,7 +848,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbmagenta.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="../img/jbmagenta.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbmagenta.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="../img/jbmagenta.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -839,7 +857,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbyellow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="../img/jbyellow.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbyellow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="../img/jbyellow.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -848,7 +866,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbgrey.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="../img/jbgrey.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbgrey.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="../img/jbgrey.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -857,7 +875,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbtan.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="../img/jbtan.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbtan.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="../img/jbtan.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -866,7 +884,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbcyan.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="../img/jbcyan.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbcyan.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="../img/jbcyan.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -875,7 +893,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbgreen.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="../img/jbgreen.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbgreen.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="../img/jbgreen.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -884,7 +902,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/jbmauve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="../img/jbmauve.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/jbmauve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="../img/jbmauve.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -893,7 +911,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/greenbeans.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="../img/greenbeans.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
+<figure class="figure"><p><a href="../img/greenbeans.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="../img/greenbeans.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -943,7 +961,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w09-02-anova_files/figure-revealjs/facethistppm-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="w09-02-anova_files/figure-revealjs/facethistppm-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w09-02-anova_files/figure-revealjs/facethistppm-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="w09-02-anova_files/figure-revealjs/facethistppm-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -971,7 +989,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w09-02-anova_files/figure-revealjs/facethist-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="w09-02-anova_files/figure-revealjs/facethist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<figure class="figure"><p><a href="w09-02-anova_files/figure-revealjs/facethist-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="w09-02-anova_files/figure-revealjs/facethist-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1046,7 +1064,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../img/fdists.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="../img/fdists.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<figure class="figure"><p><a href="../img/fdists.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="../img/fdists.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1119,7 +1137,8 @@ window.Quarto = {
 </section></section><section id="wait-is-that-wrong-hold-that-thought." class="level1"><h1>Wait, is that wrong? Hold that thought.</h1>
 <section id="bonferroni-correction" class="level2"><h2 class="anchored" data-anchor-id="bonferroni-correction">Bonferroni Correction</h2>
 <p>As we showed earlier, conducting multiple tests on a data set increases the <em>family-wise error rate</em>. One very conservative way to ensure this is not the case is to divide <span class="math inline">\(\alpha\)</span> by the number of tests to be done and to use that as the significance level. This procedure is called the Bonferroni correction. For example for two tests, to preserve an overall 0.05 type I error rate, the Bonferroni correction would use <span class="math inline">\(\frac{\alpha}{2}=0.025\)</span> as the significance level for each individual test instead of <span class="math inline">\(0.05\)</span>. Bonferroni is a conservative multiple comparisons correction (like saving your money in your mattress!), making it harder to reject the null hypothesis, but it is a safe bet in controlling the type I error rate. A less conservative method that also offers strong control of the error rate is Holm’s method, which we used in our code.</p>
-</section><section id="violation-of-independence" class="level2"><h2 class="anchored" data-anchor-id="violation-of-independence">Violation of independence</h2>
+</section></section><section id="back-to-that-thought-did-we-do-something-wrong" class="level1"><h1>Back to that thought: did we do something wrong?</h1>
+<section id="violation-of-independence" class="level2"><h2 class="anchored" data-anchor-id="violation-of-independence">Violation of independence</h2>
 <p>The violation of the independence assumption due to the inclusion of multiple household members is indeed a concern. To explore this, let’s calculate the fraction of households (coded using <code>hid</code>) that provided hair measures from more than one household member.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -1631,7 +1650,7 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 <p><span class="math display">\[\widehat{y_i} = 1.12 - 1.11~\text{Non-native}_i\]</span></p>
 <ul>
 <li>
-<strong>Slope:</strong> Residents of non-native communities, on average, are expected to have Hg concentrations that are -1.11 log ppm lower, on average, than residents of native communities. Alternatively, the hair Hg is expected to be lower, on average, by a factor of <span class="math inline">\(e^{-1.11}=0.33\)</span> among residents of non-native communities. The geometric mean of hair Hg is estimated to be <span class="math inline">\(100\left(1-e^{-1.11}\right)=67\%\)</span> lower among residents of non-native communities than among residents of native communities, holding other predictors fixed.
+<strong>Slope:</strong> Residents of non-native communities, on average, are expected to have Hg concentrations that are -1.11 log ppm lower, on average, than residents of native communities. Alternatively, the hair Hg is expected to be lower, on average, by a factor of <span class="math inline">\(e^{-1.11}=0.33\)</span> (33% as high) among residents of non-native communities. The geometric mean of hair Hg is estimated to be <span class="math inline">\(100\left(1-e^{-1.11}\right)=67\%\)</span> lower among residents of non-native communities than among residents of native communities, holding other predictors fixed.
 <ul>
 <li>Compares baseline level (<code>Native</code>) to the other level (<code>Non-native</code>)</li>
 </ul>

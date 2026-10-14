@@ -349,10 +349,7 @@ Amy Herring
 <ul>
 <li>For positive, right-skewed measurements, such as many exposure concentrations.</li>
 <li>When we want to describe <strong>proportional differences</strong>: “30% lower” rather than “0.89 ppm lower.”</li>
-<li>When a few very high values would strongly pull up the arithmetic mean.</li>
-</ul>
-<p>Use the <strong>arithmetic mean</strong> when the question is about the average amount in ppm or a total across people. A geometric mean requires positive values.</p>
-</section><section id="from-a-ratio-to-a-percentage" class="slide level2"><h2>From a ratio to a percentage</h2>
+</ul></section><section id="from-a-ratio-to-a-percentage" class="slide level2"><h2>From a ratio to a percentage</h2>
 <p>We found that a one-standard-deviation increase in assets multiplies the predicted <strong>geometric mean</strong> hair mercury concentration by</p>
 <p><span class="math display">\[e^{-0.358} \approx 0.70.\]</span></p>
 <ul>
@@ -363,6 +360,7 @@ Amy Herring
 </ul>
 <p><strong>Interpretation:</strong> People whose household asset score is one standard deviation higher have a predicted geometric mean hair mercury concentration <strong>about 30% lower</strong>.</p>
 </section><section id="a-reusable-rule" class="slide level2"><h2>A reusable rule</h2>
+<div style="font-size:0.7em;">
 <p>If we fit a model for <span class="math inline">\(\log(y)\)</span> and the slope is <span class="math inline">\(\widehat\beta_1\)</span>:</p>
 <p><span class="math display">\[
 \text{Multiplier for a one-unit increase in }x = e^{\widehat\beta_1}
@@ -373,6 +371,7 @@ Amy Herring
 <li><p>A <strong><span class="math inline">\(100(1-e^{\hat{\beta}})\%\)</span> decrease</strong> in the geometric mean of the response if <span class="math inline">\(\hat{\beta}&lt;0\)</span>.</p></li>
 </ul>
 <p>These interpretations hold other predictors fixed. For a categorical predictor, the comparison is with the reference category.</p>
+</div>
 </section><section id="let-r-do-the-conversion" class="slide level2"><h2>Let R do the conversion</h2>
 <div style="font-size:0.5em;">
 <div class="columns">
@@ -749,7 +748,7 @@ R^2 = r^2
 <li class="fragment">This transformation is also useful for variance stabilization.</li>
 <li class="fragment">When using a log transformation on the response variable the interpretation of the slope changes: <em>“For each unit increase in x, y is expected on average to be higher/lower by a factor of <span class="math inline">\(e^{\hat{\beta}_1}\)</span>.”</em>
 </li>
-<li class="fragment">When the response is log-transformed, a one-unit increase in <span class="math inline">\(x\)</span> multiplies the predicted <strong>geometric mean</strong> of <span class="math inline">\(y\)</span> by <span class="math inline">\(e^{\hat{\beta}_1}\)</span>. This corresponds to a percentage change of <span class="math inline">\(100(e^{\hat{\beta}_1}-1)\%\)</span>; a negative result means a decrease.</li>
+<li class="fragment">When the response is log-transformed, a one-unit increase in <span class="math inline">\(x\)</span> multiplies the predicted <strong>geometric mean</strong> of <span class="math inline">\(y\)</span> by <span class="math inline">\(e^{\hat{\beta}_1}\)</span>.</li>
 <li class="fragment">Another useful transformation is the square root: <span class="math inline">\(\sqrt{y}\)</span>, especially useful when the response variable is a count.</li>
 </ul>
 </div>
