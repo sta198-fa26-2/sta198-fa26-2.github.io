@@ -1,0 +1,3061 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Prof.&nbsp;Amy Herring">
+<title>Survival Analysis – STA 198</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a715031d185304789222bcd42846ff8e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3f0a4db72e9ac74ffa29cd52cbf666e3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a715031d185304789222bcd42846ff8e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link href="../site_libs/font-awesome/css/all.min.css" rel="stylesheet">
+<link href="../site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet">
+<link href="../site_libs/panelset/panelset.css" rel="stylesheet">
+<script src="../site_libs/panelset/panelset.js"></script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+<meta property="og:title" content="Survival Analysis – STA 198">
+<meta property="og:description" content="Introduction to Global Health Data Science">
+<meta property="og:image" content="https://sta198-fa26-2.github.io/img/studytime.png">
+<meta property="og:site_name" content="STA 198">
+<meta property="og:image:alt" content="Illustrative calendar and participant timelines for four participants, with enrollment, events, and censoring marked.">
+<meta property="og:image:height" content="1300">
+<meta property="og:image:width" content="3200">
+</head>
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Survival Analysis</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/sta198-fa26-2" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
+    <a href="https://cmgr.oit.duke.edu/containers" title="RStudio containers" class="quarto-navigation-tool px-1" aria-label="RStudio containers"><i class="bi bi-code-square"></i></a>
+    <div class="dropdown">
+      <a href="" title="Canvas" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Canvas"><i class="bi bi-file-check-fill"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://canvas.duke.edu/">
+              <i class="bi bi-megaphone-fill pe-1"></i>
+            Announcements
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://canvas.duke.edu/">
+              <i class="bi bi-file-arrow-up-fill pe-1"></i>
+            Gradescope
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://canvas.duke.edu/">
+              <i class="bi bi-alphabet-uppercase pe-1"></i>
+            Gradebook
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Course information</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-support.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Support</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-team.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Team</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-links.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Useful links</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Computing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-code-alongs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code alongs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-cheatsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing-troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Labs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exam-review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exam reviews</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#slide-01" id="toc-slide-01" class="nav-link active" data-scroll-target="#slide-01">Survival Data</a>
+  <ul class="collapse">
+<li><a href="#slide-02" id="toc-slide-02" class="nav-link" data-scroll-target="#slide-02">Goal</a></li>
+  <li><a href="#slide-03" id="toc-slide-03" class="nav-link" data-scroll-target="#slide-03">Examples</a></li>
+  <li><a href="#slide-04" id="toc-slide-04" class="nav-link" data-scroll-target="#slide-04">Characteristics of Survival Data</a></li>
+  <li><a href="#slide-05" id="toc-slide-05" class="nav-link" data-scroll-target="#slide-05">Censoring</a></li>
+  <li><a href="#slide-06" id="toc-slide-06" class="nav-link" data-scroll-target="#slide-06">Calendar Time and Participant Time</a></li>
+  <li><a href="#slide-07" id="toc-slide-07" class="nav-link" data-scroll-target="#slide-07">Calendar Time and Participant Time</a></li>
+  <li><a href="#slide-08" id="toc-slide-08" class="nav-link" data-scroll-target="#slide-08">The Survival Function</a></li>
+  <li><a href="#slide-09" id="toc-slide-09" class="nav-link" data-scroll-target="#slide-09">Survival of Children in Burkina Faso by Vaccination Status</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#slide-10" id="toc-slide-10" class="nav-link" data-scroll-target="#slide-10">Estimating Survival Curves</a>
+  <ul class="collapse">
+<li><a href="#slide-11" id="toc-slide-11" class="nav-link" data-scroll-target="#slide-11">Small Study of 10 Patients</a></li>
+  <li><a href="#slide-12" id="toc-slide-12" class="nav-link" data-scroll-target="#slide-12">Kaplan-Meier Estimate</a></li>
+  <li><a href="#slide-13" id="toc-slide-13" class="nav-link" data-scroll-target="#slide-13">Intuitive how?</a></li>
+  <li><a href="#slide-14" id="toc-slide-14" class="nav-link" data-scroll-target="#slide-14">Welcome Back, Probability!</a></li>
+  <li><a href="#slide-15" id="toc-slide-15" class="nav-link" data-scroll-target="#slide-15">Multiplicative Rule Saves the Day!</a></li>
+  <li><a href="#slide-16" id="toc-slide-16" class="nav-link" data-scroll-target="#slide-16">Kaplan-Meier (KM) Estimate</a></li>
+  <li><a href="#slide-17" id="toc-slide-17" class="nav-link" data-scroll-target="#slide-17">Kaplan-Meier Estimate: Time 0</a></li>
+  <li><a href="#slide-18" id="toc-slide-18" class="nav-link" data-scroll-target="#slide-18">Kaplan-Meier Estimate: Time 4.5</a></li>
+  <li><a href="#slide-19" id="toc-slide-19" class="nav-link" data-scroll-target="#slide-19">Kaplan-Meier Estimate: Time 7.5</a></li>
+  <li><a href="#slide-20" id="toc-slide-20" class="nav-link" data-scroll-target="#slide-20">Kaplan-Meier Estimate: Time 8.5</a></li>
+  <li><a href="#slide-21" id="toc-slide-21" class="nav-link" data-scroll-target="#slide-21">Kaplan-Meier Estimate: Time 11.5</a></li>
+  <li><a href="#slide-22" id="toc-slide-22" class="nav-link" data-scroll-target="#slide-22">Kaplan-Meier Estimate: Time 13.5</a></li>
+  <li><a href="#slide-23" id="toc-slide-23" class="nav-link" data-scroll-target="#slide-23">Kaplan-Meier Estimate: Time 15.5</a></li>
+  <li><a href="#slide-24" id="toc-slide-24" class="nav-link" data-scroll-target="#slide-24">Kaplan-Meier Estimate: Time 16.5</a></li>
+  <li><a href="#slide-25" id="toc-slide-25" class="nav-link" data-scroll-target="#slide-25">Kaplan-Meier Estimate: Time 17.5</a></li>
+  <li><a href="#slide-26" id="toc-slide-26" class="nav-link" data-scroll-target="#slide-26">Kaplan-Meier Estimate: Time 19.5</a></li>
+  <li><a href="#slide-27" id="toc-slide-27" class="nav-link" data-scroll-target="#slide-27">Kaplan-Meier Estimate: Time 21.5</a></li>
+  <li><a href="#slide-28" id="toc-slide-28" class="nav-link" data-scroll-target="#slide-28">KM Estimate</a></li>
+  <li><a href="#slide-29" id="toc-slide-29" class="nav-link" data-scroll-target="#slide-29">Tumors in Children, 2012 <em>Neuro-Oncology</em></a></li>
+  <li><a href="#slide-30" id="toc-slide-30" class="nav-link" data-scroll-target="#slide-30">Weaning in Wild Chimpanzees</a></li>
+  <li><a href="#slide-31" id="toc-slide-31" class="nav-link" data-scroll-target="#slide-31">Weaning by Sex</a></li>
+  <li><a href="#weaning-firstborn" id="toc-weaning-firstborn" class="nav-link" data-scroll-target="#weaning-firstborn">Weaning by Firstborn Status</a></li>
+  <li><a href="#slide-32" id="toc-slide-32" class="nav-link" data-scroll-target="#slide-32">Estimating Median Weaning Age</a></li>
+  <li><a href="#slide-33" id="toc-slide-33" class="nav-link" data-scroll-target="#slide-33">Comparing Weaning Across Groups</a></li>
+  <li><a href="#slide-34" id="toc-slide-34" class="nav-link" data-scroll-target="#slide-34">Cox Proportional Hazards Model</a></li>
+  <li><a href="#slide-35" id="toc-slide-35" class="nav-link" data-scroll-target="#slide-35">Cox Model for Weaning</a></li>
+  <li><a href="#slide-36" id="toc-slide-36" class="nav-link" data-scroll-target="#slide-36">Interpreting Hazard Ratios for Weaning</a></li>
+  <li><a href="#cystic-fibrosis-and-inhaled-rhdnase" id="toc-cystic-fibrosis-and-inhaled-rhdnase" class="nav-link" data-scroll-target="#cystic-fibrosis-and-inhaled-rhdnase">Cystic Fibrosis and Inhaled rhDNase</a></li>
+  <li><a href="#the-outcome-and-censoring" id="toc-the-outcome-and-censoring" class="nav-link" data-scroll-target="#the-outcome-and-censoring">The Outcome and Censoring</a></li>
+  <li><a href="#exacerbation-free-survival-curves" id="toc-exacerbation-free-survival-curves" class="nav-link" data-scroll-target="#exacerbation-free-survival-curves">Exacerbation-Free Survival Curves</a></li>
+  <li><a href="#a-cox-model-for-treatment" id="toc-a-cox-model-for-treatment" class="nav-link" data-scroll-target="#a-cox-model-for-treatment">A Cox Model for Treatment</a></li>
+  <li><a href="#interpreting-the-treatment-effect" id="toc-interpreting-the-treatment-effect" class="nav-link" data-scroll-target="#interpreting-the-treatment-effect">Interpreting the Treatment Effect</a></li>
+  <li><a href="#interpretation-summary-no-interactions-in-model" id="toc-interpretation-summary-no-interactions-in-model" class="nav-link" data-scroll-target="#interpretation-summary-no-interactions-in-model">Interpretation Summary (No Interactions in Model)</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w15-01-survival.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="w15-01-survival-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Survival Analysis</h1>
+<p class="subtitle lead">Introduction to Global Health Data Science</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Prof.&nbsp;Amy Herring </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Duke University <br> STA/GLHLTH 198 Fall 2026
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header><section id="slide-01" class="level1"><h1>Survival Data</h1>
+<section id="slide-02" class="level2"><h2 class="anchored" data-anchor-id="slide-02">Goal</h2>
+<p>Survival analysis is a complex topic! The goal of our coverage is to give you the skills you need to understand results of simple descriptive statistics in this setting, and we will not have time to discuss more complex modeling of survival data in this course. Come see me in the future if you need to analyze survival data!</p>
+</section><section id="slide-03" class="level2"><h2 class="anchored" data-anchor-id="slide-03">Examples</h2>
+<div style="font-size:0.8em;">
+<p>In many studies, the outcome of interest is the amount of time from an initial observation until the occurrence of some event of interest, e.g.</p>
+<ul>
+<li>Time from transplant surgery until new organ failure</li>
+<li>Time to death</li>
+<li>Time to weaning</li>
+<li>Time to menarche</li>
+<li>Time to divorce</li>
+<li>Time to graduation</li>
+</ul>
+<p>Typically, the event of interest is called a <em>failure</em> (even if it is a good thing). The time interval between a starting point and the failure is known as the <em>survival time</em> and is often represented by <span class="math inline">\(t\)</span>.</p>
+</div>
+</section><section id="slide-04" class="level2"><h2 class="anchored" data-anchor-id="slide-04">Characteristics of Survival Data</h2>
+<div style="font-size:0.75em;">
+<p>Certain aspects of survival data make data analysis particularly challenging.</p>
+<ul>
+<li>Typically, not all the individuals are observed until their times of failure
+<ul>
+<li>An organ transplant recipient may die in an automobile accident before the new organ fails</li>
+<li>A student may withdraw to start a multi-billion dollar health company</li>
+<li>Not everyone gets divorced</li>
+<li>A pancreatic cancer patient may move to Aitutaki instead of undergoing further treatment</li>
+</ul>
+</li>
+<li>In this case, an observation is said to be <em>right censored</em> at the last point of contact</li>
+</ul>
+<p>When you hear someone talk about <em>censoring</em>, typically they mean <em>right censoring</em>, but there are other types of censoring that you may encounter.</p>
+</div>
+</section><section id="slide-05" class="level2"><h2 class="anchored" data-anchor-id="slide-05">Censoring</h2>
+<div style="font-size:0.75em;">
+<p>Data may be censored in multiple ways:</p>
+<ul>
+<li><p>Right censored: the usual type of censoring in health data, accommodated by standard models. In this case you see a study participant at the beginning of the study, but you may not follow them until the outcome occurs (or the outcome may never occur)</p></li>
+<li><p>Left censored: a study participant may have experienced the event before the study begins. For example, you may want to study when kindergarteners reach a certain reading level, but some may be proficient readers already at the start of your study.</p></li>
+<li><p>Interval censored: you don’t know exactly when an event happened, only that it happened between two times. For example, if a patient enrolled in a cancer screening study is cancer-free at the time of the first screening, <span class="math inline">\(t_1\)</span> but has cancer at the time of the second screening, <span class="math inline">\(t_2\)</span>, you only know that cancer developed sometime after <span class="math inline">\(t_1\)</span> but before <span class="math inline">\(t_2\)</span></p></li>
+</ul>
+</div>
+</section><section id="slide-06" class="level2"><h2 class="anchored" data-anchor-id="slide-06">Calendar Time and Participant Time</h2>
+<div style="font-size:0.9em;">
+<p>It is important to distinguish between calendar time and participant time. In the redrawn plot, a filled circle marks enrollment, an “X” marks an observed event, and an open circle marks censoring.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/studytime.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Illustrative calendar and participant timelines for four participants, with enrollment, events, and censoring marked."><img src="../img/studytime.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:88.0%" alt="Illustrative calendar and participant timelines for four participants, with enrollment, events, and censoring marked."></a></p>
+</figure>
+</div>
+<figcaption>Illustrative calendar and participant timelines for four participants, with enrollment, events, and censoring marked.</figcaption></figure>
+</div>
+</div>
+</section><section id="slide-07" class="level2"><h2 class="anchored" data-anchor-id="slide-07">Calendar Time and Participant Time</h2>
+<div style="font-size:0.7em;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/studytime.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Illustrative calendar and participant timelines for four participants, with enrollment, events, and censoring marked."><img src="../img/studytime.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Illustrative calendar and participant timelines for four participants, with enrollment, events, and censoring marked."></a></p>
+</figure>
+</div>
+<figcaption>Illustrative calendar and participant timelines for four participants, with enrollment, events, and censoring marked.</figcaption></figure>
+</div>
+<ul>
+<li>A study may start enrolling patients in September and continue until all 500 patients have been enrolled</li>
+<li>This is likely to take months or years</li>
+<li>Time is typically converted from calendar time to participant time (time between enrollment and failure or censoring) before analysis</li>
+</ul>
+</div>
+</section><section id="slide-08" class="level2"><h2 class="anchored" data-anchor-id="slide-08">The Survival Function</h2>
+<div style="font-size:0.9em;">
+<p>The distribution of survival times is characterized by the <em>survival function</em>, represented by <span class="math inline">\(S(t)\)</span>. For a continuous random variable <span class="math inline">\(T\)</span>, <span class="math display">\[S(t)=Pr(T&gt;t)\]</span> and <span class="math inline">\(S(t)\)</span> represents the proportion of individuals who have not yet failed.</p>
+<p>The graph of <span class="math inline">\(S(t)\)</span> versus <span class="math inline">\(t\)</span> is called a survival curve. The survival curve shows the proportion of survivors at any given time.</p>
+</div>
+</section><section id="slide-09" class="level2"><h2 class="anchored" data-anchor-id="slide-09">Survival of Children in Burkina Faso by Vaccination Status</h2>
+<div style="font-size:0.7em;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/burkinafaso.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Survival curves by vaccination status for children in Burkina Faso."><img src="../img/burkinafaso.png" class="quarto-figure quarto-figure-center figure-img" height="480" alt="Survival curves by vaccination status for children in Burkina Faso."></a></p>
+</figure>
+</div>
+<figcaption>Survival curves by vaccination status for children in Burkina Faso.</figcaption></figure>
+</div>
+</div>
+</section></section><section id="slide-10" class="level1"><h1>Estimating Survival Curves</h1>
+<section id="slide-11" class="level2"><h2 class="anchored" data-anchor-id="slide-11">Small Study of 10 Patients</h2>
+<div style="font-size:0.7em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: right;">Patient</th>
+<th style="text-align: right;">Event time <span class="math inline">\(x\)</span>
+</th>
+<th style="text-align: right;">Event type</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">Death</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">Death</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">Censored</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">Death</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">Censored</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">Death</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">Death</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">Censored</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">Death</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">Censored</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<p>How do we estimate the survival curve for these data?</p>
+</div>
+</div>
+</div>
+</section><section id="slide-12" class="level2"><h2 class="anchored" data-anchor-id="slide-12">Kaplan-Meier Estimate</h2>
+<div style="font-size:0.7em;">
+<p>Perhaps the most popular estimate of a survival curve is the <em>Kaplan-Meier</em> or <em>product-limit</em> estimate. This method is actually fairly intuitive. Define the following quantities.</p>
+<ul>
+<li><p><span class="math inline">\(I_t\)</span>: # at risk of failure at time <span class="math inline">\(t\)</span>; those who did not fail before <span class="math inline">\(t\)</span> and those who were not censored before <span class="math inline">\(t\)</span>; also known as the <em>risk set</em></p></li>
+<li><p><span class="math inline">\(d_t\)</span>: # who fail at time <span class="math inline">\(t\)</span></p></li>
+<li><p><span class="math inline">\(q_t=\frac{d_t}{I_t}\)</span>: estimated probability of failing at time <span class="math inline">\(t\)</span></p></li>
+<li><p><span class="math inline">\(S(t)\)</span>: cumulative probability of surviving beyond time <span class="math inline">\(t\)</span>, estimated as <span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right).\]</span></p></li>
+<li><p>the <span class="math inline">\(\prod\)</span> symbol is for multiplication, e.g.&nbsp;<span class="math inline">\(\prod_{i=1}^3 x_i=x_1x_2x_3\)</span> and <span class="math inline">\(\prod_{i=1}^5i=1 \times 2 \times 3 \times 4 \times 5\)</span>.</p></li>
+</ul>
+</div>
+</section><section id="slide-13" class="level2"><h2 class="anchored" data-anchor-id="slide-13">Intuitive how?</h2>
+<div style="font-size:0.75em;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p>At each time <span class="math inline">\(t\)</span>, the probability of surviving is just <span class="math inline">\(1-Pr(failing)\)</span> (remember the complement rule, also known as the law of total probability!). Before there are any failures in the data, our estimated <span class="math inline">\(\hat{S}(t)=1\)</span>. At the time of the first failure, this probability falls below 1 and is simply one minus the probability of failing at that time, or <span class="math inline">\(1-\frac{\# ~ failures}{\#~at ~ risk~ of~ failing}\)</span>.</p>
+<p>After the first failure, things get more complicated. At the time of the second failure, you can calculate <span class="math inline">\(1-\frac{\# ~ failures}{\# ~ at ~risk ~  of ~ failing}\)</span>, but this doesn’t provide the whole picture, as someone else has already died. In fact, this is the <em>conditional probability</em> of surviving now that you’ve made it past the time of the first failure.</p>
+</div>
+</section><section id="slide-14" class="level2"><h2 class="anchored" data-anchor-id="slide-14">Welcome Back, Probability!</h2>
+<p>I promised you’d see probability laws again! :)</p>
+<p>Coming back to you next: the multiplicative rule!</p>
+</section><section id="slide-15" class="level2"><h2 class="anchored" data-anchor-id="slide-15">Multiplicative Rule Saves the Day!</h2>
+<div style="font-size:0.7em;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p>How do you then calculate the total (unconditional) probability of survival? That is just the product of the probability of surviving past the first failure times the conditional probability of surviving beyond the second failure given that you made it past the first, or</p>
+<div style="font-size:0.8em;">
+<p><span class="math display">\[Pr(\text{survive past first and second times}) \]</span> <span class="math display">\[=Pr(\text{survive past first time})Pr(\text{survive past second time} \mid \text{survive past first time})\]</span> <span class="math display">\[=\left(1-\frac{\# ~ failures ~at ~failure~ time~ 1}{\# ~at~ risk ~of ~failing ~at ~failure ~time ~1}\right)\left(1-\frac{\# ~of ~ failures ~ at ~ failure ~ time~  2}{\# ~ at ~ risk ~ of ~ failing ~ at ~ failure~  time~ 2}\right)\]</span></p>
+</div>
+<p>If someone is censored, they leave the observed <em>risk set</em> at that time and are excluded from later risk-set denominators. Their event may still occur after follow-up ends.</p>
+</div>
+</section><section id="slide-16" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-16">Kaplan-Meier (KM) Estimate</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span> Remember <span class="math inline">\(d_t\)</span> is the # who fail at time <span class="math inline">\(t\)</span>, and <span class="math inline">\(I_t\)</span> is the # at risk of failure at time <span class="math inline">\(t\)</span> (have not been censored and have not failed)</p>
+</div>
+</div>
+</div>
+</section><section id="slide-17" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-17">Kaplan-Meier Estimate: Time 0</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><span class="km-current">10</span></td>
+<td style="text-align: right;"><span class="km-current">1</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p><span class="math inline">\(\hat{S}(0)=1\)</span></p>
+</div>
+</div>
+</div>
+</section><section id="slide-18" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-18">Kaplan-Meier Estimate: Time 4.5</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><span class="km-current">9</span></td>
+<td style="text-align: right;"><span class="km-current"><span class="math inline">\(1 \times \left(1-\frac{1}{10}\right)=0.9\)</span></span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p><span class="math display">\[Pr(\text{survive past time 4.5}) \]</span> <span class="math display">\[=Pr(\text{survive past time 0}) \]</span> <span class="math display">\[\times Pr(\text{survive past time 4.5} \mid \text{survive past time 0})\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="slide-19" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-19">Kaplan-Meier Estimate: Time 7.5</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><span class="km-current">8</span></td>
+<td style="text-align: right;"><span class="km-current"><span class="math inline">\(0.9 \times \left(1-\frac{1}{9}\right)=0.8\)</span></span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p><span class="math display">\[Pr(\text{survive past time 7.5}) \]</span> <span class="math display">\[=Pr(\text{survive past time 4.5})\]</span> <span class="math display">\[\times Pr(\text{survive past time 7.5} \mid \text{survive past time 4.5})\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="slide-20" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-20">Kaplan-Meier Estimate: Time 8.5</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"><span class="km-current">7</span></td>
+<td style="text-align: right;"><span class="km-current"><span class="math inline">\(0.8 \times \left(1-\frac{0}{8}\right)=0.8\)</span></span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p><span class="math display">\[Pr(\text{survive past time 8.5}) \]</span> <span class="math display">\[=Pr(\text{survive past time 7.5})\]</span> <span class="math display">\[\times Pr(\text{survive past time 8.5} \mid \text{survive past time 7.5})\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="slide-21" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-21">Kaplan-Meier Estimate: Time 11.5</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><span class="km-current">6</span></td>
+<td style="text-align: right;"><span class="km-current"><span class="math inline">\(0.8 \times \left(1-\frac{1}{7}\right)=0.69\)</span></span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p><span class="math display">\[Pr(\text{survive past time 11.5}) \]</span> <span class="math display">\[=Pr(\text{survive past time 8.5})\]</span> <span class="math display">\[\times Pr(\text{survive past time 11.5} \mid \text{survive past time 8.5})\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="slide-22" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-22">Kaplan-Meier Estimate: Time 13.5</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;"><span class="km-current"><span class="math inline">\(0.69 \times \left(1-\frac{0}{6}\right)=0.69\)</span></span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p><span class="math display">\[Pr(\text{survive past time 13.5}) \]</span> <span class="math display">\[=Pr(\text{survive past time 11.5})\]</span> <span class="math display">\[\times Pr(\text{survive past time 13.5} \mid \text{survive past time 11.5})\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="slide-23" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-23">Kaplan-Meier Estimate: Time 15.5</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><span class="km-current">4</span></td>
+<td style="text-align: right;"><span class="km-current"><span class="math inline">\(0.69 \times \left(1-\frac{1}{5}\right)=0.552\)</span></span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p><span class="math display">\[Pr(\text{survive past time 15.5}) \]</span> <span class="math display">\[=Pr(\text{survive past time 13.5})\]</span> <span class="math display">\[\times Pr(\text{survive past time 15.5} \mid \text{survive past time 13.5})\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="slide-24" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-24">Kaplan-Meier Estimate: Time 16.5</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.552</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><span class="km-current">3</span></td>
+<td style="text-align: right;"><span class="km-current"><span class="math inline">\(0.552 \times \left(1-\frac{1}{4}\right)=0.414\)</span></span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p><span class="math display">\[Pr(\text{survive past time 16.5}) \]</span> <span class="math display">\[=Pr(\text{survive past time 15.5})\]</span> <span class="math display">\[\times Pr(\text{survive past time 16.5} \mid \text{survive past time 15.5})\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="slide-25" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-25">Kaplan-Meier Estimate: Time 17.5</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.552</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.414</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"><span class="km-current">2</span></td>
+<td style="text-align: right;"><span class="km-current"><span class="math inline">\(0.414 \times \left(1-\frac{0}{3}\right)=0.414\)</span></span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p><span class="math display">\[Pr(\text{survive past time 17.5}) \]</span> <span class="math display">\[=Pr(\text{survive past time 16.5})\]</span> <span class="math display">\[\times Pr(\text{survive past time 17.5} \mid \text{survive past time 16.5})\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="slide-26" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-26">Kaplan-Meier Estimate: Time 19.5</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.552</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.414</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.414</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><span class="km-current">1</span></td>
+<td style="text-align: right;"><span class="km-current"><span class="math inline">\(0.414 \times \left(1-\frac{1}{2}\right)=0.207\)</span></span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p><span class="math display">\[Pr(\text{survive past time 19.5}) \]</span> <span class="math display">\[=Pr(\text{survive past time 17.5})\]</span> <span class="math display">\[\times Pr(\text{survive past time 19.5} \mid \text{survive past time 17.5})\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="slide-27" class="level2 km-slide"><h2 class="km-slide anchored" data-anchor-id="slide-27">Kaplan-Meier Estimate: Time 21.5</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:58%;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"># Failed: <span class="math inline">\(d_t\)</span>
+</th>
+<th style="text-align: right;"># Censored</th>
+<th style="text-align: right;"># Left: <span class="math inline">\(I_{t+1}\)</span>
+</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{S}(t)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.552</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.414</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.414</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.207</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><span class="km-current"><span class="math inline">\(0.207 \times \left(1-\frac{0}{1}\right)=0.207\)</span></span></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:42%;">
+<p><span class="math display">\[\hat{S}(t)=\prod_{t_i \leq t} \left(1-\frac{d_{t_i}}{I_{t_i}}\right)\]</span></p>
+<p><span class="math display">\[Pr(\text{survive past time 21.5}) \]</span> <span class="math display">\[=Pr(\text{survive past time 19.5})\]</span> <span class="math display">\[\times Pr(\text{survive past time 21.5} \mid \text{survive past time 19.5})\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="slide-28" class="level2"><h2 class="anchored" data-anchor-id="slide-28">KM Estimate</h2>
+<p>In between failure times, the KM estimate does not change but is constant. This gives the estimated survival function its step-like appearance (we call this type of function a <em>step function</em>).</p>
+</section><section id="slide-29" class="level2"><h2 class="anchored" data-anchor-id="slide-29">Tumors in Children, 2012 <em>Neuro-Oncology</em>
+</h2>
+<div style="font-size:0.6em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>ATCT is an imaging-based biomarker of tumor prognosis.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/atct.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Kaplan–Meier curves for groups of ATCT biomarker values."><img src="../img/atct.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:96.0%" alt="Kaplan–Meier curves for groups of ATCT biomarker values."></a></p>
+</figure>
+</div>
+<figcaption>Kaplan–Meier curves for groups of ATCT biomarker values.</figcaption></figure>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Which biomarker values are associated with the best survival?</li>
+<li>Which values are associated with the worst survival?</li>
+<li>What is the median survival time in the group with the smallest ATCT values?
+<ul>
+<li>Median survival is the first time at which <span class="math inline">\(\hat{S}(t)\leq 0.5\)</span>
+</li>
+</ul>
+</li>
+<li>If a child is in the group with the largest ATCT values, what is their estimated 5-year survival probability?</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="slide-30" class="level2"><h2 class="anchored" data-anchor-id="slide-30">Weaning in Wild Chimpanzees</h2>
+<div style="font-size:0.6em;">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Data</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>These data describe <strong>wild chimpanzees in Tanzania</strong> and are provided courtesy of Prof.&nbsp;Elizabeth Lonsdorf at Duke Lemur Center. We study the age at which offspring are weaned.</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Meaning</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>weanedage_yrs</code></td>
+<td style="text-align: left;">Age in years at weaning or censoring</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>weaned</code></td>
+<td style="text-align: left;">Event indicator: <strong>1 = weaned</strong>, <strong>0 = censored</strong>
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>B_Sex</code></td>
+<td style="text-align: left;">Offspring sex: F = female, M = male</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>B_FirstBorn</code></td>
+<td style="text-align: left;">Firstborn status: Y = yes, N = no</td>
+</tr>
+</tbody>
+</table>
+<p>There are <strong>65 chimpanzees</strong>, with <strong>37 observed weaning events</strong> and <strong>28 censored observations</strong>.</p>
+<p>The event is <strong>weaning</strong>. Here, <span class="math inline">\(S(t)=P(T&gt;t)\)</span> is the probability of <strong>not yet being weaned at age <span class="math inline">\(t\)</span></strong>.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">weaning</span> <span class="op">&lt;-</span> <span class="fu">read_excel</span><span class="op">(</span></span>
+<span>  <span class="st">"../data/weaning_lonsdorf.xlsx"</span>,</span>
+<span>  sheet <span class="op">=</span> <span class="st">"Data"</span>,</span>
+<span>  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"na"</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">id</span>, <span class="va">momid</span>, <span class="va">weanedage_yrs</span>, <span class="va">weaned</span>, <span class="va">B_Sex</span>, <span class="va">B_FirstBorn</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    B_Sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">B_Sex</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"M"</span><span class="op">)</span>,</span>
+<span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Female"</span>, <span class="st">"Male"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    B_FirstBorn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">B_FirstBorn</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"N"</span>, <span class="st">"Y"</span><span class="op">)</span>,</span>
+<span>                        labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"No"</span>, <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>Use column K exactly as supplied. Checking the source dates shows that recorded event ages use the midpoint between last nursing and the next follow-up, while censored ages use the last recorded nursing date. This classroom analysis treats recorded event ages as exact and uses right censoring. The observation intervals and reasons for censoring deserve closer attention in a full research analysis.</p>
+</div>
+</section><section id="slide-31" class="level2"><h2 class="anchored" data-anchor-id="slide-31">Weaning by Sex</h2>
+<div style="font-size:0.7em;">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Plot</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w15-01-survival_files/figure-revealjs/surv-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w15-01-survival_files/figure-revealjs/surv-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:82.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A higher curve means a larger estimated probability of <strong>still being unweaned</strong> at a given age. The marks show censored observations.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">weaning_sex_fit</span> <span class="op">&lt;-</span> <span class="fu">survfit2</span><span class="op">(</span></span>
+<span>  <span class="fu">Surv</span><span class="op">(</span><span class="va">weanedage_yrs</span>, <span class="va">weaned</span><span class="op">)</span> <span class="op">~</span> <span class="va">B_Sex</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">weaning</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggsurvfit</span><span class="op">(</span><span class="va">weaning_sex_fit</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">add_censor_mark</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Female"</span> <span class="op">=</span> <span class="st">"#B9AEC8"</span>, <span class="st">"Male"</span> <span class="op">=</span> <span class="st">"#012169"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Age (years)"</span>, y <span class="op">=</span> <span class="st">"Probability not yet weaned"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"Sex"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">16</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="weaning-firstborn" class="level2"><h2 class="anchored" data-anchor-id="weaning-firstborn">Weaning by Firstborn Status</h2>
+<div style="font-size:0.7em;">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Plot</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w15-01-survival_files/figure-revealjs/weaning-firstborn-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w15-01-survival_files/figure-revealjs/weaning-firstborn-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:82.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>At a given age, which group has the larger estimated probability of not yet being weaned? Does the pattern look the same across the age range?</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">weaning_firstborn_fit</span> <span class="op">&lt;-</span> <span class="fu">survfit2</span><span class="op">(</span></span>
+<span>  <span class="fu">Surv</span><span class="op">(</span><span class="va">weanedage_yrs</span>, <span class="va">weaned</span><span class="op">)</span> <span class="op">~</span> <span class="va">B_FirstBorn</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">weaning</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggsurvfit</span><span class="op">(</span><span class="va">weaning_firstborn_fit</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">add_censor_mark</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"No"</span> <span class="op">=</span> <span class="st">"#B9AEC8"</span>, <span class="st">"Yes"</span> <span class="op">=</span> <span class="st">"#012169"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Age (years)"</span>, y <span class="op">=</span> <span class="st">"Probability not yet weaned"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"Firstborn?"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">16</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="slide-32" class="level2"><h2 class="anchored" data-anchor-id="slide-32">Estimating Median Weaning Age</h2>
+<div style="font-size:0.7em;">
+<p>The <strong>median weaning age</strong> is the first age at which the estimated probability of not yet being weaned is at most 0.5.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Results</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: left;">Group</th>
+<th style="text-align: right;">Median age (years)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sex</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">5.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sex</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">5.34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Firstborn?</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: right;">4.97</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Firstborn?</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">5.34</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Estimated median weaning ages are <strong>5.11 years for females</strong> and <strong>5.34 years for males</strong>.</p>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Each fitted object reports the median and its confidence interval.</span></span>
+<span><span class="va">weaning_sex_fit</span></span>
+<span><span class="va">weaning_firstborn_fit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>If the curve never reaches 0.5, the median cannot be estimated from the available follow-up. Some confidence limits may also be unavailable.</p>
+</div>
+</section><section id="slide-33" class="level2"><h2 class="anchored" data-anchor-id="slide-33">Comparing Weaning Across Groups</h2>
+<div style="font-size:0.6em;">
+<p>The <strong>log-rank test</strong> compares the time-to-weaning distributions between groups and is closely related to the <span class="math inline">\(chi^2\)</span> test we studied for contingency tables. We separately compare sexes and firstborn groups.</p>
+<p>For each comparison, <span class="math inline">\(H_0\)</span> is that the groups have the same survival function. The alternative is that the survival functions differ.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Results</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: right;">Chi-square statistic</th>
+<th style="text-align: right;">p-value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sex</td>
+<td style="text-align: right;">1.623</td>
+<td style="text-align: right;">0.203</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Firstborn status</td>
+<td style="text-align: right;">0.367</td>
+<td style="text-align: right;">0.545</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The p-values are <strong>0.203 for sex</strong> and <strong>0.545 for firstborn status</strong>.</p>
+<p>Neither test provides strong evidence of different weaning distributions at the 5% significance level. This does not establish that the distributions are identical.</p>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">weaning_logrank_sex</span> <span class="op">&lt;-</span> <span class="fu">survdiff</span><span class="op">(</span></span>
+<span>  <span class="fu">Surv</span><span class="op">(</span><span class="va">weanedage_yrs</span>, <span class="va">weaned</span><span class="op">)</span> <span class="op">~</span> <span class="va">B_Sex</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">weaning</span>, rho <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">weaning_logrank_firstborn</span> <span class="op">&lt;-</span> <span class="fu">survdiff</span><span class="op">(</span></span>
+<span>  <span class="fu">Surv</span><span class="op">(</span><span class="va">weanedage_yrs</span>, <span class="va">weaned</span><span class="op">)</span> <span class="op">~</span> <span class="va">B_FirstBorn</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">weaning</span>, rho <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">weaning_logrank_sex</span></span>
+<span><span class="va">weaning_logrank_firstborn</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>These simple log-rank tests treat offspring as independent. Some chimps share a mother; the Cox model on the next slide allows for this dependence when estimating uncertainty.</p>
+</div>
+</section><section id="slide-34" class="level2"><h2 class="anchored" data-anchor-id="slide-34">Cox Proportional Hazards Model</h2>
+<div style="font-size:0.6em;">
+<p>We can use a <strong>Cox proportional hazards model</strong> to examine sex and firstborn status together.</p>
+<ul>
+<li>
+<strong>Time scale:</strong> age in years.</li>
+<li>
+<strong>Event:</strong> weaning.</li>
+<li>
+<strong>Predictors:</strong> <code>B_Sex</code> and <code>B_FirstBorn</code>.</li>
+</ul>
+<p>The model compares the instantaneous rates, or hazards, of weaning among chimpanzees who have <strong>not yet been weaned</strong> at a given age, holding the other predictor constant.</p>
+<p>Key assumptions include:</p>
+<ul>
+<li>
+<strong>Non-informative censoring:</strong> conditional on the predictors, censoring does not provide additional information about the unobserved weaning time.</li>
+<li>
+<strong>Proportional hazards:</strong> the hazard ratios are constant across age.</li>
+</ul>
+<p>Some offspring share a mother. We use <code>cluster = momid</code> to allow for this dependence in the standard errors and confidence intervals.</p>
+</div>
+</section><section id="slide-35" class="level2"><h2 class="anchored" data-anchor-id="slide-35">Cox Model for Weaning</h2>
+<div style="font-size:0.6em;">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Results</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: right;">Hazard ratio</th>
+<th style="text-align: left;">95% CI</th>
+<th style="text-align: right;">p-value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Male vs.&nbsp;female</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: left;">(0.38,1.16)</td>
+<td style="text-align: right;">0.153</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Firstborn vs.&nbsp;not firstborn</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: left;">(0.48,1.57)</td>
+<td style="text-align: right;">0.636</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The reference groups are <strong>female</strong> and <strong>not firstborn</strong>. Each hazard ratio adjusts for the other predictor.</p>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cox_results</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    term <span class="op">=</span> <span class="fu">recode</span><span class="op">(</span><span class="va">term</span>,</span>
+<span>      <span class="st">"B_SexMale"</span> <span class="op">=</span> <span class="st">"Male vs. female"</span>,</span>
+<span>      <span class="st">"B_FirstBornYes"</span> <span class="op">=</span> <span class="st">"Firstborn vs. not firstborn"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    CI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"(%.2f,%.2f)"</span>, <span class="va">conf.low</span>, <span class="va">conf.high</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">term</span>, <span class="va">estimate</span>, <span class="va">CI</span>, <span class="va">p.value</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span></span>
+<span>    digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>    row.names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Comparison"</span>, <span class="st">"Hazard ratio"</span>, <span class="st">"95% CI"</span>, <span class="st">"p-value"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="slide-36" class="level2"><h2 class="anchored" data-anchor-id="slide-36">Interpreting Hazard Ratios for Weaning</h2>
+<div style="font-size:0.7em;">
+<ul>
+<li>
+<strong>HR &gt; 1:</strong> a higher instantaneous rate of weaning among those not yet weaned.</li>
+<li>
+<strong>HR &lt; 1:</strong> a lower instantaneous rate of weaning among those not yet weaned.</li>
+</ul>
+<p>The estimated HR comparing <strong>males with females</strong> is <strong>0.67</strong>. At the same age and firstborn status, males have an estimated <strong>0.67 times the weaning hazard</strong> of females.</p>
+<p>The estimated HR comparing <strong>firstborn with other offspring</strong> is <strong>0.87</strong>, conditional on sex.</p>
+<p>A hazard ratio describes a ratio of instantaneous rates or hazards, not a ratio of median weaning ages. Consider the confidence intervals as well as the point estimates.</p>
+</div>
+</section><section id="cystic-fibrosis-and-inhaled-rhdnase" class="level2"><h2 class="anchored" data-anchor-id="cystic-fibrosis-and-inhaled-rhdnase">Cystic Fibrosis and Inhaled rhDNase</h2>
+<div style="font-size:0.7em;">
+<p>Cystic fibrosis can cause thick mucus to accumulate in the lungs, making it harder to clear infections.</p>
+<p><strong>rhDNase</strong> is an inhaled enzyme that breaks down extracellular DNA in mucus and helps make the mucus easier to clear.</p>
+<p>Researchers conducted a <strong>randomized, double-blind trial</strong> comparing rhDNase with placebo.</p>
+<div class="question">
+<p>Does rhDNase help patients go longer without a pulmonary exacerbation requiring intravenous (IV) antibiotics?</p>
+</div>
+</div>
+<div class="notes">
+<p>Source: survival package documentation for rhDNase: https://stat.ethz.ch/R-manual/R-devel/library/survival/html/rhDNase.html The trial dates to 1992. The endpoint is a pulmonary exacerbation requiring IV antibiotics. These slides use the historical trial to teach survival analysis.</p>
+</div>
+</section><section id="the-outcome-and-censoring" class="level2"><h2 class="anchored" data-anchor-id="the-outcome-and-censoring">The Outcome and Censoring</h2>
+<div style="font-size:0.65em;">
+<p>Our analysis includes participants without an exacerbation at enrollment and follows them for up to <strong>169 days</strong>. Each participant contributes <strong>one observation</strong>.</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Meaning</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>treatment</code></td>
+<td style="text-align: left;">Placebo or rhDNase</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>time</code></td>
+<td style="text-align: left;">Days from enrollment to the first exacerbation or censoring</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>status = 1</code></td>
+<td style="text-align: left;">An exacerbation was observed</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>status = 0</code></td>
+<td style="text-align: left;">Follow-up ended before an exacerbation was observed</td>
+</tr>
+</tbody>
+</table>
+<p>There are <strong>641 participants</strong>, with <strong>240 observed events</strong> and <strong>401 censored observations</strong>.</p>
+<p>Here, <span class="math inline">\(S(t)=P(T&gt;t)\)</span> describes the probability of remaining <strong>free of a first exacerbation</strong> beyond day <span class="math inline">\(t\)</span>.</p>
+</div>
+<div class="notes">
+<p>Data and variable definitions: https://stat.ethz.ch/R-manual/R-devel/library/survival/html/rhDNase.html Additional source and preparation guidance: https://www.mayo.edu/research/departments-divisions/quantitative-health-sciences/divisions/clinical-trials-biostatistics/research/survival-analysis/modeling-survival-data-extending-cox-model/datasets</p>
+<p>The original data contain multiple rows for some patients. The hidden setup chunk first groups by patient, finds the earliest positive IV-antibiotic start time, and retains patients with no event as censored observations. It excludes patients whose IV-antibiotic episode began on or before enrollment, along with patients without positive follow-up. This is a baseline-defined classroom subset of the randomized study. A complete trial analysis would retain patients with a prevalent infection using the appropriate entry times.</p>
+<p>All displayed sample sizes, estimates, confidence intervals, p-values, and interpretations come from the prepared subset when R executes this file. Published analyses can give different numerical estimates because of differences in the data version, analysis population, or event definition.</p>
+</div>
+</section><section id="exacerbation-free-survival-curves" class="level2"><h2 class="anchored" data-anchor-id="exacerbation-free-survival-curves">Exacerbation-Free Survival Curves</h2>
+<div style="font-size:0.65em;">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Plot</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">Log-Rank Test</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w15-01-survival_files/figure-revealjs/cf-case-km-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w15-01-survival_files/figure-revealjs/cf-case-km-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:86.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Which group has the higher estimated probability of remaining exacerbation-free? What do the marks on the curves represent?</p>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cf_km</span> <span class="op">&lt;-</span> <span class="fu">survfit2</span><span class="op">(</span></span>
+<span>  <span class="fu">Surv</span><span class="op">(</span><span class="va">time</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">treatment</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">cf_first</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggsurvfit</span><span class="op">(</span><span class="va">cf_km</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">add_censor_mark</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_color_manual</span><span class="op">(</span></span>
+<span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Placebo"</span> <span class="op">=</span> <span class="st">"#B9AEC8"</span>, <span class="st">"rhDNase"</span> <span class="op">=</span> <span class="st">"#012169"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Days since enrollment"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Probability of remaining exacerbation-free"</span>, color <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
+<p>We test <span class="math inline">\(H_0\)</span>: the two groups have the same survival function.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">survdiff</span><span class="op">(</span><span class="fu">Surv</span><span class="op">(</span><span class="va">time</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">treatment</span>,</span>
+<span>         data <span class="op">=</span> <span class="va">cf_first</span>, rho <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">Chi-square</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">p-value</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">8.06</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.005</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<p>The log-rank test gives <strong><span class="math inline">\(p\)</span> = 0.005</strong>.</p>
+<p>If a curve stays above 0.5 throughout follow-up, can we estimate the median time to the first exacerbation?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>The marks represent censoring. A higher curve indicates a larger estimated probability of remaining free of a first event. The median cannot be estimated within observed follow-up if the estimated survival curve never reaches 0.5. The log-rank p-value and the Cox Wald p-value need not be identical.</p>
+</div>
+</section><section id="a-cox-model-for-treatment" class="level2"><h2 class="anchored" data-anchor-id="a-cox-model-for-treatment">A Cox Model for Treatment</h2>
+<div style="font-size:0.65em;">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Model and Results</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<p>Let <span class="math inline">\(X_i=1\)</span> for rhDNase and <span class="math inline">\(X_i=0\)</span> for placebo.</p>
+<p><span class="math display">\[h(t\mid X_i)=h_0(t)\exp(\beta_1X_i),
+\qquad HR=\exp(\beta_1).\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: right;">Hazard ratio</th>
+<th style="text-align: left;">95% CI</th>
+<th style="text-align: right;">p-value</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: left;">rhDNase vs.&nbsp;placebo</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: left;">(0.54,0.89)</td>
+<td style="text-align: right;">0.005</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<p><strong>Placebo is the reference group.</strong> A hazard ratio below 1 favors rhDNase for this outcome.</p>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cf_cox</span> <span class="op">&lt;-</span> <span class="fu">coxph</span><span class="op">(</span></span>
+<span>  <span class="fu">Surv</span><span class="op">(</span><span class="va">time</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">treatment</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">cf_first</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">tidy</span><span class="op">(</span><span class="va">cf_cox</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    term <span class="op">=</span> <span class="fu">recode</span><span class="op">(</span><span class="va">term</span>, <span class="st">"treatmentrhDNase"</span> <span class="op">=</span> <span class="st">"rhDNase vs. placebo"</span><span class="op">)</span>,</span>
+<span>    CI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"(%.2f,%.2f)"</span>, <span class="va">conf.low</span>, <span class="va">conf.high</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">term</span>, <span class="va">estimate</span>, <span class="va">CI</span>, <span class="va">p.value</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span></span>
+<span>    digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Comparison"</span>, <span class="st">"Hazard ratio"</span>, <span class="st">"95% CI"</span>, <span class="st">"p-value"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>The model uses one row per participant, with an ordinary Cox variance estimate. The model assumes the treatment hazard ratio is approximately constant over follow-up. Censoring should be independent of the first exacerbation time, conditional on treatment. Before using this example for a full research analysis, examine cox.zph(cf_cox) and its plots, assess the analysis population, and check how exacerbations and follow-up were defined.</p>
+</div>
+</section><section id="interpreting-the-treatment-effect" class="level2"><h2 class="anchored" data-anchor-id="interpreting-the-treatment-effect">Interpreting the Treatment Effect</h2>
+<div style="font-size:0.7em;">
+<p>The estimated hazard ratio is <strong>0.69</strong>, with <strong>95% CI (0.54,0.89)</strong> and <strong><span class="math inline">\(p\)</span> = 0.005</strong>.</p>
+<p>At a given time among participants who have remained exacerbation-free, the rhDNase group has an estimated <strong>31% lower hazard</strong> of a first exacerbation than the placebo group.</p>
+<p>The confidence interval lies below 1, providing evidence of a lower hazard with rhDNase.</p>
+<p>Random assignment helps balance characteristics present before treatment. The proportional hazards assumption lets us summarize the treatment comparison with one hazard ratio.</p>
+<div class="question">
+<p>How would the interpretation change if the hazard ratio were greater than 1?</p>
+</div>
+</div>
+<div class="notes">
+<p>An HR above 1 would indicate a higher hazard of exacerbation for rhDNase than placebo. A hazard ratio compares instantaneous event rates among participants who have not yet had the event. Survival curves give probabilities of remaining event-free over time.</p>
+<p>Related published analysis: Zhong Y and Cook RJ (2021), Semiparametric recurrent event vs time-to-first-event analyses in randomized trials: Estimands and model misspecification. Statistics in Medicine 40:3823-3842. Table 1 reports a treatment-only first-event Cox HR of 0.694 (p = 0.005). That numerical result is context, not a value imposed on the subset analyzed in these slides. https://doi.org/10.1002/sim.9002</p>
+<p>Data documentation and preparation guidance: https://stat.ethz.ch/R-manual/R-devel/library/survival/html/rhDNase.html</p>
+</div>
+</section><section id="interpretation-summary-no-interactions-in-model" class="level2"><h2 class="anchored" data-anchor-id="interpretation-summary-no-interactions-in-model">Interpretation Summary (No Interactions in Model)</h2>
+<div style="font-size:0.8em;">
+<ul>
+<li><p>Linear regression: interpret estimate <span class="math inline">\(\hat{\beta}_1\)</span> corresponding to covariate <span class="math inline">\(x\)</span> as <em>the expected increase in <span class="math inline">\(y_i\)</span> comparing those with <span class="math inline">\(x_{i}=c+1\)</span> to those with <span class="math inline">\(x_{i}=c\)</span>, holding all other factors constant</em></p></li>
+<li><p>Logistic regression: interpret estimate <span class="math inline">\(\exp(\hat{\beta}_1)\)</span> corresponding to covariate <span class="math inline">\(x\)</span> as <em>the ratio of odds of <span class="math inline">\(y_i=1\)</span> comparing those with <span class="math inline">\(x_{i}=c+1\)</span> to those with <span class="math inline">\(x_{i}=c\)</span>, holding all other factors constant</em></p></li>
+<li><p>Cox proportional hazards (survival) model: interpret estimate <span class="math inline">\(\exp(\hat{\beta}_1)\)</span> corresponding to covariate <span class="math inline">\(x\)</span> as <em>the ratio of hazards of failure comparing those with <span class="math inline">\(x_{i}=c+1\)</span> to those with <span class="math inline">\(x_{i}=c\)</span>, holding all other factors constant</em></p></li>
+</ul>
+</div>
+
+
+</section></section></main><!-- /main --><script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/sta198-fa26-2\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Mine Çetinkaya-Rundel, Mary Knox, Amy Herring</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w15-01-survival.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <span style="color:#FFBE98;" aria-hidden="true"><i class="fa-solid fa-heart" aria-label="heart"></i></span> and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+</body></html>
