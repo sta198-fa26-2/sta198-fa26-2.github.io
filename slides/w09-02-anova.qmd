@@ -1088,3 +1088,25 @@ com_anova
 The `community` row gives the same $F$ statistic and p-value as `glance(com_fit)`. Its degrees of freedom are the numerator df; the `Residuals` row gives the denominator df.
 
 One fitted model gives both the regression coefficient table and the ANOVA table. The intercept and community differences are simply another way to express the separate community means.
+
+## Homework (Practice)
+
+[**IMS Chapter 7**](## Homework (Practice)
+
+[**IMS Chapter 22**](https://openintrostat.github.io/ims/inference-many-means.html#sec-chp22-exercises)
+
+- Problem 1
+- Problem 7
+- Problem 8
+- Problem 9
+- Problem 14
+
+)
+
+- Problem 7
+- Problem 8
+- Problem 12
+- Problem 22
+- Problem 23
+
+
