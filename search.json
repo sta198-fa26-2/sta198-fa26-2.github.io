@@ -2976,6 +2976,13 @@
     "text": "ANOVA table:\n\ncom_anova\n\n# A tibble: 2 × 6\n  term         df sumsq meansq statistic    p.value\n  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;\n1 community    22  910. 41.3        52.8  2.13e-185\n2 Residuals  2285 1789.  0.783      NA   NA        \n\n\nThe community row gives the same \\(F\\) statistic and p-value as glance(com_fit). Its degrees of freedom are the numerator df; the Residuals row gives the denominator df.\nOne fitted model gives both the regression coefficient table and the ANOVA table. The intercept and community differences are simply another way to express the separate community means."
   },
   {
+    "objectID": "slides/w09-02-anova-slides.html#homework-practice",
+    "href": "slides/w09-02-anova-slides.html#homework-practice",
+    "title": "ANOVA: Analysis of Variance",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\n[IMS Chapter 7](## Homework (Practice)\nIMS Chapter 22\n\nProblem 1\nProblem 7\nProblem 8\nProblem 9\nProblem 14\n\n)\n\nProblem 7\nProblem 8\nProblem 12\nProblem 22\nProblem 23"
+  },
+  {
     "objectID": "slides/w09-02-anova.html",
     "href": "slides/w09-02-anova.html",
     "title": "ANOVA: Analysis of Variance",
@@ -3478,6 +3485,13 @@
     "title": "ANOVA: Analysis of Variance",
     "section": "",
     "text": "ANOVA table:\n\ncom_anova\n\n# A tibble: 2 × 6\n  term         df sumsq meansq statistic    p.value\n  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;\n1 community    22  910. 41.3        52.8  2.13e-185\n2 Residuals  2285 1789.  0.783      NA   NA        \n\n\nThe community row gives the same \\(F\\) statistic and p-value as glance(com_fit). Its degrees of freedom are the numerator df; the Residuals row gives the denominator df.\nOne fitted model gives both the regression coefficient table and the ANOVA table. The intercept and community differences are simply another way to express the separate community means."
+  },
+  {
+    "objectID": "slides/w09-02-anova.html#homework-practice",
+    "href": "slides/w09-02-anova.html#homework-practice",
+    "title": "ANOVA: Analysis of Variance",
+    "section": "Homework (Practice)",
+    "text": "Homework (Practice)\n[IMS Chapter 7](## Homework (Practice)\nIMS Chapter 22\n\nProblem 1\nProblem 7\nProblem 8\nProblem 9\nProblem 14\n\n)\n\nProblem 7\nProblem 8\nProblem 12\nProblem 22\nProblem 23"
   },
   {
     "objectID": "slides/w01-04-vizcat-slides.html#variables",
