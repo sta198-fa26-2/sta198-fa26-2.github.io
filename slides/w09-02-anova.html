@@ -520,9 +520,11 @@ window.Quarto = {
   <li><a href="#between-groups-variance" id="toc-between-groups-variance" class="nav-link" data-scroll-target="#between-groups-variance">Between-groups variance</a></li>
   <li><a href="#f-test" id="toc-f-test" class="nav-link" data-scroll-target="#f-test">F test</a></li>
   <li><a href="#f-test-1" id="toc-f-test-1" class="nav-link" data-scroll-target="#f-test-1">F test</a></li>
+  <li><a href="#anova-table-mean-squares" id="toc-anova-table-mean-squares" class="nav-link" data-scroll-target="#anova-table-mean-squares">ANOVA Table: Mean Squares</a></li>
   <li><a href="#f-distribution" id="toc-f-distribution" class="nav-link" data-scroll-target="#f-distribution">F Distribution</a></li>
   <li><a href="#visualizing-anova" id="toc-visualizing-anova" class="nav-link" data-scroll-target="#visualizing-anova">Visualizing ANOVA</a></li>
   <li><a href="#anova-for-mercury-data-1" id="toc-anova-for-mercury-data-1" class="nav-link" data-scroll-target="#anova-for-mercury-data-1">ANOVA for Mercury Data</a></li>
+  <li><a href="#the-anova-table" id="toc-the-anova-table" class="nav-link" data-scroll-target="#the-anova-table">The ANOVA Table</a></li>
   <li><a href="#step-down-tests" id="toc-step-down-tests" class="nav-link" data-scroll-target="#step-down-tests">Step-Down Tests</a></li>
   <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
   <li><a href="#write-up-of-methods-and-results" id="toc-write-up-of-methods-and-results" class="nav-link" data-scroll-target="#write-up-of-methods-and-results">Write-up of Methods and Results</a></li>
@@ -1050,7 +1052,7 @@ window.Quarto = {
 </div>
 </section><section id="between-groups-variance" class="level2"><h2 class="anchored" data-anchor-id="between-groups-variance">Between-groups variance</h2>
 <p>The between groups variance is estimated by <span class="math display">\[s_B^2=\frac{n_1(\bar{y}_1-\bar{y}_\cdot)^2+n_2(\bar{y}_2-\bar{y}_\cdot)^2 + \cdots + n_K(\bar{y}_K-\bar{y}_\cdot)^2}{K-1}.\]</span></p>
-<p>We can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it also reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability <em>and</em> any kind of systematic variability due to the group/community effect.</p>
+<p>We can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability <em>and</em> any kind of systematic variability due to the group/community effect.</p>
 </section><section id="f-test" class="level2"><h2 class="anchored" data-anchor-id="f-test">F test</h2>
 <div style="font-size:0.85em;">
 <p>Both <span class="math inline">\({s_W}^2\)</span> and <span class="math inline">\({s_B}^2\)</span> are estimates of the population variance <span class="math inline">\(\sigma^2\)</span> if <span class="math inline">\(H_0\)</span> is true. Now, if the sample means vary around the overall mean (this variance measured by <span class="math inline">\({s_B}^2\)</span>) more than the individual observations vary around the sample means (measured by <span class="math inline">\({s_W}^2\)</span>), we have evidence that the corresponding group population means are in fact different (so that all <span class="math inline">\(K\)</span> means are not the same).</p>
@@ -1060,6 +1062,58 @@ window.Quarto = {
 <div style="font-size:0.85em;">
 <p>Thus the F statistic is given by <span class="math display">\[F={s_B}^2/{s_W}^2,\]</span> which if <span class="math inline">\(H_0\)</span> is true has an <span class="math inline">\(F\)</span> distribution with <span class="math inline">\(K-1\)</span> and <span class="math inline">\(n-K\)</span> df. The df associated with <span class="math inline">\({s_B}^2\)</span> are called the <em>numerator degrees of freedom</em> and correspond to the total number of groups minus 1. The df associated with <span class="math inline">\({s_W}^2\)</span> are called the <em>denominator degrees of freedom</em> and equal the total sample size minus the number of groups (we lose one df for each group mean we estimate). For ANOVA the test is inherently one-tailed, rejecting <span class="math inline">\(H_0\)</span> only if <span class="math inline">\(F\)</span> is considerably larger than one. (This does not mean we have a one-sided alternative; we just look at one tail of the F distribution to get the p-value, as the F statistic is never negative because variances cannot be negative.)</p>
 <p>If there are only two groups, then the F test gives the same result as the t-test (with equal variances).</p>
+</div>
+</section><section id="anova-table-mean-squares" class="level2"><h2 class="anchored" data-anchor-id="anova-table-mean-squares">ANOVA Table: Mean Squares</h2>
+<div style="font-size:0.7em;">
+<p>A <strong>mean square (MS)</strong> is a sum of squares (SS) divided by its degrees of freedom.</p>
+</div>
+<div style="font-size:0.55em;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 37%">
+<col style="width: 7%">
+<col style="width: 32%">
+<col style="width: 7%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Source</th>
+<th style="text-align: left;">Sum of squares (SS)</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: left;">Mean square (MS)</th>
+<th>F statistic</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Between groups</td>
+<td style="text-align: left;"><span class="math inline">\(SS_B=\sum_{i=1}^{K} n_i(\bar{y}_i-\bar{y}_{\cdot})^2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(K-1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(MS_B=\dfrac{SS_B}{K-1}=s_B^2\)</span></td>
+<td><span class="math inline">\(\frac{MS_B}{MS_W}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Within groups (error)</td>
+<td style="text-align: left;"><span class="math inline">\(SS_W=\sum_{i=1}^{K}\sum_{j=1}^{n_i}(y_{ij}-\bar{y}_i)^2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n-K\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(MS_W=\dfrac{SS_W}{n-K}=s_W^2\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;"><span class="math inline">\(SS_T=SS_B+SS_W\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n-1\)</span></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="font-size:0.7em;">
+<p>The <span class="math inline">\(F\)</span> statistic compares the <strong>between-groups MS</strong> with the <strong>within-groups MS</strong>:</p>
+<p><span class="math display">\[
+F=\frac{MS_B}{MS_W}=\frac{s_B^2}{s_W^2}.
+\]</span></p>
+<p>The within-groups MS is also called the <strong>mean square error (MSE)</strong>. Under <span class="math inline">\(H_0\)</span>, both mean squares estimate the common population variance <span class="math inline">\(\sigma^2\)</span>.</p>
 </div>
 </section><section id="f-distribution" class="level2"><h2 class="anchored" data-anchor-id="f-distribution">F Distribution</h2>
 <div class="cell" data-layout-align="center">
@@ -1093,9 +1147,54 @@ window.Quarto = {
 <p><code>tidy(com_fit)</code> reports tests of individual coefficients. For the <strong>overall ANOVA test</strong>, we pass the underlying <code>lm</code> model to <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> using <code>extract_fit_engine()</code>, then use <code>tidy()</code> to make its table easy to read.</p>
 <p>Here’s the <strong>overall test</strong> of the null hypothesis that all 23 means are equal, versus the alternative that at least one mean is different. Based on that p-value, these data, or more extreme data, would be highly unlikely if the null hypothesis were true. Next, we probably wish to know which means are different!</p>
 </div>
+</section><section id="the-anova-table" class="level2"><h2 class="anchored" data-anchor-id="the-anova-table">The ANOVA Table</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 6
+  term         df sumsq meansq statistic    p.value
+  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 community    22  910. 41.3        52.8  2.13e-185
+2 Residuals  2285 1789.  0.783      NA   NA        </code></pre>
+</div>
+</div>
+<p>This format matches that in the ANOVA table:</p>
+<div style="font-size:0.8em;">
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">Source</th>
+<th style="text-align: left;">Sum of squares (SS)</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: left;">Mean square (MS)</th>
+<th>F statistic</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Between (community)</td>
+<td style="text-align: left;">910</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: left;">41.3</td>
+<td>52.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Within (error)</td>
+<td style="text-align: left;">1789</td>
+<td style="text-align: center;">2285</td>
+<td style="text-align: left;">0.783</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;">910+1789=2699</td>
+<td style="text-align: center;">22+2285=2307</td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section><section id="step-down-tests" class="level2"><h2 class="anchored" data-anchor-id="step-down-tests">Step-Down Tests</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># label: holm</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># label: holm</span></span>
 <span><span class="co"># Holm's correction gives us good protection against type I errors</span></span>
 <span><span class="co"># under a wide variety of settings</span></span>
 <span><span class="va">hairpair</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/pairwise.t.test.html">pairwise.t.test</a></span><span class="op">(</span><span class="va">mercury</span><span class="op">$</span><span class="va">lhairHg</span>, <span class="va">mercury</span><span class="op">$</span><span class="va">community</span>, p.adj <span class="op">=</span> <span class="st">"holm"</span><span class="op">)</span></span>
@@ -1110,7 +1209,7 @@ window.Quarto = {
 <p>OK, that’s a lot of differences! More community pairs are different than not.</p>
 </section><section id="section-4" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-4"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">sigpairs</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">sigpairs</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 138 × 3
    group1       group2         p.value
@@ -1169,7 +1268,7 @@ window.Quarto = {
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mercury</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mercury</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">lhairHg</span><span class="op">)</span><span class="op">==</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">hid</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hhobs<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -1186,7 +1285,7 @@ window.Quarto = {
 <div style="font-size:0.75em;">
 <p>The easiest solution to this problem is to limit the dataset to a single person per household. In this case, we’ll limit to the household member denoted <code>withinid=1</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mercuryone</span> <span class="op">&lt;-</span> <span class="va">mercury</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mercuryone</span> <span class="op">&lt;-</span> <span class="va">mercury</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">withinid</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">com_one_fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1209,7 +1308,7 @@ window.Quarto = {
 </div>
 </section><section id="section-5" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-5"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hairpair</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/pairwise.t.test.html">pairwise.t.test</a></span><span class="op">(</span><span class="va">mercuryone</span><span class="op">$</span><span class="va">lhairHg</span>,    <span class="va">mercuryone</span><span class="op">$</span><span class="va">community</span>, p.adj <span class="op">=</span> <span class="st">"holm"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hairpair</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/pairwise.t.test.html">pairwise.t.test</a></span><span class="op">(</span><span class="va">mercuryone</span><span class="op">$</span><span class="va">lhairHg</span>,    <span class="va">mercuryone</span><span class="op">$</span><span class="va">community</span>, p.adj <span class="op">=</span> <span class="st">"holm"</span><span class="op">)</span></span>
 <span><span class="va">sigpairs</span> <span class="op">&lt;-</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">hairpair</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">p.value</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">group1</span>,<span class="va">group2</span><span class="op">)</span></span>
@@ -1220,7 +1319,7 @@ window.Quarto = {
 </div>
 </section><section id="section-6" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-6"></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">sigpairs</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">sigpairs</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 55 × 3
    group1    group2             p.value
@@ -1249,7 +1348,7 @@ window.Quarto = {
 <p>This extension uses <code>lme4::lmer()</code> to include a household random effect.</p>
 <div style="font-size:0.85em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span></span>
 <span><span class="co"># need a factor version of hid</span></span>
 <span><span class="va">mercury</span> <span class="op">&lt;-</span> <span class="va">mercury</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hhid<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">hid</span><span class="op">)</span><span class="op">)</span></span>
@@ -1267,7 +1366,7 @@ community   22 258.74  11.761  28.853</code></pre>
 </section><section id="section-7" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-7"></h2>
 <p>We can estimate the correlation, called the <strong>inter class correlation</strong> or <strong>ICC</strong>, as the ratio of the group variance to the total variance:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
 <span><span class="fu">icc</span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
@@ -1275,13 +1374,13 @@ community   22 258.74  11.761  28.853</code></pre>
     Adjusted ICC: 0.488
   Unadjusted ICC: 0.331</code></pre>
 </div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># you want the adjusted ICC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># you want the adjusted ICC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We interpret the ICC=0.49 as the correlation inside a household, or the fraction of variance explained by household membership. The correlation here is quite large. We should not be making any decisions based on the first analysis that included multiple individuals per household with no adjustment for correlated data (the analysis limiting to one person per household is still fine).</p>
 </section><section id="section-8" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-8"></h2>
 <div style="font-size:0.8em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvlenth.github.io/emmeans/">emmeans</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvlenth.github.io/emmeans/">emmeans</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR">lmerTest</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://people.math.aau.dk/~sorenh/software/pbkrtest/">pbkrtest</a></span><span class="op">)</span></span>
 <span><span class="va">paired</span> <span class="op">&lt;-</span> <span class="va">m1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1323,7 +1422,7 @@ Confidence level used: 0.95 </code></pre>
 </section><section id="section-9" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-9"></h2>
 <div style="font-size:0.7em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">120</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">120</span><span class="op">)</span></span>
 <span><span class="va">paired</span><span class="op">$</span><span class="va">contrasts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast                            estimate     SE   df t.ratio p.value
@@ -1632,7 +1731,7 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 </div>
 </section><section id="mercury-native-community-relationship" class="level2"><h2 class="anchored" data-anchor-id="mercury-native-community-relationship">Mercury &amp; native community relationship</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">native_fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">native_fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">fit</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">native_cat</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span></span>
 <span></span>
@@ -1662,7 +1761,7 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 </div>
 </section><section id="relationship-between-mercury-and-individual-community-1" class="level2"><h2 class="anchored" data-anchor-id="relationship-between-mercury-and-individual-community-1">Relationship between mercury and individual community</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">com_fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">com_fit</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">fit</span><span class="op">(</span><span class="va">lhairHg</span> <span class="op">~</span> <span class="va">community</span>, data <span class="op">=</span> <span class="va">mercury</span><span class="op">)</span></span>
 <span></span>
@@ -1892,7 +1991,7 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 <p>We can obtain the same overall <span class="math inline">\(F\)</span> test from the fitted model’s summary or its ANOVA table. Both use the saved <code>com_fit</code> object.</p>
 <p><strong>Overall regression test:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">glance</span><span class="op">(</span><span class="va">com_fit</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">glance</span><span class="op">(</span><span class="va">com_fit</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">statistic</span>, <span class="va">p.value</span>, <span class="va">df</span>, <span class="va">df.residual</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
@@ -1905,7 +2004,7 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 </section><section id="section-12" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-12"></h2>
 <p><strong>ANOVA table:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">com_anova</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">com_anova</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 6
   term         df sumsq meansq statistic    p.value

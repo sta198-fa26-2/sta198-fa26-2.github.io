@@ -544,7 +544,7 @@ Amy Herring
 </div>
 </section><section id="between-groups-variance" class="slide level2"><h2>Between-groups variance</h2>
 <p>The between groups variance is estimated by <span class="math display">\[s_B^2=\frac{n_1(\bar{y}_1-\bar{y}_\cdot)^2+n_2(\bar{y}_2-\bar{y}_\cdot)^2 + \cdots + n_K(\bar{y}_K-\bar{y}_\cdot)^2}{K-1}.\]</span></p>
-<p>We can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it also reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability <em>and</em> any kind of systematic variability due to the group/community effect.</p>
+<p>We can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability <em>and</em> any kind of systematic variability due to the group/community effect.</p>
 </section><section id="f-test" class="slide level2"><h2>F test</h2>
 <div style="font-size:0.85em;">
 <p>Both <span class="math inline">\({s_W}^2\)</span> and <span class="math inline">\({s_B}^2\)</span> are estimates of the population variance <span class="math inline">\(\sigma^2\)</span> if <span class="math inline">\(H_0\)</span> is true. Now, if the sample means vary around the overall mean (this variance measured by <span class="math inline">\({s_B}^2\)</span>) more than the individual observations vary around the sample means (measured by <span class="math inline">\({s_W}^2\)</span>), we have evidence that the corresponding group population means are in fact different (so that all <span class="math inline">\(K\)</span> means are not the same).</p>
@@ -554,6 +554,58 @@ Amy Herring
 <div style="font-size:0.85em;">
 <p>Thus the F statistic is given by <span class="math display">\[F={s_B}^2/{s_W}^2,\]</span> which if <span class="math inline">\(H_0\)</span> is true has an <span class="math inline">\(F\)</span> distribution with <span class="math inline">\(K-1\)</span> and <span class="math inline">\(n-K\)</span> df. The df associated with <span class="math inline">\({s_B}^2\)</span> are called the <em>numerator degrees of freedom</em> and correspond to the total number of groups minus 1. The df associated with <span class="math inline">\({s_W}^2\)</span> are called the <em>denominator degrees of freedom</em> and equal the total sample size minus the number of groups (we lose one df for each group mean we estimate). For ANOVA the test is inherently one-tailed, rejecting <span class="math inline">\(H_0\)</span> only if <span class="math inline">\(F\)</span> is considerably larger than one. (This does not mean we have a one-sided alternative; we just look at one tail of the F distribution to get the p-value, as the F statistic is never negative because variances cannot be negative.)</p>
 <p>If there are only two groups, then the F test gives the same result as the t-test (with equal variances).</p>
+</div>
+</section><section id="anova-table-mean-squares" class="slide level2"><h2>ANOVA Table: Mean Squares</h2>
+<div style="font-size:0.7em;">
+<p>A <strong>mean square (MS)</strong> is a sum of squares (SS) divided by its degrees of freedom.</p>
+</div>
+<div style="font-size:0.55em;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 37%">
+<col style="width: 7%">
+<col style="width: 32%">
+<col style="width: 7%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Source</th>
+<th style="text-align: left;">Sum of squares (SS)</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: left;">Mean square (MS)</th>
+<th>F statistic</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Between groups</td>
+<td style="text-align: left;"><span class="math inline">\(SS_B=\sum_{i=1}^{K} n_i(\bar{y}_i-\bar{y}_{\cdot})^2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(K-1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(MS_B=\dfrac{SS_B}{K-1}=s_B^2\)</span></td>
+<td><span class="math inline">\(\frac{MS_B}{MS_W}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Within groups (error)</td>
+<td style="text-align: left;"><span class="math inline">\(SS_W=\sum_{i=1}^{K}\sum_{j=1}^{n_i}(y_{ij}-\bar{y}_i)^2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n-K\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(MS_W=\dfrac{SS_W}{n-K}=s_W^2\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;"><span class="math inline">\(SS_T=SS_B+SS_W\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n-1\)</span></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="font-size:0.7em;">
+<p>The <span class="math inline">\(F\)</span> statistic compares the <strong>between-groups MS</strong> with the <strong>within-groups MS</strong>:</p>
+<p><span class="math display">\[
+F=\frac{MS_B}{MS_W}=\frac{s_B^2}{s_W^2}.
+\]</span></p>
+<p>The within-groups MS is also called the <strong>mean square error (MSE)</strong>. Under <span class="math inline">\(H_0\)</span>, both mean squares estimate the common population variance <span class="math inline">\(\sigma^2\)</span>.</p>
 </div>
 </section><section id="f-distribution" class="slide level2"><h2>F Distribution</h2>
 
@@ -580,16 +632,61 @@ Amy Herring
 <p><code>tidy(com_fit)</code> reports tests of individual coefficients. For the <strong>overall ANOVA test</strong>, we pass the underlying <code>lm</code> model to <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> using <code>extract_fit_engine()</code>, then use <code>tidy()</code> to make its table easy to read.</p>
 <p>Here’s the <strong>overall test</strong> of the null hypothesis that all 23 means are equal, versus the alternative that at least one mean is different. Based on that p-value, these data, or more extreme data, would be highly unlikely if the null hypothesis were true. Next, we probably wish to know which means are different!</p>
 </div>
+</section><section id="the-anova-table" class="slide level2"><h2>The ANOVA Table</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 6
+  term         df sumsq meansq statistic    p.value
+  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 community    22  910. 41.3        52.8  2.13e-185
+2 Residuals  2285 1789.  0.783      NA   NA        </code></pre>
+</div>
+</div>
+<p>This format matches that in the ANOVA table:</p>
+<div style="font-size:0.8em;">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: left;">Source</th>
+<th style="text-align: left;">Sum of squares (SS)</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: left;">Mean square (MS)</th>
+<th>F statistic</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Between (community)</td>
+<td style="text-align: left;">910</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: left;">41.3</td>
+<td>52.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Within (error)</td>
+<td style="text-align: left;">1789</td>
+<td style="text-align: center;">2285</td>
+<td style="text-align: left;">0.783</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;">910+1789=2699</td>
+<td style="text-align: center;">22+2285=2307</td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section><section id="step-down-tests" class="slide level2"><h2>Step-Down Tests</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># label: holm</span></span>
-<span id="cb10-2"><a></a><span class="co"># Holm's correction gives us good protection against type I errors</span></span>
-<span id="cb10-3"><a></a><span class="co"># under a wide variety of settings</span></span>
-<span id="cb10-4"><a></a>hairpair <span class="ot">&lt;-</span> <span class="fu">pairwise.t.test</span>(mercury<span class="sc">$</span>lhairHg, mercury<span class="sc">$</span>community, <span class="at">p.adj =</span> <span class="st">"holm"</span>)</span>
-<span id="cb10-5"><a></a>sigpairs <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(hairpair) <span class="sc">%&gt;%</span></span>
-<span id="cb10-6"><a></a>  <span class="fu">filter</span>(p.value<span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-7"><a></a>  <span class="fu">arrange</span>(group1,group2)</span>
-<span id="cb10-8"><a></a><span class="fu">nrow</span>(sigpairs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="co"># label: holm</span></span>
+<span id="cb11-2"><a></a><span class="co"># Holm's correction gives us good protection against type I errors</span></span>
+<span id="cb11-3"><a></a><span class="co"># under a wide variety of settings</span></span>
+<span id="cb11-4"><a></a>hairpair <span class="ot">&lt;-</span> <span class="fu">pairwise.t.test</span>(mercury<span class="sc">$</span>lhairHg, mercury<span class="sc">$</span>community, <span class="at">p.adj =</span> <span class="st">"holm"</span>)</span>
+<span id="cb11-5"><a></a>sigpairs <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(hairpair) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a></a>  <span class="fu">filter</span>(p.value<span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-7"><a></a>  <span class="fu">arrange</span>(group1,group2)</span>
+<span id="cb11-8"><a></a><span class="fu">nrow</span>(sigpairs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 138</code></pre>
 </div>
@@ -597,7 +694,7 @@ Amy Herring
 <p>OK, that’s a lot of differences! More community pairs are different than not.</p>
 </section><section id="section-4" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">print</span>(sigpairs,<span class="at">n=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">print</span>(sigpairs,<span class="at">n=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 138 × 3
    group1       group2         p.value
@@ -658,13 +755,13 @@ Amy Herring
 </div>
 <div id="tabset-4-2">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>mercury <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(lhairHg)<span class="sc">==</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a></a>  <span class="fu">group_by</span>(hid) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a></a>  <span class="fu">mutate</span>(<span class="at">hhobs=</span><span class="fu">n</span>(),</span>
-<span id="cb15-5"><a></a>         <span class="at">multmeas=</span>(hhobs<span class="sc">&gt;</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb15-6"><a></a>  <span class="fu">group_by</span>(community) <span class="sc">%&gt;%</span></span>
-<span id="cb15-7"><a></a>  <span class="fu">summarize</span>(<span class="at">avgct=</span><span class="fu">mean</span>(multmeas))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>mercury <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(lhairHg)<span class="sc">==</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a></a>  <span class="fu">group_by</span>(hid) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a></a>  <span class="fu">mutate</span>(<span class="at">hhobs=</span><span class="fu">n</span>(),</span>
+<span id="cb16-5"><a></a>         <span class="at">multmeas=</span>(hhobs<span class="sc">&gt;</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a></a>  <span class="fu">group_by</span>(community) <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a></a>  <span class="fu">summarize</span>(<span class="at">avgct=</span><span class="fu">mean</span>(multmeas))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -675,17 +772,17 @@ Amy Herring
 <div style="font-size:0.75em;">
 <p>The easiest solution to this problem is to limit the dataset to a single person per household. In this case, we’ll limit to the household member denoted <code>withinid=1</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>mercuryone <span class="ot">&lt;-</span> mercury <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a></a>  <span class="fu">filter</span>(withinid <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb16-3"><a></a></span>
-<span id="cb16-4"><a></a>com_one_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb16-5"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-6"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> community, <span class="at">data =</span> mercuryone)</span>
-<span id="cb16-7"><a></a></span>
-<span id="cb16-8"><a></a>com_one_fit <span class="sc">%&gt;%</span></span>
-<span id="cb16-9"><a></a>  <span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb16-10"><a></a>  <span class="fu">anova</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb16-11"><a></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>mercuryone <span class="ot">&lt;-</span> mercury <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a></a>  <span class="fu">filter</span>(withinid <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb17-3"><a></a></span>
+<span id="cb17-4"><a></a>com_one_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-6"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> community, <span class="at">data =</span> mercuryone)</span>
+<span id="cb17-7"><a></a></span>
+<span id="cb17-8"><a></a>com_one_fit <span class="sc">%&gt;%</span></span>
+<span id="cb17-9"><a></a>  <span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb17-10"><a></a>  <span class="fu">anova</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb17-11"><a></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 6
   term         df sumsq meansq statistic   p.value
@@ -698,18 +795,18 @@ Amy Herring
 </div>
 </section><section id="section-5" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>hairpair <span class="ot">&lt;-</span> <span class="fu">pairwise.t.test</span>(mercuryone<span class="sc">$</span>lhairHg,    mercuryone<span class="sc">$</span>community, <span class="at">p.adj =</span> <span class="st">"holm"</span>)</span>
-<span id="cb18-2"><a></a>sigpairs <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(hairpair) <span class="sc">%&gt;%</span></span>
-<span id="cb18-3"><a></a>  <span class="fu">filter</span>(p.value<span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-4"><a></a>  <span class="fu">arrange</span>(group1,group2)</span>
-<span id="cb18-5"><a></a><span class="fu">nrow</span>(sigpairs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>hairpair <span class="ot">&lt;-</span> <span class="fu">pairwise.t.test</span>(mercuryone<span class="sc">$</span>lhairHg,    mercuryone<span class="sc">$</span>community, <span class="at">p.adj =</span> <span class="st">"holm"</span>)</span>
+<span id="cb19-2"><a></a>sigpairs <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(hairpair) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a></a>  <span class="fu">filter</span>(p.value<span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a></a>  <span class="fu">arrange</span>(group1,group2)</span>
+<span id="cb19-5"><a></a><span class="fu">nrow</span>(sigpairs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 55</code></pre>
 </div>
 </div>
 </section><section id="section-6" class="slide level2" data-background-color="white"><h2></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">print</span>(sigpairs,<span class="at">n=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">print</span>(sigpairs,<span class="at">n=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 55 × 3
    group1    group2             p.value
@@ -738,13 +835,13 @@ Amy Herring
 <p>This extension uses <code>lme4::lmer()</code> to include a household random effect.</p>
 <div style="font-size:0.85em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">library</span>(lme4)</span>
-<span id="cb22-2"><a></a><span class="co"># need a factor version of hid</span></span>
-<span id="cb22-3"><a></a>mercury <span class="ot">&lt;-</span> mercury <span class="sc">%&gt;%</span></span>
-<span id="cb22-4"><a></a>  <span class="fu">mutate</span>(<span class="at">hhid=</span><span class="fu">as.factor</span>(hid))</span>
-<span id="cb22-5"><a></a></span>
-<span id="cb22-6"><a></a>m1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(lhairHg <span class="sc">~</span> community <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> hhid), <span class="at">data =</span> mercury)</span>
-<span id="cb22-7"><a></a><span class="fu">anova</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">library</span>(lme4)</span>
+<span id="cb23-2"><a></a><span class="co"># need a factor version of hid</span></span>
+<span id="cb23-3"><a></a>mercury <span class="ot">&lt;-</span> mercury <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a></a>  <span class="fu">mutate</span>(<span class="at">hhid=</span><span class="fu">as.factor</span>(hid))</span>
+<span id="cb23-5"><a></a></span>
+<span id="cb23-6"><a></a>m1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(lhairHg <span class="sc">~</span> community <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> hhid), <span class="at">data =</span> mercury)</span>
+<span id="cb23-7"><a></a><span class="fu">anova</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
           npar Sum Sq Mean Sq F value
@@ -756,27 +853,27 @@ community   22 258.74  11.761  28.853</code></pre>
 </section><section id="section-7" class="slide level2" data-background-color="white"><h2></h2>
 <p>We can estimate the correlation, called the <strong>inter class correlation</strong> or <strong>ICC</strong>, as the ratio of the group variance to the total variance:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">library</span>(performance)</span>
-<span id="cb24-2"><a></a><span class="fu">icc</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">library</span>(performance)</span>
+<span id="cb25-2"><a></a><span class="fu">icc</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
 
     Adjusted ICC: 0.488
   Unadjusted ICC: 0.331</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="co"># you want the adjusted ICC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="co"># you want the adjusted ICC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We interpret the ICC=0.49 as the correlation inside a household, or the fraction of variance explained by household membership. The correlation here is quite large. We should not be making any decisions based on the first analysis that included multiple individuals per household with no adjustment for correlated data (the analysis limiting to one person per household is still fine).</p>
 </section><section id="section-8" class="slide level2" data-background-color="white"><h2></h2>
 <div style="font-size:0.8em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">library</span>(emmeans)</span>
-<span id="cb27-2"><a></a><span class="fu">library</span>(lmerTest)</span>
-<span id="cb27-3"><a></a><span class="fu">library</span>(pbkrtest)</span>
-<span id="cb27-4"><a></a>paired <span class="ot">&lt;-</span> m1 <span class="sc">%&gt;%</span></span>
-<span id="cb27-5"><a></a>    <span class="fu">emmeans</span>(pairwise<span class="sc">~</span>community) </span>
-<span id="cb27-6"><a></a></span>
-<span id="cb27-7"><a></a>paired<span class="sc">$</span>emmeans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb28-2"><a></a><span class="fu">library</span>(lmerTest)</span>
+<span id="cb28-3"><a></a><span class="fu">library</span>(pbkrtest)</span>
+<span id="cb28-4"><a></a>paired <span class="ot">&lt;-</span> m1 <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a></a>    <span class="fu">emmeans</span>(pairwise<span class="sc">~</span>community) </span>
+<span id="cb28-6"><a></a></span>
+<span id="cb28-7"><a></a>paired<span class="sc">$</span>emmeans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> community           emmean     SE   df lower.CL upper.CL
  Boca Colorado       0.6170 0.0784 1103   0.4631   0.7708
@@ -812,8 +909,8 @@ Confidence level used: 0.95 </code></pre>
 </section><section id="section-9" class="slide level2" data-background-color="white"><h2></h2>
 <div style="font-size:0.7em;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">options</span>(<span class="at">width =</span> <span class="dv">120</span>)</span>
-<span id="cb29-2"><a></a>paired<span class="sc">$</span>contrasts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">options</span>(<span class="at">width =</span> <span class="dv">120</span>)</span>
+<span id="cb30-2"><a></a>paired<span class="sc">$</span>contrasts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast                            estimate     SE   df t.ratio p.value
  Boca Colorado - Boca Isiriwe        -1.16471 0.2260  835  -5.142  0.0001
@@ -1085,30 +1182,30 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 <div class="column" style="width:60%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource small number-lines code-with-copy"><code class="sourceCode"><span id="cb31-1"><a></a># A tibble: 2,308 × 3</span>
-<span id="cb31-2"><a></a>   lhairHg assets_sc[,1] native_cat</span>
-<span id="cb31-3"><a></a>     &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;     </span>
-<span id="cb31-4"><a></a> 1  0.676         -0.837 Non-native</span>
-<span id="cb31-5"><a></a> 2  0.0908         0.197 Non-native</span>
-<span id="cb31-6"><a></a> 3  1.67          -0.280 Non-native</span>
-<span id="cb31-7"><a></a> 4  0.450         -0.280 Non-native</span>
-<span id="cb31-8"><a></a> 5  0.704         -0.280 Non-native</span>
-<span id="cb31-9"><a></a> 6 -0.512         -0.280 Non-native</span>
-<span id="cb31-10"><a></a> 7 -0.125          0.826 Non-native</span>
-<span id="cb31-11"><a></a> 8 -0.103          0.826 Non-native</span>
-<span id="cb31-12"><a></a> 9  0.351         -1.27  Non-native</span>
-<span id="cb31-13"><a></a>10  0.0444        -1.27  Non-native</span>
-<span id="cb31-14"><a></a>11  0.662         -0.359 Non-native</span>
-<span id="cb31-15"><a></a>12  1.01           1.29  Non-native</span>
-<span id="cb31-16"><a></a>13 -0.149          1.29  Non-native</span>
-<span id="cb31-17"><a></a>14  0.881          0.517 Non-native</span>
-<span id="cb31-18"><a></a>15  1.51           0.517 Non-native</span>
-<span id="cb31-19"><a></a>16  0.328         -0.658 Non-native</span>
-<span id="cb31-20"><a></a>17  0.0553         0.533 Non-native</span>
-<span id="cb31-21"><a></a>18  0.768          1.29  Non-native</span>
-<span id="cb31-22"><a></a>19  0.431          1.30  Non-native</span>
-<span id="cb31-23"><a></a>20  1.55           1.30  Non-native</span>
-<span id="cb31-24"><a></a># ℹ 2,288 more rows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource small number-lines code-with-copy"><code class="sourceCode"><span id="cb32-1"><a></a># A tibble: 2,308 × 3</span>
+<span id="cb32-2"><a></a>   lhairHg assets_sc[,1] native_cat</span>
+<span id="cb32-3"><a></a>     &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;     </span>
+<span id="cb32-4"><a></a> 1  0.676         -0.837 Non-native</span>
+<span id="cb32-5"><a></a> 2  0.0908         0.197 Non-native</span>
+<span id="cb32-6"><a></a> 3  1.67          -0.280 Non-native</span>
+<span id="cb32-7"><a></a> 4  0.450         -0.280 Non-native</span>
+<span id="cb32-8"><a></a> 5  0.704         -0.280 Non-native</span>
+<span id="cb32-9"><a></a> 6 -0.512         -0.280 Non-native</span>
+<span id="cb32-10"><a></a> 7 -0.125          0.826 Non-native</span>
+<span id="cb32-11"><a></a> 8 -0.103          0.826 Non-native</span>
+<span id="cb32-12"><a></a> 9  0.351         -1.27  Non-native</span>
+<span id="cb32-13"><a></a>10  0.0444        -1.27  Non-native</span>
+<span id="cb32-14"><a></a>11  0.662         -0.359 Non-native</span>
+<span id="cb32-15"><a></a>12  1.01           1.29  Non-native</span>
+<span id="cb32-16"><a></a>13 -0.149          1.29  Non-native</span>
+<span id="cb32-17"><a></a>14  0.881          0.517 Non-native</span>
+<span id="cb32-18"><a></a>15  1.51           0.517 Non-native</span>
+<span id="cb32-19"><a></a>16  0.328         -0.658 Non-native</span>
+<span id="cb32-20"><a></a>17  0.0553         0.533 Non-native</span>
+<span id="cb32-21"><a></a>18  0.768          1.29  Non-native</span>
+<span id="cb32-22"><a></a>19  0.431          1.30  Non-native</span>
+<span id="cb32-23"><a></a>20  1.55           1.30  Non-native</span>
+<span id="cb32-24"><a></a># ℹ 2,288 more rows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div><div class="column" style="width:40%;">
@@ -1121,11 +1218,11 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 </div></div>
 </section><section id="mercury-native-community-relationship" class="slide level2"><h2>Mercury &amp; native community relationship</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>native_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb32-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> native_cat, <span class="at">data =</span> mercury)</span>
-<span id="cb32-4"><a></a></span>
-<span id="cb32-5"><a></a><span class="fu">tidy</span>(native_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>native_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> native_cat, <span class="at">data =</span> mercury)</span>
+<span id="cb33-4"><a></a></span>
+<span id="cb33-5"><a></a><span class="fu">tidy</span>(native_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term                 estimate std.error statistic   p.value
@@ -1151,11 +1248,11 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 </div>
 </section><section id="relationship-between-mercury-and-individual-community-1" class="slide level2"><h2>Relationship between mercury and individual community</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>com_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb34-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> community, <span class="at">data =</span> mercury)</span>
-<span id="cb34-4"><a></a></span>
-<span id="cb34-5"><a></a><span class="fu">tidy</span>(com_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>com_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a></a>  <span class="fu">fit</span>(lhairHg <span class="sc">~</span> community, <span class="at">data =</span> mercury)</span>
+<span id="cb35-4"><a></a></span>
+<span id="cb35-5"><a></a><span class="fu">tidy</span>(com_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="dummy-or-indicator-variables" class="slide level2"><h2>Dummy or indicator variables</h2>
 <div class="cell" data-layout-align="center">
@@ -1322,32 +1419,32 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 <div style="font-size:0.4em;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource tiny number-lines code-with-copy"><code class="sourceCode"><span id="cb36-1"><a></a># A tibble: 23 × 5</span>
-<span id="cb36-2"><a></a>   term                     estimate std.error statistic  p.value</span>
-<span id="cb36-3"><a></a>   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span id="cb36-4"><a></a> 1 (Intercept)                0.614     0.0644     9.54  3.55e-21</span>
-<span id="cb36-5"><a></a> 2 communityBoca Isiriwe      1.20      0.159      7.56  5.77e-14</span>
-<span id="cb36-6"><a></a> 3 communityBoca Manu         0.833     0.129      6.43  1.56e-10</span>
-<span id="cb36-7"><a></a> 4 communityCaychihue        -1.10      0.132     -8.36  1.09e-16</span>
-<span id="cb36-8"><a></a> 5 communityChoque           -0.778     0.117     -6.68  3.04e-11</span>
-<span id="cb36-9"><a></a> 6 communityDiamante          1.06      0.109      9.67  1.00e-21</span>
-<span id="cb36-10"><a></a> 7 communityHuepetuhe        -0.694     0.0732    -9.48  5.96e-21</span>
-<span id="cb36-11"><a></a> 8 communityIsla de los Va…   1.12      0.245      4.57  5.18e- 6</span>
-<span id="cb36-12"><a></a> 9 communityMasenawa          1.20      0.401      3.00  2.74e- 3</span>
-<span id="cb36-13"><a></a>10 communityPalotoa Teparo    0.350     0.148      2.36  1.82e- 2</span>
-<span id="cb36-14"><a></a>11 communityPuerto Azul       1.22      0.230      5.27  1.45e- 7</span>
-<span id="cb36-15"><a></a>12 communityPuerto Luz        0.494     0.0991     4.98  6.67e- 7</span>
-<span id="cb36-16"><a></a>13 communityPunquiri         -0.678     0.176     -3.84  1.26e- 4</span>
-<span id="cb36-17"><a></a>14 communityPuquiri           0.0842    0.192      0.439 6.61e- 1</span>
-<span id="cb36-18"><a></a>15 communityQuebrada Neuva   -0.812     0.0966    -8.41  7.21e-17</span>
-<span id="cb36-19"><a></a>16 communityQueros           -0.707     0.245     -2.89  3.93e- 3</span>
-<span id="cb36-20"><a></a>17 communityQuimiri          -0.621     0.274     -2.26  2.38e- 2</span>
-<span id="cb36-21"><a></a>18 communityQuincemil        -0.822     0.0858    -9.57  2.55e-21</span>
-<span id="cb36-22"><a></a>19 communitySalvacion        -0.732     0.0850    -8.61  1.31e-17</span>
-<span id="cb36-23"><a></a>20 communitySan Lorenzo      -0.245     0.124     -1.98  4.82e- 2</span>
-<span id="cb36-24"><a></a>21 communitySetapo            0.517     0.319      1.62  1.05e- 1</span>
-<span id="cb36-25"><a></a>22 communityShintuya          0.130     0.122      1.07  2.86e- 1</span>
-<span id="cb36-26"><a></a>23 communityShipitiari        0.532     0.161      3.30  9.65e- 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource tiny number-lines code-with-copy"><code class="sourceCode"><span id="cb37-1"><a></a># A tibble: 23 × 5</span>
+<span id="cb37-2"><a></a>   term                     estimate std.error statistic  p.value</span>
+<span id="cb37-3"><a></a>   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span id="cb37-4"><a></a> 1 (Intercept)                0.614     0.0644     9.54  3.55e-21</span>
+<span id="cb37-5"><a></a> 2 communityBoca Isiriwe      1.20      0.159      7.56  5.77e-14</span>
+<span id="cb37-6"><a></a> 3 communityBoca Manu         0.833     0.129      6.43  1.56e-10</span>
+<span id="cb37-7"><a></a> 4 communityCaychihue        -1.10      0.132     -8.36  1.09e-16</span>
+<span id="cb37-8"><a></a> 5 communityChoque           -0.778     0.117     -6.68  3.04e-11</span>
+<span id="cb37-9"><a></a> 6 communityDiamante          1.06      0.109      9.67  1.00e-21</span>
+<span id="cb37-10"><a></a> 7 communityHuepetuhe        -0.694     0.0732    -9.48  5.96e-21</span>
+<span id="cb37-11"><a></a> 8 communityIsla de los Va…   1.12      0.245      4.57  5.18e- 6</span>
+<span id="cb37-12"><a></a> 9 communityMasenawa          1.20      0.401      3.00  2.74e- 3</span>
+<span id="cb37-13"><a></a>10 communityPalotoa Teparo    0.350     0.148      2.36  1.82e- 2</span>
+<span id="cb37-14"><a></a>11 communityPuerto Azul       1.22      0.230      5.27  1.45e- 7</span>
+<span id="cb37-15"><a></a>12 communityPuerto Luz        0.494     0.0991     4.98  6.67e- 7</span>
+<span id="cb37-16"><a></a>13 communityPunquiri         -0.678     0.176     -3.84  1.26e- 4</span>
+<span id="cb37-17"><a></a>14 communityPuquiri           0.0842    0.192      0.439 6.61e- 1</span>
+<span id="cb37-18"><a></a>15 communityQuebrada Neuva   -0.812     0.0966    -8.41  7.21e-17</span>
+<span id="cb37-19"><a></a>16 communityQueros           -0.707     0.245     -2.89  3.93e- 3</span>
+<span id="cb37-20"><a></a>17 communityQuimiri          -0.621     0.274     -2.26  2.38e- 2</span>
+<span id="cb37-21"><a></a>18 communityQuincemil        -0.822     0.0858    -9.57  2.55e-21</span>
+<span id="cb37-22"><a></a>19 communitySalvacion        -0.732     0.0850    -8.61  1.31e-17</span>
+<span id="cb37-23"><a></a>20 communitySan Lorenzo      -0.245     0.124     -1.98  4.82e- 2</span>
+<span id="cb37-24"><a></a>21 communitySetapo            0.517     0.319      1.62  1.05e- 1</span>
+<span id="cb37-25"><a></a>22 communityShintuya          0.130     0.122      1.07  2.86e- 1</span>
+<span id="cb37-26"><a></a>23 communityShipitiari        0.532     0.161      3.30  9.65e- 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="tiny">
@@ -1381,8 +1478,8 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 <p>We can obtain the same overall <span class="math inline">\(F\)</span> test from the fitted model’s summary or its ANOVA table. Both use the saved <code>com_fit</code> object.</p>
 <p><strong>Overall regression test:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">glance</span>(com_fit) <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a></a>  <span class="fu">select</span>(statistic, p.value, df, df.residual)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="fu">glance</span>(com_fit) <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a></a>  <span class="fu">select</span>(statistic, p.value, df, df.residual)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   statistic   p.value    df df.residual
@@ -1394,7 +1491,7 @@ P value adjustment: tukey method for comparing a family of 23 estimates </code><
 </section><section id="section-12" class="slide level2" data-background-color="white"><h2></h2>
 <p><strong>ANOVA table:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>com_anova</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a>com_anova</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 6
   term         df sumsq meansq statistic    p.value

@@ -2749,7 +2749,7 @@
     "href": "slides/w09-02-anova-slides.html#between-groups-variance",
     "title": "ANOVA: Analysis of Variance",
     "section": "Between-groups variance",
-    "text": "Between-groups variance\nThe between groups variance is estimated by \\[s_B^2=\\frac{n_1(\\bar{y}_1-\\bar{y}_\\cdot)^2+n_2(\\bar{y}_2-\\bar{y}_\\cdot)^2 + \\cdots + n_K(\\bar{y}_K-\\bar{y}_\\cdot)^2}{K-1}.\\]\nWe can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it also reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability and any kind of systematic variability due to the group/community effect."
+    "text": "Between-groups variance\nThe between groups variance is estimated by \\[s_B^2=\\frac{n_1(\\bar{y}_1-\\bar{y}_\\cdot)^2+n_2(\\bar{y}_2-\\bar{y}_\\cdot)^2 + \\cdots + n_K(\\bar{y}_K-\\bar{y}_\\cdot)^2}{K-1}.\\]\nWe can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability and any kind of systematic variability due to the group/community effect."
   },
   {
     "objectID": "slides/w09-02-anova-slides.html#f-test",
@@ -2764,6 +2764,13 @@
     "title": "ANOVA: Analysis of Variance",
     "section": "F test",
     "text": "F test\n\nThus the F statistic is given by \\[F={s_B}^2/{s_W}^2,\\] which if \\(H_0\\) is true has an \\(F\\) distribution with \\(K-1\\) and \\(n-K\\) df. The df associated with \\({s_B}^2\\) are called the numerator degrees of freedom and correspond to the total number of groups minus 1. The df associated with \\({s_W}^2\\) are called the denominator degrees of freedom and equal the total sample size minus the number of groups (we lose one df for each group mean we estimate). For ANOVA the test is inherently one-tailed, rejecting \\(H_0\\) only if \\(F\\) is considerably larger than one. (This does not mean we have a one-sided alternative; we just look at one tail of the F distribution to get the p-value, as the F statistic is never negative because variances cannot be negative.)\nIf there are only two groups, then the F test gives the same result as the t-test (with equal variances)."
+  },
+  {
+    "objectID": "slides/w09-02-anova-slides.html#anova-table-mean-squares",
+    "href": "slides/w09-02-anova-slides.html#anova-table-mean-squares",
+    "title": "ANOVA: Analysis of Variance",
+    "section": "ANOVA Table: Mean Squares",
+    "text": "ANOVA Table: Mean Squares\n\nA mean square (MS) is a sum of squares (SS) divided by its degrees of freedom.\n\n\n\n\n\n\n\n\n\n\n\nSource\nSum of squares (SS)\ndf\nMean square (MS)\nF statistic\n\n\n\nBetween groups\n\\(SS_B=\\sum_{i=1}^{K} n_i(\\bar{y}_i-\\bar{y}_{\\cdot})^2\\)\n\\(K-1\\)\n\\(MS_B=\\dfrac{SS_B}{K-1}=s_B^2\\)\n\\(\\frac{MS_B}{MS_W}\\)\n\n\nWithin groups (error)\n\\(SS_W=\\sum_{i=1}^{K}\\sum_{j=1}^{n_i}(y_{ij}-\\bar{y}_i)^2\\)\n\\(n-K\\)\n\\(MS_W=\\dfrac{SS_W}{n-K}=s_W^2\\)\n\n\n\nTotal\n\\(SS_T=SS_B+SS_W\\)\n\\(n-1\\)\n\n\n\n\n\n\n\nThe \\(F\\) statistic compares the between-groups MS with the within-groups MS:\n\\[\nF=\\frac{MS_B}{MS_W}=\\frac{s_B^2}{s_W^2}.\n\\]\nThe within-groups MS is also called the mean square error (MSE). Under \\(H_0\\), both mean squares estimate the common population variance \\(\\sigma^2\\)."
   },
   {
     "objectID": "slides/w09-02-anova-slides.html#f-distribution",
@@ -2785,6 +2792,13 @@
     "title": "ANOVA: Analysis of Variance",
     "section": "ANOVA for Mercury Data",
     "text": "ANOVA for Mercury Data\n\n\ncom_anova &lt;- com_fit %&gt;%\n  extract_fit_engine() %&gt;%\n  anova() %&gt;%\n  tidy()\n\ncom_anova\n\n# A tibble: 2 × 6\n  term         df sumsq meansq statistic    p.value\n  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;\n1 community    22  910. 41.3        52.8  2.13e-185\n2 Residuals  2285 1789.  0.783      NA   NA        \n\n\ntidy(com_fit) reports tests of individual coefficients. For the overall ANOVA test, we pass the underlying lm model to anova() using extract_fit_engine(), then use tidy() to make its table easy to read.\nHere’s the overall test of the null hypothesis that all 23 means are equal, versus the alternative that at least one mean is different. Based on that p-value, these data, or more extreme data, would be highly unlikely if the null hypothesis were true. Next, we probably wish to know which means are different!"
+  },
+  {
+    "objectID": "slides/w09-02-anova-slides.html#the-anova-table",
+    "href": "slides/w09-02-anova-slides.html#the-anova-table",
+    "title": "ANOVA: Analysis of Variance",
+    "section": "The ANOVA Table",
+    "text": "The ANOVA Table\n\n\n# A tibble: 2 × 6\n  term         df sumsq meansq statistic    p.value\n  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;\n1 community    22  910. 41.3        52.8  2.13e-185\n2 Residuals  2285 1789.  0.783      NA   NA        \n\n\nThis format matches that in the ANOVA table:\n\n\n\nSource\nSum of squares (SS)\ndf\nMean square (MS)\nF statistic\n\n\n\nBetween (community)\n910\n22\n41.3\n52.8\n\n\nWithin (error)\n1789\n2285\n0.783\n\n\n\nTotal\n910+1789=2699\n22+2285=2307"
   },
   {
     "objectID": "slides/w09-02-anova-slides.html#step-down-tests",
@@ -3260,7 +3274,7 @@
     "href": "slides/w09-02-anova.html#between-groups-variance",
     "title": "ANOVA: Analysis of Variance",
     "section": "Between-groups variance",
-    "text": "Between-groups variance\nThe between groups variance is estimated by \\[s_B^2=\\frac{n_1(\\bar{y}_1-\\bar{y}_\\cdot)^2+n_2(\\bar{y}_2-\\bar{y}_\\cdot)^2 + \\cdots + n_K(\\bar{y}_K-\\bar{y}_\\cdot)^2}{K-1}.\\]\nWe can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it also reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability and any kind of systematic variability due to the group/community effect."
+    "text": "Between-groups variance\nThe between groups variance is estimated by \\[s_B^2=\\frac{n_1(\\bar{y}_1-\\bar{y}_\\cdot)^2+n_2(\\bar{y}_2-\\bar{y}_\\cdot)^2 + \\cdots + n_K(\\bar{y}_K-\\bar{y}_\\cdot)^2}{K-1}.\\]\nWe can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability and any kind of systematic variability due to the group/community effect."
   },
   {
     "objectID": "slides/w09-02-anova.html#f-test",
@@ -3275,6 +3289,13 @@
     "title": "ANOVA: Analysis of Variance",
     "section": "F test",
     "text": "F test\n\nThus the F statistic is given by \\[F={s_B}^2/{s_W}^2,\\] which if \\(H_0\\) is true has an \\(F\\) distribution with \\(K-1\\) and \\(n-K\\) df. The df associated with \\({s_B}^2\\) are called the numerator degrees of freedom and correspond to the total number of groups minus 1. The df associated with \\({s_W}^2\\) are called the denominator degrees of freedom and equal the total sample size minus the number of groups (we lose one df for each group mean we estimate). For ANOVA the test is inherently one-tailed, rejecting \\(H_0\\) only if \\(F\\) is considerably larger than one. (This does not mean we have a one-sided alternative; we just look at one tail of the F distribution to get the p-value, as the F statistic is never negative because variances cannot be negative.)\nIf there are only two groups, then the F test gives the same result as the t-test (with equal variances)."
+  },
+  {
+    "objectID": "slides/w09-02-anova.html#anova-table-mean-squares",
+    "href": "slides/w09-02-anova.html#anova-table-mean-squares",
+    "title": "ANOVA: Analysis of Variance",
+    "section": "ANOVA Table: Mean Squares",
+    "text": "ANOVA Table: Mean Squares\n\nA mean square (MS) is a sum of squares (SS) divided by its degrees of freedom.\n\n\n\n\n\n\n\n\n\n\n\nSource\nSum of squares (SS)\ndf\nMean square (MS)\nF statistic\n\n\n\nBetween groups\n\\(SS_B=\\sum_{i=1}^{K} n_i(\\bar{y}_i-\\bar{y}_{\\cdot})^2\\)\n\\(K-1\\)\n\\(MS_B=\\dfrac{SS_B}{K-1}=s_B^2\\)\n\\(\\frac{MS_B}{MS_W}\\)\n\n\nWithin groups (error)\n\\(SS_W=\\sum_{i=1}^{K}\\sum_{j=1}^{n_i}(y_{ij}-\\bar{y}_i)^2\\)\n\\(n-K\\)\n\\(MS_W=\\dfrac{SS_W}{n-K}=s_W^2\\)\n\n\n\nTotal\n\\(SS_T=SS_B+SS_W\\)\n\\(n-1\\)\n\n\n\n\n\n\n\nThe \\(F\\) statistic compares the between-groups MS with the within-groups MS:\n\\[\nF=\\frac{MS_B}{MS_W}=\\frac{s_B^2}{s_W^2}.\n\\]\nThe within-groups MS is also called the mean square error (MSE). Under \\(H_0\\), both mean squares estimate the common population variance \\(\\sigma^2\\)."
   },
   {
     "objectID": "slides/w09-02-anova.html#f-distribution",
@@ -3296,6 +3317,13 @@
     "title": "ANOVA: Analysis of Variance",
     "section": "ANOVA for Mercury Data",
     "text": "ANOVA for Mercury Data\n\n\ncom_anova &lt;- com_fit %&gt;%\n  extract_fit_engine() %&gt;%\n  anova() %&gt;%\n  tidy()\n\ncom_anova\n\n# A tibble: 2 × 6\n  term         df sumsq meansq statistic    p.value\n  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;\n1 community    22  910. 41.3        52.8  2.13e-185\n2 Residuals  2285 1789.  0.783      NA   NA        \n\n\ntidy(com_fit) reports tests of individual coefficients. For the overall ANOVA test, we pass the underlying lm model to anova() using extract_fit_engine(), then use tidy() to make its table easy to read.\nHere’s the overall test of the null hypothesis that all 23 means are equal, versus the alternative that at least one mean is different. Based on that p-value, these data, or more extreme data, would be highly unlikely if the null hypothesis were true. Next, we probably wish to know which means are different!"
+  },
+  {
+    "objectID": "slides/w09-02-anova.html#the-anova-table",
+    "href": "slides/w09-02-anova.html#the-anova-table",
+    "title": "ANOVA: Analysis of Variance",
+    "section": "The ANOVA Table",
+    "text": "The ANOVA Table\n\n\n# A tibble: 2 × 6\n  term         df sumsq meansq statistic    p.value\n  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;\n1 community    22  910. 41.3        52.8  2.13e-185\n2 Residuals  2285 1789.  0.783      NA   NA        \n\n\nThis format matches that in the ANOVA table:\n\n\n\nSource\nSum of squares (SS)\ndf\nMean square (MS)\nF statistic\n\n\n\nBetween (community)\n910\n22\n41.3\n52.8\n\n\nWithin (error)\n1789\n2285\n0.783\n\n\n\nTotal\n910+1789=2699\n22+2285=2307"
   },
   {
     "objectID": "slides/w09-02-anova.html#step-down-tests",
