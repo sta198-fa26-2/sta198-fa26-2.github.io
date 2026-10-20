@@ -566,7 +566,7 @@ We can think of this within-groups variance as the inherent variability in the p
 The between groups variance is estimated by $$s_B^2=\frac{n_1(\bar{y}_1-\bar{y}_\cdot)^2+n_2(\bar{y}_2-\bar{y}_\cdot)^2 + \cdots + n_K(\bar{y}_K-\bar{y}_\cdot)^2}{K-1}.$$
 
 
-We can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it also reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability *and* any kind of systematic variability due to the group/community effect.
+We can think of the between-groups variance as the variability among the group means, scaled up by group size. If all groups share the same population mean, it reflects the inherent variability in the population. If the population means differ, it picks up that extra signal as well. So it is the sum of inherent variability *and* any kind of systematic variability due to the group/community effect.
 
 ## F test
 
@@ -588,6 +588,40 @@ How do we compare the variances? Consider $$F=\frac{\text{inherent variability +
  
   
 If there are only two groups, then the F test gives the same result as the t-test (with equal variances).
+
+</div>
+
+## ANOVA Table: Mean Squares 
+
+<div style="font-size:0.7em;">
+
+
+A **mean square (MS)** is a sum of squares (SS) divided by its degrees of freedom.
+
+</div>
+
+<div style="font-size:0.55em;">
+
+
+| Source | Sum of squares (SS) | df | Mean square (MS) | F statistic|
+|:-------|:-------------------|:--:|:----------------|----|
+| Between groups | $SS_B=\sum_{i=1}^{K} n_i(\bar{y}_i-\bar{y}_{\cdot})^2$ | $K-1$ | $MS_B=\dfrac{SS_B}{K-1}=s_B^2$ | $\frac{MS_B}{MS_W}$ |
+| Within groups (error) | $SS_W=\sum_{i=1}^{K}\sum_{j=1}^{n_i}(y_{ij}-\bar{y}_i)^2$ | $n-K$ | $MS_W=\dfrac{SS_W}{n-K}=s_W^2$ | |
+| Total | $SS_T=SS_B+SS_W$ | $n-1$ | | |
+
+</div>
+
+<div style="font-size:0.7em;">
+
+
+The $F$ statistic compares the **between-groups MS** with the **within-groups MS**:
+
+$$
+F=\frac{MS_B}{MS_W}=\frac{s_B^2}{s_W^2}.
+$$
+
+The within-groups MS is also called the **mean square error (MSE)**. Under $H_0$, both mean squares estimate the common population variance $\sigma^2$.
+
 
 </div>
 
@@ -627,6 +661,26 @@ com_anova
 `tidy(com_fit)` reports tests of individual coefficients. For the **overall ANOVA test**, we pass the underlying `lm` model to `anova()` using `extract_fit_engine()`, then use `tidy()` to make its table easy to read.
 
 Here's the **overall test** of the null hypothesis that all 23 means are equal, versus the alternative that at least one mean is different.  Based on that p-value, these data, or more extreme data, would be highly unlikely if the null hypothesis were true. Next, we probably wish to know which means are different!
+
+</div>
+
+## The ANOVA Table
+
+```{r}
+#| echo: FALSE
+com_anova
+```
+
+This format matches that in the ANOVA table: 
+
+<div style="font-size:0.8em;">
+
+
+| Source | Sum of squares (SS) | df | Mean square (MS) | F statistic |
+|:-------|:-------------------|:--:|:----------------|----|
+| Between (community) | 910 | 22 | 41.3 | 52.8 |
+| Within (error) | 1789 | 2285  | 0.783 | |
+| Total | 910+1789=2699 |  22+2285=2307 | |
 
 </div>
 
