@@ -1145,8 +1145,6 @@ One fitted model gives both the regression coefficient table and the ANOVA table
 
 ## Homework (Practice)
 
-[**IMS Chapter 7**](## Homework (Practice)
-
 [**IMS Chapter 22**](https://openintrostat.github.io/ims/inference-many-means.html#sec-chp22-exercises)
 
 - Problem 1
@@ -1155,12 +1153,6 @@ One fitted model gives both the regression coefficient table and the ANOVA table
 - Problem 9
 - Problem 14
 
-)
 
-- Problem 7
-- Problem 8
-- Problem 12
-- Problem 22
-- Problem 23
 
 
