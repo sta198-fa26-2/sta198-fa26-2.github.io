@@ -598,7 +598,7 @@ birth_fit <- logistic_reg() %>%
       data = analysis_births)
 ```
 
-We use `exponentiate = TRUE` to turn the coefficients into odds ratios. Each estimate compares one category with its reference category while holding the other predictors fixed.
+Each estimate compares one category with its reference category while holding the other predictors fixed.
 
 ## Adjusted odds ratios for age and BMI
 
@@ -616,7 +616,7 @@ tidy(birth_fit, conf.int = TRUE, exponentiate = TRUE) %>%
   knitr::kable()
 ```
 
-Each age-group estimate compares with **ages 15–39**. Each BMI estimate compares with **normal pre-pregnancy BMI**. For each comparison, we assume no other predictor values change.
+We use `exponentiate = TRUE` to turn the coefficients into odds ratios. Each age-group estimate compares with **ages 15–39**. Each BMI estimate compares with **normal pre-pregnancy BMI**. For each comparison, we assume no other predictor values change.
 
 </div>
 
