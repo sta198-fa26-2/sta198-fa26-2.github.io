@@ -110,9 +110,6 @@ This is an example of an interaction effect -- the relationship between assets a
 
 ::::
 
-## Language
-
-
 
 ## Code
 
@@ -347,7 +344,7 @@ These plots illustrate the difference in the "main effects" model without any in
 
 ## Terminology: main effects and interactions
 
-<div style="font-size:0.7em;">
+<div style="font-size:0.65em;">
 
 Recall our model:
 $$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i$$
@@ -359,11 +356,11 @@ $$\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \t
 ::: {.column width="50%"}
 ::: {style="background-color:#fdf1ea; border: 2px solid #E48957; border-radius: 8px; padding: 0.8em;"}
 
-<div style="font-size:0.7em;">
+<div style="font-size:0.65em;">
 
 **Main effect**
 
-The effect of a predictor **on its own**, ignoring how it might depend on another variable.
+Effect of a predictor **on its own**, ignoring how it might depend on another variable.
 
 - $\beta_1$: the effect of assets *when* $\text{nn}_i=0$*, i.e. for the reference/native group*
 - $\beta_2$: the effect of community type *when* $\text{sdas}_i=0$*, i.e. at mean assets*
@@ -375,13 +372,13 @@ The effect of a predictor **on its own**, ignoring how it might depend on anothe
 ::: {.column width="50%"}
 ::: {style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em;"}
 
-<div style="font-size:0.7em;">
+<div style="font-size:0.65em;">
 
 **Interaction effect**
 
-The effect of one predictor **depends on the value of another** predictor.
+Effect of one predictor **depends on the value of another** predictor.
 
-- $\beta_3$: how much the *slope* on assets changes when moving from native to non-native communities
+- $\beta_3$: how much the *slope* on assets differs in native vs non-native communities
 
 An interaction answers: *"does the relationship between assets and hair Hg differ by community type?"*
 
@@ -614,13 +611,9 @@ Holding age constant, each additional SD of assets in a native community is asso
 ::: {style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.7em; font-size:0.55em;"}
 **Assets slope — Non-native**
 
-Holding age constant, each additional SD of assets in a non-native community is associated with hair Hg lower, on average, by a factor of $e^{-0.292+0.201}=e^{-0.091}=$ **0.91**.
+Holding age constant, each additional SD of assets in a non-native community is associated with hair Hg lower, on average, by a factor of $e^{-0.292+0.201}=0.746(1.223)=$ **0.91**.
 
-<div style="font-size:0.5em;">
 
-Note: that's from the figures on the log scale; if you do the math from this (exponentiated) table it's just $(0.747)(1.22)=0.91$
-
-</div> 
 :::
 :::
 
@@ -656,6 +649,98 @@ At the mean asset level, holding age constant, hair mercury in non-native commun
 :::
 
 ::::
+
+## You Try It: Malaria Study in Zambia
+
+Researchers studied **820 children in rural Zambia**, approximately 4–8 years old.
+
+- Outcome: hemoglobin concentration, measured in **g/L**.
+- Predictors: age and malaria infection, assessed by microscopy in the regression models.
+
+::: {.questions}
+**Research question:** Does the association between malaria and hemoglobin depend on a child's age and malaria season?
+:::
+
+::: {.source}
+Source: Acheampong et al. (2021), *EJHaem* 2:349–356. [Study methods](https://doi.org/10.1002/jha2.243).
+:::
+
+::: {.notes}
+The study drew on a nutrition trial in Mkushi District, Zambia. For this
+question, malaria status is an observational exposure. 
+
+The original study measured the same children in two seasons. 
+
+Source: https://doi.org/10.1002/jha2.243, Sections 2.1–2.5 and Table 3.
+:::
+
+
+## Hemoglobin and age by season
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+![](../img/malaria.jpg){fig-align="center" width="100%"}
+
+:::
+
+::: {.column width = "5%"}
+
+:::
+
+::: {.column width="35%"}
+
+
+<div style="font-size:0.8em;">
+
+1. How does the hemoglobin difference between the groups change with age and season?
+
+2. Assume we fit a separate model for each season. What terms would we need in each model?
+
+</div>
+
+:::
+
+::::
+
+## A model with an interaction
+
+For this exercise, define $t_i=\mathrm{age}_i-60$, with age in months,
+and $M_i=1$ for a child with malaria and $0$ otherwise. Assume researchers fit separate models of this form in each season. 
+
+$$
+E(Y_i\mid t_i,M_i)
+=\beta_0+\beta_1t_i+\beta_2M_i+\beta_3t_iM_i.
+$$
+
+Here, $Y_i$ is hemoglobin concentration in g/L. 
+
+::: {.questions}
+1. Interpret $\beta_0$ and $\beta_1$.
+2. What comparison does $\beta_2$ represent?
+3. What does $\beta_3$ measure, and what sign would agree with the figure?
+:::
+
+## Approximate the Estimates
+
+Separately for low season and high season, using the fitted lines shown in the plot, provide guesses for the estimates $\widehat{\beta}_0$, $\widehat{\beta}_1$, $\widehat{\beta}_2$, and $\widehat{\beta}_3$.
+
+## The Best Model
+
+Is the model structure 
+$$
+E(Y_i\mid t_i,M_i)
+=\beta_0+\beta_1t_i+\beta_2M_i+\beta_3t_iM_i.
+$$ 
+
+ideal for both low season and high season?  If not, what modifications might you consider?
+
+
+## A Single Model
+
+We have discussed separate models for low season and high season.  What are potential benefits and complications of fitting a single model to the data instead of two separate models?  
+
 
 ## Homework (Practice)
 
