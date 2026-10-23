@@ -226,8 +226,7 @@ Amy Herring
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby">
 <li><a data-tabby-default="" href="#tabset-1-1">Plot</a></li>
-<li><a href="#tabset-1-2">Language</a></li>
-<li><a href="#tabset-1-3">Code</a></li>
+<li><a href="#tabset-1-2">Code</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-1-1">
@@ -254,9 +253,6 @@ Amy Herring
 </div></div>
 </div>
 <div id="tabset-1-2">
-
-</div>
-<div id="tabset-1-3">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mercury, <span class="fu">aes</span>(<span class="at">x =</span> assets_sc, <span class="at">y =</span> lhairHg, <span class="at">color =</span> native_cat)) <span class="sc">+</span></span>
 <span id="cb1-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
@@ -407,15 +403,15 @@ Amy Herring
 <p>These plots illustrate the difference in the “main effects” model without any interaction term (top), and the interaction model (bottom). We want to evaluate how strongly the data support the need for different slopes to describe the assets-hair Hg relationship across community types. How might we do this?</p>
 </div></div>
 </section><section id="terminology-main-effects-and-interactions" class="slide level2"><h2>Terminology: main effects and interactions</h2>
-<div style="font-size:0.7em;">
+<div style="font-size:0.65em;">
 <p>Recall our model: <span class="math display">\[\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i\]</span></p>
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div style="background-color:#fdf1ea; border: 2px solid #E48957; border-radius: 8px; padding: 0.8em;">
-<div style="font-size:0.7em;">
+<div style="font-size:0.65em;">
 <p><strong>Main effect</strong></p>
-<p>The effect of a predictor <strong>on its own</strong>, ignoring how it might depend on another variable.</p>
+<p>Effect of a predictor <strong>on its own</strong>, ignoring how it might depend on another variable.</p>
 <ul>
 <li>
 <span class="math inline">\(\beta_1\)</span>: the effect of assets <em>when</em> <span class="math inline">\(\text{nn}_i=0\)</span><em>, i.e.&nbsp;for the reference/native group</em>
@@ -428,12 +424,12 @@ Amy Herring
 </div>
 </div><div class="column" style="width:50%;">
 <div style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em;">
-<div style="font-size:0.7em;">
+<div style="font-size:0.65em;">
 <p><strong>Interaction effect</strong></p>
-<p>The effect of one predictor <strong>depends on the value of another</strong> predictor.</p>
+<p>Effect of one predictor <strong>depends on the value of another</strong> predictor.</p>
 <ul>
 <li>
-<span class="math inline">\(\beta_3\)</span>: how much the <em>slope</em> on assets changes when moving from native to non-native communities</li>
+<span class="math inline">\(\beta_3\)</span>: how much the <em>slope</em> on assets differs in native vs non-native communities</li>
 </ul>
 <p>An interaction answers: <em>“does the relationship between assets and hair Hg differ by community type?”</em></p>
 </div>
@@ -648,10 +644,7 @@ e^{\log\left(\frac{\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i}{\text
 </div><div class="column" style="width:50%;">
 <div style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.7em; font-size:0.55em;">
 <p><strong>Assets slope — Non-native</strong></p>
-<p>Holding age constant, each additional SD of assets in a non-native community is associated with hair Hg lower, on average, by a factor of <span class="math inline">\(e^{-0.292+0.201}=e^{-0.091}=\)</span> <strong>0.91</strong>.</p>
-<div style="font-size:0.5em;">
-<p>Note: that’s from the figures on the log scale; if you do the math from this (exponentiated) table it’s just <span class="math inline">\((0.747)(1.22)=0.91\)</span></p>
-</div>
+<p>Holding age constant, each additional SD of assets in a non-native community is associated with hair Hg lower, on average, by a factor of <span class="math inline">\(e^{-0.292+0.201}=0.746(1.223)=\)</span> <strong>0.91</strong>.</p>
 </div>
 </div></div>
 </section><section id="interpretation-of-all-estimates-1" class="slide level2"><h2>Interpretation of All Estimates</h2>
@@ -682,6 +675,72 @@ e^{\log\left(\frac{\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i}{\text
 <p>At the mean asset level, holding age constant, hair mercury in non-native communities is lower, on average, by a factor of <strong>0.45</strong> than in native communities.</p>
 </div>
 </div></div>
+</section><section id="you-try-it-malaria-study-in-zambia" class="slide level2"><h2>You Try It: Malaria Study in Zambia</h2>
+<p>Researchers studied <strong>820 children in rural Zambia</strong>, approximately 4–8 years old.</p>
+<ul>
+<li>Outcome: hemoglobin concentration, measured in <strong>g/L</strong>.</li>
+<li>Predictors: age and malaria infection, assessed by microscopy in the regression models.</li>
+</ul>
+<div class="questions">
+<p><strong>Research question:</strong> Does the association between malaria and hemoglobin depend on a child’s age and malaria season?</p>
+</div>
+<div class="source">
+<p>Source: Acheampong et al.&nbsp;(2021), <em>EJHaem</em> 2:349–356. <a href="https://doi.org/10.1002/jha2.243">Study methods</a>.</p>
+</div>
+<aside class="notes"><p>The study drew on a nutrition trial in Mkushi District, Zambia. For this question, malaria status is an observational exposure.</p>
+<p>The original study measured the same children in two seasons.</p>
+<p>Source: https://doi.org/10.1002/jha2.243, Sections 2.1–2.5 and Table 3.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="hemoglobin-and-age-by-season" class="slide level2"><h2>Hemoglobin and age by season</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="../img/malaria.jpg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:35%;">
+<div style="font-size:0.8em;">
+<ol type="1">
+<li><p>How does the hemoglobin difference between the groups change with age and season?</p></li>
+<li><p>Assume we fit a separate model for each season. What terms would we need in each model?</p></li>
+</ol>
+</div>
+</div></div>
+</section><section id="a-model-with-an-interaction" class="slide level2"><h2>A model with an interaction</h2>
+<p>For this exercise, define <span class="math inline">\(t_i=\mathrm{age}_i-60\)</span>, with age in months, and <span class="math inline">\(M_i=1\)</span> for a child with malaria and <span class="math inline">\(0\)</span> otherwise. Assume researchers fit separate models of this form in each season.</p>
+<p><span class="math display">\[
+E(Y_i\mid t_i,M_i)
+=\beta_0+\beta_1t_i+\beta_2M_i+\beta_3t_iM_i.
+\]</span></p>
+<p>Here, <span class="math inline">\(Y_i\)</span> is hemoglobin concentration in g/L.</p>
+<div class="questions">
+<ol type="1">
+<li>Interpret <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</li>
+<li>What comparison does <span class="math inline">\(\beta_2\)</span> represent?</li>
+<li>What does <span class="math inline">\(\beta_3\)</span> measure, and what sign would agree with the figure?</li>
+</ol>
+</div>
+</section><section id="approximate-the-estimates" class="slide level2"><h2>Approximate the Estimates</h2>
+<p>Separately for low season and high season, using the fitted lines shown in the plot, provide guesses for the estimates <span class="math inline">\(\widehat{\beta}_0\)</span>, <span class="math inline">\(\widehat{\beta}_1\)</span>, <span class="math inline">\(\widehat{\beta}_2\)</span>, and <span class="math inline">\(\widehat{\beta}_3\)</span>.</p>
+</section><section id="the-best-model" class="slide level2"><h2>The Best Model</h2>
+<p>Is the model structure <span class="math display">\[
+E(Y_i\mid t_i,M_i)
+=\beta_0+\beta_1t_i+\beta_2M_i+\beta_3t_iM_i.
+\]</span></p>
+<p>ideal for both low season and high season? If not, what modifications might you consider?</p>
+</section><section id="a-single-model" class="slide level2"><h2>A Single Model</h2>
+<p>We have discussed separate models for low season and high season. What are potential benefits and complications of fitting a single model to the data instead of two separate models?</p>
 </section><section id="homework-practice" class="slide level2"><h2>Homework (Practice)</h2>
 <p><a href="https://openintrostat.github.io/ims/model-mlr.html#sec-chp8-exercises"><strong>IMS Chapter 8</strong></a></p>
 <ul>

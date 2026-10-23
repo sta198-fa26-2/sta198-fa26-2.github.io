@@ -73,9 +73,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-aa764074e92c6da51d2998db3a8ef51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ea6e547bf31b2cf9dddec5d1d353d0e1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-aa764074e92c6da51d2998db3a8ef51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a715031d185304789222bcd42846ff8e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3f0a4db72e9ac74ffa29cd52cbf666e3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a715031d185304789222bcd42846ff8e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
@@ -485,6 +485,12 @@ window.Quarto = {
   <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">1.01?</a></li>
   <li><a href="#interpretation-of-all-estimates" id="toc-interpretation-of-all-estimates" class="nav-link" data-scroll-target="#interpretation-of-all-estimates">Interpretation of All Estimates</a></li>
   <li><a href="#interpretation-of-all-estimates-1" id="toc-interpretation-of-all-estimates-1" class="nav-link" data-scroll-target="#interpretation-of-all-estimates-1">Interpretation of All Estimates</a></li>
+  <li><a href="#you-try-it-malaria-study-in-zambia" id="toc-you-try-it-malaria-study-in-zambia" class="nav-link" data-scroll-target="#you-try-it-malaria-study-in-zambia">You Try It: Malaria Study in Zambia</a></li>
+  <li><a href="#hemoglobin-and-age-by-season" id="toc-hemoglobin-and-age-by-season" class="nav-link" data-scroll-target="#hemoglobin-and-age-by-season">Hemoglobin and age by season</a></li>
+  <li><a href="#a-model-with-an-interaction" id="toc-a-model-with-an-interaction" class="nav-link" data-scroll-target="#a-model-with-an-interaction">A model with an interaction</a></li>
+  <li><a href="#approximate-the-estimates" id="toc-approximate-the-estimates" class="nav-link" data-scroll-target="#approximate-the-estimates">Approximate the Estimates</a></li>
+  <li><a href="#the-best-model" id="toc-the-best-model" class="nav-link" data-scroll-target="#the-best-model">The Best Model</a></li>
+  <li><a href="#a-single-model" id="toc-a-single-model" class="nav-link" data-scroll-target="#a-single-model">A Single Model</a></li>
   <li><a href="#homework-practice" id="toc-homework-practice" class="nav-link" data-scroll-target="#homework-practice">Homework (Practice)</a></li>
   </ul>
 </li>
@@ -534,8 +540,7 @@ window.Quarto = {
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Plot</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Language</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Code</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
@@ -563,9 +568,6 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">mercury</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">assets_sc</span>, y <span class="op">=</span> <span class="va">lhairHg</span>, color <span class="op">=</span> <span class="va">native_cat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
@@ -727,15 +729,15 @@ window.Quarto = {
 </div>
 </div>
 </section><section id="terminology-main-effects-and-interactions" class="level2"><h2 class="anchored" data-anchor-id="terminology-main-effects-and-interactions">Terminology: main effects and interactions</h2>
-<div style="font-size:0.7em;">
+<div style="font-size:0.65em;">
 <p>Recall our model: <span class="math display">\[\text{lnHg}_i=\beta_0+\beta_1 \text{sdas}_i + \beta_2 \text{nn}_i + \beta_3 \text{nn}_i\text{sdas}_i + \varepsilon_i\]</span></p>
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div style="background-color:#fdf1ea; border: 2px solid #E48957; border-radius: 8px; padding: 0.8em;">
-<div style="font-size:0.7em;">
+<div style="font-size:0.65em;">
 <p><strong>Main effect</strong></p>
-<p>The effect of a predictor <strong>on its own</strong>, ignoring how it might depend on another variable.</p>
+<p>Effect of a predictor <strong>on its own</strong>, ignoring how it might depend on another variable.</p>
 <ul>
 <li>
 <span class="math inline">\(\beta_1\)</span>: the effect of assets <em>when</em> <span class="math inline">\(\text{nn}_i=0\)</span><em>, i.e.&nbsp;for the reference/native group</em>
@@ -748,12 +750,12 @@ window.Quarto = {
 </div>
 </div><div class="column" style="width:50%;">
 <div style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.8em;">
-<div style="font-size:0.7em;">
+<div style="font-size:0.65em;">
 <p><strong>Interaction effect</strong></p>
-<p>The effect of one predictor <strong>depends on the value of another</strong> predictor.</p>
+<p>Effect of one predictor <strong>depends on the value of another</strong> predictor.</p>
 <ul>
 <li>
-<span class="math inline">\(\beta_3\)</span>: how much the <em>slope</em> on assets changes when moving from native to non-native communities</li>
+<span class="math inline">\(\beta_3\)</span>: how much the <em>slope</em> on assets differs in native vs non-native communities</li>
 </ul>
 <p>An interaction answers: <em>“does the relationship between assets and hair Hg differ by community type?”</em></p>
 </div>
@@ -972,10 +974,7 @@ e^{\log\left(\frac{\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i}{\text
 </div><div class="column" style="width:50%;">
 <div style="background-color:#eaebf7; border: 2px solid #071381; border-radius: 8px; padding: 0.7em; font-size:0.55em;">
 <p><strong>Assets slope — Non-native</strong></p>
-<p>Holding age constant, each additional SD of assets in a non-native community is associated with hair Hg lower, on average, by a factor of <span class="math inline">\(e^{-0.292+0.201}=e^{-0.091}=\)</span> <strong>0.91</strong>.</p>
-<div style="font-size:0.5em;">
-<p>Note: that’s from the figures on the log scale; if you do the math from this (exponentiated) table it’s just <span class="math inline">\((0.747)(1.22)=0.91\)</span></p>
-</div>
+<p>Holding age constant, each additional SD of assets in a non-native community is associated with hair Hg lower, on average, by a factor of <span class="math inline">\(e^{-0.292+0.201}=0.746(1.223)=\)</span> <strong>0.91</strong>.</p>
 </div>
 </div>
 </div>
@@ -1008,6 +1007,65 @@ e^{\log\left(\frac{\text{hair Hg for age}_i+1, \text{sdas}_i, \text{nn}_i}{\text
 </div>
 </div>
 </div>
+</section><section id="you-try-it-malaria-study-in-zambia" class="level2"><h2 class="anchored" data-anchor-id="you-try-it-malaria-study-in-zambia">You Try It: Malaria Study in Zambia</h2>
+<p>Researchers studied <strong>820 children in rural Zambia</strong>, approximately 4–8 years old.</p>
+<ul>
+<li>Outcome: hemoglobin concentration, measured in <strong>g/L</strong>.</li>
+<li>Predictors: age and malaria infection, assessed by microscopy in the regression models.</li>
+</ul>
+<div class="questions">
+<p><strong>Research question:</strong> Does the association between malaria and hemoglobin depend on a child’s age and malaria season?</p>
+</div>
+<div class="source">
+<p>Source: Acheampong et al.&nbsp;(2021), <em>EJHaem</em> 2:349–356. <a href="https://doi.org/10.1002/jha2.243">Study methods</a>.</p>
+</div>
+<div class="notes">
+<p>The study drew on a nutrition trial in Mkushi District, Zambia. For this question, malaria status is an observational exposure.</p>
+<p>The original study measured the same children in two seasons.</p>
+<p>Source: https://doi.org/10.1002/jha2.243, Sections 2.1–2.5 and Table 3.</p>
+</div>
+</section><section id="hemoglobin-and-age-by-season" class="level2"><h2 class="anchored" data-anchor-id="hemoglobin-and-age-by-season">Hemoglobin and age by season</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="../img/malaria.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../img/malaria.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:35%;">
+<div style="font-size:0.8em;">
+<ol type="1">
+<li><p>How does the hemoglobin difference between the groups change with age and season?</p></li>
+<li><p>Assume we fit a separate model for each season. What terms would we need in each model?</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section><section id="a-model-with-an-interaction" class="level2"><h2 class="anchored" data-anchor-id="a-model-with-an-interaction">A model with an interaction</h2>
+<p>For this exercise, define <span class="math inline">\(t_i=\mathrm{age}_i-60\)</span>, with age in months, and <span class="math inline">\(M_i=1\)</span> for a child with malaria and <span class="math inline">\(0\)</span> otherwise. Assume researchers fit separate models of this form in each season.</p>
+<p><span class="math display">\[
+E(Y_i\mid t_i,M_i)
+=\beta_0+\beta_1t_i+\beta_2M_i+\beta_3t_iM_i.
+\]</span></p>
+<p>Here, <span class="math inline">\(Y_i\)</span> is hemoglobin concentration in g/L.</p>
+<div class="questions">
+<ol type="1">
+<li>Interpret <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</li>
+<li>What comparison does <span class="math inline">\(\beta_2\)</span> represent?</li>
+<li>What does <span class="math inline">\(\beta_3\)</span> measure, and what sign would agree with the figure?</li>
+</ol>
+</div>
+</section><section id="approximate-the-estimates" class="level2"><h2 class="anchored" data-anchor-id="approximate-the-estimates">Approximate the Estimates</h2>
+<p>Separately for low season and high season, using the fitted lines shown in the plot, provide guesses for the estimates <span class="math inline">\(\widehat{\beta}_0\)</span>, <span class="math inline">\(\widehat{\beta}_1\)</span>, <span class="math inline">\(\widehat{\beta}_2\)</span>, and <span class="math inline">\(\widehat{\beta}_3\)</span>.</p>
+</section><section id="the-best-model" class="level2"><h2 class="anchored" data-anchor-id="the-best-model">The Best Model</h2>
+<p>Is the model structure <span class="math display">\[
+E(Y_i\mid t_i,M_i)
+=\beta_0+\beta_1t_i+\beta_2M_i+\beta_3t_iM_i.
+\]</span></p>
+<p>ideal for both low season and high season? If not, what modifications might you consider?</p>
+</section><section id="a-single-model" class="level2"><h2 class="anchored" data-anchor-id="a-single-model">A Single Model</h2>
+<p>We have discussed separate models for low season and high season. What are potential benefits and complications of fitting a single model to the data instead of two separate models?</p>
 </section><section id="homework-practice" class="level2"><h2 class="anchored" data-anchor-id="homework-practice">Homework (Practice)</h2>
 <p><a href="https://openintrostat.github.io/ims/model-mlr.html#sec-chp8-exercises"><strong>IMS Chapter 8</strong></a></p>
 <ul>
