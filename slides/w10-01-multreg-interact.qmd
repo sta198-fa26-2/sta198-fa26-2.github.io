@@ -731,7 +731,7 @@ Separately for low season and high season, using the fitted lines shown in the p
 Is the model structure 
 $$
 E(Y_i\mid t_i,M_i)
-=\beta_0+\beta_1t_i+\beta_2M_i+\beta_3t_iM_i.
+=\beta_0+\beta_1t_i+\beta_2M_i+\beta_3t_iM_i
 $$ 
 
 ideal for both low season and high season?  If not, what modifications might you consider?
