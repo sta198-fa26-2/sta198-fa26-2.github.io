@@ -1,0 +1,55 @@
+---
+title: "Picking an Analysis Method"
+subtitle: "Introduction to Global Health Data Science"
+date: "2026-10-28"
+format:
+  revealjs:
+    output-file: w10-02-method-practice-slides.html
+    footer: "[🔗 sta198-fa26-2.github.io](https://sta198-fa26-2.github.io/)"
+    theme: slides.scss
+    transition: fade
+    slide-number: true
+    pdf-separate-fragments: true
+    toc: false
+  html:
+    code-link: true
+filters: 
+  - ../remove-fmt-skip.lua
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child="setup.Rmd", echo=FALSE}
+```
+For each scenario, identify an appropriate statistical method. For regression questions, specify a model and identify the coefficient or coefficients you would test, and provide $H_0$ and $H_A$. Assume the relevant conditions for inference are satisfied unless otherwise stated.
+
+## Morning Commute
+
+Researchers independently sample 60 adults who commute by bicycle and 75 adults who commute by car. They measure each participant’s resting heart rate and note that heart rates are considerably more variable among the car commuters. How would you test whether the two groups differ in population mean resting heart rate?
+
+## Thermometer Calibration
+
+Researchers measure the body temperature of each of 35 adults using two different thermometers during the same visit. How would you test whether the population mean difference between the two thermometers’ readings is zero?
+
+## Water Purification
+
+Researchers independently sample households using one of three water supply systems and measure bacterial concentration in their drinking water. How would you test whether population mean bacterial concentration is the same across the three supply systems?
+
+## Travel Time for Medical Care
+
+Researchers record distance to the nearest health clinic and travel time to that clinic for 120 households. How would you test whether distance has a linear association with mean travel time?
+
+## Hemoglobin Levels
+
+Researchers measure hemoglobin concentration, daily dietary iron intake, age, and malaria infection status for 180 children. How would you test whether dietary iron intake is associated with mean hemoglobin concentration after accounting for age and malaria infection?
+
+
+
+## Mercury in Blood
+
+Researchers compare blood mercury concentrations among adults from three river communities, accounting for weekly fish consumption (measured in total servings consumed). Assume the association between fish consumption and mean blood mercury concentration has the same slope in all three communities. How would you test whether population mean blood mercury concentration differs among communities after accounting for fish consumption?
+
+## Stress Management
+
+Researchers randomly assign 90 adults to one of two stress-management programs. After six weeks, they measure stress scores. Assume the two populations have equal variances. How would you test whether the programs differ in population mean stress score?
+
