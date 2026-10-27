@@ -21,7 +21,16 @@ editor_options:
 
 ```{r, child="setup.Rmd", echo=FALSE}
 ```
-For each scenario, identify an appropriate statistical method. For regression questions, specify a model and identify the coefficient or coefficients you would test, and provide $H_0$ and $H_A$. Assume the relevant conditions for inference are satisfied unless otherwise stated.
+
+
+For each scenario:
+
+- Identify an appropriate statistical test and briefly explain your choice. Be sure to state $H_0$ and $H_A$ for your test.
+
+- If using regression, specify the model, define the variables and any reference categories, and identify the coefficient(s) you would test.
+
+No calculations are required. Assume the relevant assumptions are reasonably satisfied unless otherwise stated.
+
 
 ## Morning Commute
 
