@@ -8125,7 +8125,7 @@
     "href": "slides/w10-02-method-practice.html",
     "title": "Picking an Analysis Method",
     "section": "",
-    "text": "For each scenario, identify an appropriate statistical method. For regression questions, specify a model and identify the coefficient or coefficients you would test, and provide \\(H_0\\) and \\(H_A\\). Assume the relevant conditions for inference are satisfied unless otherwise stated."
+    "text": "For each scenario:\nNo calculations are required. Assume the relevant assumptions are reasonably satisfied unless otherwise stated."
   },
   {
     "objectID": "slides/w10-02-method-practice.html#morning-commute",
