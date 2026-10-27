@@ -27,7 +27,7 @@ For each scenario:
 
 - Identify an appropriate statistical test and briefly explain your choice. Be sure to state $H_0$ and $H_A$ for your test.
 
-- If using regression, specify the model, define the variables and any reference categories, and identify the coefficient(s) you would test.
+- If using regression, specify the full model, define the variables and any reference categories, and identify the coefficient(s) you would test.
 
 No calculations are required. Assume the relevant assumptions are reasonably satisfied unless otherwise stated.
 
@@ -50,7 +50,7 @@ Researchers record distance to the nearest health clinic and travel time to that
 
 ## Hemoglobin Levels
 
-Researchers measure hemoglobin concentration, daily dietary iron intake, age, and malaria infection status for 180 children. How would you test whether dietary iron intake is associated with mean hemoglobin concentration after accounting for age and malaria infection?
+Researchers measure hemoglobin concentration, daily dietary iron intake, total caloric intake, age, and malaria infection status for 180 children. How would you test whether dietary iron intake is associated with mean hemoglobin concentration after accounting for total caloric intake, age, and malaria infection status?
 
 
 
