@@ -829,6 +829,14 @@ Examples:
 </div>
 
 
+## Correlated Data and GEE
+
+I'm not entirely satisfied because we do have a violation of independence due to including multiple births in the sample. We could limit the data to singleton births, but then we cannot say anything about how the risk of preterm birth is affected by multiples.  A simple solution is to fit the model using **generalized estimating equations (GEE)**, which provide a simple fix to correct the standard errors of the logistic regression models. Interpretation of results remains the same.
+
+The challenge here is that we don't have a unique identifier for the mother -- there is no way to tell which twins go together. Without that, we cannot correct the standard errors with GEE, so we should interpret results with a bit of caution.
+
+
+
 
 ## Homework (Practice)
 
