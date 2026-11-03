@@ -4,7 +4,7 @@ subtitle: "Introduction to Global Health Data Science"
 author: "Prof. Amy Herring"
 format:
   revealjs:
-    output-file: w12-l03-logistic-slides.html
+    output-file: w12-l02-logistic-slides.html
     footer: "[🔗 sta198-fa26-2.github.io](https://sta198-fa26-2.github.io/)"
     theme: slides.scss
     transition: fade
@@ -558,11 +558,49 @@ tidy(age_fit, conf.int = TRUE, exponentiate = TRUE) %>%
 
 Mothers aged $<15$ do not have significantly different risk of preterm birth as mothers aged 15-39.  Mothers aged 40+ have 1.68 (1.30, 2.14) times the odds of preterm birth as their counterparts aged 15-39.
 
+While the OR for $<15$ is more impressive at first glance, there is large variability around the estimate, and we can't rule out no difference in risk.
+
+
+## Preterm birth counts
+
+The numbers inside the bars correspond to counts within each category.
+
+```{r}
+#| echo: FALSE
+
+analysis_births %>%
+  ggplot(aes(x = age_group, fill = preterm)) +
+  geom_bar(position = "fill") +
+  geom_text(
+    stat = "count",
+    aes(label = after_stat(count), colour = preterm),
+    position = position_fill(vjust = 0.5),
+    size = 4,
+    show.legend = FALSE
+  ) +
+  scale_x_discrete(limits = c("<15", "15-39", "40+")) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  scale_fill_manual(
+    values = c("No" = "#B9AEC8", "Yes" = "#012169")
+  ) +
+  scale_colour_manual(
+    values = c("No" = "#012169", "Yes" = "#B9AEC8"),
+    guide = "none"
+  ) +
+  labs(
+    x = "Maternal age group (years)",
+    y = "Proportion of births",
+    fill = "Preterm"
+  )
+```
+
+
+We did see more preterm birth among young moms, but very few moms are that young, explaining the instability in our estimate and lack of statistical significance.
 
 
 ## Multiple logistic regression
 
-<div style="font-size:0.75em;">
+<div style="font-size:0.6em;">
 
 
 Now include the five predictors. We call this type of model a *multiple logistic regression model* or an *adjusted* model. The age and BMI categories enter the model through indicator variables:
@@ -707,10 +745,10 @@ $$
 \end{aligned}
 $$
 
-For a one-unit increase in $X$, the estimated **crude odds ratio** is
+For a one-unit increase in $X$, the estimated **unadjusted (crude) odds ratio** is
 
 $$
-\widehat{OR}_{\text{crude}}=e^{\hat{\alpha}_1}.
+\widehat{OR}_{\text{unadjusted}}=e^{\hat{\alpha}_1}.
 $$
 
 :::
@@ -721,9 +759,9 @@ $$
 
 $$
 \begin{aligned}
-\operatorname{logit}\{P(Y_i=1\mid X_i,\mathbf Z_i)\}
-&= \beta_0+\beta_1X_i\\
-&\quad+\beta_2Z_{2i}+\cdots+\beta_pZ_{pi}.
+\operatorname{logit}\{P(Y_i=1&\mid X_i,\mathbf Z_i)\}
+= \beta_0+\beta_1X_i\\
+&\quad+\beta_2Z_{1i}+\cdots+\beta_pZ_{pi}.
 \end{aligned}
 $$
 
@@ -743,7 +781,7 @@ $$
 
 The two odds ratios answer different questions.
 
-- **Crude OR:** How do the odds of $Y=1$ compare for groups that differ by one unit in $X$, without accounting for other predictors?
+- **Unadjusted OR:** How do the odds of $Y=1$ compare for groups that differ by one unit in $X$, without accounting for other predictors?
 
 - **Adjusted OR:** How do the odds compare for groups that differ by one unit in $X$ but have the **same values of the other predictors**?
 
@@ -779,130 +817,17 @@ Subject-matter knowledge helps us decide which variables to adjust for.
 
 Confounding can make an association appear **stronger**, **weaker**, or even point in the **opposite direction**.
 
-| Pattern | What can happen after appropriate adjustment? |
-|:--|:--|
-| Crude association exaggerated | The OR moves closer to 1. |
-| Crude association masked | The OR moves further from 1. |
-| Crude association reversed | The OR changes from above 1 to below 1, or vice versa. |
+A reversal between an overall association and associations within subgroups is an example of **Simpson's paradox** (coming soon!).
 
-A reversal between an overall association and associations within subgroups is an example of **Simpson's paradox**.
+Examples:
 
-A change in the estimated OR alone does **not** establish that a variable is a confounder.
+  - Shoe size and reading ability: Among children, those with bigger shoe sizes tend to read better. Age is a confounder: older children generally have larger shoe sizes and more developed reading skills. Larger shoes do not cause better reading.
+  
+  - Hospital choice and mortality: In 2022, patients at Duke Hospital had a 2.9% inpatient mortality rate. Chatham Hospital in Siler City had a 1.7% inpatient mortality rate. Does this mean Duke provides worse care?  Likely not -- Duke Hospital is a major referral center for complex and high-risk cases, with a high rate of seriously ill transfers from other facilities, while Chatham Hospital is a general facility that tends to transfer high-risk cases to referral centers like Duke or UNC. Thus severity level of illness (often called a **case mix**) is a likely confounder of the relationship between hospital and mortality.
+
 
 </div>
 
-## A Simulated Example of Confounding
-
-Suppose $Z$ influences both $X$ and $Y$.
-
-For each observation $i=1,\ldots,n$:
-
-$$
-\begin{aligned}
-Z_i &\sim \operatorname{Bernoulli}(0.5),\\[6pt]
-\operatorname{logit}\!\left\{P(X_i=1\mid Z_i)\right\}
-&= -1+2Z_i,\\[6pt]
-\operatorname{logit}\!\left\{P(Y_i=1\mid X_i,Z_i)\right\}
-&= -1+0.5X_i+1.5Z_i.
-\end{aligned}
-$$
-
-Here, $X_i$ and $Y_i$ are binary, and
-$\operatorname{logit}(p)=\log\{p/(1-p)\}$.
-
-Thus, $Z$ predicts both $X$ and $Y$, while $X$ also predicts $Y$.
-
-## {background-color="white"}
-
-
-```{r}
-#| label: or-confounding-data
-#| echo: true
-#| message: false
-#| warning: false
-
-set.seed(2024)
-n <- 20000
-z <- rbinom(n, 1, 0.5)
-x <- rbinom(n, 1, plogis(-1 + 2 * z))
-y <- rbinom(n, 1, plogis(-1 + 0.5 * x + 1.5 * z))
-
-or_confounding_data <- data.frame(
-  x,
-  y = factor(y, levels = c(0, 1)),
-  z
-)
-```
-
-- $X=1$ is more common among those with $Z=1$.
-- $Z=1$ also increases the probability of $Y=1$.
-- Holding $Z$ constant, the true OR for $X$ is $e^{0.5}\approx1.65$.
-
-## Compare the Crude and Adjusted Odds Ratios
-
-```{r}
-#| label: or-confounding-models
-#| echo: true
-#| message: false
-#| warning: false
-
-or_confounding_simple <- logistic_reg() %>%
-  set_engine("glm") %>%
-  fit(y ~ x, data = or_confounding_data)
-
-or_confounding_adjusted <- logistic_reg() %>%
-  set_engine("glm") %>%
-  fit(y ~ x + z, data = or_confounding_data)
-```
-
-```{r}
-#| label: or-confounding-results
-#| echo: false
-#| results: asis
-
-or_confounding_results <- bind_rows(
-  Crude = tidy(or_confounding_simple,
-               conf.int = TRUE, exponentiate = TRUE),
-  Adjusted = tidy(or_confounding_adjusted,
-                  conf.int = TRUE, exponentiate = TRUE),
-  .id = "Model"
-) %>%
-  filter(term == "x") %>%
-  select(Model, estimate, conf.low, conf.high)
-
-knitr::kable(
-  or_confounding_results,
-  digits = 3,
-  col.names = c("Model", "Estimated OR",
-               "95% CI: lower", "95% CI: upper")
-)
-
-
-```
-
-Both models use the **same observations**.
-
-## What Happened in This Example?
-
-The simulation was constructed so that $Z$ influences both $X$ and $Y$.
-
-- In the simple model, $X$ partly stands in for $Z$.
-- Some of the higher odds of $Y=1$ among those with $X=1$ reflect their greater probability of having $Z=1$.
-- After adjustment, the estimated OR should be near the true conditional OR of **1.65**.
-
-For this data-generating mechanism, the population crude OR is approximately **3.05**, compared with the conditional OR of **1.65**.
-
-The simulated estimates will vary around these values.
-
-## Interpreting a Change After Adjustment
-
-1. **Compare the same observations.** Added predictors may have missing values, causing the adjusted model to use a smaller sample.
-
-2. **Use subject-matter knowledge.** Decide whether a variable could create a noncausal association between $X$ and $Y$.
-
-3. **Interpret the adjusted OR conditionally.** State which variables are being held constant.
-
-4. **Avoid causal conclusions from adjustment alone.** Including additional predictors does not automatically make an association causal.
 
 
 ## Homework (Practice)
