@@ -964,6 +964,9 @@ X \leftarrow Z \rightarrow Y.
 <li><p>Hospital choice and mortality: In 2022, patients at Duke Hospital had a 2.9% inpatient mortality rate. Chatham Hospital in Siler City had a 1.7% inpatient mortality rate. Does this mean Duke provides worse care? Likely not – Duke Hospital is a major referral center for complex and high-risk cases, with a high rate of seriously ill transfers from other facilities, while Chatham Hospital is a general facility that tends to transfer high-risk cases to referral centers like Duke or UNC. Thus severity level of illness (often called a <strong>case mix</strong>) is a likely confounder of the relationship between hospital and mortality.</p></li>
 </ul>
 </div>
+</section><section id="correlated-data-and-gee" class="slide level2"><h2>Correlated Data and GEE</h2>
+<p>I’m not entirely satisfied because we do have a violation of independence due to including multiple births in the sample. We could limit the data to singleton births, but then we cannot say anything about how the risk of preterm birth is affected by multiples. A simple solution is to fit the model using <strong>generalized estimating equations (GEE)</strong>, which provide a simple fix to correct the standard errors of the logistic regression models. Interpretation of results remains the same.</p>
+<p>The challenge here is that we don’t have a unique identifier for the mother – there is no way to tell which twins go together. Without that, we cannot correct the standard errors with GEE, so we should interpret results with a bit of caution.</p>
 </section><section id="homework-practice" class="slide level2"><h2>Homework (Practice)</h2>
 <p><a href="https://openintrostat.github.io/ims/model-logistic.html#sec-chp09-exercises"><strong>IMS Chapter 9</strong></a></p>
 <ul>
