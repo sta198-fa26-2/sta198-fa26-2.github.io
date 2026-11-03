@@ -306,7 +306,7 @@ Prof.&nbsp;Amy Herring
 <p><strong>Which outcome should we code as the event of interest?</strong> Here <code>Yes</code> is the second factor level, so the fitted model targets the probability of preterm birth.</p>
 </section><section id="how-many-moms-smoke" class="slide level2"><h2>How many moms smoke?</h2>
 
-<img data-src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="preterm-birth-and-smoking" class="slide level2"><h2>Preterm birth and smoking</h2>
+<img data-src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="preterm-birth-and-smoking" class="slide level2"><h2>Preterm birth and smoking</h2>
 <div class="cell" data-layout-align="center">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>analysis_births <span class="sc">%&gt;%</span></span>
 <span id="cb2-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> smoking, <span class="at">fill =</span> preterm)) <span class="sc">+</span></span>
@@ -317,9 +317,9 @@ Prof.&nbsp;Amy Herring
 <span id="cb2-7"><a></a>       <span class="at">fill =</span> <span class="st">"Preterm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<img data-src="w12-l03-logistic_files/figure-revealjs/preterm-by-smoking-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="how-many-moms-have-gestational-diabetes" class="slide level2"><h2>How many moms have gestational diabetes?</h2>
+<img data-src="w12-l02-logistic_files/figure-revealjs/preterm-by-smoking-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="how-many-moms-have-gestational-diabetes" class="slide level2"><h2>How many moms have gestational diabetes?</h2>
 
-<img data-src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="preterm-birth-and-gestational-diabetes" class="slide level2"><h2>Preterm birth and gestational diabetes</h2>
+<img data-src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="preterm-birth-and-gestational-diabetes" class="slide level2"><h2>Preterm birth and gestational diabetes</h2>
 <div class="cell" data-layout-align="center">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>analysis_births <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> gest_diabetes, <span class="at">fill =</span> preterm)) <span class="sc">+</span></span>
@@ -330,9 +330,9 @@ Prof.&nbsp;Amy Herring
 <span id="cb3-7"><a></a>       <span class="at">fill =</span> <span class="st">"Preterm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<img data-src="w12-l03-logistic_files/figure-revealjs/preterm-by-diabetes-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="how-many-births-are-multiples" class="slide level2"><h2>How many births are multiples?</h2>
+<img data-src="w12-l02-logistic_files/figure-revealjs/preterm-by-diabetes-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="how-many-births-are-multiples" class="slide level2"><h2>How many births are multiples?</h2>
 
-<img data-src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="preterm-birth-and-plurality" class="slide level2"><h2>Preterm birth and plurality</h2>
+<img data-src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="preterm-birth-and-plurality" class="slide level2"><h2>Preterm birth and plurality</h2>
 <div class="cell" data-layout-align="center">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>analysis_births <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> plurality, <span class="at">fill =</span> preterm)) <span class="sc">+</span></span>
@@ -342,9 +342,9 @@ Prof.&nbsp;Amy Herring
 <span id="cb4-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Plurality"</span>, <span class="at">y =</span> <span class="st">"Proportion of births"</span>, <span class="at">fill =</span> <span class="st">"Preterm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<img data-src="w12-l03-logistic_files/figure-revealjs/preterm-by-plurality-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="to-which-bmi-categories-do-the-mothers-belong" class="slide level2"><h2>To which BMI categories do the mothers belong?</h2>
+<img data-src="w12-l02-logistic_files/figure-revealjs/preterm-by-plurality-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="to-which-bmi-categories-do-the-mothers-belong" class="slide level2"><h2>To which BMI categories do the mothers belong?</h2>
 
-<img data-src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="preterm-birth-and-pre-pregnancy-bmi" class="slide level2"><h2>Preterm birth and pre-pregnancy BMI</h2>
+<img data-src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="preterm-birth-and-pre-pregnancy-bmi" class="slide level2"><h2>Preterm birth and pre-pregnancy BMI</h2>
 <div class="cell" data-layout-align="center">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>analysis_births <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bmi_category, <span class="at">fill =</span> preterm)) <span class="sc">+</span></span>
@@ -356,9 +356,9 @@ Prof.&nbsp;Amy Herring
 <span id="cb5-8"><a></a>       <span class="at">fill =</span> <span class="st">"Preterm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<img data-src="w12-l03-logistic_files/figure-revealjs/preterm-by-bmi-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="how-old-are-the-moms" class="slide level2"><h2>How old are the moms?</h2>
+<img data-src="w12-l02-logistic_files/figure-revealjs/preterm-by-bmi-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="how-old-are-the-moms" class="slide level2"><h2>How old are the moms?</h2>
 
-<img data-src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="preterm-birth-and-maternal-age-group" class="slide level2"><h2>Preterm birth and maternal age group</h2>
+<img data-src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="preterm-birth-and-maternal-age-group" class="slide level2"><h2>Preterm birth and maternal age group</h2>
 <div class="cell" data-layout-align="center">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>analysis_births <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age_group, <span class="at">fill =</span> preterm)) <span class="sc">+</span></span>
@@ -370,7 +370,7 @@ Prof.&nbsp;Amy Herring
 <span id="cb6-8"><a></a>       <span class="at">fill =</span> <span class="st">"Preterm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<img data-src="w12-l03-logistic_files/figure-revealjs/preterm-by-age-group-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"><p><strong>Question:</strong> Why can we describe associations from these plots but not infer that a predictor caused a preterm birth?</p>
+<img data-src="w12-l02-logistic_files/figure-revealjs/preterm-by-age-group-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"><p><strong>Question:</strong> Why can we describe associations from these plots but not infer that a predictor caused a preterm birth?</p>
 </section><section id="framing-the-outcome" class="slide level2"><h2>Framing the outcome</h2>
 <p>For birth <span class="math inline">\(i\)</span>, define</p>
 <p><span class="math display">\[Y_i=\begin{cases}1 &amp; \text{if gestational age is less than 37 weeks},\\
@@ -405,7 +405,7 @@ Prof.&nbsp;Amy Herring
 <p>The logit is defined for <span class="math inline">\(0&lt;\pi&lt;1\)</span>.</p>
 </section><section id="the-logit-function" class="slide level2"><h2>The logit function</h2>
 
-<img data-src="w12-l03-logistic_files/figure-revealjs/logit-plot-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="from-log-odds-back-to-probability" class="slide level2"><h2>From log odds back to probability</h2>
+<img data-src="w12-l02-logistic_files/figure-revealjs/logit-plot-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section><section id="from-log-odds-back-to-probability" class="slide level2"><h2>From log odds back to probability</h2>
 <p>The inverse logit converts <strong>any</strong> linear predictor <span class="math inline">\(\eta_i\)</span> into a probability:</p>
 <p><span class="math display">\[\pi_i=\frac{\exp(\eta_i)}{1+\exp(\eta_i)}
 =\frac{1}{1+\exp(-\eta_i)}.\]</span></p>
@@ -666,8 +666,13 @@ I(\text{maternal age}&gt;40)=
 </div>
 </div>
 <p>Mothers aged <span class="math inline">\(&lt;15\)</span> do not have significantly different risk of preterm birth as mothers aged 15-39. Mothers aged 40+ have 1.68 (1.30, 2.14) times the odds of preterm birth as their counterparts aged 15-39.</p>
+<p>While the OR for <span class="math inline">\(&lt;15\)</span> is more impressive at first glance, there is large variability around the estimate, and we can’t rule out no difference in risk.</p>
+</section><section id="preterm-birth-counts" class="slide level2"><h2>Preterm birth counts</h2>
+<p>The numbers inside the bars correspond to counts within each category.</p>
+
+<img data-src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"><p>We did see more preterm birth among young moms, but very few moms are that young, explaining the instability in our estimate and lack of statistical significance.</p>
 </section><section id="multiple-logistic-regression" class="slide level2"><h2>Multiple logistic regression</h2>
-<div style="font-size:0.75em;">
+<div style="font-size:0.6em;">
 <p>Now include the five predictors. We call this type of model a <em>multiple logistic regression model</em> or an <em>adjusted</em> model. The age and BMI categories enter the model through indicator variables:</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -908,17 +913,17 @@ I(\text{maternal age}&gt;40)=
 &amp;= \alpha_0+\alpha_1X_i.
 \end{aligned}
 \]</span></p>
-<p>For a one-unit increase in <span class="math inline">\(X\)</span>, the estimated <strong>crude odds ratio</strong> is</p>
+<p>For a one-unit increase in <span class="math inline">\(X\)</span>, the estimated <strong>unadjusted (crude) odds ratio</strong> is</p>
 <p><span class="math display">\[
-\widehat{OR}_{\text{crude}}=e^{\hat{\alpha}_1}.
+\widehat{OR}_{\text{unadjusted}}=e^{\hat{\alpha}_1}.
 \]</span></p>
 </div><div class="column" style="width:48%;">
 <p><strong>Multiple (adjusted) model</strong></p>
 <p><span class="math display">\[
 \begin{aligned}
-\operatorname{logit}\{P(Y_i=1\mid X_i,\mathbf Z_i)\}
-&amp;= \beta_0+\beta_1X_i\\
-&amp;\quad+\beta_2Z_{2i}+\cdots+\beta_pZ_{pi}.
+\operatorname{logit}\{P(Y_i=1&amp;\mid X_i,\mathbf Z_i)\}
+= \beta_0+\beta_1X_i\\
+&amp;\quad+\beta_2Z_{1i}+\cdots+\beta_pZ_{pi}.
 \end{aligned}
 \]</span></p>
 <p>Holding the other predictors constant, the estimated <strong>adjusted odds ratio</strong> is</p>
@@ -930,7 +935,7 @@ I(\text{maternal age}&gt;40)=
 </section><section id="the-models-compare-different-groups" class="slide level2"><h2>The Models Compare Different Groups</h2>
 <p>The two odds ratios answer different questions.</p>
 <ul>
-<li><p><strong>Crude OR:</strong> How do the odds of <span class="math inline">\(Y=1\)</span> compare for groups that differ by one unit in <span class="math inline">\(X\)</span>, without accounting for other predictors?</p></li>
+<li><p><strong>Unadjusted OR:</strong> How do the odds of <span class="math inline">\(Y=1\)</span> compare for groups that differ by one unit in <span class="math inline">\(X\)</span>, without accounting for other predictors?</p></li>
 <li><p><strong>Adjusted OR:</strong> How do the odds compare for groups that differ by one unit in <span class="math inline">\(X\)</span> but have the <strong>same values of the other predictors</strong>?</p></li>
 </ul>
 <p>For binary <span class="math inline">\(X\)</span>, this compares <span class="math inline">\(X=1\)</span> with <span class="math inline">\(X=0\)</span>.</p>
@@ -952,118 +957,14 @@ X \leftarrow Z \rightarrow Y.
 </section><section id="how-can-confounding-change-an-association" class="slide level2"><h2>How Can Confounding Change an Association?</h2>
 <div style="font-size:0.75em;">
 <p>Confounding can make an association appear <strong>stronger</strong>, <strong>weaker</strong>, or even point in the <strong>opposite direction</strong>.</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">Pattern</th>
-<th style="text-align: left;">What can happen after appropriate adjustment?</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Crude association exaggerated</td>
-<td style="text-align: left;">The OR moves closer to 1.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Crude association masked</td>
-<td style="text-align: left;">The OR moves further from 1.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Crude association reversed</td>
-<td style="text-align: left;">The OR changes from above 1 to below 1, or vice versa.</td>
-</tr>
-</tbody>
-</table>
-<p>A reversal between an overall association and associations within subgroups is an example of <strong>Simpson’s paradox</strong>.</p>
-<p>A change in the estimated OR alone does <strong>not</strong> establish that a variable is a confounder.</p>
-</div>
-</section><section id="a-simulated-example-of-confounding" class="slide level2"><h2>A Simulated Example of Confounding</h2>
-<p>Suppose <span class="math inline">\(Z\)</span> influences both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
-<p>For each observation <span class="math inline">\(i=1,\ldots,n\)</span>:</p>
-<p><span class="math display">\[
-\begin{aligned}
-Z_i &amp;\sim \operatorname{Bernoulli}(0.5),\\[6pt]
-\operatorname{logit}\!\left\{P(X_i=1\mid Z_i)\right\}
-&amp;= -1+2Z_i,\\[6pt]
-\operatorname{logit}\!\left\{P(Y_i=1\mid X_i,Z_i)\right\}
-&amp;= -1+0.5X_i+1.5Z_i.
-\end{aligned}
-\]</span></p>
-<p>Here, <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span> are binary, and <span class="math inline">\(\operatorname{logit}(p)=\log\{p/(1-p)\}\)</span>.</p>
-<p>Thus, <span class="math inline">\(Z\)</span> predicts both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, while <span class="math inline">\(X\)</span> also predicts <span class="math inline">\(Y\)</span>.</p>
-</section><section id="section-4" class="slide level2" data-background-color="white"><h2></h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
-<span id="cb12-2"><a></a>n <span class="ot">&lt;-</span> <span class="dv">20000</span></span>
-<span id="cb12-3"><a></a>z <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
-<span id="cb12-4"><a></a>x <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">plogis</span>(<span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> z))</span>
-<span id="cb12-5"><a></a>y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">plogis</span>(<span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> z))</span>
-<span id="cb12-6"><a></a></span>
-<span id="cb12-7"><a></a>or_confounding_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb12-8"><a></a>  x,</span>
-<span id="cb12-9"><a></a>  <span class="at">y =</span> <span class="fu">factor</span>(y, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)),</span>
-<span id="cb12-10"><a></a>  z</span>
-<span id="cb12-11"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>A reversal between an overall association and associations within subgroups is an example of <strong>Simpson’s paradox</strong> (coming soon!).</p>
+<p>Examples:</p>
 <ul>
-<li>
-<span class="math inline">\(X=1\)</span> is more common among those with <span class="math inline">\(Z=1\)</span>.</li>
-<li>
-<span class="math inline">\(Z=1\)</span> also increases the probability of <span class="math inline">\(Y=1\)</span>.</li>
-<li>Holding <span class="math inline">\(Z\)</span> constant, the true OR for <span class="math inline">\(X\)</span> is <span class="math inline">\(e^{0.5}\approx1.65\)</span>.</li>
-</ul></section><section id="compare-the-crude-and-adjusted-odds-ratios" class="slide level2"><h2>Compare the Crude and Adjusted Odds Ratios</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>or_confounding_simple <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a></a>  <span class="fu">set_engine</span>(<span class="st">"glm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a></a>  <span class="fu">fit</span>(y <span class="sc">~</span> x, <span class="at">data =</span> or_confounding_data)</span>
-<span id="cb13-4"><a></a></span>
-<span id="cb13-5"><a></a>or_confounding_adjusted <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-6"><a></a>  <span class="fu">set_engine</span>(<span class="st">"glm"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-7"><a></a>  <span class="fu">fit</span>(y <span class="sc">~</span> x <span class="sc">+</span> z, <span class="at">data =</span> or_confounding_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-layout-align="center">
-<table class="caption-top">
-<thead><tr class="header">
-<th style="text-align: left;">Model</th>
-<th style="text-align: right;">Estimated OR</th>
-<th style="text-align: right;">95% CI: lower</th>
-<th style="text-align: right;">95% CI: upper</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Crude</td>
-<td style="text-align: right;">3.042</td>
-<td style="text-align: right;">2.872</td>
-<td style="text-align: right;">3.223</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adjusted</td>
-<td style="text-align: right;">1.645</td>
-<td style="text-align: right;">1.540</td>
-<td style="text-align: right;">1.757</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Both models use the <strong>same observations</strong>.</p>
-</section><section id="what-happened-in-this-example" class="slide level2"><h2>What Happened in This Example?</h2>
-<p>The simulation was constructed so that <span class="math inline">\(Z\)</span> influences both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
-<ul>
-<li>In the simple model, <span class="math inline">\(X\)</span> partly stands in for <span class="math inline">\(Z\)</span>.</li>
-<li>Some of the higher odds of <span class="math inline">\(Y=1\)</span> among those with <span class="math inline">\(X=1\)</span> reflect their greater probability of having <span class="math inline">\(Z=1\)</span>.</li>
-<li>After adjustment, the estimated OR should be near the true conditional OR of <strong>1.65</strong>.</li>
+<li><p>Shoe size and reading ability: Among children, those with bigger shoe sizes tend to read better. Age is a confounder: older children generally have larger shoe sizes and more developed reading skills. Larger shoes do not cause better reading.</p></li>
+<li><p>Hospital choice and mortality: In 2022, patients at Duke Hospital had a 2.9% inpatient mortality rate. Chatham Hospital in Siler City had a 1.7% inpatient mortality rate. Does this mean Duke provides worse care? Likely not – Duke Hospital is a major referral center for complex and high-risk cases, with a high rate of seriously ill transfers from other facilities, while Chatham Hospital is a general facility that tends to transfer high-risk cases to referral centers like Duke or UNC. Thus severity level of illness (often called a <strong>case mix</strong>) is a likely confounder of the relationship between hospital and mortality.</p></li>
 </ul>
-<p>For this data-generating mechanism, the population crude OR is approximately <strong>3.05</strong>, compared with the conditional OR of <strong>1.65</strong>.</p>
-<p>The simulated estimates will vary around these values.</p>
-</section><section id="interpreting-a-change-after-adjustment" class="slide level2"><h2>Interpreting a Change After Adjustment</h2>
-<ol type="1">
-<li><p><strong>Compare the same observations.</strong> Added predictors may have missing values, causing the adjusted model to use a smaller sample.</p></li>
-<li><p><strong>Use subject-matter knowledge.</strong> Decide whether a variable could create a noncausal association between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
-<li><p><strong>Interpret the adjusted OR conditionally.</strong> State which variables are being held constant.</p></li>
-<li><p><strong>Avoid causal conclusions from adjustment alone.</strong> Including additional predictors does not automatically make an association causal.</p></li>
-</ol></section><section id="homework-practice" class="slide level2"><h2>Homework (Practice)</h2>
+</div>
+</section><section id="homework-practice" class="slide level2"><h2>Homework (Practice)</h2>
 <p><a href="https://openintrostat.github.io/ims/model-logistic.html#sec-chp09-exercises"><strong>IMS Chapter 9</strong></a></p>
 <ul>
 <li>Problem 3</li>

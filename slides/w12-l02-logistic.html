@@ -132,7 +132,7 @@ window.Quarto = {
 </script>
 <meta property="og:title" content="Logistic Regression – STA 198">
 <meta property="og:description" content="Introduction to Global Health Data Science">
-<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w12-l03-logistic_files/figure-revealjs/unnamed-chunk-1-1.png">
+<meta property="og:image" content="https://sta198-fa26-2.github.io/slides/w12-l02-logistic_files/figure-revealjs/unnamed-chunk-1-1.png">
 <meta property="og:site_name" content="STA 198">
 <meta property="og:image:height" content="2880">
 <meta property="og:image:width" content="4800">
@@ -491,6 +491,7 @@ window.Quarto = {
   <li><a href="#tests-and-confidence-intervals" id="toc-tests-and-confidence-intervals" class="nav-link" data-scroll-target="#tests-and-confidence-intervals">Tests and confidence intervals</a></li>
   <li><a href="#tests-and-confidence-intervals-1" id="toc-tests-and-confidence-intervals-1" class="nav-link" data-scroll-target="#tests-and-confidence-intervals-1">Tests and confidence intervals</a></li>
   <li><a href="#interpreting-results" id="toc-interpreting-results" class="nav-link" data-scroll-target="#interpreting-results">Interpreting results</a></li>
+  <li><a href="#preterm-birth-counts" id="toc-preterm-birth-counts" class="nav-link" data-scroll-target="#preterm-birth-counts">Preterm birth counts</a></li>
   <li><a href="#multiple-logistic-regression" id="toc-multiple-logistic-regression" class="nav-link" data-scroll-target="#multiple-logistic-regression">Multiple logistic regression</a></li>
   <li><a href="#fit-the-multiple-logistic-model" id="toc-fit-the-multiple-logistic-model" class="nav-link" data-scroll-target="#fit-the-multiple-logistic-model">Fit the multiple logistic model</a></li>
   <li><a href="#adjusted-odds-ratios-for-age-and-bmi" id="toc-adjusted-odds-ratios-for-age-and-bmi" class="nav-link" data-scroll-target="#adjusted-odds-ratios-for-age-and-bmi">Adjusted odds ratios for age and BMI</a></li>
@@ -504,15 +505,10 @@ window.Quarto = {
   <li><a href="#the-models-compare-different-groups" id="toc-the-models-compare-different-groups" class="nav-link" data-scroll-target="#the-models-compare-different-groups">The Models Compare Different Groups</a></li>
   <li><a href="#confounding" id="toc-confounding" class="nav-link" data-scroll-target="#confounding">Confounding</a></li>
   <li><a href="#how-can-confounding-change-an-association" id="toc-how-can-confounding-change-an-association" class="nav-link" data-scroll-target="#how-can-confounding-change-an-association">How Can Confounding Change an Association?</a></li>
-  <li><a href="#a-simulated-example-of-confounding" id="toc-a-simulated-example-of-confounding" class="nav-link" data-scroll-target="#a-simulated-example-of-confounding">A Simulated Example of Confounding</a></li>
-  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
-  <li><a href="#compare-the-crude-and-adjusted-odds-ratios" id="toc-compare-the-crude-and-adjusted-odds-ratios" class="nav-link" data-scroll-target="#compare-the-crude-and-adjusted-odds-ratios">Compare the Crude and Adjusted Odds Ratios</a></li>
-  <li><a href="#what-happened-in-this-example" id="toc-what-happened-in-this-example" class="nav-link" data-scroll-target="#what-happened-in-this-example">What Happened in This Example?</a></li>
-  <li><a href="#interpreting-a-change-after-adjustment" id="toc-interpreting-a-change-after-adjustment" class="nav-link" data-scroll-target="#interpreting-a-change-after-adjustment">Interpreting a Change After Adjustment</a></li>
   <li><a href="#homework-practice" id="toc-homework-practice" class="nav-link" data-scroll-target="#homework-practice">Homework (Practice)</a></li>
   </ul>
 </li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w12-l03-logistic.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="w12-l03-logistic-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w12-l02-logistic.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="w12-l02-logistic-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -642,7 +638,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -658,7 +654,7 @@ window.Quarto = {
 <span>       fill <span class="op">=</span> <span class="st">"Preterm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-smoking-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-smoking-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/preterm-by-smoking-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="w12-l02-logistic_files/figure-revealjs/preterm-by-smoking-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -667,7 +663,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -683,7 +679,7 @@ window.Quarto = {
 <span>       fill <span class="op">=</span> <span class="st">"Preterm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-diabetes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-diabetes-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/preterm-by-diabetes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="w12-l02-logistic_files/figure-revealjs/preterm-by-diabetes-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -692,7 +688,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -707,7 +703,7 @@ window.Quarto = {
 <span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Plurality"</span>, y <span class="op">=</span> <span class="st">"Proportion of births"</span>, fill <span class="op">=</span> <span class="st">"Preterm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-plurality-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-plurality-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/preterm-by-plurality-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="w12-l02-logistic_files/figure-revealjs/preterm-by-plurality-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -716,7 +712,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -733,7 +729,7 @@ window.Quarto = {
 <span>       fill <span class="op">=</span> <span class="st">"Preterm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-bmi-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-bmi-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/preterm-by-bmi-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="w12-l02-logistic_files/figure-revealjs/preterm-by-bmi-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -742,7 +738,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="w12-l03-logistic_files/figure-revealjs/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -759,7 +755,7 @@ window.Quarto = {
 <span>       fill <span class="op">=</span> <span class="st">"Preterm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/preterm-by-age-group-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w12-l03-logistic_files/figure-revealjs/preterm-by-age-group-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/preterm-by-age-group-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="w12-l02-logistic_files/figure-revealjs/preterm-by-age-group-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -801,7 +797,7 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="w12-l03-logistic_files/figure-revealjs/logit-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w12-l03-logistic_files/figure-revealjs/logit-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/logit-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="w12-l02-logistic_files/figure-revealjs/logit-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1067,8 +1063,20 @@ I(\text{maternal age}&gt;40)=
 </div>
 </div>
 <p>Mothers aged <span class="math inline">\(&lt;15\)</span> do not have significantly different risk of preterm birth as mothers aged 15-39. Mothers aged 40+ have 1.68 (1.30, 2.14) times the odds of preterm birth as their counterparts aged 15-39.</p>
+<p>While the OR for <span class="math inline">\(&lt;15\)</span> is more impressive at first glance, there is large variability around the estimate, and we can’t rule out no difference in risk.</p>
+</section><section id="preterm-birth-counts" class="level2"><h2 class="anchored" data-anchor-id="preterm-birth-counts">Preterm birth counts</h2>
+<p>The numbers inside the bars correspond to counts within each category.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="w12-l02-logistic_files/figure-revealjs/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We did see more preterm birth among young moms, but very few moms are that young, explaining the instability in our estimate and lack of statistical significance.</p>
 </section><section id="multiple-logistic-regression" class="level2"><h2 class="anchored" data-anchor-id="multiple-logistic-regression">Multiple logistic regression</h2>
-<div style="font-size:0.75em;">
+<div style="font-size:0.6em;">
 <p>Now include the five predictors. We call this type of model a <em>multiple logistic regression model</em> or an <em>adjusted</em> model. The age and BMI categories enter the model through indicator variables:</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -1308,17 +1316,17 @@ I(\text{maternal age}&gt;40)=
 &amp;= \alpha_0+\alpha_1X_i.
 \end{aligned}
 \]</span></p>
-<p>For a one-unit increase in <span class="math inline">\(X\)</span>, the estimated <strong>crude odds ratio</strong> is</p>
+<p>For a one-unit increase in <span class="math inline">\(X\)</span>, the estimated <strong>unadjusted (crude) odds ratio</strong> is</p>
 <p><span class="math display">\[
-\widehat{OR}_{\text{crude}}=e^{\hat{\alpha}_1}.
+\widehat{OR}_{\text{unadjusted}}=e^{\hat{\alpha}_1}.
 \]</span></p>
 </div><div class="column" style="width:48%;">
 <p><strong>Multiple (adjusted) model</strong></p>
 <p><span class="math display">\[
 \begin{aligned}
-\operatorname{logit}\{P(Y_i=1\mid X_i,\mathbf Z_i)\}
-&amp;= \beta_0+\beta_1X_i\\
-&amp;\quad+\beta_2Z_{2i}+\cdots+\beta_pZ_{pi}.
+\operatorname{logit}\{P(Y_i=1&amp;\mid X_i,\mathbf Z_i)\}
+= \beta_0+\beta_1X_i\\
+&amp;\quad+\beta_2Z_{1i}+\cdots+\beta_pZ_{pi}.
 \end{aligned}
 \]</span></p>
 <p>Holding the other predictors constant, the estimated <strong>adjusted odds ratio</strong> is</p>
@@ -1331,7 +1339,7 @@ I(\text{maternal age}&gt;40)=
 </section><section id="the-models-compare-different-groups" class="level2"><h2 class="anchored" data-anchor-id="the-models-compare-different-groups">The Models Compare Different Groups</h2>
 <p>The two odds ratios answer different questions.</p>
 <ul>
-<li><p><strong>Crude OR:</strong> How do the odds of <span class="math inline">\(Y=1\)</span> compare for groups that differ by one unit in <span class="math inline">\(X\)</span>, without accounting for other predictors?</p></li>
+<li><p><strong>Unadjusted OR:</strong> How do the odds of <span class="math inline">\(Y=1\)</span> compare for groups that differ by one unit in <span class="math inline">\(X\)</span>, without accounting for other predictors?</p></li>
 <li><p><strong>Adjusted OR:</strong> How do the odds compare for groups that differ by one unit in <span class="math inline">\(X\)</span> but have the <strong>same values of the other predictors</strong>?</p></li>
 </ul>
 <p>For binary <span class="math inline">\(X\)</span>, this compares <span class="math inline">\(X=1\)</span> with <span class="math inline">\(X=0\)</span>.</p>
@@ -1353,118 +1361,14 @@ X \leftarrow Z \rightarrow Y.
 </section><section id="how-can-confounding-change-an-association" class="level2"><h2 class="anchored" data-anchor-id="how-can-confounding-change-an-association">How Can Confounding Change an Association?</h2>
 <div style="font-size:0.75em;">
 <p>Confounding can make an association appear <strong>stronger</strong>, <strong>weaker</strong>, or even point in the <strong>opposite direction</strong>.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">Pattern</th>
-<th style="text-align: left;">What can happen after appropriate adjustment?</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Crude association exaggerated</td>
-<td style="text-align: left;">The OR moves closer to 1.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Crude association masked</td>
-<td style="text-align: left;">The OR moves further from 1.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Crude association reversed</td>
-<td style="text-align: left;">The OR changes from above 1 to below 1, or vice versa.</td>
-</tr>
-</tbody>
-</table>
-<p>A reversal between an overall association and associations within subgroups is an example of <strong>Simpson’s paradox</strong>.</p>
-<p>A change in the estimated OR alone does <strong>not</strong> establish that a variable is a confounder.</p>
-</div>
-</section><section id="a-simulated-example-of-confounding" class="level2"><h2 class="anchored" data-anchor-id="a-simulated-example-of-confounding">A Simulated Example of Confounding</h2>
-<p>Suppose <span class="math inline">\(Z\)</span> influences both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
-<p>For each observation <span class="math inline">\(i=1,\ldots,n\)</span>:</p>
-<p><span class="math display">\[
-\begin{aligned}
-Z_i &amp;\sim \operatorname{Bernoulli}(0.5),\\[6pt]
-\operatorname{logit}\!\left\{P(X_i=1\mid Z_i)\right\}
-&amp;= -1+2Z_i,\\[6pt]
-\operatorname{logit}\!\left\{P(Y_i=1\mid X_i,Z_i)\right\}
-&amp;= -1+0.5X_i+1.5Z_i.
-\end{aligned}
-\]</span></p>
-<p>Here, <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span> are binary, and <span class="math inline">\(\operatorname{logit}(p)=\log\{p/(1-p)\}\)</span>.</p>
-<p>Thus, <span class="math inline">\(Z\)</span> predicts both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, while <span class="math inline">\(X\)</span> also predicts <span class="math inline">\(Y\)</span>.</p>
-</section><section id="section-4" class="level2" data-background-color="white"><h2 data-background-color="white" class="anchored" data-anchor-id="section-4"></h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">)</span></span>
-<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">20000</span></span>
-<span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1.5</span> <span class="op">*</span> <span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">or_confounding_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>  <span class="va">x</span>,</span>
-<span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">y</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">z</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>A reversal between an overall association and associations within subgroups is an example of <strong>Simpson’s paradox</strong> (coming soon!).</p>
+<p>Examples:</p>
 <ul>
-<li>
-<span class="math inline">\(X=1\)</span> is more common among those with <span class="math inline">\(Z=1\)</span>.</li>
-<li>
-<span class="math inline">\(Z=1\)</span> also increases the probability of <span class="math inline">\(Y=1\)</span>.</li>
-<li>Holding <span class="math inline">\(Z\)</span> constant, the true OR for <span class="math inline">\(X\)</span> is <span class="math inline">\(e^{0.5}\approx1.65\)</span>.</li>
-</ul></section><section id="compare-the-crude-and-adjusted-odds-ratios" class="level2"><h2 class="anchored" data-anchor-id="compare-the-crude-and-adjusted-odds-ratios">Compare the Crude and Adjusted Odds Ratios</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">or_confounding_simple</span> <span class="op">&lt;-</span> <span class="fu">logistic_reg</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"glm"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">or_confounding_data</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">or_confounding_adjusted</span> <span class="op">&lt;-</span> <span class="fu">logistic_reg</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"glm"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="va">z</span>, data <span class="op">=</span> <span class="va">or_confounding_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-layout-align="center">
-<table class="caption-top table table-sm table-striped small">
-<thead><tr class="header">
-<th style="text-align: left;">Model</th>
-<th style="text-align: right;">Estimated OR</th>
-<th style="text-align: right;">95% CI: lower</th>
-<th style="text-align: right;">95% CI: upper</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Crude</td>
-<td style="text-align: right;">3.042</td>
-<td style="text-align: right;">2.872</td>
-<td style="text-align: right;">3.223</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adjusted</td>
-<td style="text-align: right;">1.645</td>
-<td style="text-align: right;">1.540</td>
-<td style="text-align: right;">1.757</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Both models use the <strong>same observations</strong>.</p>
-</section><section id="what-happened-in-this-example" class="level2"><h2 class="anchored" data-anchor-id="what-happened-in-this-example">What Happened in This Example?</h2>
-<p>The simulation was constructed so that <span class="math inline">\(Z\)</span> influences both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
-<ul>
-<li>In the simple model, <span class="math inline">\(X\)</span> partly stands in for <span class="math inline">\(Z\)</span>.</li>
-<li>Some of the higher odds of <span class="math inline">\(Y=1\)</span> among those with <span class="math inline">\(X=1\)</span> reflect their greater probability of having <span class="math inline">\(Z=1\)</span>.</li>
-<li>After adjustment, the estimated OR should be near the true conditional OR of <strong>1.65</strong>.</li>
+<li><p>Shoe size and reading ability: Among children, those with bigger shoe sizes tend to read better. Age is a confounder: older children generally have larger shoe sizes and more developed reading skills. Larger shoes do not cause better reading.</p></li>
+<li><p>Hospital choice and mortality: In 2022, patients at Duke Hospital had a 2.9% inpatient mortality rate. Chatham Hospital in Siler City had a 1.7% inpatient mortality rate. Does this mean Duke provides worse care? Likely not – Duke Hospital is a major referral center for complex and high-risk cases, with a high rate of seriously ill transfers from other facilities, while Chatham Hospital is a general facility that tends to transfer high-risk cases to referral centers like Duke or UNC. Thus severity level of illness (often called a <strong>case mix</strong>) is a likely confounder of the relationship between hospital and mortality.</p></li>
 </ul>
-<p>For this data-generating mechanism, the population crude OR is approximately <strong>3.05</strong>, compared with the conditional OR of <strong>1.65</strong>.</p>
-<p>The simulated estimates will vary around these values.</p>
-</section><section id="interpreting-a-change-after-adjustment" class="level2"><h2 class="anchored" data-anchor-id="interpreting-a-change-after-adjustment">Interpreting a Change After Adjustment</h2>
-<ol type="1">
-<li><p><strong>Compare the same observations.</strong> Added predictors may have missing values, causing the adjusted model to use a smaller sample.</p></li>
-<li><p><strong>Use subject-matter knowledge.</strong> Decide whether a variable could create a noncausal association between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
-<li><p><strong>Interpret the adjusted OR conditionally.</strong> State which variables are being held constant.</p></li>
-<li><p><strong>Avoid causal conclusions from adjustment alone.</strong> Including additional predictors does not automatically make an association causal.</p></li>
-</ol></section><section id="homework-practice" class="level2"><h2 class="anchored" data-anchor-id="homework-practice">Homework (Practice)</h2>
+</div>
+</section><section id="homework-practice" class="level2"><h2 class="anchored" data-anchor-id="homework-practice">Homework (Practice)</h2>
 <p><a href="https://openintrostat.github.io/ims/model-logistic.html#sec-chp09-exercises"><strong>IMS Chapter 9</strong></a></p>
 <ul>
 <li>Problem 3</li>
@@ -1925,7 +1829,7 @@ Z_i &amp;\sim \operatorname{Bernoulli}(0.5),\\[6pt]
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w12-l03-logistic.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/edit/main/slides/w12-l02-logistic.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/sta198-fa26-2/sta198-fa26-2.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with <span style="color:#FFBE98;" aria-hidden="true"><i class="fa-solid fa-heart" aria-label="heart"></i></span> and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
